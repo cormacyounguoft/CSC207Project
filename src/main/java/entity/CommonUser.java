@@ -49,7 +49,9 @@ public class CommonUser implements User {
 
     @Override
     public void addToWatchList(Movie movie) {
-        this.watchList.add(movie);
+        if (!this.watchList.contains(movie)) {
+            this.watchList.add(movie);
+        }
     }
 
     @Override
