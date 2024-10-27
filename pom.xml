@@ -33,6 +33,11 @@
             <version>5.8.1</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.konghq</groupId>
+            <artifactId>unirest-java</artifactId>
+            <version>3.13.12</version>
+        </dependency>
 
     </dependencies>
 
