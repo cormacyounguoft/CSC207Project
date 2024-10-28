@@ -17,9 +17,8 @@ import use_case.search.SearchDataAccessInterface;
  * @Null
  */
 public class MovieAccessObject implements SearchDataAccessInterface {
-    private final String comma = ",";
-    private final int startRottenTomatoes = 9;
-    private final int endRottenTomatoes = 3;
+    public static final String N_A = "N/A";
+    public static final String COMMA = ",";
 
     @Override
     public Movie search(String title) {
@@ -66,7 +65,11 @@ public class MovieAccessObject implements SearchDataAccessInterface {
 
     private List<String> getGenre(JSONObject response) {
         final String genreString = response.get("Genre").toString();
-        return new ArrayList<>(Arrays.asList(genreString.split(comma)));
+        List<String> result = new ArrayList<>();
+        if (!N_A.equals(genreString)) {
+            result = new ArrayList<>(Arrays.asList(genreString.split(COMMA)));
+        }
+        return result;
     }
 
     /**
@@ -76,34 +79,34 @@ public class MovieAccessObject implements SearchDataAccessInterface {
      */
     private int getRottenTomatoes(JSONObject response) {
         final String rottenTomatoesString = response.get("Ratings").toString();
-        final List<String> ratings = Arrays.asList(rottenTomatoesString.split(comma));
+        final List<String> ratings = Arrays.asList(rottenTomatoesString.split(COMMA));
 
         int result = -1;
 
         if (ratings.contains("{\"Source\":\"Rotten Tomatoes\"")) {
-            final String rating = ratings.get(ratings.indexOf("{\"Source\":\"Rotten Tomatoes\"") + 1);
+            final String rating = ratings.get(ratings.indexOf("{\"Source\":\"Rotten Tomatoes\"") + 1)
+                    .replaceAll("\\D", "");
 
-            final StringBuilder sb = new StringBuilder();
-
-            for (int i = startRottenTomatoes; i < rating.length() - endRottenTomatoes; i++) {
-                sb.append(rating.charAt(i));
-            }
-            result = Integer.parseInt(sb.toString());
+            result = Integer.parseInt(rating);
         }
         return result;
     }
 
-    private int getRuntime(JSONObject response) {
-        return Integer.parseInt(response.get("Runtime").toString());
-    }
-
     private List<String> getActors(JSONObject response) {
-        final String genreString = response.get("Actors").toString();
-        return new ArrayList<>(Arrays.asList(genreString.split(comma)));
+        final String actorsString = response.get("Actors").toString();
+        List<String> result = new ArrayList<>();
+        if (!N_A.equals(actorsString)) {
+            result = new ArrayList<>(Arrays.asList(actorsString.split(COMMA)));
+        }
+        return result;
     }
 
     private List<String> getDirector(JSONObject response) {
-        final String genreString = response.get("Director").toString();
-        return new ArrayList<>(Arrays.asList(genreString.split(comma)));
+        final String directorString = response.get("Director").toString();
+        List<String> result = new ArrayList<>();
+        if (!N_A.equals(directorString)) {
+            result = new ArrayList<>(Arrays.asList(directorString.split(COMMA)));
+        }
+        return result;
     }
 }
