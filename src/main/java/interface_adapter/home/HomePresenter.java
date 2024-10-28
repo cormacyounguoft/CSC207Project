@@ -2,6 +2,7 @@ package interface_adapter.home;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.search.SearchViewModel;
 import interface_adapter.signup.SignupViewModel;
 import use_case.home.HomeOutputBoundary;
 
