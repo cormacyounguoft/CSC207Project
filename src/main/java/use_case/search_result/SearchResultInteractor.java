@@ -12,7 +12,6 @@ public class SearchResultInteractor implements SearchResultInputBoundary {
 
     @Override
     public void execute(SearchResultInputData searchResultInputData) {
-//        System.out.println(searchResultInputData.getMovie());
 
         final SearchResultOutputData searchResultOutputData = new SearchResultOutputData(
                 searchResultInputData.getMovie(), false);

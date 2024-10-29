@@ -55,14 +55,14 @@ public class Movie {
 
     @Override
     public String toString() {
-        return "Movie{" +
-                "title='" + title + '\'' +
-                ", releaseDate='" + releaseDate + '\'' +
-                ", description='" + description + '\'' +
-                ", rottenTomatoes=" + rottenTomatoes +
-                ", genre=" + genre +
-                ", actors=" + actors +
-                ", director=" + director +
-                '}';
+        return "Movie{"
+                + "title='" + title + '\''
+                + ", releaseDate='" + releaseDate + '\''
+                + ", description='" + description + '\''
+                + ", rottenTomatoes=" + rottenTomatoes
+                + ", genre=" + genre
+                + ", actors=" + actors
+                + ", director=" + director
+                + '}';
     }
 }

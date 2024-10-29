@@ -12,14 +12,23 @@ public class HomeController {
         this.homeUseCaseInteractor = homeUseCaseInteractor;
     }
 
+    /**
+     * Switch to the login view.
+     */
     public void switchToLoginView() {
         homeUseCaseInteractor.switchToLoginView();
     }
 
+    /**
+     * Switch to the signup view.
+     */
     public void switchToSignupView() {
         homeUseCaseInteractor.switchToSignupView();
     }
 
+    /**
+     * Switch to the search view.
+     */
     public void switchToSearchView() {
         homeUseCaseInteractor.switchToSearchView();
     }

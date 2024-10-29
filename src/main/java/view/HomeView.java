@@ -1,9 +1,5 @@
 package view;
 
-import interface_adapter.home.HomeController;
-import interface_adapter.home.HomeState;
-import interface_adapter.home.HomeViewModel;
-
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,12 +9,10 @@ import java.beans.PropertyChangeListener;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
+
+import interface_adapter.home.HomeController;
+import interface_adapter.home.HomeViewModel;
 
 /**
  * The View for Home. This screen has 3 buttons, Go to log in, Go to sigh up, and Go to search.

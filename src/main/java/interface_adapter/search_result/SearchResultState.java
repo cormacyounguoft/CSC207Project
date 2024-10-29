@@ -2,7 +2,6 @@ package interface_adapter.search_result;
 
 import entity.Movie;
 
-
 /**
  * The state for the Search Result View Model.
  */

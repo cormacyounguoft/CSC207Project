@@ -1,5 +1,6 @@
 package data_access;
 
+import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class MovieAccessObject implements SearchDataAccessInterface {
     public static final String COMMA = ",";
 
     @Override
-    public Movie search(String title) {
+    public Movie search(String title) throws IOException {
         final String url = getUrl(title);
         final JSONObject response = getResponse(url);
 
@@ -39,7 +40,7 @@ public class MovieAccessObject implements SearchDataAccessInterface {
 
         }
         else {
-            throw new RuntimeException();
+            throw new IOException();
         }
     }
 

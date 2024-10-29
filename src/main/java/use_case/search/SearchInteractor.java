@@ -1,5 +1,7 @@
 package use_case.search;
 
+import java.io.IOException;
+
 import entity.Movie;
 import entity.MovieFactory;
 
@@ -27,7 +29,7 @@ public class SearchInteractor implements SearchInputBoundary {
             final SearchOutputData searchOutputData = new SearchOutputData(movie, false);
             searchPresenter.prepareSuccessView(searchOutputData);
         }
-        catch (Exception e) {
+        catch (IOException exception) {
             searchPresenter.prepareFailView("Movie not found!");
         }
     }

@@ -23,6 +23,9 @@ public class SearchResultController {
         searchResultUseCaseInteractor.execute(searchResultInputData);
     }
 
+    /**
+     * Switch to the home view.
+     */
     public void switchToHomeView() {
         searchResultUseCaseInteractor.switchToHomeView();
     }

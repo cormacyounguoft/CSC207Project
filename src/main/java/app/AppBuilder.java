@@ -1,10 +1,8 @@
 package app;
 
-import java.awt.CardLayout;
+import java.awt.*;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 
 import data_access.InMemoryUserDataAccessObject;
 import data_access.MovieAccessObject;

@@ -14,6 +14,10 @@ public class SearchController {
         this.searchUseCaseInteractor = searchUseCaseInteractor;
     }
 
+    /**
+     * Executes the Search Use Case.
+     * @param searchQuery the search query
+     */
     public void execute(String searchQuery) {
         final SearchInputData searchInputData = new SearchInputData(searchQuery);
         searchUseCaseInteractor.execute(searchInputData);

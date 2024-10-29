@@ -25,8 +25,8 @@ public class SearchState {
 
     @Override
     public String toString() {
-        return "SearchState{" +
-                "searchQuery='" + searchQuery + '\'' +
-                '}';
+        return "SearchState{"
+                + "searchQuery='" + searchQuery + '\''
+                + '}';
     }
 }
