@@ -4,35 +4,31 @@ import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchState;
 import interface_adapter.search.SearchViewModel;
 
-import java.awt.Component;
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-
 /**
  * The View for the Search Use Case.
  */
 public class SearchView extends JPanel implements ActionListener, PropertyChangeListener {
-    private final String viewName = "search";
 
+    private final String viewName = "search";
     private final SearchViewModel searchViewModel;
+
     private final JTextField searchQueryInputField = new JTextField(15);
-    private SearchController searchController;
+    private final JLabel searchQueryErrorField = new JLabel();
 
     private final JButton search;
+    private SearchController searchController;
 
     public SearchView(SearchViewModel searchViewModel) {
+
         this.searchViewModel = searchViewModel;
         this.searchViewModel.addPropertyChangeListener(this);
 
@@ -58,15 +54,6 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                 }
         );
 
-        addSearchListener();
-
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.add(title);
-        this.add(searchBox);
-        this.add(buttons);
-    }
-
-    private void addSearchListener() {
         searchQueryInputField.getDocument().addDocumentListener(new DocumentListener() {
 
             private void documentListenerHelper() {
@@ -74,6 +61,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                 currentState.setSearchQuery(searchQueryInputField.getText());
                 searchViewModel.setState(currentState);
             }
+
             @Override
             public void insertUpdate(DocumentEvent e) {
                 documentListenerHelper();
@@ -88,27 +76,39 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
             public void changedUpdate(DocumentEvent e) {
                 documentListenerHelper();
             }
-        }
-        );
+        });
+
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.add(title);
+        this.add(searchBox);
+        this.add(searchQueryErrorField);
+        this.add(buttons);
     }
 
-    @Override
+    /**
+     * React to a button click that results in evt.
+     * @param evt the ActionEvent to react to
+     */
     public void actionPerformed(ActionEvent evt) {
+        System.out.println("Click " + evt.getActionCommand());
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         final SearchState state = (SearchState) evt.getNewValue();
-        if (state.getSearchError() != null) {
-            JOptionPane.showMessageDialog(this, state.getSearchError());
-        }
+        setFields(state);
+        searchQueryErrorField.setText(state.getSearchError());
+    }
+
+    private void setFields(SearchState state) {
+        searchQueryInputField.setText(state.getSearchQuery());
     }
 
     public String getViewName() {
         return viewName;
     }
 
-    public void setSearchController(SearchController controller) {
-        this.searchController = controller;
+    public void setSearchController(SearchController searchController) {
+        this.searchController = searchController;
     }
 }

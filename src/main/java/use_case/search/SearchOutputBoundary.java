@@ -12,7 +12,7 @@ public interface SearchOutputBoundary {
     void prepareSuccessView(SearchOutputData outputData);
 
     /**
-     * Prepares the failure view for the Signup Use Case.
+     * Prepares the failure view for the Search Use Case.
      * @param errorMessage the explanation of the failure
      */
     void prepareFailView(String errorMessage);

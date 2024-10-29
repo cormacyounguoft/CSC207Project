@@ -32,7 +32,7 @@ public class SearchPresenter implements SearchOutputBoundary {
 
         viewManagerModel.setState(searchResultViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
-        System.out.println(response.getMovie());
+//        System.out.println(response.getMovie());
     }
 
     @Override

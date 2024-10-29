@@ -10,4 +10,9 @@ public interface SearchResultInputBoundary {
      * @param searchResultInputData the input data
      */
     void execute(SearchResultInputData searchResultInputData);
+
+    /**
+     * Executes the switch to Home view use case.
+     */
+    void switchToHomeView();
 }

@@ -247,9 +247,9 @@ public class AppBuilder {
      */
     public AppBuilder addSearchResultUseCase() {
         final SearchResultOutputBoundary searchResultOutputBoundary = new SearchResultPresenter(viewManagerModel,
-                searchResultViewModel);
+                searchResultViewModel, homeViewModel);
 
-        final SearchResultInputBoundary searchResultInteractor = new SearchResultInteractor();
+        final SearchResultInputBoundary searchResultInteractor = new SearchResultInteractor(searchResultOutputBoundary);
 
         final SearchResultController controller = new SearchResultController(searchResultInteractor);
         searchResultView.setSearchResultController(controller);
