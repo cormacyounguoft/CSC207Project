@@ -52,4 +52,17 @@ public class Movie {
     public List<String> getDirector() {
         return director;
     }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "title='" + title + '\'' +
+                ", releaseDate='" + releaseDate + '\'' +
+                ", description='" + description + '\'' +
+                ", rottenTomatoes=" + rottenTomatoes +
+                ", genre=" + genre +
+                ", actors=" + actors +
+                ", director=" + director +
+                '}';
+    }
 }

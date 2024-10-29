@@ -44,6 +44,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
 
         final JPanel buttons = new JPanel();
         search = new JButton(searchViewModel.SEARCH_BUTTON_LABEL);
+        buttons.add(search);
 
         search.addActionListener(
                 new ActionListener() {
