@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The representation of a list of movies the user wants to watch.
+ * The representation of a list of movies the user has watched.
  */
 
-public class MovieFinishedList {
+public class MovieWatchedList {
     private List<Movie> watchedList;
 
 
-    public MovieFinishedList() {
+    public MovieWatchedList() {
         watchedList = new ArrayList<Movie>();
     }
 
-    public List<Movie> getFinishedList() {
+    public List<Movie> getWatchedList() {
         return watchedList;
     }
 

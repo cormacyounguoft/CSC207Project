@@ -10,15 +10,15 @@ public class CommonUser implements User {
 
     private final String name;
     private final String password;
-    private final List<Movie> watchList;
-    private final List<Movie> watchedList;
+    private final MovieWatchList watchList;
+    private final MovieWatchedList watchedList;
     private final List<UserRating> ratings;
 
     public CommonUser(String name, String password) {
         this.name = name;
         this.password = password;
-        this.watchList = new ArrayList<>();
-        this.watchedList = new ArrayList<>();
+        this.watchList = new MovieWatchList();
+        this.watchedList = new MovieWatchedList();
         this.ratings = new ArrayList<>();
     }
 
@@ -34,12 +34,12 @@ public class CommonUser implements User {
 
     @Override
     public List<Movie> getWatchList() {
-        return this.watchList;
+        return this.watchList.getWatchList();
     }
 
     @Override
     public List<Movie> getWatchedList() {
-        return this.watchedList;
+        return this.watchedList.getWatchedList();
     }
 
     @Override
@@ -49,26 +49,22 @@ public class CommonUser implements User {
 
     @Override
     public void addToWatchList(Movie movie) {
-        if (!this.watchList.contains(movie)) {
-            this.watchList.add(movie);
-        }
+        this.watchList.addWatch(movie);
     }
 
     @Override
     public void removeFromWatchList(Movie movie) {
-        this.watchList.remove(movie);
+        this.watchList.removeWatch(movie);
     }
 
     @Override
     public void addToWatchedList(Movie movie) {
-        if (!this.watchedList.contains(movie)) {
-            this.watchedList.add(movie);
-        }
+        this.watchedList.addMovie(movie);
     }
 
     @Override
     public void removeFromWatchedList(Movie movie) {
-        this.watchedList.remove(movie);
+        this.watchedList.removeMovie(movie);
     }
 
     @Override
