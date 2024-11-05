@@ -18,7 +18,7 @@ public class MovieList {
     }
 
     public void addMovie(Movie movie) {
-        if (!movieList.contains(movie)) {
+        if (!this.contains(movie)) {
             movieList.add(movie);
         }
     }
@@ -33,5 +33,9 @@ public class MovieList {
             result.add(movie.getTitle());
         }
         return result;
+    }
+
+    public boolean contains(Movie movie) {
+        return movieList.contains(movie);
     }
 }
