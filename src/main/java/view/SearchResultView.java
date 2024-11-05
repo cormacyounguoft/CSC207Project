@@ -30,6 +30,7 @@ public class SearchResultView extends JPanel implements ActionListener, Property
     private final JLabel movieReleaseDate;
     private final JLabel movieDescription;
     private final JLabel movieRottenTomatoes;
+    private final JLabel movieRuntime;
     private final JLabel movieGenre;
     private final JLabel movieActors;
     private final JLabel movieDirector;
@@ -48,6 +49,7 @@ public class SearchResultView extends JPanel implements ActionListener, Property
         movieReleaseDate = new JLabel();
         movieDescription = new JLabel();
         movieRottenTomatoes = new JLabel();
+        movieRuntime = new JLabel();
         movieGenre = new JLabel();
         movieActors = new JLabel();
         movieDirector = new JLabel();
@@ -56,6 +58,7 @@ public class SearchResultView extends JPanel implements ActionListener, Property
         movie.add(movieReleaseDate);
         movie.add(movieDescription);
         movie.add(movieRottenTomatoes);
+        movie.add(movieRuntime);
         movie.add(movieGenre);
         movie.add(movieActors);
         movie.add(movieDirector);
@@ -90,6 +93,7 @@ public class SearchResultView extends JPanel implements ActionListener, Property
             setMovieReleaseDate(movie);
             setMovieDescription(movie);
             setMovieRottenTomatoes(movie);
+            setMovieRuntime(movie);
             setMovieGenre(movie);
             setMovieActors(movie);
             setMovieDirector(movie);
@@ -117,7 +121,7 @@ public class SearchResultView extends JPanel implements ActionListener, Property
     }
 
     public void setMovieReleaseDate(Movie movie) {
-        if (movie.getReleaseDate().equals("N/A")) {
+        if (movie.getReleaseDate().isEmpty()) {
             movieReleaseDate.setText("Release date not available.");
         }
         else {
@@ -126,7 +130,7 @@ public class SearchResultView extends JPanel implements ActionListener, Property
     }
 
     public void setMovieDescription(Movie movie) {
-        if (movie.getDescription().equals("N/A")) {
+        if (movie.getDescription().isEmpty()) {
             movieDescription.setText("Description not available.");
         }
         else {
@@ -167,6 +171,15 @@ public class SearchResultView extends JPanel implements ActionListener, Property
         }
         else {
             movieDirector.setText("Directors: " + movie.getDirector().toString());
+        }
+    }
+
+    public void setMovieRuntime(Movie movie) {
+        if (movie.getRuntime() == -1) {
+            movieRuntime.setText("Runtime not available.");
+        }
+        else {
+            movieRuntime.setText("Runtime: " + String.valueOf(movie.getRuntime()));
         }
     }
 

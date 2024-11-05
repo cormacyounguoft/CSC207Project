@@ -23,48 +23,17 @@ public interface User {
      * Returns the watchlist of the user.
      * @return the watchlist of the user.
      */
-    List<Movie> getWatchList();
+    MovieList getWatchList();
 
     /**
      * Returns the watched list of the user.
      * @return the watched list of the user.
      */
-    List<Movie> getWatchedList();
+    MovieList getWatchedList();
 
     /**
-     * Returns the user ratings that the user has made.
-     * @return the list of ratings the user has made.
+     * Returns all the of the user's rating.
+     * @return all the of the user's rating.
      */
-    List<UserRating> getUserRatings();
-
-    /**
-     * Adds the movie to the watchlist of the user.
-     * @param movie The movie.
-     */
-    void addToWatchList(Movie movie);
-
-    /**
-     * Removes the movie from the watchlist of the user.
-     * @param movie The movie.
-     */
-    void removeFromWatchList(Movie movie);
-
-    /**
-     * Adds the movie to the watched list of the user.
-     * @param movie The movie.
-     */
-    void addToWatchedList(Movie movie);
-
-    /**
-     * Removes the movie from the watched list of the user.
-     * @param movie The movie.
-     */
-    void removeFromWatchedList(Movie movie);
-
-    /**
-     * Adds the rating to the user's list of ratings.
-     * @param rating The rating.
-     */
-    void addUserRating(UserRating rating);
-
+    UserRating getUserRatings();
 }
