@@ -1,28 +1,32 @@
 package entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * The representation of a movie in our program.
  */
 public class Movie {
-    private final String title;
-    private final String releaseDate;
-    private final String description;
-    private final int rottenTomatoes;
-    private final List<String> genre;
-    private final List<String> actors;
-    private final List<String> director;
+    private String title;
+    private String releaseDate;
+    private String description;
+    private int rottenTomatoes;
+    private int runtime;
+    private List<String> genre;
+    private List<String> actors;
+    private List<String> director;
+    private String posterLink;
 
-    public Movie(String title, String releaseDate, String description, int rottenTomatoes,
-                 List<String> genre, List<String> actors, List<String> director) {
-        this.title = title;
-        this.releaseDate = releaseDate;
-        this.description = description;
-        this.rottenTomatoes = rottenTomatoes;
-        this.genre = genre;
-        this.actors = actors;
-        this.director = director;
+    public Movie() {
+        this.title = "";
+        this.releaseDate = "";
+        this.description = "";
+        this.rottenTomatoes = -1;
+        this.runtime = -1;
+        this.genre = new ArrayList<>();
+        this.actors = new ArrayList<>();
+        this.director = new ArrayList<>();
+        this.posterLink = "";
     }
 
     public String getTitle() {
@@ -51,6 +55,50 @@ public class Movie {
 
     public List<String> getDirector() {
         return director;
+    }
+
+    public int getRuntime() {
+        return runtime;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setRottenTomatoes(int rottenTomatoes) {
+        this.rottenTomatoes = rottenTomatoes;
+    }
+
+    public void setRuntime(int runtime) {
+        this.runtime = runtime;
+    }
+
+    public void setGenre(List<String> genre) {
+        this.genre = genre;
+    }
+
+    public void setActors(List<String> actors) {
+        this.actors = actors;
+    }
+
+    public void setDirector(List<String> director) {
+        this.director = director;
+    }
+
+    public String getPosterLink() {
+        return posterLink;
+    }
+
+    public void setPosterLink(String posterLink) {
+        this.posterLink = posterLink;
     }
 
     @Override

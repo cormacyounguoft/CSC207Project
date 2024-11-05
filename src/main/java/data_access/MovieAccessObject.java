@@ -28,16 +28,19 @@ public class MovieAccessObject implements SearchDataAccessInterface {
 
         if (response.get("Response").equals("True")) {
             final MovieFactory movieFactory = new MovieFactory();
-            return movieFactory.create(
-                    getTitle(response),
-                    getReleaseDate(response),
-                    getDescription(response),
-                    getRottenTomatoes(response),
-                    getGenre(response),
-                    getActors(response),
-                    getDirector(response)
-            );
+            final Movie movie = movieFactory.create();
 
+            movie.setTitle(getTitle(response));
+            movie.setReleaseDate(getReleaseDate(response));
+            movie.setDescription(getDescription(response));
+            movie.setRottenTomatoes(getRottenTomatoes(response));
+            movie.setRuntime(getRuntime(response));
+            movie.setGenre(getGenre(response));
+            movie.setActors(getActors(response));
+            movie.setDirector(getDirector(response));
+            movie.setPosterLink(getPosterLink(response));
+
+            return movie;
         }
         else {
             throw new IOException();
@@ -57,11 +60,21 @@ public class MovieAccessObject implements SearchDataAccessInterface {
     }
 
     private String getReleaseDate(JSONObject response) {
-        return response.get("Released").toString();
+        final String releaseDate = response.get("Released").toString();
+        String result = "";
+        if (!N_A.equals(releaseDate)) {
+            result = releaseDate;
+        }
+        return result;
     }
 
     private String getDescription(JSONObject response) {
-        return response.get("Plot").toString();
+        final String releasePlot = response.get("Plot").toString();
+        String result = "";
+        if (!N_A.equals(releasePlot)) {
+            result = releasePlot;
+        }
+        return result;
     }
 
     private List<String> getGenre(JSONObject response) {
@@ -107,6 +120,24 @@ public class MovieAccessObject implements SearchDataAccessInterface {
         List<String> result = new ArrayList<>();
         if (!N_A.equals(directorString)) {
             result = new ArrayList<>(Arrays.asList(directorString.split(COMMA)));
+        }
+        return result;
+    }
+
+    private int getRuntime(JSONObject response) {
+        final String runtimeString = response.get("Runtime").toString();
+        int result = -1;
+        if (!N_A.equals(runtimeString)) {
+            result = Integer.parseInt(runtimeString.replaceAll("\\D", ""));
+        }
+        return result;
+    }
+
+    private String getPosterLink(JSONObject response) {
+        final String posterLinkString = response.get("Poster").toString();
+        String result = "";
+        if (!N_A.equals(posterLinkString)) {
+            result = posterLinkString;
         }
         return result;
     }

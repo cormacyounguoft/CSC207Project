@@ -1,28 +1,31 @@
 package entity;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
- * The representation of a user's rating of a movie in our program.
+ * The representation of all of a user's ratings in our program.
  */
 public class UserRating {
-    private final Movie movie;
-    private final User user;
-    private final int rating;
+    private final Map<String, Integer> movieToRating;
 
-    public UserRating(Movie movie, User user, int rating) {
-        this.movie = movie;
-        this.user = user;
-        this.rating = rating;
+    public UserRating() {
+        this.movieToRating = new HashMap<>();
     }
 
-    public Movie getMovie() {
-        return movie;
+    public void addRating(Movie movie, int rating) {
+        this.movieToRating.put(movie.getTitle(), rating);
     }
 
-    public User getUser() {
-        return user;
+    public void removeRating(Movie movie) {
+        this.movieToRating.remove(movie.getTitle());
     }
 
-    public int getRating() {
-        return rating;
+    public int getRating(Movie movie) {
+        return this.movieToRating.getOrDefault(movie.getTitle(), -1);
+    }
+
+    public int getRatingCount() {
+        return this.movieToRating.size();
     }
 }
