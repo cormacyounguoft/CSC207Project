@@ -7,7 +7,7 @@ import java.util.List;
  * The representation of a list of movies for this program.
  */
 public class MovieList {
-    private List<Movie> movieList;
+    private final List<Movie> movieList;
 
     public MovieList() {
         movieList = new ArrayList<>();
@@ -18,7 +18,7 @@ public class MovieList {
     }
 
     public void addMovie(Movie movie) {
-        if (!movieList.contains(movie)) {
+        if (!this.contains(movie)) {
             movieList.add(movie);
         }
     }
@@ -33,5 +33,9 @@ public class MovieList {
             result.add(movie.getTitle());
         }
         return result;
+    }
+
+    public boolean contains(Movie movie) {
+        return movieList.contains(movie);
     }
 }
