@@ -1,8 +1,8 @@
 package interface_adapter.logout;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.change_password.LoggedInState;
-import interface_adapter.change_password.LoggedInViewModel;
+import interface_adapter.change_password.ChangePasswordState;
+import interface_adapter.change_password.ChangePasswordViewModel;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
 import use_case.logout.LogoutOutputBoundary;
@@ -13,14 +13,14 @@ import use_case.logout.LogoutOutputData;
  */
 public class LogoutPresenter implements LogoutOutputBoundary {
 
-    private LoggedInViewModel loggedInViewModel;
+    private ChangePasswordViewModel changePasswordViewModel;
     private ViewManagerModel viewManagerModel;
     private LoginViewModel loginViewModel;
 
     public LogoutPresenter(ViewManagerModel viewManagerModel,
-                          LoggedInViewModel loggedInViewModel,
+                          ChangePasswordViewModel changePasswordViewModel,
                            LoginViewModel loginViewModel) {
-        this.loggedInViewModel = loggedInViewModel;
+        this.changePasswordViewModel = changePasswordViewModel;
         this.viewManagerModel = viewManagerModel;
         this.loginViewModel = loginViewModel;
     }
@@ -34,13 +34,13 @@ public class LogoutPresenter implements LogoutOutputBoundary {
         // the empty string.
 
         // 1. get the LoggedInState out of the appropriate View Model,
-        final LoggedInState loggedInState = loggedInViewModel.getState();
+        final ChangePasswordState changePasswordState = changePasswordViewModel.getState();
         // 2. set the username in the state to the empty string
-        loggedInState.setUsername("");
+        changePasswordState.setUsername("");
         // 3. set the state in the LoggedInViewModel to the updated state
-        loggedInViewModel.setState(loggedInState);
+        changePasswordViewModel.setState(changePasswordState);
         // 4. firePropertyChanged so that the View that is listening is updated.
-        loggedInViewModel.firePropertyChanged();
+        changePasswordViewModel.firePropertyChanged();
 
         // 5. get the LoginState out of the appropriate View Model,
         final LoginState loginState = loginViewModel.getState();

@@ -14,17 +14,17 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import interface_adapter.change_password.ChangePasswordController;
-import interface_adapter.change_password.LoggedInState;
-import interface_adapter.change_password.LoggedInViewModel;
+import interface_adapter.change_password.ChangePasswordState;
+import interface_adapter.change_password.ChangePasswordViewModel;
 import interface_adapter.logout.LogoutController;
 
 /**
  * The View for when the user is logged into the program.
  */
-public class LoggedInView extends JPanel implements PropertyChangeListener {
+public class ChangePasswordView extends JPanel implements PropertyChangeListener {
 
-    private final String viewName = "logged in";
-    private final LoggedInViewModel loggedInViewModel;
+    private final String viewName = "change password";
+    private final ChangePasswordViewModel changePasswordViewModel;
     private final JLabel passwordErrorField = new JLabel();
     private ChangePasswordController changePasswordController;
     private LogoutController logoutController;
@@ -36,11 +36,11 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private final JTextField passwordInputField = new JTextField(15);
     private final JButton changePassword;
 
-    public LoggedInView(LoggedInViewModel loggedInViewModel) {
-        this.loggedInViewModel = loggedInViewModel;
-        this.loggedInViewModel.addPropertyChangeListener(this);
+    public ChangePasswordView(ChangePasswordViewModel changePasswordViewModel) {
+        this.changePasswordViewModel = changePasswordViewModel;
+        this.changePasswordViewModel.addPropertyChangeListener(this);
 
-        final JLabel title = new JLabel("Logged In Screen");
+        final JLabel title = new JLabel("Change Password Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         final LabelTextPanel passwordInfo = new LabelTextPanel(
@@ -61,9 +61,9 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         passwordInputField.getDocument().addDocumentListener(new DocumentListener() {
 
             private void documentListenerHelper() {
-                final LoggedInState currentState = loggedInViewModel.getState();
+                final ChangePasswordState currentState = changePasswordViewModel.getState();
                 currentState.setPassword(passwordInputField.getText());
-                loggedInViewModel.setState(currentState);
+                changePasswordViewModel.setState(currentState);
             }
 
             @Override
@@ -86,7 +86,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 evt -> {
                     if (evt.getSource().equals(changePassword)) {
-                        final LoggedInState currentState = loggedInViewModel.getState();
+                        final ChangePasswordState currentState = changePasswordViewModel.getState();
 
                         this.changePasswordController.execute(
                                 currentState.getUsername(),
@@ -103,7 +103,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                         // TODO: execute the logout use case through the Controller
                         // 1. get the state out of the loggedInViewModel. It contains the username.
                         // 2. Execute the logout Controller.
-                        final LoggedInState currentState = loggedInViewModel.getState();
+                        final ChangePasswordState currentState = changePasswordViewModel.getState();
                         logoutController.execute(currentState.getUsername());
                     }
                 }
@@ -122,11 +122,11 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
-            final LoggedInState state = (LoggedInState) evt.getNewValue();
+            final ChangePasswordState state = (ChangePasswordState) evt.getNewValue();
             username.setText(state.getUsername());
         }
         else if (evt.getPropertyName().equals("password")) {
-            final LoggedInState state = (LoggedInState) evt.getNewValue();
+            final ChangePasswordState state = (ChangePasswordState) evt.getNewValue();
             JOptionPane.showMessageDialog(null, "password updated for " + state.getUsername());
         }
 
