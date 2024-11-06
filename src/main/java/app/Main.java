@@ -18,7 +18,7 @@ public class Main {
                                             .addSearchView()
                                             .addLoginView()
                                             .addSignupView()
-                                            .addLoggedInView()
+                                            .addChangePasswordView()
                                             .addSearchResultView()
                                             .addHomeUseCase()
                                             .addSearchUseCase()
