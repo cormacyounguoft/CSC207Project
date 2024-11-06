@@ -3,6 +3,7 @@ package interface_adapter.login;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.change_password.ChangePasswordState;
 import interface_adapter.change_password.ChangePasswordViewModel;
+import interface_adapter.home.HomeViewModel;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
 
@@ -13,14 +14,17 @@ public class LoginPresenter implements LoginOutputBoundary {
 
     private final LoginViewModel loginViewModel;
     private final ChangePasswordViewModel changePasswordViewModel;
+    private final HomeViewModel homeViewModel;
     private final ViewManagerModel viewManagerModel;
 
     public LoginPresenter(ViewManagerModel viewManagerModel,
                           ChangePasswordViewModel changePasswordViewModel,
-                          LoginViewModel loginViewModel) {
+                          LoginViewModel loginViewModel,
+                          HomeViewModel homeViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.changePasswordViewModel = changePasswordViewModel;
         this.loginViewModel = loginViewModel;
+        this.homeViewModel = homeViewModel;
     }
 
     @Override
@@ -41,5 +45,11 @@ public class LoginPresenter implements LoginOutputBoundary {
         final LoginState loginState = loginViewModel.getState();
         loginState.setLoginError(error);
         loginViewModel.firePropertyChanged();
+    }
+
+    @Override
+    public void switchToHomeView() {
+        viewManagerModel.setState(homeViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
     }
 }
