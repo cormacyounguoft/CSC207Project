@@ -3,13 +3,14 @@ package view;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
+import java.net.URL;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 import entity.Movie;
 import interface_adapter.search_result.SearchResultController;
@@ -34,6 +35,7 @@ public class SearchResultView extends JPanel implements ActionListener, Property
     private final JLabel movieGenre;
     private final JLabel movieActors;
     private final JLabel movieDirector;
+    private final JLabel moviePoster;
 
     private SearchResultController searchResultController;
 
@@ -53,6 +55,7 @@ public class SearchResultView extends JPanel implements ActionListener, Property
         movieGenre = new JLabel();
         movieActors = new JLabel();
         movieDirector = new JLabel();
+        moviePoster = new JLabel();
 
         movie.add(movieTitle);
         movie.add(movieReleaseDate);
@@ -62,6 +65,7 @@ public class SearchResultView extends JPanel implements ActionListener, Property
         movie.add(movieGenre);
         movie.add(movieActors);
         movie.add(movieDirector);
+        movie.add(moviePoster);
 
         movie.setLayout(new BoxLayout(movie, BoxLayout.Y_AXIS));
 
@@ -97,6 +101,7 @@ public class SearchResultView extends JPanel implements ActionListener, Property
             setMovieGenre(movie);
             setMovieActors(movie);
             setMovieDirector(movie);
+            setMoviePoster(movie);
         }
     }
 
@@ -180,6 +185,22 @@ public class SearchResultView extends JPanel implements ActionListener, Property
         }
         else {
             movieRuntime.setText("Runtime: " + String.valueOf(movie.getRuntime()));
+        }
+    }
+
+    public void setMoviePoster(Movie movie) {
+        if (movie.getPosterLink().isEmpty()) {
+            moviePoster.setText("Poster not available.");
+        }
+        else {
+            try {
+                URL url = new URL(movie.getPosterLink());
+                BufferedImage image = ImageIO.read(url);
+                moviePoster.setIcon(new ImageIcon(image));
+
+            } catch (IOException e) {
+                System.out.println("Poster not available");
+            }
         }
     }
 
