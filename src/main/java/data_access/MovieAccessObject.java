@@ -1,5 +1,12 @@
 package data_access;
 
+import entity.Movie;
+import entity.MovieFactory;
+import kong.unirest.Unirest;
+import kong.unirest.json.JSONObject;
+import use_case.logged_in_search.LoggedInSearchDataAccessInterface;
+import use_case.search.SearchDataAccessInterface;
+
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -7,17 +14,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import entity.Movie;
-import entity.MovieFactory;
-import kong.unirest.Unirest;
-import kong.unirest.json.JSONObject;
-import use_case.search.SearchDataAccessInterface;
-
 /**
  * DAO for searching for movies using the API.
  * @Null
  */
-public class MovieAccessObject implements SearchDataAccessInterface {
+public class MovieAccessObject implements SearchDataAccessInterface,
+        LoggedInSearchDataAccessInterface {
     public static final String N_A = "N/A";
     public static final String COMMA = ",";
 

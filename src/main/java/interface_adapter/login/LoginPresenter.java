@@ -1,9 +1,9 @@
 package interface_adapter.login;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.change_password.ChangePasswordState;
-import interface_adapter.change_password.ChangePasswordViewModel;
 import interface_adapter.home.HomeViewModel;
+import interface_adapter.logged_in.LoggedInState;
+import interface_adapter.logged_in.LoggedInViewModel;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
 
@@ -13,16 +13,16 @@ import use_case.login.LoginOutputData;
 public class LoginPresenter implements LoginOutputBoundary {
 
     private final LoginViewModel loginViewModel;
-    private final ChangePasswordViewModel changePasswordViewModel;
+    private final LoggedInViewModel loggedInViewModel;
     private final HomeViewModel homeViewModel;
     private final ViewManagerModel viewManagerModel;
 
     public LoginPresenter(ViewManagerModel viewManagerModel,
-                          ChangePasswordViewModel changePasswordViewModel,
+                          LoggedInViewModel loggedInViewModel,
                           LoginViewModel loginViewModel,
                           HomeViewModel homeViewModel) {
         this.viewManagerModel = viewManagerModel;
-        this.changePasswordViewModel = changePasswordViewModel;
+        this.loggedInViewModel = loggedInViewModel;
         this.loginViewModel = loginViewModel;
         this.homeViewModel = homeViewModel;
     }
@@ -31,12 +31,12 @@ public class LoginPresenter implements LoginOutputBoundary {
     public void prepareSuccessView(LoginOutputData response) {
         // On success, switch to the logged in view.
 
-        final ChangePasswordState changePasswordState = changePasswordViewModel.getState();
+        final LoggedInState changePasswordState = loggedInViewModel.getState();
         changePasswordState.setUsername(response.getUsername());
-        this.changePasswordViewModel.setState(changePasswordState);
-        this.changePasswordViewModel.firePropertyChanged();
+        this.loggedInViewModel.setState(changePasswordState);
+        this.loggedInViewModel.firePropertyChanged();
 
-        this.viewManagerModel.setState(changePasswordViewModel.getViewName());
+        this.viewManagerModel.setState(loggedInViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
     }
 

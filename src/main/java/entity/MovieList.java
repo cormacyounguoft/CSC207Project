@@ -38,4 +38,13 @@ public class MovieList {
     public boolean contains(Movie movie) {
         return movieList.contains(movie);
     }
+
+    @Override
+    public String toString(){
+        List result = new ArrayList<>();
+        for (Movie movie : movieList) {
+            result.add(movie.getTitle());
+        }
+        return result.toString();
+    }
 }

@@ -1,9 +1,11 @@
 package view;
 
 import entity.Movie;
-import interface_adapter.search_result.SearchResultController;
-import interface_adapter.search_result.SearchResultState;
-import interface_adapter.search_result.SearchResultViewModel;
+import interface_adapter.add_to_watched_list.AddToWatchedListController;
+import interface_adapter.add_to_watchlist.AddToWatchlistController;
+import interface_adapter.logged_in_search_result.LoggedInSearchResultController;
+import interface_adapter.logged_in_search_result.LoggedInSearchResultState;
+import interface_adapter.logged_in_search_result.LoggedInSearchResultViewModel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -16,15 +18,19 @@ import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.net.URL;
 
-/**
- * The View for the Search Result Use Case.
- */
-public class SearchResultView extends JPanel implements ActionListener, PropertyChangeListener {
+public class LoggedInSearchResultView extends JPanel implements ActionListener, PropertyChangeListener {
+    private final String viewName = "logged in search result";
 
-    private final String viewName = "search result";
-    private final SearchResultViewModel searchResultViewModel;
+    private final LoggedInSearchResultViewModel loggedInSearchResultViewModel;
+    private LoggedInSearchResultController loggedInSearchResultController;
+    private AddToWatchlistController addToWatchlistController;
+    private AddToWatchedListController addToWatchedListController;
 
-    private final JButton toHome;
+    private final JButton addToWatchlist;
+    private final JButton addToWatchedList;
+    private final JButton toRate;
+    private final JButton cancel;
+
     private final JPanel movie;
     private final JLabel movieTitle;
     private final JLabel movieReleaseDate;
@@ -36,13 +42,15 @@ public class SearchResultView extends JPanel implements ActionListener, Property
     private final JLabel movieDirector;
     private final JLabel moviePoster;
 
-    private SearchResultController searchResultController;
+    private final JLabel username;
 
-    public SearchResultView(SearchResultViewModel searchResultViewModel) {
-        this.searchResultViewModel = searchResultViewModel;
-        this.searchResultViewModel.addPropertyChangeListener(this);
+    public LoggedInSearchResultView(LoggedInSearchResultViewModel loggedInSearchResultViewModel) {
+        this.loggedInSearchResultViewModel = loggedInSearchResultViewModel;
+        this.loggedInSearchResultViewModel.addPropertyChangeListener(this);
 
-        final JLabel title = new JLabel(SearchResultViewModel.TITLE_LABEL);
+        final JLabel title = new JLabel(loggedInSearchResultViewModel.TITLE_LABEL);
+        username = new JLabel();
+        username.setAlignmentX(Component.CENTER_ALIGNMENT);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         movie = new JPanel();
@@ -69,19 +77,58 @@ public class SearchResultView extends JPanel implements ActionListener, Property
         movie.setLayout(new BoxLayout(movie, BoxLayout.Y_AXIS));
 
         final JPanel buttons = new JPanel();
-        toHome = new JButton(SearchResultViewModel.TO_HOME_BUTTON_LABEL);
-        buttons.add(toHome);
+        addToWatchlist = new JButton(loggedInSearchResultViewModel.ADD_TO_WATCHLIST_BUTTON_LABEL);
+        buttons.add(addToWatchlist);
+        addToWatchedList = new JButton(loggedInSearchResultViewModel.ADD_TO_WATCHED_LIST_BUTTON_LABEL);
+        buttons.add(addToWatchedList);
+        toRate = new JButton(loggedInSearchResultViewModel.RATE_BUTTON_LABEL);
+        buttons.add(toRate);
+        cancel = new JButton(loggedInSearchResultViewModel.CANCEL_BUTTON_LABEL);
+        buttons.add(cancel);
 
-        toHome.addActionListener(
+        addToWatchlist.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        searchResultController.switchToHomeView();
+                        final LoggedInSearchResultState currentState = loggedInSearchResultViewModel.getState();
+                        addToWatchlistController.execute(currentState.getUsername(), currentState.getMovie());
+                        JOptionPane.showMessageDialog(null, "\"" +
+                                currentState.getMovie().getTitle() + "\" has been added to your watchlist.");
+                    }
+                }
+        );
+
+        addToWatchedList.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        final LoggedInSearchResultState currentState = loggedInSearchResultViewModel.getState();
+                        addToWatchedListController.execute(currentState.getUsername(), currentState.getMovie());
+                        JOptionPane.showMessageDialog(null, "\"" +
+                                currentState.getMovie().getTitle() + "\" has been added to your watched list.");
+                    }
+                }
+        );
+
+        toRate.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        final LoggedInSearchResultState currentState = loggedInSearchResultViewModel.getState();
+                        loggedInSearchResultController.switchToRateView(currentState.getUsername(), currentState.getMovie());
+                    }
+                }
+        );
+
+        cancel.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        final LoggedInSearchResultState currentState = loggedInSearchResultViewModel.getState();
+                        loggedInSearchResultController.switchToLoggedInView(currentState.getUsername());
                     }
                 }
         );
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(title);
+        this.add(username);
         this.add(movie);
         this.add(buttons);
     }
@@ -89,8 +136,8 @@ public class SearchResultView extends JPanel implements ActionListener, Property
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
-            final SearchResultState state = (SearchResultState) evt.getNewValue();
-            final Movie movie = state.getResult();
+            final LoggedInSearchResultState state = (LoggedInSearchResultState) evt.getNewValue();
+            final Movie movie = state.getMovie();
 
             setMovieTitle(movie);
             setMovieReleaseDate(movie);
@@ -101,6 +148,8 @@ public class SearchResultView extends JPanel implements ActionListener, Property
             setMovieActors(movie);
             setMovieDirector(movie);
             setMoviePoster(movie);
+
+            username.setText("username: " + state.getUsername());
         }
     }
 
@@ -108,16 +157,21 @@ public class SearchResultView extends JPanel implements ActionListener, Property
         return viewName;
     }
 
-    public void setSearchResultController(SearchResultController controller) {
-        this.searchResultController = controller;
+    public void setLoggedInSearchResultController(LoggedInSearchResultController loggedInSearchResultController) {
+        this.loggedInSearchResultController = loggedInSearchResultController;
     }
 
-    /**
-     * React to a button click that results in evt.
-     * @param evt the ActionEvent to react to
-     */
-    public void actionPerformed(ActionEvent evt) {
-        System.out.println("Click " + evt.getActionCommand());
+    public void setAddToWatchlistController(AddToWatchlistController addToWatchlistController) {
+        this.addToWatchlistController = addToWatchlistController;
+    }
+
+    public void setAddToWatchedListController(AddToWatchedListController addToWatchedListController) {
+        this.addToWatchedListController = addToWatchedListController;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
     }
 
     public void setMovieTitle(Movie movie) {
@@ -195,7 +249,6 @@ public class SearchResultView extends JPanel implements ActionListener, Property
             try {
                 URL url = new URL(movie.getPosterLink());
                 BufferedImage image = ImageIO.read(url);
-                moviePoster.setText("");
                 moviePoster.setIcon(new ImageIcon(image));
 
             } catch (IOException e) {
@@ -203,5 +256,4 @@ public class SearchResultView extends JPanel implements ActionListener, Property
             }
         }
     }
-
 }
