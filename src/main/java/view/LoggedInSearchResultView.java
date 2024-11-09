@@ -126,11 +126,17 @@ public class LoggedInSearchResultView extends JPanel implements ActionListener, 
                 }
         );
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.add(title);
-        this.add(username);
-        this.add(movie);
-        this.add(buttons);
+        JPanel view = new JPanel();
+        view.setLayout(new BoxLayout(view, BoxLayout.Y_AXIS));
+        view.add(title);
+        view.add(username);
+        view.add(movie);
+        view.add(buttons);
+
+        JScrollPane scroller = new JScrollPane(view);
+        scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scroller.setPreferredSize(new Dimension(1000, 500));
+        this.add(scroller);
     }
 
     @Override
