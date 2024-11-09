@@ -40,11 +40,19 @@ public class MovieList {
     }
 
     @Override
-    public String toString(){
-        List result = new ArrayList<>();
+    public String toString() {
+        List<String> result = new ArrayList<>();
         for (Movie movie : movieList) {
             result.add(movie.getTitle());
         }
         return result.toString();
+    }
+
+    public List<String> getPosters() {
+        List<String> result = new ArrayList<>();
+        for (Movie movie : movieList) {
+            result.add(movie.getPosterLink());
+        }
+        return result;
     }
 }
