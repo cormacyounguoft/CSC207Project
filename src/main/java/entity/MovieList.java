@@ -38,4 +38,21 @@ public class MovieList {
     public boolean contains(Movie movie) {
         return movieList.contains(movie);
     }
+
+    @Override
+    public String toString() {
+        List<String> result = new ArrayList<>();
+        for (Movie movie : movieList) {
+            result.add(movie.getTitle());
+        }
+        return result.toString();
+    }
+
+    public List<String> getPosters() {
+        List<String> result = new ArrayList<>();
+        for (Movie movie : movieList) {
+            result.add(movie.getPosterLink());
+        }
+        return result;
+    }
 }

@@ -1,6 +1,13 @@
 package view;
 
-import java.awt.Component;
+import entity.Movie;
+import interface_adapter.search_result.SearchResultController;
+import interface_adapter.search_result.SearchResultState;
+import interface_adapter.search_result.SearchResultViewModel;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -8,14 +15,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.net.URL;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-
-import entity.Movie;
-import interface_adapter.search_result.SearchResultController;
-import interface_adapter.search_result.SearchResultState;
-import interface_adapter.search_result.SearchResultViewModel;
 
 /**
  * The View for the Search Result Use Case.
@@ -196,6 +195,7 @@ public class SearchResultView extends JPanel implements ActionListener, Property
             try {
                 URL url = new URL(movie.getPosterLink());
                 BufferedImage image = ImageIO.read(url);
+                moviePoster.setText("");
                 moviePoster.setIcon(new ImageIcon(image));
 
             } catch (IOException e) {

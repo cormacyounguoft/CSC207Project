@@ -1,6 +1,6 @@
 package app;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 /**
  * The Main class of our application.
@@ -20,6 +20,12 @@ public class Main {
                                             .addSignupView()
                                             .addChangePasswordView()
                                             .addSearchResultView()
+                .addLoggedInView()
+                .addLoggedInSearchView()
+                .addLoggedInSearchResultView()
+                .addRateView()
+                .addWatchedListView()
+                .addWatchlistView()
                                             .addHomeUseCase()
                                             .addSearchUseCase()
                                             .addSignupUseCase()
@@ -27,6 +33,16 @@ public class Main {
                                             .addChangePasswordUseCase()
                                             .addLogoutUseCase()
                                             .addSearchResultUseCase()
+                .addLoggedInUseCase()
+                .addLoggedInSearchUseCase()
+                .addLoggedInSearchResultUseCase()
+                .addRateUseCase()
+                .addAddToWatchedListUseCase()
+                .addAddToWatchlistUseCase()
+                .addWatchedListUseCase()
+                .addWatchlistUseCase()
+                .addGetWatchedListUseCase()
+                .addGetWatchlistUseCase()
                                             .build();
 
         application.pack();
