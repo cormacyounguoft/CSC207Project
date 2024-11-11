@@ -1,7 +1,9 @@
 package interface_adapter.change_password;
 
+import entity.MovieList;
 import use_case.change_password.ChangePasswordInputBoundary;
 import use_case.change_password.ChangePasswordInputData;
+import use_case.watchlist.WatchlistInputData;
 
 /**
  * Controller for the Change Password Use Case.
@@ -22,5 +24,10 @@ public class ChangePasswordController {
         final ChangePasswordInputData changePasswordInputData = new ChangePasswordInputData(username, password);
 
         userChangePasswordUseCaseInteractor.execute(changePasswordInputData);
+    }
+
+    public void switchToLoggedInView(String password, String username) {
+        final ChangePasswordInputData inputData = new ChangePasswordInputData(username, password);
+        userChangePasswordUseCaseInteractor.switchToLoggedInView(inputData);
     }
 }

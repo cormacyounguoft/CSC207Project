@@ -305,7 +305,7 @@ public class AppBuilder {
      */
     public AppBuilder addChangePasswordUseCase() {
         final ChangePasswordOutputBoundary changePasswordOutputBoundary =
-                new ChangePasswordPresenter(changePasswordViewModel);
+                new ChangePasswordPresenter(changePasswordViewModel, loggedInViewModel, viewManagerModel);
 
         final ChangePasswordInputBoundary changePasswordInteractor =
                 new ChangePasswordInteractor(userDataAccessObject, changePasswordOutputBoundary, userFactory);
