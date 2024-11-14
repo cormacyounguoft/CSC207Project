@@ -14,6 +14,7 @@ import use_case.rate.RateUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -52,6 +53,14 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     @Override
     public void changePassword(User user) {
         // Replace the old entry with the new password
+        List<Movie> c = this.get(user.getName()).getWatchedList().getMovieList();
+        List<Movie> b = this.get(user.getName()).getWatchList().getMovieList();
+        for(Movie m : c) {
+           user.getWatchedList().getMovieList().add(m);
+        }
+        for(Movie m : b) {
+            user.getWatchList().getMovieList().add(m);
+        }
         users.put(user.getName(), user);
     }
 

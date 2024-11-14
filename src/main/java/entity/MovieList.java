@@ -17,6 +17,10 @@ public class MovieList {
         return movieList.size();
     }
 
+    public List<Movie> getMovieList() {
+        return movieList;
+    }
+
     public void addMovie(Movie movie) {
         if (!this.contains(movie)) {
             movieList.add(movie);
@@ -55,4 +59,6 @@ public class MovieList {
         }
         return result;
     }
+
+
 }
