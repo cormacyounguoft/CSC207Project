@@ -37,6 +37,7 @@ public class ChangePasswordPresenter implements ChangePasswordOutputBoundary {
         // note: this use case currently can't fail
     }
 
+    @Override
     public void switchToLoggedInView(ChangePasswordOutputData outputData) {
         final LoggedInState state = loggedInViewModel.getState();
         state.setUsername(outputData.getUsername());
