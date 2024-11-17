@@ -3,9 +3,11 @@ package data_access;
 import entity.Movie;
 import entity.MovieList;
 import entity.User;
+import entity.UserRating;
 import use_case.add_to_watched_list.AddToWatchedListDataAccessInterface;
 import use_case.add_to_watchlist.AddToWatchlistDataAccessInterface;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
+import use_case.get_rated_list.GetRatedListDataAccessInterface;
 import use_case.get_watched_list.GetWatchedListDataAccessInterface;
 import use_case.get_watchlist.GetWatchlistDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
@@ -29,7 +31,9 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         AddToWatchedListDataAccessInterface,
         RateUserDataAccessInterface,
         GetWatchlistDataAccessInterface,
-        GetWatchedListDataAccessInterface {
+        GetWatchedListDataAccessInterface,
+        GetRatedListDataAccessInterface
+{
 
     private final Map<String, User> users = new HashMap<>();
 
@@ -98,4 +102,7 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     public MovieList getWatchlist(String username) {
         return this.get(username).getWatchList();
     }
+
+    @Override
+    public UserRating getUserRating(String username) {return this.get(username).getUserRatings();}
 }

@@ -25,12 +25,14 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
     private LogoutController logoutController;
     private GetWatchedListController watchedListController;
     private GetWatchlistController watchlistController;
+//    private GetRatedListController getRatedListController;
 
     private final JButton toSearch;
     private final JButton toWatchList;
     private final JButton toWatchedList;
     private final JButton toChangePassword;
     private final JButton logout;
+//    private final JButton toRatedList;
     final JLabel username;
 
     public LoggedInView(LoggedInViewModel loggedInViewModel) {
@@ -71,6 +73,15 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
                     }
                 }
         );
+
+//        toRatedList.addActionListener(
+//                new ActionListener() {
+//                    public void actionPerformed(ActionEvent evt) {
+//                        final LoggedInState currentState = loggedInViewModel.getState();
+//                        getRatedListController.execute(currentState.getUsername());
+//                    }
+//                }
+//        );
 
         toWatchedList.addActionListener(
                 new ActionListener() {
