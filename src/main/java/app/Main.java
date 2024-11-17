@@ -26,6 +26,7 @@ public class Main {
                 .addRateView()
                 .addWatchedListView()
                 .addWatchlistView()
+                .addRatedListView()
                                             .addHomeUseCase()
                                             .addSearchUseCase()
                                             .addSignupUseCase()
@@ -44,6 +45,8 @@ public class Main {
                 .addGetWatchedListUseCase()
                 .addGetWatchlistUseCase()
                 .addRate()
+                .addGetRatedListUseCase()
+                .addRatedListUseCase()
                                             .build();
 
         application.pack();

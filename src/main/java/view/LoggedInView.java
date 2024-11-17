@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapter.get_rated_list.GetRatedListController;
 import interface_adapter.get_watched_list.GetWatchedListController;
 import interface_adapter.get_watchlist.GetWatchlistController;
 import interface_adapter.logged_in.LoggedInController;
@@ -25,14 +26,14 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
     private LogoutController logoutController;
     private GetWatchedListController watchedListController;
     private GetWatchlistController watchlistController;
-//    private GetRatedListController getRatedListController;
+    private GetRatedListController getRatedListController;
 
     private final JButton toSearch;
     private final JButton toWatchList;
     private final JButton toWatchedList;
     private final JButton toChangePassword;
     private final JButton logout;
-//    private final JButton toRatedList;
+    private final JButton toRatedList;
     final JLabel username;
 
     public LoggedInView(LoggedInViewModel loggedInViewModel) {
@@ -55,6 +56,8 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         buttons.add(toChangePassword);
         logout = new JButton(loggedInViewModel.LOGOUT_BUTTON_LABEL);
         buttons.add(logout);
+        toRatedList= new JButton("Go Rated List");
+        buttons.add(toRatedList);
 
         toSearch.addActionListener(
                 new ActionListener() {
@@ -74,14 +77,14 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
                 }
         );
 
-//        toRatedList.addActionListener(
-//                new ActionListener() {
-//                    public void actionPerformed(ActionEvent evt) {
-//                        final LoggedInState currentState = loggedInViewModel.getState();
-//                        getRatedListController.execute(currentState.getUsername());
-//                    }
-//                }
-//        );
+        toRatedList.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        final LoggedInState currentState = loggedInViewModel.getState();
+                        getRatedListController.execute(currentState.getUsername());
+                    }
+                }
+        );
 
         toWatchedList.addActionListener(
                 new ActionListener() {
@@ -134,6 +137,10 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 
     public void setWatchlistController(GetWatchlistController watchlistController) {
         this.watchlistController = watchlistController;
+    }
+
+    public void setGetRatedListController(GetRatedListController getRatedListController) {
+        this.getRatedListController = getRatedListController;
     }
 
     @Override

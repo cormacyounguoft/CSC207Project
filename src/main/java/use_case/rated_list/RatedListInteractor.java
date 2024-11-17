@@ -14,5 +14,8 @@ public class RatedListInteractor implements RatedListInputBoundary{
     }
 
     @Override
-    public void switchToLoggedInView(RatedListInputData ratedListInputData) {}
+    public void switchToLoggedInView(RatedListInputData ratedListInputData) {
+        final RatedListOutputData ratedListOutputData = new RatedListOutputData(ratedListInputData.getUsername(), ratedListInputData.getRating(), false);
+        presenter.switchToLoggedInView(ratedListOutputData);
+    }
 }
