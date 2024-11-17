@@ -43,6 +43,7 @@ public class Main {
                 .addWatchlistUseCase()
                 .addGetWatchedListUseCase()
                 .addGetWatchlistUseCase()
+                .addRate()
                                             .build();
 
         application.pack();

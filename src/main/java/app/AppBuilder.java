@@ -17,6 +17,8 @@ import interface_adapter.get_watched_list.GetWatchedListController;
 import interface_adapter.get_watched_list.GetWatchedListPresenter;
 import interface_adapter.get_watchlist.GetWatchlistController;
 import interface_adapter.get_watchlist.GetWatchlistPresenter;
+import interface_adapter.go_to_rate.GoRateController;
+import interface_adapter.go_to_rate.GoRatePresenter;
 import interface_adapter.home.HomeController;
 import interface_adapter.home.HomePresenter;
 import interface_adapter.home.HomeViewModel;
@@ -67,6 +69,9 @@ import use_case.get_watched_list.GetWatchedListOutputBoundary;
 import use_case.get_watchlist.GetWatchlistInputBoundary;
 import use_case.get_watchlist.GetWatchlistInteractor;
 import use_case.get_watchlist.GetWatchlistOutputBoundary;
+import use_case.go_to_rate.GoRateInputBoundary;
+import use_case.go_to_rate.GoRateInteractor;
+import use_case.go_to_rate.GoRateOutputBoundary;
 import use_case.home.HomeInputBoundary;
 import use_case.home.HomeInteractor;
 import use_case.home.HomeOutputBoundary;
@@ -424,6 +429,14 @@ public class AppBuilder {
         final AddToWatchedListInputBoundary addToWatchedListInteractor = new AddToWatchedListInteractor(userDataAccessObject, addToWatchedListOutputBoundary);
         final AddToWatchedListController addToWatchedListController = new AddToWatchedListController(addToWatchedListInteractor);
         loggedInSearchResultView.setAddToWatchedListController(addToWatchedListController);
+        return this;
+    }
+
+    public AppBuilder addRate(){
+        final GoRateOutputBoundary goRateOutputBoundary = new GoRatePresenter(viewManagerModel, rateViewModel);
+        final GoRateInputBoundary goRateInteractor = new GoRateInteractor(goRateOutputBoundary);
+        final GoRateController con = new GoRateController(goRateInteractor);
+        watchedListView.setGoRateController(con);
         return this;
     }
 
