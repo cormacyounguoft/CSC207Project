@@ -8,4 +8,6 @@ public interface WatchedListInputBoundary {
      * Executes the switch to Logged In view use case.
      */
     void switchToLoggedInView(WatchedListInputData inputData);
+
+//    void switchToRateView(WatchedListInputData inputData);
 }

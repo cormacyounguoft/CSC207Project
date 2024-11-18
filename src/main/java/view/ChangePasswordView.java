@@ -122,7 +122,7 @@ public class ChangePasswordView extends JPanel implements PropertyChangeListener
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         final ChangePasswordState currentState = changePasswordViewModel.getState();
-                        changePasswordController.switchToLoggedInView(currentState.getPassword(), currentState.getUsername());
+                        changePasswordController.switchToLoggedInView(currentState.getUsername());
                     }
                 }
         );

@@ -1,5 +1,9 @@
 package view;
 
+import entity.Movie;
+import entity.MovieList;
+import interface_adapter.go_to_rate.GoRateController;
+import interface_adapter.logged_in_search_result.LoggedInSearchResultState;
 import interface_adapter.watched_list.WatchedListController;
 import interface_adapter.watched_list.WatchedListState;
 import interface_adapter.watched_list.WatchedListViewModel;
@@ -22,6 +26,7 @@ public class WatchedListView extends JPanel implements ActionListener, PropertyC
 
     private final WatchedListViewModel watchedListViewModel;
     private WatchedListController watchedListController;
+    private GoRateController goRateController;
 
     private final JButton cancel;
 
@@ -69,20 +74,30 @@ public class WatchedListView extends JPanel implements ActionListener, PropertyC
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
             final WatchedListState state = (WatchedListState) evt.getNewValue();
-            final List<String> posters = state.getWatchedList().getPosters();
+            final List<Movie> posters = state.getWatchedList().getMovieList();
             watchedList.removeAll();
 
-            for (String poster: posters) {
-                JLabel posterLabels = new JLabel();
-                if (poster.isEmpty()) {
+            for (Movie poster: posters) {
+                JButton posterLabels = new JButton();
+                String c = poster.getPosterLink();
+                if (c.isEmpty()) {
                     posterLabels.setText("Poster not available.");
                 }
                 else {
                     try {
-                        URL url = new URL(poster);
+                        URL url = new URL(c);
                         BufferedImage image = ImageIO.read(url);
                         posterLabels.setText("");
                         posterLabels.setIcon(new ImageIcon(image));
+                        posterLabels.addActionListener(
+                                new ActionListener() {
+                                    public void actionPerformed(ActionEvent evt) {
+                                        final WatchedListState currentState = watchedListViewModel.getState();
+                                        goRateController.goToRate(currentState.getUsername(), poster);
+                                    }
+                                }
+                        );
+
 
                     } catch (IOException e) {
                         System.out.println("Poster not available");
@@ -100,5 +115,9 @@ public class WatchedListView extends JPanel implements ActionListener, PropertyC
 
     public void setWatchedListController(WatchedListController watchedListController) {
         this.watchedListController = watchedListController;
+    }
+
+    public void setGoRateController(GoRateController goRateController) {
+        this.goRateController = goRateController;
     }
 }
