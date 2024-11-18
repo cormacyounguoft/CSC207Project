@@ -75,7 +75,7 @@ public class RatedListView extends JPanel implements ActionListener, PropertyCha
             for (Map.Entry<String, Integer> entry : ratings.entrySet()) {
                 String key = entry.getKey();
                 Integer value = entry.getValue();
-                JButton rating= new JButton(key);
+                JButton rating= new JButton(key + " : " + value);
 
                 ratedList.add(rating);
                 }
