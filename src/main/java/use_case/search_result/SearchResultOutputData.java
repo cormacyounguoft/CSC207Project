@@ -7,16 +7,10 @@ import entity.Movie;
  */
 public class SearchResultOutputData {
 
-    private final Movie movie;
     private final boolean useCaseFailed;
 
-    public SearchResultOutputData(Movie movie, boolean useCaseFailed) {
-        this.movie = movie;
+    public SearchResultOutputData(boolean useCaseFailed) {
         this.useCaseFailed = useCaseFailed;
-    }
-
-    public Movie getMovie() {
-        return movie;
     }
 
     public boolean isUseCaseFailed() {

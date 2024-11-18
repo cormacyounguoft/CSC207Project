@@ -26,7 +26,17 @@ public class SearchPresenter implements SearchOutputBoundary {
     @Override
     public void prepareSuccessView(SearchOutputData response) {
         final SearchResultState searchResultState = searchResultViewModel.getState();
-        searchResultState.setResult(response.getMovie());
+
+        searchResultState.setTitle(response.getTitle());
+        searchResultState.setReleaseDate(response.getReleaseDate());
+        searchResultState.setDescription(response.getDescription());
+        searchResultState.setRottenTomatoes(response.getRottenTomatoes());
+        searchResultState.setRuntime(response.getRuntime());
+        searchResultState.setGenre(response.getGenre());
+        searchResultState.setActors(response.getActors());
+        searchResultState.setDirector(response.getDirector());
+        searchResultState.setPosterLink(response.getPosterLink());
+
         this.searchResultViewModel.setState(searchResultState);
         searchResultViewModel.firePropertyChanged();
 

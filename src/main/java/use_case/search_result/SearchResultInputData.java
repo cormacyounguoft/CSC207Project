@@ -6,13 +6,13 @@ import entity.Movie;
  * The Input Data for the Search Result Use Case.
  */
 public class SearchResultInputData {
-    private final Movie movie;
+    private final String movie;
 
-    public SearchResultInputData(Movie movie) {
+    public SearchResultInputData(String movie) {
         this.movie = movie;
     }
 
-    public Movie getMovie() {
+    public String getMovie() {
         return movie;
     }
 }
