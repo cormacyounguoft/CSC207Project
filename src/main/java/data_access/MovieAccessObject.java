@@ -51,7 +51,7 @@ public class MovieAccessObject implements SearchDataAccessInterface,
     }
 
     private String getUrl(String title) {
-        return "http://www.omdbapi.com/?t=" + URLEncoder.encode(title, StandardCharsets.UTF_8) + "&apikey=52049eeb";
+        return "http://www.omdbapi.com/?t=" + URLEncoder.encode(title, StandardCharsets.UTF_8) + "&apikey=" + System.getenv("APIKEY");
     }
 
     private JSONObject getResponse(String url) {
