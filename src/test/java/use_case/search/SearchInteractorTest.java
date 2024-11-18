@@ -1,10 +1,9 @@
 package use_case.search;
 
-import data_access.InMemoryUserDataAccessObject;
 import data_access.MovieAccessObject;
-import entity.*;
+import entity.Movie;
+import entity.MovieFactory;
 import org.junit.jupiter.api.Test;
-import use_case.search.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,7 +11,7 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class SearchResultInteractorTest {
+class SearchInteractorTest {
 
     @Test
     void successTest() {
