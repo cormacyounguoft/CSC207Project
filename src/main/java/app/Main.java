@@ -14,12 +14,12 @@ public class Main {
         final AppBuilder appBuilder = new AppBuilder();
         // TODO: add the Logout Use Case to the app using the appBuilder
         final JFrame application = appBuilder
-                                            .addHomeView()
-                                            .addSearchView()
-                                            .addLoginView()
-                                            .addSignupView()
-                                            .addChangePasswordView()
-                                            .addSearchResultView()
+                .addHomeView()
+                .addSearchView()
+                .addLoginView()
+                .addSignupView()
+                .addChangePasswordView()
+                .addSearchResultView()
                 .addLoggedInView()
                 .addLoggedInSearchView()
                 .addLoggedInSearchResultView()
@@ -27,13 +27,13 @@ public class Main {
                 .addWatchedListView()
                 .addWatchlistView()
                 .addRatedListView()
-                                            .addHomeUseCase()
-                                            .addSearchUseCase()
-                                            .addSignupUseCase()
-                                            .addLoginUseCase()
-                                            .addChangePasswordUseCase()
-                                            .addLogoutUseCase()
-                                            .addSearchResultUseCase()
+                .addHomeUseCase()
+                .addSearchUseCase()
+                .addSignupUseCase()
+                .addLoginUseCase()
+                .addChangePasswordUseCase()
+                .addLogoutUseCase()
+                .addSearchResultUseCase()
                 .addLoggedInUseCase()
                 .addLoggedInSearchUseCase()
                 .addLoggedInSearchResultUseCase()
@@ -47,7 +47,7 @@ public class Main {
                 .addRate()
                 .addGetRatedListUseCase()
                 .addRatedListUseCase()
-                                            .build();
+                .build();
 
         application.pack();
         application.setVisible(true);

@@ -14,8 +14,8 @@ public class RatedListPresenter implements RatedListOutputBoundary {
     private final RatedListViewModel ratedListViewModel;
 
     public RatedListPresenter(ViewManagerModel viewManagerModel,
-                                LoggedInViewModel loggedInViewModel,
-                                RatedListViewModel ratedListViewModel) {
+                              LoggedInViewModel loggedInViewModel,
+                              RatedListViewModel ratedListViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.loggedInViewModel = loggedInViewModel;
         this.ratedListViewModel = ratedListViewModel;
