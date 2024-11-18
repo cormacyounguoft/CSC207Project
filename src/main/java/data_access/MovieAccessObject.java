@@ -22,6 +22,7 @@ public class MovieAccessObject implements SearchDataAccessInterface,
         LoggedInSearchDataAccessInterface {
     public static final String N_A = "N/A";
     public static final String COMMA = ",";
+    public static final String COMMA_SPACE = ", ";
 
     @Override
     public Movie search(String title) throws IOException {
@@ -83,7 +84,7 @@ public class MovieAccessObject implements SearchDataAccessInterface,
         final String genreString = response.get("Genre").toString();
         List<String> result = new ArrayList<>();
         if (!N_A.equals(genreString)) {
-            result = new ArrayList<>(Arrays.asList(genreString.split(COMMA)));
+            result = new ArrayList<>(Arrays.asList(genreString.split(COMMA_SPACE)));
         }
         return result;
     }
@@ -112,7 +113,7 @@ public class MovieAccessObject implements SearchDataAccessInterface,
         final String actorsString = response.get("Actors").toString();
         List<String> result = new ArrayList<>();
         if (!N_A.equals(actorsString)) {
-            result = new ArrayList<>(Arrays.asList(actorsString.split(COMMA)));
+            result = new ArrayList<>(Arrays.asList(actorsString.split(COMMA_SPACE)));
         }
         return result;
     }
@@ -121,7 +122,7 @@ public class MovieAccessObject implements SearchDataAccessInterface,
         final String directorString = response.get("Director").toString();
         List<String> result = new ArrayList<>();
         if (!N_A.equals(directorString)) {
-            result = new ArrayList<>(Arrays.asList(directorString.split(COMMA)));
+            result = new ArrayList<>(Arrays.asList(directorString.split(COMMA_SPACE)));
         }
         return result;
     }

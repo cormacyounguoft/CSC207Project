@@ -2,6 +2,7 @@ package entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * The representation of a movie in our program.
@@ -112,5 +113,21 @@ public class Movie {
                 + ", actors=" + actors
                 + ", director=" + director
                 + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Movie)) return false;
+        Movie movie = (Movie) o;
+        return getRottenTomatoes() == movie.getRottenTomatoes() &&
+                getRuntime() == movie.getRuntime() &&
+                Objects.equals(getTitle(), movie.getTitle()) &&
+                Objects.equals(getReleaseDate(), movie.getReleaseDate()) &&
+                Objects.equals(getDescription(), movie.getDescription()) &&
+                Objects.equals(getGenre(), movie.getGenre()) &&
+                Objects.equals(getActors(), movie.getActors()) &&
+                Objects.equals(getDirector(), movie.getDirector()) &&
+                Objects.equals(getPosterLink(), movie.getPosterLink());
     }
 }
