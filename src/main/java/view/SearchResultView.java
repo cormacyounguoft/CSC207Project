@@ -129,7 +129,7 @@ public class SearchResultView extends JPanel implements ActionListener, Property
                 moviePoster.setIcon(new ImageIcon(image));
 
             } catch (IOException e) {
-                System.out.println("Poster not available");
+                moviePoster.setText("Poster not available.");
             }
         }
     }

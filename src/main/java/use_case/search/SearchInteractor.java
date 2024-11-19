@@ -40,7 +40,7 @@ public class SearchInteractor implements SearchInputBoundary {
         }
     }
 
-    public String getMovieReleaseDate(Movie movie) {
+    private String getMovieReleaseDate(Movie movie) {
         if (movie.getReleaseDate().isEmpty()) {
             return "Release date not available.";
         }
@@ -49,7 +49,7 @@ public class SearchInteractor implements SearchInputBoundary {
         }
     }
 
-    public String getMovieDescription(Movie movie) {
+    private String getMovieDescription(Movie movie) {
         if (movie.getDescription().isEmpty()) {
             return "Description not available.";
         }
@@ -58,7 +58,7 @@ public class SearchInteractor implements SearchInputBoundary {
         }
     }
 
-    public String getMovieRottenTomatoes(Movie movie) {
+    private String getMovieRottenTomatoes(Movie movie) {
         if (movie.getRottenTomatoes() == -1) {
             return "Rotten Tomatoes not available.";
         }
@@ -67,7 +67,7 @@ public class SearchInteractor implements SearchInputBoundary {
         }
     }
 
-    public String getMovieGenre(Movie movie) {
+    private String getMovieGenre(Movie movie) {
         if (movie.getGenre().isEmpty()) {
             return "Genres not available.";
         }
@@ -76,7 +76,7 @@ public class SearchInteractor implements SearchInputBoundary {
         }
     }
 
-    public String getMovieActors(Movie movie) {
+    private String getMovieActors(Movie movie) {
         if (movie.getActors().isEmpty()) {
             return "Actors not available.";
         }
@@ -85,7 +85,7 @@ public class SearchInteractor implements SearchInputBoundary {
         }
     }
 
-    public String getMovieDirector(Movie movie) {
+    private String getMovieDirector(Movie movie) {
         if (movie.getDirector().isEmpty()) {
             return "Directors not available.";
         }
@@ -94,7 +94,7 @@ public class SearchInteractor implements SearchInputBoundary {
         }
     }
 
-    public String getMovieRuntime(Movie movie) {
+    private String getMovieRuntime(Movie movie) {
         if (movie.getRuntime() == -1) {
             return "Runtime not available.";
         }
@@ -103,7 +103,7 @@ public class SearchInteractor implements SearchInputBoundary {
         }
     }
 
-    public String getMoviePoster(Movie movie) {
+    private String getMoviePoster(Movie movie) {
         if (movie.getPosterLink().isEmpty()) {
             return "Poster not available.";
         }

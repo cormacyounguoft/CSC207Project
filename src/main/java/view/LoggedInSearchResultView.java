@@ -6,6 +6,7 @@ import interface_adapter.add_to_watchlist.AddToWatchlistController;
 import interface_adapter.logged_in_search_result.LoggedInSearchResultController;
 import interface_adapter.logged_in_search_result.LoggedInSearchResultState;
 import interface_adapter.logged_in_search_result.LoggedInSearchResultViewModel;
+import interface_adapter.to_logged_in_view.ToLoggedInViewController;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -25,10 +26,10 @@ public class LoggedInSearchResultView extends JPanel implements ActionListener, 
     private LoggedInSearchResultController loggedInSearchResultController;
     private AddToWatchlistController addToWatchlistController;
     private AddToWatchedListController addToWatchedListController;
+    private ToLoggedInViewController toLoggedInViewController;
 
     private final JButton addToWatchlist;
     private final JButton addToWatchedList;
-    private final JButton toRate;
     private final JButton cancel;
 
     private final JPanel movie;
@@ -81,8 +82,6 @@ public class LoggedInSearchResultView extends JPanel implements ActionListener, 
         buttons.add(addToWatchlist);
         addToWatchedList = new JButton(loggedInSearchResultViewModel.ADD_TO_WATCHED_LIST_BUTTON_LABEL);
         buttons.add(addToWatchedList);
-        toRate = new JButton(loggedInSearchResultViewModel.RATE_BUTTON_LABEL);
-        buttons.add(toRate);
         cancel = new JButton(loggedInSearchResultViewModel.CANCEL_BUTTON_LABEL);
         buttons.add(cancel);
 
@@ -90,9 +89,9 @@ public class LoggedInSearchResultView extends JPanel implements ActionListener, 
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         final LoggedInSearchResultState currentState = loggedInSearchResultViewModel.getState();
-                        addToWatchlistController.execute(currentState.getUsername(), currentState.getMovie());
+                        addToWatchlistController.execute(currentState.getUsername(), currentState.getTitle());
                         JOptionPane.showMessageDialog(null, "\"" +
-                                currentState.getMovie().getTitle() + "\" has been added to your watchlist.");
+                                currentState.getTitle() + "\" has been added to your watchlist.");
                     }
                 }
         );
@@ -101,18 +100,9 @@ public class LoggedInSearchResultView extends JPanel implements ActionListener, 
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         final LoggedInSearchResultState currentState = loggedInSearchResultViewModel.getState();
-                        addToWatchedListController.execute(currentState.getUsername(), currentState.getMovie());
+                        addToWatchedListController.execute(currentState.getUsername(), currentState.getTitle());
                         JOptionPane.showMessageDialog(null, "\"" +
-                                currentState.getMovie().getTitle() + "\" has been added to your watched list.");
-                    }
-                }
-        );
-
-        toRate.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        final LoggedInSearchResultState currentState = loggedInSearchResultViewModel.getState();
-                        loggedInSearchResultController.switchToRateView(currentState.getUsername(), currentState.getMovie());
+                                currentState.getTitle() + "\" has been added to your watched list.");
                     }
                 }
         );
@@ -121,7 +111,7 @@ public class LoggedInSearchResultView extends JPanel implements ActionListener, 
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         final LoggedInSearchResultState currentState = loggedInSearchResultViewModel.getState();
-                        loggedInSearchResultController.switchToLoggedInView(currentState.getUsername());
+                        toLoggedInViewController.toLoggedInView(currentState.getUsername());
                     }
                 }
         );
@@ -143,18 +133,15 @@ public class LoggedInSearchResultView extends JPanel implements ActionListener, 
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
             final LoggedInSearchResultState state = (LoggedInSearchResultState) evt.getNewValue();
-            final Movie movie = state.getMovie();
-
-            setMovieTitle(movie);
-            setMovieReleaseDate(movie);
-            setMovieDescription(movie);
-            setMovieRottenTomatoes(movie);
-            setMovieRuntime(movie);
-            setMovieGenre(movie);
-            setMovieActors(movie);
-            setMovieDirector(movie);
-            setMoviePoster(movie);
-
+            movieTitle.setText("Title: " + state.getTitle());
+            movieReleaseDate.setText("Release Date: " + state.getReleaseDate());
+            movieDescription.setText("Description: " + state.getDescription());
+            movieRottenTomatoes.setText("Rotten Tomatoes: " + state.getRottenTomatoes());
+            movieRuntime.setText("Genres: " + state.getRuntime());
+            movieGenre.setText("Actors: " + state.getGenre());
+            movieActors.setText("Directors: " + state.getActors());
+            movieDirector.setText("Runtime: " + state.getDirector());
+            setMoviePoster(state.getPosterLink());
             username.setText("username: " + state.getUsername());
         }
     }
@@ -175,90 +162,28 @@ public class LoggedInSearchResultView extends JPanel implements ActionListener, 
         this.addToWatchedListController = addToWatchedListController;
     }
 
+    public void setToLoggedInViewController(ToLoggedInViewController toLoggedInViewController) {
+        this.toLoggedInViewController = toLoggedInViewController;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
     }
 
-    public void setMovieTitle(Movie movie) {
-        movieTitle.setText("Title: " + movie.getTitle());
-    }
-
-    public void setMovieReleaseDate(Movie movie) {
-        if (movie.getReleaseDate().isEmpty()) {
-            movieReleaseDate.setText("Release date not available.");
-        }
-        else {
-            movieReleaseDate.setText("Release Date: " + movie.getReleaseDate());
-        }
-    }
-
-    public void setMovieDescription(Movie movie) {
-        if (movie.getDescription().isEmpty()) {
-            movieDescription.setText("Description not available.");
-        }
-        else {
-            movieDescription.setText("Description: " + movie.getDescription());
-        }
-    }
-
-    public void setMovieRottenTomatoes(Movie movie) {
-        if (movie.getRottenTomatoes() == -1) {
-            movieRottenTomatoes.setText("Rotten Tomatoes not available.");
-        }
-        else {
-            movieRottenTomatoes.setText("Rotten Tomatoes: " + String.valueOf(movie.getRottenTomatoes()));
-        }
-    }
-
-    public void setMovieGenre(Movie movie) {
-        if (movie.getGenre().isEmpty()) {
-            movieGenre.setText("Genres not available.");
-        }
-        else {
-            movieGenre.setText("Genres: " + movie.getGenre().toString());
-        }
-    }
-
-    public void setMovieActors(Movie movie) {
-        if (movie.getActors().isEmpty()) {
-            movieActors.setText("Actors not available.");
-        }
-        else {
-            movieActors.setText("Actors: " + movie.getActors().toString());
-        }
-    }
-
-    public void setMovieDirector(Movie movie) {
-        if (movie.getDirector().isEmpty()) {
-            movieDirector.setText("Directors not available.");
-        }
-        else {
-            movieDirector.setText("Directors: " + movie.getDirector().toString());
-        }
-    }
-
-    public void setMovieRuntime(Movie movie) {
-        if (movie.getRuntime() == -1) {
-            movieRuntime.setText("Runtime not available.");
-        }
-        else {
-            movieRuntime.setText("Runtime: " + String.valueOf(movie.getRuntime()));
-        }
-    }
-
-    public void setMoviePoster(Movie movie) {
-        if (movie.getPosterLink().isEmpty()) {
+    public void setMoviePoster(String posterLink) {
+        if (posterLink.equals("Poster not available.")) {
             moviePoster.setText("Poster not available.");
         }
         else {
             try {
-                URL url = new URL(movie.getPosterLink());
+                URL url = new URL(posterLink);
                 BufferedImage image = ImageIO.read(url);
+                moviePoster.setText("");
                 moviePoster.setIcon(new ImageIcon(image));
 
             } catch (IOException e) {
-                System.out.println("Poster not available");
+                moviePoster.setText("Poster not available.");
             }
         }
     }

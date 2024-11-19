@@ -22,7 +22,16 @@ public class LoggedInSearchInteractor implements LoggedInSearchInputBoundary {
         try {
             final Movie movie = loggedInSearchDataAccessObject.search(loggedInSearchInputData.getSearchQuery());
             final String username = loggedInSearchInputData.getUsername();
-            final LoggedInSearchOutputData loggedInSearchOutputData = new LoggedInSearchOutputData(username, movie,
+            final LoggedInSearchOutputData loggedInSearchOutputData = new LoggedInSearchOutputData(username,
+                    movie.getTitle(),
+                    getMovieReleaseDate(movie),
+                    getMovieDescription(movie),
+                    getMovieRottenTomatoes(movie),
+                    getMovieRuntime(movie),
+                    getMovieGenre(movie),
+                    getMovieActors(movie),
+                    getMovieDirector(movie),
+                    getMoviePoster(movie),
                     false);
             presenter.prepareSuccessView(loggedInSearchOutputData);
         }
@@ -31,11 +40,75 @@ public class LoggedInSearchInteractor implements LoggedInSearchInputBoundary {
         }
     }
 
-    @Override
-    public void switchToLoggedInView(LoggedInSearchInputData loggedInSearchInputData) {
-        final LoggedInSearchOutputData loggedInSearchOutputData = new LoggedInSearchOutputData(
-                loggedInSearchInputData.getUsername(),
-                new Movie(), false);
-        presenter.switchToLoggedInView(loggedInSearchOutputData);
+    private String getMovieReleaseDate(Movie movie) {
+        if (movie.getReleaseDate().isEmpty()) {
+            return "Release date not available.";
+        }
+        else {
+            return movie.getReleaseDate();
+        }
+    }
+
+    private String getMovieDescription(Movie movie) {
+        if (movie.getDescription().isEmpty()) {
+            return "Description not available.";
+        }
+        else {
+            return movie.getDescription();
+        }
+    }
+
+    private String getMovieRottenTomatoes(Movie movie) {
+        if (movie.getRottenTomatoes() == -1) {
+            return "Rotten Tomatoes not available.";
+        }
+        else {
+            return String.valueOf(movie.getRottenTomatoes());
+        }
+    }
+
+    private String getMovieGenre(Movie movie) {
+        if (movie.getGenre().isEmpty()) {
+            return "Genres not available.";
+        }
+        else {
+            return movie.getGenre().toString();
+        }
+    }
+
+    private String getMovieActors(Movie movie) {
+        if (movie.getActors().isEmpty()) {
+            return "Actors not available.";
+        }
+        else {
+            return movie.getActors().toString();
+        }
+    }
+
+    private String getMovieDirector(Movie movie) {
+        if (movie.getDirector().isEmpty()) {
+            return "Directors not available.";
+        }
+        else {
+            return movie.getDirector().toString();
+        }
+    }
+
+    private String getMovieRuntime(Movie movie) {
+        if (movie.getRuntime() == -1) {
+            return "Runtime not available.";
+        }
+        else {
+            return String.valueOf(movie.getRuntime());
+        }
+    }
+
+    private String getMoviePoster(Movie movie) {
+        if (movie.getPosterLink().isEmpty()) {
+            return "Poster not available.";
+        }
+        else {
+            return movie.getPosterLink();
+        }
     }
 }

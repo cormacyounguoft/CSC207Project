@@ -419,7 +419,7 @@ public class AppBuilder {
 
     public AppBuilder addLoggedInSearchUseCase() {
         final LoggedInSearchOutputBoundary loggedInSearchOutputBoundary = new LoggedInSearchPresenter(viewManagerModel,
-                loggedInSearchViewModel, loggedInSearchResultViewModel, loggedInViewModel);
+                loggedInSearchViewModel, loggedInSearchResultViewModel);
         final LoggedInSearchInputBoundary loggedInSearchInteractor = new LoggedInSearchInteractor(loggedInSearchOutputBoundary,
                 movieAccessObject);
         final LoggedInSearchController loggedInSearchController = new LoggedInSearchController(loggedInSearchInteractor);
@@ -429,7 +429,7 @@ public class AppBuilder {
 
     public AppBuilder addLoggedInSearchResultUseCase() {
         final LoggedInSearchResultOutputBoundary loggedInSearchResultOutputBoundary = new LoggedInSearchResultPresenter(
-                viewManagerModel, loggedInViewModel, loggedInSearchResultViewModel, rateViewModel);
+                viewManagerModel, loggedInSearchResultViewModel);
         final LoggedInSearchResultInputBoundary loggedInSearchResultInteractor = new LoggedInSearchResultInteractor(loggedInSearchResultOutputBoundary);
         final LoggedInSearchResultController loggedInSearchResultController = new LoggedInSearchResultController(loggedInSearchResultInteractor);
         loggedInSearchResultView.setLoggedInSearchResultController(loggedInSearchResultController);
