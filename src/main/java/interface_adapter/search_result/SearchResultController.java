@@ -2,7 +2,7 @@ package interface_adapter.search_result;
 
 import entity.Movie;
 import use_case.search_result.SearchResultInputBoundary;
-import use_case.search_result.SearchResultInputData;
+
 
 /**
  * Controller for the Search Result Use Case.
