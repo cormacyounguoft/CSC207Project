@@ -5,10 +5,10 @@ import entity.Movie;
 public class RateInputData {
 
     private final String username;
-    private final Movie movie;
+    private final String movie;
     private final int rating;
 
-    public RateInputData(String username, Movie movie, int rating) {
+    public RateInputData(String username, String movie, int rating) {
         this.username = username;
         this.movie = movie;
         this.rating = rating;
@@ -18,7 +18,7 @@ public class RateInputData {
         return username;
     }
 
-    public Movie getMovie() {
+    public String getMovie() {
         return movie;
     }
 

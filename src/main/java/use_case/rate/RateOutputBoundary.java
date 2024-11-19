@@ -5,6 +5,4 @@ public interface RateOutputBoundary {
     void prepareSuccessView(RateOutputData outputData);
 
     void prepareFailView(String errorMessage);
-
-    void switchToLoggedInView(RateOutputData outputData);
 }

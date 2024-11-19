@@ -4,6 +4,8 @@ import entity.MovieList;
 import use_case.watchlist.WatchlistInputBoundary;
 import use_case.watchlist.WatchlistInputData;
 
+import java.util.List;
+
 public class WatchlistController {
     private final WatchlistInputBoundary interactor;
 
@@ -11,13 +13,8 @@ public class WatchlistController {
         this.interactor = interactor;
     }
 
-    public void execute(String username, MovieList watchlist) {
-        final WatchlistInputData inputData = new WatchlistInputData(username, watchlist);
+    public void execute(String username, List<String> watchedListTitle, List<String> watchedListURL) {
+        final WatchlistInputData inputData = new WatchlistInputData(username, watchedListTitle, watchedListURL);
         interactor.execute(inputData);
-    }
-
-    public void switchToLoggedInView(String username) {
-        final WatchlistInputData inputData = new WatchlistInputData(username, new MovieList());
-        interactor.switchToLoggedInView(inputData);
     }
 }

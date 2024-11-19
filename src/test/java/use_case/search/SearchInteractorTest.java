@@ -2,6 +2,7 @@ package use_case.search;
 
 import data_access.MovieAccessObject;
 import org.junit.jupiter.api.Test;
+import use_case.SearchDataAccessInterface;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -47,6 +47,7 @@ public class Main {
                 .addRate()
                 .addGetRatedListUseCase()
                 .addRatedListUseCase()
+                .addToLoggedInViewUseCase()
                 .build();
 
         application.pack();

@@ -3,6 +3,7 @@ package view;
 import interface_adapter.rate.RateController;
 import interface_adapter.rate.RateState;
 import interface_adapter.rate.RateViewModel;
+import interface_adapter.to_logged_in_view.ToLoggedInViewController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +17,7 @@ public class RateView extends JPanel implements ActionListener, PropertyChangeLi
 
     private final RateViewModel rateViewModel;
     private RateController rateController;
+    private ToLoggedInViewController toLoggedInViewController;
 
     private final JButton rate;
     private final JButton cancel;
@@ -56,7 +58,7 @@ public class RateView extends JPanel implements ActionListener, PropertyChangeLi
                             }
                             else {
                                     JOptionPane.showMessageDialog(null, "The rating of " +
-                                            rating + " out of 5 for \"" + currentState.getMovie().getTitle() +
+                                            rating + " out of 5 for \"" + currentState.getMovie() +
                                             "\" has been saved to your account.");
                                 }
                         }
@@ -69,7 +71,7 @@ public class RateView extends JPanel implements ActionListener, PropertyChangeLi
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(cancel)) {
                             final RateState currentState = rateViewModel.getState();
-                            rateController.switchToLoggedInView(currentState.getUsername());
+                            toLoggedInViewController.toLoggedInView(currentState.getUsername());
                         }
                     }
                 }
@@ -93,16 +95,19 @@ public class RateView extends JPanel implements ActionListener, PropertyChangeLi
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         final RateState state = (RateState) evt.getNewValue();
         final String username = state.getUsername();
-        final String movie = state.getMovie().getTitle();
+        final String movie = state.getMovie();
 
         this.movie.setText("Movie: " + movie);
         this.username.setText("Username: " + username);
+    }
+
+    public void setToLoggedInViewController(ToLoggedInViewController toLoggedInViewController) {
+        this.toLoggedInViewController = toLoggedInViewController;
     }
 }

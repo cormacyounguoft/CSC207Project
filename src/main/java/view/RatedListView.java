@@ -1,28 +1,24 @@
 package view;
 
-import entity.Movie;
-import interface_adapter.RatedList.RatedListController;
-import interface_adapter.RatedList.RatedListState;
-import interface_adapter.RatedList.RatedListViewModel;
-import interface_adapter.watched_list.WatchedListState;
+import interface_adapter.ratedList.RatedListController;
+import interface_adapter.ratedList.RatedListState;
+import interface_adapter.ratedList.RatedListViewModel;
+import interface_adapter.to_logged_in_view.ToLoggedInViewController;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
-import java.net.URL;
-import java.util.List;
 import java.util.Map;
 
 public class RatedListView extends JPanel implements ActionListener, PropertyChangeListener {
     private final String viewName = "rated list";
     private final RatedListViewModel ratedListViewModel;
     private RatedListController ratedListController;
+    private ToLoggedInViewController toLoggedInViewController;
+
     private final JButton cancel;
 
     private final JLabel username;
@@ -48,7 +44,7 @@ public class RatedListView extends JPanel implements ActionListener, PropertyCha
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         final RatedListState currentState = ratedListViewModel.getState();
-                        ratedListController.switchToLoggedInView(currentState.getUsername());
+                        toLoggedInViewController.toLoggedInView(currentState.getUsername());
                     }
                 }
         );
@@ -74,9 +70,7 @@ public class RatedListView extends JPanel implements ActionListener, PropertyCha
 
             for (Map.Entry<String, Integer> entry : ratings.entrySet()) {
                 String key = entry.getKey();
-                Integer value = entry.getValue();
-                JButton rating= new JButton(key);
-
+                JButton rating = new JButton(key + ": " + entry.getValue());
                 ratedList.add(rating);
                 }
 
@@ -90,5 +84,9 @@ public class RatedListView extends JPanel implements ActionListener, PropertyCha
 
     public void setRatedListController(RatedListController ratedListController){
         this.ratedListController = ratedListController;
+    }
+
+    public void setToLoggedInViewController(ToLoggedInViewController toLoggedInViewController) {
+        this.toLoggedInViewController = toLoggedInViewController;
     }
 }

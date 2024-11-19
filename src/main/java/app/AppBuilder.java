@@ -5,9 +5,9 @@ import data_access.MovieAccessObject;
 import entity.CommonUserFactory;
 import entity.MovieFactory;
 import entity.UserFactory;
-import interface_adapter.RatedList.RatedListController;
-import interface_adapter.RatedList.RatedListPresenter;
-import interface_adapter.RatedList.RatedListViewModel;
+import interface_adapter.ratedList.RatedListController;
+import interface_adapter.ratedList.RatedListPresenter;
+import interface_adapter.ratedList.RatedListViewModel;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.add_to_watched_list.AddToWatchedListController;
 import interface_adapter.add_to_watched_list.AddToWatchedListPresenter;
@@ -22,8 +22,8 @@ import interface_adapter.get_watched_list.GetWatchedListController;
 import interface_adapter.get_watched_list.GetWatchedListPresenter;
 import interface_adapter.get_watchlist.GetWatchlistController;
 import interface_adapter.get_watchlist.GetWatchlistPresenter;
-import interface_adapter.go_to_rate.GoRateController;
-import interface_adapter.go_to_rate.GoRatePresenter;
+import interface_adapter.go_to_rate.GoToRateController;
+import interface_adapter.go_to_rate.GoToRatePresenter;
 import interface_adapter.home.HomeController;
 import interface_adapter.home.HomePresenter;
 import interface_adapter.home.HomeViewModel;
@@ -53,6 +53,8 @@ import interface_adapter.search_result.SearchResultViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.to_logged_in_view.ToLoggedInViewController;
+import interface_adapter.to_logged_in_view.ToLoggedInViewPresenter;
 import interface_adapter.watched_list.WatchedListController;
 import interface_adapter.watched_list.WatchedListPresenter;
 import interface_adapter.watched_list.WatchedListViewModel;
@@ -77,9 +79,9 @@ import use_case.get_watched_list.GetWatchedListOutputBoundary;
 import use_case.get_watchlist.GetWatchlistInputBoundary;
 import use_case.get_watchlist.GetWatchlistInteractor;
 import use_case.get_watchlist.GetWatchlistOutputBoundary;
-import use_case.go_to_rate.GoRateInputBoundary;
-import use_case.go_to_rate.GoRateInteractor;
-import use_case.go_to_rate.GoRateOutputBoundary;
+import use_case.go_to_rate.GoToRateInputBoundary;
+import use_case.go_to_rate.GoToRateInteractor;
+import use_case.go_to_rate.GoToRateOutputBoundary;
 import use_case.home.HomeInputBoundary;
 import use_case.home.HomeInteractor;
 import use_case.home.HomeOutputBoundary;
@@ -113,6 +115,9 @@ import use_case.search_result.SearchResultOutputBoundary;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
+import use_case.to_logged_in_view.ToLoggedInViewInputBoundary;
+import use_case.to_logged_in_view.ToLoggedInViewInteractor;
+import use_case.to_logged_in_view.ToLoggedInViewOutputBoundary;
 import use_case.watched_list.WatchedListInputBoundary;
 import use_case.watched_list.WatchedListInteractor;
 import use_case.watched_list.WatchedListOutputBoundary;
@@ -438,7 +443,7 @@ public class AppBuilder {
 
     public AppBuilder addRateUseCase() {
         final RateOutputBoundary rateOutputBoundary = new RatePresenter(viewManagerModel, rateViewModel, loggedInViewModel);
-        final RateInputBoundary rateInteractor = new RateInteractor(userDataAccessObject, rateOutputBoundary);
+        final RateInputBoundary rateInteractor = new RateInteractor(userDataAccessObject, movieAccessObject, rateOutputBoundary);
         final RateController rateController = new RateController(rateInteractor);
         rateView.setRateController(rateController);
         return this;
@@ -446,30 +451,30 @@ public class AppBuilder {
 
     public AppBuilder addAddToWatchedListUseCase() {
         final AddToWatchedListOutputBoundary addToWatchedListOutputBoundary = new AddToWatchedListPresenter(viewManagerModel, loggedInSearchResultViewModel, loggedInViewModel);
-        final AddToWatchedListInputBoundary addToWatchedListInteractor = new AddToWatchedListInteractor(userDataAccessObject, addToWatchedListOutputBoundary);
+        final AddToWatchedListInputBoundary addToWatchedListInteractor = new AddToWatchedListInteractor(userDataAccessObject, movieAccessObject, addToWatchedListOutputBoundary);
         final AddToWatchedListController addToWatchedListController = new AddToWatchedListController(addToWatchedListInteractor);
         loggedInSearchResultView.setAddToWatchedListController(addToWatchedListController);
         return this;
     }
 
     public AppBuilder addRate(){
-        final GoRateOutputBoundary goRateOutputBoundary = new GoRatePresenter(viewManagerModel, rateViewModel);
-        final GoRateInputBoundary goRateInteractor = new GoRateInteractor(goRateOutputBoundary);
-        final GoRateController con = new GoRateController(goRateInteractor);
-        watchedListView.setGoRateController(con);
+        final GoToRateOutputBoundary goToRateOutputBoundary = new GoToRatePresenter(viewManagerModel, rateViewModel);
+        final GoToRateInputBoundary goRateInteractor = new GoToRateInteractor(goToRateOutputBoundary);
+        final GoToRateController controller = new GoToRateController(goRateInteractor);
+        watchedListView.setGoToRateController(controller);
         return this;
     }
 
     public AppBuilder addAddToWatchlistUseCase() {
         final AddToWatchlistOutputBoundary addToWatchlistOutputBoundary = new AddToWatchlistPresenter(viewManagerModel, loggedInSearchResultViewModel, loggedInViewModel);
-        final AddToWatchlistInputBoundary addToWatchlistInteractor = new AddToWatchlistInteractor(userDataAccessObject, addToWatchlistOutputBoundary);
+        final AddToWatchlistInputBoundary addToWatchlistInteractor = new AddToWatchlistInteractor(userDataAccessObject, movieAccessObject, addToWatchlistOutputBoundary);
         final AddToWatchlistController addToWatchlistController = new AddToWatchlistController(addToWatchlistInteractor);
         loggedInSearchResultView.setAddToWatchlistController(addToWatchlistController);
         return this;
     }
 
     public AppBuilder addWatchedListUseCase() {
-        final WatchedListOutputBoundary watchedListOutputBoundary = new WatchedListPresenter(viewManagerModel, loggedInViewModel, watchedListViewModel);
+        final WatchedListOutputBoundary watchedListOutputBoundary = new WatchedListPresenter(viewManagerModel, watchedListViewModel);
         final WatchedListInputBoundary watchedListInputBoundary = new WatchedListInteractor(watchedListOutputBoundary);
         final WatchedListController watchedListController = new WatchedListController(watchedListInputBoundary);
         watchedListView.setWatchedListController(watchedListController);
@@ -477,7 +482,7 @@ public class AppBuilder {
     }
 
     public AppBuilder addWatchlistUseCase() {
-        final WatchlistOutputBoundary watchlistOutputBoundary = new WatchlistPresenter(viewManagerModel, loggedInViewModel, watchlistViewModel);
+        final WatchlistOutputBoundary watchlistOutputBoundary = new WatchlistPresenter(viewManagerModel, watchlistViewModel);
         final WatchlistInputBoundary watchlistInputBoundary = new WatchlistInteractor(watchlistOutputBoundary);
         final WatchlistController watchlistController = new WatchlistController(watchlistInputBoundary);
         watchlistView.setWatchlistController(watchlistController);
@@ -485,7 +490,7 @@ public class AppBuilder {
     }
 
     public AppBuilder addRatedListUseCase(){
-        final RatedListOutputBoundary ratedListOutputBoundary = new RatedListPresenter(viewManagerModel, loggedInViewModel, ratedListViewModel);
+        final RatedListOutputBoundary ratedListOutputBoundary = new RatedListPresenter(viewManagerModel, ratedListViewModel);
         final RatedListInputBoundary ratedListInputBoundary = new RatedListInteractor(ratedListOutputBoundary);
         final RatedListController ratedListController = new RatedListController(ratedListInputBoundary);
         ratedListView.setRatedListController(ratedListController);
@@ -513,6 +518,19 @@ public class AppBuilder {
         final GetWatchlistInputBoundary getWatchlistInputBoundary = new GetWatchlistInteractor(getWatchlistOutputBoundary, userDataAccessObject);
         final GetWatchlistController getWatchlistController = new GetWatchlistController(getWatchlistInputBoundary);
         loggedInView.setWatchlistController(getWatchlistController);
+        return this;
+    }
+
+    public AppBuilder addToLoggedInViewUseCase() {
+        final ToLoggedInViewOutputBoundary toLoggedInViewOutputBoundary = new ToLoggedInViewPresenter(viewManagerModel, loggedInViewModel);
+        final ToLoggedInViewInputBoundary toLoggedInViewInputBoundary = new ToLoggedInViewInteractor(toLoggedInViewOutputBoundary);
+        final ToLoggedInViewController toLoggedInViewController = new ToLoggedInViewController(toLoggedInViewInputBoundary);
+        ratedListView.setToLoggedInViewController(toLoggedInViewController);
+        rateView.setToLoggedInViewController(toLoggedInViewController);
+        loggedInSearchView.setToLoggedInViewController(toLoggedInViewController);
+        loggedInSearchResultView.setToLoggedInViewController(toLoggedInViewController);
+        watchedListView.setGoToLoggedInViewController(toLoggedInViewController);
+        watchlistView.setToLoggedInViewController(toLoggedInViewController);
         return this;
     }
 

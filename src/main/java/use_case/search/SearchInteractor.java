@@ -3,6 +3,7 @@ package use_case.search;
 import java.io.IOException;
 
 import entity.Movie;
+import use_case.SearchDataAccessInterface;
 
 /**
  * The Search Interactor.

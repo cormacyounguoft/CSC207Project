@@ -5,10 +5,10 @@ import entity.Movie;
 public class RateOutputData {
 
     private final String username;
-    private final Movie movie;
+    private final String movie;
     private final boolean useCaseFailed;
 
-    public RateOutputData(String username, Movie movie, boolean useCaseFailed) {
+    public RateOutputData(String username, String movie, boolean useCaseFailed) {
         this.username = username;
         this.movie = movie;
         this.useCaseFailed = useCaseFailed;
@@ -18,7 +18,7 @@ public class RateOutputData {
         return username;
     }
 
-    public Movie getMovie() {
+    public String getMovie() {
         return movie;
     }
 

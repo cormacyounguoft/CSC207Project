@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapter.to_logged_in_view.ToLoggedInViewController;
 import interface_adapter.watchlist.WatchlistController;
 import interface_adapter.watchlist.WatchlistState;
 import interface_adapter.watchlist.WatchlistViewModel;
@@ -21,6 +22,7 @@ public class WatchlistView  extends JPanel implements ActionListener, PropertyCh
 
     private final WatchlistViewModel watchlistViewModel;
     private WatchlistController watchlistController;
+    private ToLoggedInViewController toLoggedInViewController;
 
     private final JButton cancel;
 
@@ -47,7 +49,7 @@ public class WatchlistView  extends JPanel implements ActionListener, PropertyCh
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         final WatchlistState currentState = watchlistViewModel.getState();
-                        watchlistController.switchToLoggedInView(currentState.getUsername());
+                        toLoggedInViewController.toLoggedInView(currentState.getUsername());
                     }
                 }
         );
@@ -68,10 +70,10 @@ public class WatchlistView  extends JPanel implements ActionListener, PropertyCh
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
             final WatchlistState state = (WatchlistState) evt.getNewValue();
-            final List<String> posters = state.getWatchlist().getPosters();
+            final List<String> moviePosters = state.getWatchlistURL();
             watchlist.removeAll();
 
-            for (String poster: posters) {
+            for (String poster: moviePosters) {
                 JLabel posterLabels = new JLabel();
                 if (poster.isEmpty()) {
                     posterLabels.setText("Poster not available.");
@@ -84,7 +86,7 @@ public class WatchlistView  extends JPanel implements ActionListener, PropertyCh
                         posterLabels.setIcon(new ImageIcon(image));
 
                     } catch (IOException e) {
-                        System.out.println("Poster not available");
+                        posterLabels.setText("Poster not available.");
                     }
                 }
                 watchlist.add(posterLabels);
@@ -99,5 +101,9 @@ public class WatchlistView  extends JPanel implements ActionListener, PropertyCh
 
     public void setWatchlistController(WatchlistController watchlistController) {
         this.watchlistController = watchlistController;
+    }
+
+    public void setToLoggedInViewController(ToLoggedInViewController toLoggedInViewController) {
+        this.toLoggedInViewController = toLoggedInViewController;
     }
 }

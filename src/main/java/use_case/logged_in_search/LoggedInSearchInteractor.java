@@ -1,6 +1,7 @@
 package use_case.logged_in_search;
 
 import entity.Movie;
+import use_case.SearchDataAccessInterface;
 
 import java.io.IOException;
 
@@ -9,18 +10,18 @@ import java.io.IOException;
  */
 public class LoggedInSearchInteractor implements LoggedInSearchInputBoundary {
     private final LoggedInSearchOutputBoundary presenter;
-    private final LoggedInSearchDataAccessInterface loggedInSearchDataAccessObject;
+    private final SearchDataAccessInterface searchDataAccessObject;
 
     public LoggedInSearchInteractor(LoggedInSearchOutputBoundary loggedInSearchOutputBoundary,
-                                    LoggedInSearchDataAccessInterface loggedInSearchDataAccessObject) {
+                                    SearchDataAccessInterface searchDataAccessObject) {
         this.presenter = loggedInSearchOutputBoundary;
-        this.loggedInSearchDataAccessObject = loggedInSearchDataAccessObject;
+        this.searchDataAccessObject = searchDataAccessObject;
     }
 
     @Override
     public void execute(LoggedInSearchInputData loggedInSearchInputData) {
         try {
-            final Movie movie = loggedInSearchDataAccessObject.search(loggedInSearchInputData.getSearchQuery());
+            final Movie movie = searchDataAccessObject.search(loggedInSearchInputData.getSearchQuery());
             final String username = loggedInSearchInputData.getUsername();
             final LoggedInSearchOutputData loggedInSearchOutputData = new LoggedInSearchOutputData(username,
                     movie.getTitle(),

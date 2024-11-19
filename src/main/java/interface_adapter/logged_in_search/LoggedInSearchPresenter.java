@@ -27,6 +27,7 @@ public class LoggedInSearchPresenter implements LoggedInSearchOutputBoundary {
     @Override
     public void prepareSuccessView(LoggedInSearchOutputData response) {
         final LoggedInSearchResultState loggedInSearchResultState = loggedInSearchResultViewModel.getState();
+        loggedInSearchResultState.setUsername(response.getUsername());
         loggedInSearchResultState.setTitle(response.getTitle());
         loggedInSearchResultState.setReleaseDate(response.getReleaseDate());
         loggedInSearchResultState.setDescription(response.getDescription());

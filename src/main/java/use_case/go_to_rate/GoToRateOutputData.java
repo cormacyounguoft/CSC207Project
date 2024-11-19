@@ -1,15 +1,10 @@
 package use_case.go_to_rate;
 
-import entity.Movie;
-import entity.MovieList;
-
-import java.util.Map;
-
-public class GoRateOutputData {
+public class GoToRateOutputData {
     private final String username;
-    private final Movie movie;
+    private final String movie;
     private final boolean useCaseFailed;
-    public GoRateOutputData(String username, Movie movie, boolean useCaseFailed) {
+    public GoToRateOutputData(String username, String movie, boolean useCaseFailed) {
         this.username = username;
         this.movie = movie;
         this.useCaseFailed = useCaseFailed;
@@ -19,7 +14,7 @@ public class GoRateOutputData {
         return username;
     }
 
-    public Movie getMovie() {
+    public String getMovie() {
         return movie;
     }
 
