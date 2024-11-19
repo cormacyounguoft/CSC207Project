@@ -55,17 +55,9 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     }
 
     @Override
-    public void changePassword(User user) {
-        // Replace the old entry with the new password
-        List<Movie> c = this.get(user.getName()).getWatchedList().getMovieList();
-        List<Movie> b = this.get(user.getName()).getWatchList().getMovieList();
-        for(Movie m : c) {
-           user.getWatchedList().getMovieList().add(m);
-        }
-        for(Movie m : b) {
-            user.getWatchList().getMovieList().add(m);
-        }
-        users.put(user.getName(), user);
+    public void changePassword(String username, String password) {
+        User user = this.get(username);
+        user.setUserPassword(password);
     }
 
     @Override

@@ -36,4 +36,7 @@ public interface User {
      * @return all the of the user's rating.
      */
     UserRating getUserRatings();
+
+
+    void setUserPassword(String password);
 }
