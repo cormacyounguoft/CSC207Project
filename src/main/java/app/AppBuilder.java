@@ -367,7 +367,7 @@ public class AppBuilder {
                 searchViewModel, searchResultViewModel);
 
         final SearchInputBoundary searchInteractor = new SearchInteractor(movieAccessObject,
-                searchOutputBoundary, movieFactory);
+                searchOutputBoundary);
 
         final SearchController controller = new SearchController(searchInteractor);
         searchView.setSearchController(controller);
