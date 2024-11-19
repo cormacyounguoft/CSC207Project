@@ -16,11 +16,9 @@ public class SearchResultController {
 
     /**
      * Executes the Change Password Use Case.
-     * @param movie the movie search result.
      */
-    public void execute(Movie movie) {
-        final SearchResultInputData searchResultInputData = new SearchResultInputData(movie);
-        searchResultUseCaseInteractor.execute(searchResultInputData);
+    public void execute() {
+        searchResultUseCaseInteractor.execute();
     }
 
     /**

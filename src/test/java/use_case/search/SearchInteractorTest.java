@@ -42,7 +42,7 @@ class SearchInteractorTest {
             }
         };
 
-        SearchInputBoundary interactor = new SearchInteractor(searchDataAccessInterface, successPresenter, new MovieFactory());
+        SearchInputBoundary interactor = new SearchInteractor(searchDataAccessInterface, successPresenter);
         interactor.execute(inputData);
 
     }

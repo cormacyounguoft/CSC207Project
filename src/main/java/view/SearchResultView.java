@@ -1,6 +1,5 @@
 package view;
 
-import entity.Movie;
 import interface_adapter.search_result.SearchResultController;
 import interface_adapter.search_result.SearchResultState;
 import interface_adapter.search_result.SearchResultViewModel;
@@ -15,6 +14,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 
 /**
  * The View for the Search Result Use Case.
@@ -79,28 +79,32 @@ public class SearchResultView extends JPanel implements ActionListener, Property
                     }
                 }
         );
-
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.add(title);
-        this.add(movie);
-        this.add(buttons);
+        JPanel view = new JPanel();
+        view.setLayout(new BoxLayout(view, BoxLayout.Y_AXIS));
+        view.add(title);
+        view.add(movie);
+        view.add(buttons);
+        JScrollPane scroller = new JScrollPane(view);
+        scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scroller.setPreferredSize(new Dimension(1000, 500));
+        this.add(scroller);
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
             final SearchResultState state = (SearchResultState) evt.getNewValue();
-            final Movie movie = state.getResult();
 
-            setMovieTitle(movie);
-            setMovieReleaseDate(movie);
-            setMovieDescription(movie);
-            setMovieRottenTomatoes(movie);
-            setMovieRuntime(movie);
-            setMovieGenre(movie);
-            setMovieActors(movie);
-            setMovieDirector(movie);
-            setMoviePoster(movie);
+
+            movieTitle.setText("Title: " + state.getTitle());
+            movieReleaseDate.setText("Release Date: " + state.getReleaseDate());
+            movieDescription.setText("Description: " + state.getDescription());
+            movieRottenTomatoes.setText("Rotten Tomatoes: " + state.getRottenTomatoes());
+            movieRuntime.setText("Runtime: " + state.getRuntime());
+            movieGenre.setText("Genres: " + state.getGenre());
+            movieActors.setText("Actors: " + state.getActors());
+            movieDirector.setText("Directors: " + state.getDirector());
+            setMoviePoster(state.getPoster());
         }
     }
 
@@ -120,80 +124,14 @@ public class SearchResultView extends JPanel implements ActionListener, Property
         System.out.println("Click " + evt.getActionCommand());
     }
 
-    public void setMovieTitle(Movie movie) {
-        movieTitle.setText("Title: " + movie.getTitle());
-    }
 
-    public void setMovieReleaseDate(Movie movie) {
-        if (movie.getReleaseDate().isEmpty()) {
-            movieReleaseDate.setText("Release date not available.");
-        }
-        else {
-            movieReleaseDate.setText("Release Date: " + movie.getReleaseDate());
-        }
-    }
-
-    public void setMovieDescription(Movie movie) {
-        if (movie.getDescription().isEmpty()) {
-            movieDescription.setText("Description not available.");
-        }
-        else {
-            movieDescription.setText("Description: " + movie.getDescription());
-        }
-    }
-
-    public void setMovieRottenTomatoes(Movie movie) {
-        if (movie.getRottenTomatoes() == -1) {
-            movieRottenTomatoes.setText("Rotten Tomatoes not available.");
-        }
-        else {
-            movieRottenTomatoes.setText("Rotten Tomatoes: " + String.valueOf(movie.getRottenTomatoes()));
-        }
-    }
-
-    public void setMovieGenre(Movie movie) {
-        if (movie.getGenre().isEmpty()) {
-            movieGenre.setText("Genres not available.");
-        }
-        else {
-            movieGenre.setText("Genres: " + movie.getGenre().toString());
-        }
-    }
-
-    public void setMovieActors(Movie movie) {
-        if (movie.getActors().isEmpty()) {
-            movieActors.setText("Actors not available.");
-        }
-        else {
-            movieActors.setText("Actors: " + movie.getActors().toString());
-        }
-    }
-
-    public void setMovieDirector(Movie movie) {
-        if (movie.getDirector().isEmpty()) {
-            movieDirector.setText("Directors not available.");
-        }
-        else {
-            movieDirector.setText("Directors: " + movie.getDirector().toString());
-        }
-    }
-
-    public void setMovieRuntime(Movie movie) {
-        if (movie.getRuntime() == -1) {
-            movieRuntime.setText("Runtime not available.");
-        }
-        else {
-            movieRuntime.setText("Runtime: " + String.valueOf(movie.getRuntime()));
-        }
-    }
-
-    public void setMoviePoster(Movie movie) {
-        if (movie.getPosterLink().isEmpty()) {
+    public void setMoviePoster(String poster) {
+        if (Objects.equals(poster, "Poster not available.")) {
             moviePoster.setText("Poster not available.");
         }
         else {
             try {
-                URL url = new URL(movie.getPosterLink());
+                URL url = new URL(poster);
                 BufferedImage image = ImageIO.read(url);
                 moviePoster.setText("");
                 moviePoster.setIcon(new ImageIcon(image));
