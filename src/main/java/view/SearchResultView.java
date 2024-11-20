@@ -3,6 +3,7 @@ package view;
 import interface_adapter.search_result.SearchResultController;
 import interface_adapter.search_result.SearchResultState;
 import interface_adapter.search_result.SearchResultViewModel;
+import interface_adapter.to_home_view.ToHomeViewController;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -37,6 +38,7 @@ public class SearchResultView extends JPanel implements ActionListener, Property
     private final JLabel moviePoster;
 
     private SearchResultController searchResultController;
+    private ToHomeViewController toHomeViewController;
 
     public SearchResultView(SearchResultViewModel searchResultViewModel) {
         this.searchResultViewModel = searchResultViewModel;
@@ -75,7 +77,7 @@ public class SearchResultView extends JPanel implements ActionListener, Property
         toHome.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        searchResultController.switchToHomeView();
+                        toHomeViewController.toHomeView();
                     }
                 }
         );
@@ -142,4 +144,7 @@ public class SearchResultView extends JPanel implements ActionListener, Property
         }
     }
 
+    public void setToHomeViewController(ToHomeViewController toHomeViewController) {
+        this.toHomeViewController = toHomeViewController;
+    }
 }

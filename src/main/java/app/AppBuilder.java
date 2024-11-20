@@ -53,6 +53,8 @@ import interface_adapter.search_result.SearchResultViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.to_home_view.ToHomeViewController;
+import interface_adapter.to_home_view.ToHomeViewPresenter;
 import interface_adapter.watched_list.WatchedListController;
 import interface_adapter.watched_list.WatchedListPresenter;
 import interface_adapter.watched_list.WatchedListViewModel;
@@ -113,6 +115,9 @@ import use_case.search_result.SearchResultOutputBoundary;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
+import use_case.to_home_view.ToHomeInteractor;
+import use_case.to_home_view.ToHomeViewInputBoundary;
+import use_case.to_home_view.ToHomeViewOutputBoundary;
 import use_case.watched_list.WatchedListInputBoundary;
 import use_case.watched_list.WatchedListInteractor;
 import use_case.watched_list.WatchedListOutputBoundary;
@@ -303,9 +308,13 @@ public class AppBuilder {
                 signupViewModel, loginViewModel, homeViewModel);
         final SignupInputBoundary userSignupInteractor = new SignupInteractor(
                 userDataAccessObject, signupOutputBoundary, userFactory);
+        final ToHomeViewOutputBoundary toHomeViewOutputBoundary = new ToHomeViewPresenter(viewManagerModel, homeViewModel);
+        final ToHomeViewInputBoundary toHomeViewInputBoundary = new ToHomeInteractor(toHomeViewOutputBoundary);
+        final ToHomeViewController toHomeViewController = new ToHomeViewController(toHomeViewInputBoundary);
 
         final SignupController controller = new SignupController(userSignupInteractor);
         signupView.setSignupController(controller);
+        signupView.setToHomeViewController(toHomeViewController);
         return this;
     }
 
@@ -318,9 +327,13 @@ public class AppBuilder {
                 loggedInViewModel, loginViewModel, homeViewModel);
         final LoginInputBoundary loginInteractor = new LoginInteractor(
                 userDataAccessObject, loginOutputBoundary);
+        final ToHomeViewOutputBoundary toHomeViewOutputBoundary = new ToHomeViewPresenter(viewManagerModel, homeViewModel);
+        final ToHomeViewInputBoundary toHomeViewInputBoundary = new ToHomeInteractor(toHomeViewOutputBoundary);
+        final ToHomeViewController toHomeViewController = new ToHomeViewController(toHomeViewInputBoundary);
 
         final LoginController loginController = new LoginController(loginInteractor);
         loginView.setLoginController(loginController);
+        loginView.setToHomeViewController(toHomeViewController);
         return this;
     }
 
@@ -370,7 +383,11 @@ public class AppBuilder {
                 searchOutputBoundary);
 
         final SearchController controller = new SearchController(searchInteractor);
+        final ToHomeViewOutputBoundary toHomeViewOutputBoundary = new ToHomeViewPresenter(viewManagerModel, homeViewModel);
+        final ToHomeViewInputBoundary toHomeViewInputBoundary = new ToHomeInteractor(toHomeViewOutputBoundary);
+        final ToHomeViewController toHomeViewController = new ToHomeViewController(toHomeViewInputBoundary);
         searchView.setSearchController(controller);
+        searchView.setToHomeViewController(toHomeViewController);
         return this;
     }
 
@@ -385,7 +402,11 @@ public class AppBuilder {
         final SearchResultInputBoundary searchResultInteractor = new SearchResultInteractor(searchResultOutputBoundary);
 
         final SearchResultController controller = new SearchResultController(searchResultInteractor);
+        final ToHomeViewOutputBoundary toHomeViewOutputBoundary = new ToHomeViewPresenter(viewManagerModel, homeViewModel);
+        final ToHomeViewInputBoundary toHomeViewInputBoundary = new ToHomeInteractor(toHomeViewOutputBoundary);
+        final ToHomeViewController toHomeViewController = new ToHomeViewController(toHomeViewInputBoundary);
         searchResultView.setSearchResultController(controller);
+        searchResultView.setToHomeViewController(toHomeViewController);
         return this;
     }
 
