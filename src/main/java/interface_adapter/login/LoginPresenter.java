@@ -47,9 +47,4 @@ public class LoginPresenter implements LoginOutputBoundary {
         loginViewModel.firePropertyChanged();
     }
 
-    @Override
-    public void switchToHomeView() {
-        viewManagerModel.setState(homeViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
-    }
 }

@@ -10,8 +10,4 @@ public interface SearchResultInputBoundary {
      */
     void execute();
 
-    /**
-     * Executes the switch to Home view use case.
-     */
-    void switchToHomeView();
 }

@@ -52,9 +52,4 @@ public class SignupPresenter implements SignupOutputBoundary {
         viewManagerModel.firePropertyChanged();
     }
 
-    @Override
-    public void switchToHomeView() {
-        viewManagerModel.setState(homeViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
-    }
 }

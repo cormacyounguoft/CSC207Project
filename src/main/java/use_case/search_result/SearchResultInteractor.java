@@ -17,8 +17,4 @@ public class SearchResultInteractor implements SearchResultInputBoundary {
         searchResultPresenter.prepareSuccessView(searchResultOutputData);
     }
 
-    @Override
-    public void switchToHomeView() {
-        searchResultPresenter.switchToHomeView();
-    }
 }
