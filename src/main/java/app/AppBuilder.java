@@ -5,9 +5,6 @@ import data_access.MovieAccessObject;
 import entity.CommonUserFactory;
 import entity.MovieFactory;
 import entity.UserFactory;
-import interface_adapter.RatedList.RatedListController;
-import interface_adapter.RatedList.RatedListPresenter;
-import interface_adapter.RatedList.RatedListViewModel;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.add_to_watched_list.AddToWatchedListController;
 import interface_adapter.add_to_watched_list.AddToWatchedListPresenter;
@@ -44,6 +41,9 @@ import interface_adapter.logout.LogoutPresenter;
 import interface_adapter.rate.RateController;
 import interface_adapter.rate.RatePresenter;
 import interface_adapter.rate.RateViewModel;
+import interface_adapter.ratedList.RatedListController;
+import interface_adapter.ratedList.RatedListPresenter;
+import interface_adapter.ratedList.RatedListViewModel;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchPresenter;
 import interface_adapter.search.SearchViewModel;
@@ -124,10 +124,25 @@ import use_case.watched_list.WatchedListOutputBoundary;
 import use_case.watchlist.WatchlistInputBoundary;
 import use_case.watchlist.WatchlistInteractor;
 import use_case.watchlist.WatchlistOutputBoundary;
-import view.*;
+import view.ChangePasswordView;
+import view.HomeView;
+import view.LoggedInSearchResultView;
+import view.LoggedInSearchView;
+import view.LoggedInView;
+import view.LoginView;
+import view.RateView;
+import view.RatedListView;
+import view.SearchResultView;
+import view.SearchView;
+import view.SignupView;
+import view.ViewManager;
+import view.WatchedListView;
+import view.WatchlistView;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
+import java.awt.CardLayout;
 
 /**
  * The AppBuilder class is responsible for putting together the pieces of

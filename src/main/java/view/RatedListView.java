@@ -1,9 +1,9 @@
 package view;
 
 import entity.Movie;
-import interface_adapter.RatedList.RatedListController;
-import interface_adapter.RatedList.RatedListState;
-import interface_adapter.RatedList.RatedListViewModel;
+import interface_adapter.ratedList.RatedListController;
+import interface_adapter.ratedList.RatedListState;
+import interface_adapter.ratedList.RatedListViewModel;
 import interface_adapter.watched_list.WatchedListState;
 
 import javax.imageio.ImageIO;
@@ -17,7 +17,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
+
 import java.util.Map;
 
 public class RatedListView extends JPanel implements ActionListener, PropertyChangeListener {
