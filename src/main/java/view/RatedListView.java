@@ -1,9 +1,9 @@
 package view;
 
 import entity.Movie;
-import interface_adapter.RatedList.RatedListController;
-import interface_adapter.RatedList.RatedListState;
-import interface_adapter.RatedList.RatedListViewModel;
+import interface_adapter.ratedList.RatedListController;
+import interface_adapter.ratedList.RatedListState;
+import interface_adapter.ratedList.RatedListViewModel;
 import interface_adapter.watched_list.WatchedListState;
 
 import javax.imageio.ImageIO;
