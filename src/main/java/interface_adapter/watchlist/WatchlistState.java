@@ -2,9 +2,12 @@ package interface_adapter.watchlist;
 
 import entity.MovieList;
 
+import java.util.List;
+
 public class WatchlistState {
     private String username;
-    private MovieList watchlist;
+    private List<String> watchlistTitle;
+    private List<String> watchlistURL;
     private String movieError;
 
     public String getUsername() {
@@ -15,12 +18,20 @@ public class WatchlistState {
         this.username = username;
     }
 
-    public MovieList getWatchlist() {
-        return watchlist;
+    public List<String> getWatchlistTitle() {
+        return watchlistTitle;
     }
 
-    public void setWatchlist(MovieList watchlist) {
-        this.watchlist = watchlist;
+    public void setWatchlistTitle(List<String> watchlistTitle) {
+        this.watchlistTitle = watchlistTitle;
+    }
+
+    public List<String> getWatchlistURL() {
+        return watchlistURL;
+    }
+
+    public void setWatchlistURL(List<String> watchlistURL) {
+        this.watchlistURL = watchlistURL;
     }
 
     public String getMovieError() {

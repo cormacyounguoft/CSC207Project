@@ -16,9 +16,4 @@ public interface LoggedInSearchOutputBoundary {
      * @param errorMessage the explanation of the failure
      */
     void prepareFailView(String errorMessage);
-
-    /**
-     * Switches to the Logged In Search View.
-     */
-    void switchToLoggedInView(LoggedInSearchOutputData loggedInSearchOutputData);
 }

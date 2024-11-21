@@ -16,18 +16,4 @@ public class LoggedInSearchResultInteractor implements LoggedInSearchResultInput
                 inputData.getUsername(), inputData.getMovie(), false);
         presenter.prepareSuccessView(outputData);
     }
-
-    @Override
-    public void switchToLoggedInView(LoggedInSearchResultInputData inputData) {
-        final LoggedInSearchResultOutputData outputData = new LoggedInSearchResultOutputData(
-                inputData.getUsername(), inputData.getMovie(), false);
-        presenter.switchToLoggedInView(outputData);
-    }
-
-    @Override
-    public void switchToRateView(LoggedInSearchResultInputData inputData) {
-        final LoggedInSearchResultOutputData outputData = new LoggedInSearchResultOutputData(
-                inputData.getUsername(), inputData.getMovie(), false);
-        presenter.switchToRateView(outputData);
-    }
 }

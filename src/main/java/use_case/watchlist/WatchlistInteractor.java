@@ -9,15 +9,8 @@ public class WatchlistInteractor implements WatchlistInputBoundary {
 
     @Override
     public void execute(WatchlistInputData inputData) {
-        final WatchlistOutputData outputData = new WatchlistOutputData(inputData.getUsername(), inputData.getWatchlist(),
-                false);
+        final WatchlistOutputData outputData = new WatchlistOutputData(inputData.getUsername(),
+                inputData.getWatchlistTitle(), inputData.getWatchlistURL(), false);
         presenter.prepareSuccessView(outputData);
-    }
-
-    @Override
-    public void switchToLoggedInView(WatchlistInputData inputData) {
-        final WatchlistOutputData outputData = new WatchlistOutputData(inputData.getUsername(), inputData.getWatchlist(),
-                false);
-        presenter.switchToLoggedInView(outputData);
     }
 }

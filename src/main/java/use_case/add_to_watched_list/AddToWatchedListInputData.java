@@ -7,9 +7,9 @@ import entity.Movie;
  */
 public class AddToWatchedListInputData {
     private final String username;
-    private final Movie movie;
+    private final String movie;
 
-    public AddToWatchedListInputData(String username, Movie movie) {
+    public AddToWatchedListInputData(String username, String movie) {
         this.username = username;
         this.movie = movie;
     }
@@ -18,7 +18,7 @@ public class AddToWatchedListInputData {
         return username;
     }
 
-    public Movie getMovie() {
+    public String getMovie() {
         return movie;
     }
 }
