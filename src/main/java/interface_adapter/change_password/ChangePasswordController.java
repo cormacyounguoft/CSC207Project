@@ -26,8 +26,8 @@ public class ChangePasswordController {
         userChangePasswordUseCaseInteractor.execute(changePasswordInputData);
     }
 
-    public void switchToLoggedInView(String password, String username) {
-        final ChangePasswordInputData inputData = new ChangePasswordInputData(username, password);
+    public void switchToLoggedInView(String password) {
+        final ChangePasswordInputData inputData = new ChangePasswordInputData("", password);
         userChangePasswordUseCaseInteractor.switchToLoggedInView(inputData);
     }
 }
