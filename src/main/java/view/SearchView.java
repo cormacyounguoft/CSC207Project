@@ -13,6 +13,7 @@ import javax.swing.event.DocumentListener;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchState;
 import interface_adapter.search.SearchViewModel;
+import interface_adapter.to_home_view.ToHomeViewController;
 
 /**
  * The View for the Search Use Case.
@@ -26,7 +27,9 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
     private final JLabel searchQueryErrorField = new JLabel();
 
     private final JButton search;
+    private final JButton cancel;
     private SearchController searchController;
+    private ToHomeViewController toHomeViewController;
 
     public SearchView(SearchViewModel searchViewModel) {
 
@@ -41,7 +44,10 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
 
         final JPanel buttons = new JPanel();
         search = new JButton(searchViewModel.SEARCH_BUTTON_LABEL);
+        cancel = new JButton(searchViewModel.CANCEL_LABEL);
         buttons.add(search);
+        buttons.add(cancel);
+
 
         search.addActionListener(
                 new ActionListener() {
@@ -54,6 +60,11 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                     }
                 }
         );
+        cancel.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                toHomeViewController.toHomeView();
+            }
+        });
 
         searchQueryInputField.getDocument().addDocumentListener(new DocumentListener() {
 
@@ -112,5 +123,9 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
 
     public void setSearchController(SearchController searchController) {
         this.searchController = searchController;
+    }
+
+    public void setToHomeViewController(ToHomeViewController toHomeViewController) {
+        this.toHomeViewController = toHomeViewController;
     }
 }

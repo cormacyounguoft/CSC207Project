@@ -11,15 +11,10 @@ public class SearchResultInteractor implements SearchResultInputBoundary {
     }
 
     @Override
-    public void execute(SearchResultInputData searchResultInputData) {
+    public void execute() {
 
-        final SearchResultOutputData searchResultOutputData = new SearchResultOutputData(
-                searchResultInputData.getMovie(), false);
+        final SearchResultOutputData searchResultOutputData = new SearchResultOutputData(false);
         searchResultPresenter.prepareSuccessView(searchResultOutputData);
     }
 
-    @Override
-    public void switchToHomeView() {
-        searchResultPresenter.switchToHomeView();
-    }
 }

@@ -19,6 +19,7 @@ import javax.swing.event.DocumentListener;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.to_home_view.ToHomeViewController;
 
 /**
  * The View for the Signup Use Case.
@@ -31,6 +32,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private final JPasswordField passwordInputField = new JPasswordField(15);
     private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
     private SignupController signupController;
+    private ToHomeViewController toHomeViewController;
 
     private final JButton signUp;
     private final JButton cancel;
@@ -85,7 +87,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
         cancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                signupController.switchToHomeView();
+                toHomeViewController.toHomeView();
             }
         });
 
@@ -199,5 +201,9 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
     public void setSignupController(SignupController controller) {
         this.signupController = controller;
+    }
+
+    public void setToHomeViewController(ToHomeViewController toHomeViewController){
+        this.toHomeViewController = toHomeViewController;
     }
 }

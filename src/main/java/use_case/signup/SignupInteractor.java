@@ -41,8 +41,4 @@ public class SignupInteractor implements SignupInputBoundary {
         userPresenter.switchToLoginView();
     }
 
-    @Override
-    public void switchToHomeView() {
-        userPresenter.switchToHomeView();
-    }
 }
