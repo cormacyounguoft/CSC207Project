@@ -20,13 +20,13 @@ public class CommonUser implements User {
     }
 
     @Override
-    public String getName() {
-        return name;
+    public String getPassword() {
+        return password;
     }
 
     @Override
-    public String getPassword() {
-        return password;
+    public String getName() {
+        return name;
     }
 
     @Override
