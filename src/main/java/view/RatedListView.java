@@ -8,6 +8,7 @@ import interface_adapter.watched_list.WatchedListState;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -75,7 +76,15 @@ public class RatedListView extends JPanel implements ActionListener, PropertyCha
             for (Map.Entry<String, Integer> entry : ratings.entrySet()) {
                 String key = entry.getKey();
                 Integer value = entry.getValue();
-                JButton rating= new JButton(key + " : " + value);
+                JPanel rating = new JPanel(new BorderLayout());
+                JLabel textLabel = new JLabel(key, SwingConstants.CENTER);
+                JLabel textLabel1 = new JLabel(String.valueOf(value), SwingConstants.CENTER);
+
+                rating.add(textLabel, BorderLayout.NORTH);
+                rating.add(textLabel1, BorderLayout.SOUTH);
+                Border border = BorderFactory.createLineBorder(Color.BLACK, 2); // Black border, 2 pixels thick
+                rating.setBorder(BorderFactory.createTitledBorder(border));
+
 
                 ratedList.add(rating);
                 }
