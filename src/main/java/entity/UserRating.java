@@ -28,4 +28,8 @@ public class UserRating {
     public int getRatingCount() {
         return this.movieToRating.size();
     }
+
+    public Map<String, Integer> getMovieToRating(){
+        return this.movieToRating;
+    }
 }

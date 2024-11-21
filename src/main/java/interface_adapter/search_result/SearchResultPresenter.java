@@ -33,9 +33,4 @@ public class SearchResultPresenter implements SearchResultOutputBoundary {
         searchResultViewModel.firePropertyChanged();
     }
 
-    @Override
-    public void switchToHomeView() {
-        viewManagerModel.setState(homeViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
-    }
 }

@@ -6,7 +6,7 @@ package entity;
 public class CommonUser implements User {
 
     private final String name;
-    private final String password;
+    private String password;
     private final MovieList watchList;
     private final MovieList watchedList;
     private final UserRating ratings;
@@ -43,4 +43,10 @@ public class CommonUser implements User {
     public UserRating getUserRatings() {
         return this.ratings;
     }
+
+    @Override
+    public void setUserPassword(String password) {
+        this.password= password;
+    }
+
 }

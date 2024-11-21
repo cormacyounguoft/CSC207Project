@@ -13,6 +13,8 @@ public class SearchViewModel extends ViewModel<SearchState> {
 
     public static final String SEARCH_BUTTON_LABEL = "Search";
 
+    public static final String CANCEL_LABEL = "Cancel";
+
     public SearchViewModel() {
         super("search");
         setState(new SearchState());

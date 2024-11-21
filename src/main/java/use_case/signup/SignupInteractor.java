@@ -48,6 +48,7 @@ public class SignupInteractor implements SignupInputBoundary {
         userPresenter.switchToLoginView();
     }
 
+
     @Override
     public void switchToHomeView() {
         userPresenter.switchToHomeView();
@@ -70,4 +71,5 @@ public class SignupInteractor implements SignupInputBoundary {
                 password.matches(".*\\d.*") &&
                 password.matches(".*[(){}\\[\\]'\";:><,./?\\\\|\\+=\\-_\\*&^%$#@!~`].*");
     }
+
 }

@@ -7,12 +7,7 @@ public interface SearchResultInputBoundary {
 
     /**
      * Executes the signup use case.
-     * @param searchResultInputData the input data
      */
-    void execute(SearchResultInputData searchResultInputData);
+    void execute();
 
-    /**
-     * Executes the switch to Home view use case.
-     */
-    void switchToHomeView();
 }

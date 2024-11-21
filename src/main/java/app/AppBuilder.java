@@ -13,10 +13,14 @@ import interface_adapter.add_to_watchlist.AddToWatchlistPresenter;
 import interface_adapter.change_password.ChangePasswordController;
 import interface_adapter.change_password.ChangePasswordPresenter;
 import interface_adapter.change_password.ChangePasswordViewModel;
+import interface_adapter.get_rated_list.GetRatedListController;
+import interface_adapter.get_rated_list.GetRatedListPresenter;
 import interface_adapter.get_watched_list.GetWatchedListController;
 import interface_adapter.get_watched_list.GetWatchedListPresenter;
 import interface_adapter.get_watchlist.GetWatchlistController;
 import interface_adapter.get_watchlist.GetWatchlistPresenter;
+import interface_adapter.go_to_rate.GoRateController;
+import interface_adapter.go_to_rate.GoRatePresenter;
 import interface_adapter.home.HomeController;
 import interface_adapter.home.HomePresenter;
 import interface_adapter.home.HomeViewModel;
@@ -37,6 +41,9 @@ import interface_adapter.logout.LogoutPresenter;
 import interface_adapter.rate.RateController;
 import interface_adapter.rate.RatePresenter;
 import interface_adapter.rate.RateViewModel;
+import interface_adapter.ratedList.RatedListController;
+import interface_adapter.ratedList.RatedListPresenter;
+import interface_adapter.ratedList.RatedListViewModel;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchPresenter;
 import interface_adapter.search.SearchViewModel;
@@ -46,6 +53,8 @@ import interface_adapter.search_result.SearchResultViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.to_home_view.ToHomeViewController;
+import interface_adapter.to_home_view.ToHomeViewPresenter;
 import interface_adapter.watched_list.WatchedListController;
 import interface_adapter.watched_list.WatchedListPresenter;
 import interface_adapter.watched_list.WatchedListViewModel;
@@ -61,12 +70,18 @@ import use_case.add_to_watchlist.AddToWatchlistOutputBoundary;
 import use_case.change_password.ChangePasswordInputBoundary;
 import use_case.change_password.ChangePasswordInteractor;
 import use_case.change_password.ChangePasswordOutputBoundary;
+import use_case.get_rated_list.GetRateListInputBoundary;
+import use_case.get_rated_list.GetRateListInteractor;
+import use_case.get_rated_list.GetRateListOutputBoundary;
 import use_case.get_watched_list.GetWatchedListInputBoundary;
 import use_case.get_watched_list.GetWatchedListInteractor;
 import use_case.get_watched_list.GetWatchedListOutputBoundary;
 import use_case.get_watchlist.GetWatchlistInputBoundary;
 import use_case.get_watchlist.GetWatchlistInteractor;
 import use_case.get_watchlist.GetWatchlistOutputBoundary;
+import use_case.go_to_rate.GoRateInputBoundary;
+import use_case.go_to_rate.GoRateInteractor;
+import use_case.go_to_rate.GoRateOutputBoundary;
 import use_case.home.HomeInputBoundary;
 import use_case.home.HomeInteractor;
 import use_case.home.HomeOutputBoundary;
@@ -88,6 +103,9 @@ import use_case.logout.LogoutOutputBoundary;
 import use_case.rate.RateInputBoundary;
 import use_case.rate.RateInteractor;
 import use_case.rate.RateOutputBoundary;
+import use_case.rated_list.RatedListInputBoundary;
+import use_case.rated_list.RatedListInteractor;
+import use_case.rated_list.RatedListOutputBoundary;
 import use_case.search.SearchInputBoundary;
 import use_case.search.SearchInteractor;
 import use_case.search.SearchOutputBoundary;
@@ -97,16 +115,34 @@ import use_case.search_result.SearchResultOutputBoundary;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
+import use_case.to_home_view.ToHomeInteractor;
+import use_case.to_home_view.ToHomeViewInputBoundary;
+import use_case.to_home_view.ToHomeViewOutputBoundary;
 import use_case.watched_list.WatchedListInputBoundary;
 import use_case.watched_list.WatchedListInteractor;
 import use_case.watched_list.WatchedListOutputBoundary;
 import use_case.watchlist.WatchlistInputBoundary;
 import use_case.watchlist.WatchlistInteractor;
 import use_case.watchlist.WatchlistOutputBoundary;
-import view.*;
+import view.ChangePasswordView;
+import view.HomeView;
+import view.LoggedInSearchResultView;
+import view.LoggedInSearchView;
+import view.LoggedInView;
+import view.LoginView;
+import view.RateView;
+import view.RatedListView;
+import view.SearchResultView;
+import view.SearchView;
+import view.SignupView;
+import view.ViewManager;
+import view.WatchedListView;
+import view.WatchlistView;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
+import java.awt.CardLayout;
 
 /**
  * The AppBuilder class is responsible for putting together the pieces of
@@ -152,6 +188,8 @@ public class AppBuilder {
     private LoggedInView loggedInView;
     private RateViewModel rateViewModel;
     private RateView rateView;
+    private RatedListView ratedListView;
+    private RatedListViewModel ratedListViewModel;
     private WatchlistViewModel watchlistViewModel;
     private WatchlistView watchlistView;
     private WatchedListViewModel watchedListViewModel;
@@ -255,6 +293,13 @@ public class AppBuilder {
         return this;
     }
 
+    public AppBuilder addRatedListView(){
+        ratedListViewModel = new RatedListViewModel();
+        ratedListView = new RatedListView(ratedListViewModel);
+        cardPanel.add(ratedListView, ratedListView.getViewName());
+        return this;
+    }
+
     public AppBuilder addWatchedListView() {
         watchedListViewModel = new WatchedListViewModel();
         watchedListView = new WatchedListView(watchedListViewModel);
@@ -278,9 +323,13 @@ public class AppBuilder {
                 signupViewModel, loginViewModel, homeViewModel);
         final SignupInputBoundary userSignupInteractor = new SignupInteractor(
                 userDataAccessObject, signupOutputBoundary, userFactory);
+        final ToHomeViewOutputBoundary toHomeViewOutputBoundary = new ToHomeViewPresenter(viewManagerModel, homeViewModel);
+        final ToHomeViewInputBoundary toHomeViewInputBoundary = new ToHomeInteractor(toHomeViewOutputBoundary);
+        final ToHomeViewController toHomeViewController = new ToHomeViewController(toHomeViewInputBoundary);
 
         final SignupController controller = new SignupController(userSignupInteractor);
         signupView.setSignupController(controller);
+        signupView.setToHomeViewController(toHomeViewController);
         return this;
     }
 
@@ -293,9 +342,13 @@ public class AppBuilder {
                 loggedInViewModel, loginViewModel, homeViewModel);
         final LoginInputBoundary loginInteractor = new LoginInteractor(
                 userDataAccessObject, loginOutputBoundary);
+        final ToHomeViewOutputBoundary toHomeViewOutputBoundary = new ToHomeViewPresenter(viewManagerModel, homeViewModel);
+        final ToHomeViewInputBoundary toHomeViewInputBoundary = new ToHomeInteractor(toHomeViewOutputBoundary);
+        final ToHomeViewController toHomeViewController = new ToHomeViewController(toHomeViewInputBoundary);
 
         final LoginController loginController = new LoginController(loginInteractor);
         loginView.setLoginController(loginController);
+        loginView.setToHomeViewController(toHomeViewController);
         return this;
     }
 
@@ -342,10 +395,14 @@ public class AppBuilder {
                 searchViewModel, searchResultViewModel);
 
         final SearchInputBoundary searchInteractor = new SearchInteractor(movieAccessObject,
-                searchOutputBoundary, movieFactory);
+                searchOutputBoundary);
 
         final SearchController controller = new SearchController(searchInteractor);
+        final ToHomeViewOutputBoundary toHomeViewOutputBoundary = new ToHomeViewPresenter(viewManagerModel, homeViewModel);
+        final ToHomeViewInputBoundary toHomeViewInputBoundary = new ToHomeInteractor(toHomeViewOutputBoundary);
+        final ToHomeViewController toHomeViewController = new ToHomeViewController(toHomeViewInputBoundary);
         searchView.setSearchController(controller);
+        searchView.setToHomeViewController(toHomeViewController);
         return this;
     }
 
@@ -360,7 +417,11 @@ public class AppBuilder {
         final SearchResultInputBoundary searchResultInteractor = new SearchResultInteractor(searchResultOutputBoundary);
 
         final SearchResultController controller = new SearchResultController(searchResultInteractor);
+        final ToHomeViewOutputBoundary toHomeViewOutputBoundary = new ToHomeViewPresenter(viewManagerModel, homeViewModel);
+        final ToHomeViewInputBoundary toHomeViewInputBoundary = new ToHomeInteractor(toHomeViewOutputBoundary);
+        final ToHomeViewController toHomeViewController = new ToHomeViewController(toHomeViewInputBoundary);
         searchResultView.setSearchResultController(controller);
+        searchResultView.setToHomeViewController(toHomeViewController);
         return this;
     }
 
@@ -427,6 +488,14 @@ public class AppBuilder {
         return this;
     }
 
+    public AppBuilder addRate(){
+        final GoRateOutputBoundary goRateOutputBoundary = new GoRatePresenter(viewManagerModel, rateViewModel);
+        final GoRateInputBoundary goRateInteractor = new GoRateInteractor(goRateOutputBoundary);
+        final GoRateController con = new GoRateController(goRateInteractor);
+        watchedListView.setGoRateController(con);
+        return this;
+    }
+
     public AppBuilder addAddToWatchlistUseCase() {
         final AddToWatchlistOutputBoundary addToWatchlistOutputBoundary = new AddToWatchlistPresenter(viewManagerModel, loggedInSearchResultViewModel, loggedInViewModel);
         final AddToWatchlistInputBoundary addToWatchlistInteractor = new AddToWatchlistInteractor(userDataAccessObject, addToWatchlistOutputBoundary);
@@ -451,11 +520,27 @@ public class AppBuilder {
         return this;
     }
 
+    public AppBuilder addRatedListUseCase(){
+        final RatedListOutputBoundary ratedListOutputBoundary = new RatedListPresenter(viewManagerModel, loggedInViewModel, ratedListViewModel);
+        final RatedListInputBoundary ratedListInputBoundary = new RatedListInteractor(ratedListOutputBoundary);
+        final RatedListController ratedListController = new RatedListController(ratedListInputBoundary);
+        ratedListView.setRatedListController(ratedListController);
+        return this;
+    }
+
     public AppBuilder addGetWatchedListUseCase() {
         final GetWatchedListOutputBoundary getWatchedListOutputBoundary = new GetWatchedListPresenter(viewManagerModel, loggedInViewModel, watchedListViewModel);
         final GetWatchedListInputBoundary getWatchedListInputBoundary = new GetWatchedListInteractor(getWatchedListOutputBoundary, userDataAccessObject);
         final GetWatchedListController getWatchedListController = new GetWatchedListController(getWatchedListInputBoundary);
         loggedInView.setWatchedListController(getWatchedListController);
+        return this;
+    }
+
+    public AppBuilder addGetRatedListUseCase() {
+        final GetRateListOutputBoundary getRateListOutputBoundary = new GetRatedListPresenter(viewManagerModel, loggedInViewModel, ratedListViewModel);
+        final GetRateListInputBoundary getRateListInputBoundary = new GetRateListInteractor(userDataAccessObject, getRateListOutputBoundary);
+        final GetRatedListController getRatedListController = new GetRatedListController(getRateListInputBoundary);
+        loggedInView.setGetRatedListController(getRatedListController);
         return this;
     }
 

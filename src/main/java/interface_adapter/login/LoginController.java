@@ -26,10 +26,4 @@ public class LoginController {
         loginUseCaseInteractor.execute(loginInputData);
     }
 
-    /**
-     * Executes the "switch to Home" Use Case.
-     */
-    public void switchToHomeView() {
-        loginUseCaseInteractor.switchToHomeView();
-    }
 }
