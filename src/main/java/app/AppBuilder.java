@@ -364,6 +364,9 @@ public class AppBuilder {
 
         final SignupController controller = new SignupController(userSignupInteractor);
         signupView.setSignupController(controller);
+        final ToHomeViewOutputBoundary toHomeViewOutputBoundary = new ToHomeViewPresenter(viewManagerModel, homeViewModel);
+        final ToHomeViewInputBoundary toHomeViewInputBoundary = new ToHomeInteractor(toHomeViewOutputBoundary);
+        final ToHomeViewController toHomeViewController = new ToHomeViewController(toHomeViewInputBoundary);
         signupView.setToHomeViewController(toHomeViewController);
         return this;
     }
@@ -380,6 +383,9 @@ public class AppBuilder {
 
         final LoginController loginController = new LoginController(loginInteractor);
         loginView.setLoginController(loginController);
+        final ToHomeViewOutputBoundary toHomeViewOutputBoundary = new ToHomeViewPresenter(viewManagerModel, homeViewModel);
+        final ToHomeViewInputBoundary toHomeViewInputBoundary = new ToHomeInteractor(toHomeViewOutputBoundary);
+        final ToHomeViewController toHomeViewController = new ToHomeViewController(toHomeViewInputBoundary);
         loginView.setToHomeViewController(toHomeViewController);
         return this;
     }
