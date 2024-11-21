@@ -1,7 +1,7 @@
 package interface_adapter.get_rated_list;
 
-import interface_adapter.RatedList.RatedListState;
-import interface_adapter.RatedList.RatedListViewModel;
+import interface_adapter.ratedList.RatedListState;
+import interface_adapter.ratedList.RatedListViewModel;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.logged_in.LoggedInViewModel;
 import use_case.get_rated_list.GetRateListOutputBoundary;

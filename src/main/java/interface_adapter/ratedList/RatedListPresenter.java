@@ -1,4 +1,4 @@
-package interface_adapter.RatedList;
+package interface_adapter.ratedList;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.logged_in.LoggedInState;

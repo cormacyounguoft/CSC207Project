@@ -1,4 +1,4 @@
-package interface_adapter.RatedList;
+package interface_adapter.ratedList;
 
 import entity.MovieList;
 import use_case.rated_list.RatedListInputBoundary;

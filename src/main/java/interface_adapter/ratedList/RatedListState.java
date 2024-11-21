@@ -1,4 +1,4 @@
-package interface_adapter.RatedList;
+package interface_adapter.ratedList;
 
 import java.util.Map;
 

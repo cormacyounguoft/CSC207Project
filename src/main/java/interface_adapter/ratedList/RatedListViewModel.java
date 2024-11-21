@@ -1,4 +1,4 @@
-package interface_adapter.RatedList;
+package interface_adapter.ratedList;
 
 import interface_adapter.ViewModel;
 import interface_adapter.watched_list.WatchedListState;
