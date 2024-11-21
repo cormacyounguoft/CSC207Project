@@ -16,7 +16,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
+
 import java.util.Map;
 
 public class RatedListView extends JPanel implements ActionListener, PropertyChangeListener {
