@@ -11,8 +11,4 @@ public interface LoginInputBoundary {
      */
     void execute(LoginInputData loginInputData);
 
-    /**
-     * Executes the switch to home view use case.
-     */
-    void switchToHomeView();
 }

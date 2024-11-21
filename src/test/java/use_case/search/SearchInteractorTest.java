@@ -22,18 +22,16 @@ class SearchInteractorTest {
         SearchOutputBoundary successPresenter = new SearchOutputBoundary() {
             @Override
             public void prepareSuccessView(SearchOutputData outputData) {
-                Movie movie = new Movie();
-                movie.setTitle("Frozen");
-                movie.setReleaseDate("27 Nov 2013");
-                movie.setDescription("Fearless optimist Anna teams up with rugged mountain man Kristoff and his loyal reindeer Sven in an epic journey to find Anna's sister Elsa, whose icy powers have trapped the kingdom of Arendelle in eternal winter.");
-                movie.setRottenTomatoes(89);
-                movie.setRuntime(102);
-                movie.setGenre(new ArrayList<>(Arrays.asList("Animation","Adventure","Comedy")));
-                movie.setActors(new ArrayList<>(Arrays.asList("Kristen Bell","Idina Menzel","Jonathan Groff")));
-                movie.setDirector(new ArrayList<>(Arrays.asList("Chris Buck","Jennifer Lee")));
-                movie.setPosterLink("https://m.media-amazon.com/images/M/MV5BMTQ1MjQwMTE5OF5BMl5BanBnXkFtZTgwNjk3MTcyMDE@._V1_SX300.jpg");
+                assertEquals(outputData.getTitle(), "Frozen");
+                assertEquals(outputData.getReleaseDate(), "27 Nov 2013");
+                assertEquals(outputData.getDescription(), "Fearless optimist Anna teams up with rugged mountain man Kristoff and his loyal reindeer Sven in an epic journey to find Anna's sister Elsa, whose icy powers have trapped the kingdom of Arendelle in eternal winter.");
+                assertEquals(outputData.getRottenTomatoes(), "89");
+                assertEquals(outputData.getRuntime(), "102");
+                assertEquals(outputData.getGenre(), "[Animation, Adventure, Comedy]");
+                assertEquals(outputData.getActors(), "[Kristen Bell, Idina Menzel, Jonathan Groff]");
+                assertEquals(outputData.getDirector(), "[Chris Buck, Jennifer Lee]");
+                assertEquals(outputData.getPoster(), "https://m.media-amazon.com/images/M/MV5BMTQ1MjQwMTE5OF5BMl5BanBnXkFtZTgwNjk3MTcyMDE@._V1_SX300.jpg");
 
-                assertEquals(outputData.getMovie(), movie);
             }
 
             @Override
@@ -43,6 +41,8 @@ class SearchInteractorTest {
         };
 
         SearchInputBoundary interactor = new SearchInteractor(loggedOutSearchDataAccessInterface, successPresenter, new MovieFactory());
+
+
         interactor.execute(inputData);
 
     }

@@ -18,6 +18,7 @@ import javax.swing.event.DocumentListener;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.to_home_view.ToHomeViewController;
 
 /**
  * The View for when the user is logging into the program.
@@ -36,6 +37,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     private final JButton logIn;
     private final JButton cancel;
     private LoginController loginController;
+    private ToHomeViewController toHomeViewController;
 
     public LoginView(LoginViewModel loginViewModel) {
 
@@ -73,7 +75,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
         cancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                loginController.switchToHomeView();
+                toHomeViewController.toHomeView();
             }
         });
 
@@ -160,5 +162,9 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
     public void setLoginController(LoginController loginController) {
         this.loginController = loginController;
+    }
+
+    public void setToHomeViewController(ToHomeViewController toHomeViewController) {
+        this.toHomeViewController = toHomeViewController;
     }
 }
