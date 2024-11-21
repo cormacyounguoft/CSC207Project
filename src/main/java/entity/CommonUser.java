@@ -43,5 +43,4 @@ public class CommonUser implements User {
     public UserRating getUserRatings() {
         return this.ratings;
     }
-
 }
