@@ -13,11 +13,6 @@ public class LoggedInSearchController {
         this.loggedInSearchUseCaseInteractor = loggedInSearchUseCaseInteractor;
     }
 
-    public void switchToLoggedInView(String username) {
-        final LoggedInSearchInputData loggedInSearchInputData = new LoggedInSearchInputData(username, "");
-        loggedInSearchUseCaseInteractor.switchToLoggedInView(loggedInSearchInputData);
-    }
-
     /**
      * Executes the Search Use Case.
      * @param searchQuery the search query.

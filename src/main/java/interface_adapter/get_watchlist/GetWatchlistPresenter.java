@@ -22,7 +22,8 @@ public class GetWatchlistPresenter implements GetWatchlistOutputBoundary {
     public void prepareSuccessView(GetWatchlistOutputData outputData) {
         final WatchlistState watchlistState = watchlistViewModel.getState();
         watchlistState.setUsername(outputData.getUsername());
-        watchlistState.setWatchlist(outputData.getWatchlist());
+        watchlistState.setWatchlistTitle(outputData.getWatchlistTitle());
+        watchlistState.setWatchlistURL(outputData.getWatchlistURL());
         watchlistViewModel.setState(watchlistState);
         watchlistViewModel.firePropertyChanged();
         viewManagerModel.setState(watchlistViewModel.getViewName());

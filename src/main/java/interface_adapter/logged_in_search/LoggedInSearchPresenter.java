@@ -15,22 +15,29 @@ public class LoggedInSearchPresenter implements LoggedInSearchOutputBoundary {
     private final ViewManagerModel viewManagerModel;
     private final LoggedInSearchViewModel loggedInSearchViewModel;
     private final LoggedInSearchResultViewModel loggedInSearchResultViewModel;
-    private final LoggedInViewModel loggedInViewModel;
 
     public LoggedInSearchPresenter(ViewManagerModel viewManagerModel,
                                    LoggedInSearchViewModel loggedInSearchViewModel,
-                                   LoggedInSearchResultViewModel loggedInSearchResultViewModel,
-                                   LoggedInViewModel loggedInViewModel) {
+                                   LoggedInSearchResultViewModel loggedInSearchResultViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.loggedInSearchViewModel = loggedInSearchViewModel;
         this.loggedInSearchResultViewModel = loggedInSearchResultViewModel;
-        this.loggedInViewModel = loggedInViewModel;
     }
 
     @Override
     public void prepareSuccessView(LoggedInSearchOutputData response) {
         final LoggedInSearchResultState loggedInSearchResultState = loggedInSearchResultViewModel.getState();
-        loggedInSearchResultState.setResult(response.getUsername(), response.getMovie());
+        loggedInSearchResultState.setUsername(response.getUsername());
+        loggedInSearchResultState.setTitle(response.getTitle());
+        loggedInSearchResultState.setReleaseDate(response.getReleaseDate());
+        loggedInSearchResultState.setDescription(response.getDescription());
+        loggedInSearchResultState.setRottenTomatoes(response.getRottenTomatoes());
+        loggedInSearchResultState.setRuntime(response.getRuntime());
+        loggedInSearchResultState.setGenre(response.getGenre());
+        loggedInSearchResultState.setActors(response.getActors());
+        loggedInSearchResultState.setDirector(response.getDirector());
+        loggedInSearchResultState.setPosterLink(response.getPosterLink());
+
         loggedInSearchResultViewModel.setState(loggedInSearchResultState);
         loggedInSearchResultViewModel.firePropertyChanged();
 
@@ -43,16 +50,5 @@ public class LoggedInSearchPresenter implements LoggedInSearchOutputBoundary {
         final LoggedInSearchState loggedInSearchState = loggedInSearchViewModel.getState();
         loggedInSearchState.setSearchError(errorMessage);
         loggedInSearchViewModel.firePropertyChanged();
-    }
-
-    @Override
-    public void switchToLoggedInView(LoggedInSearchOutputData loggedInSearchOutputData) {
-        final LoggedInState loggedInState = loggedInViewModel.getState();
-        loggedInState.setUsername(loggedInSearchOutputData.getUsername());
-        loggedInViewModel.setState(loggedInState);
-        loggedInViewModel.firePropertyChanged();
-
-        viewManagerModel.setState(loggedInViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
     }
 }

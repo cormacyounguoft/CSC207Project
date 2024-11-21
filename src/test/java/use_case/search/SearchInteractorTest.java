@@ -16,7 +16,7 @@ class SearchInteractorTest {
     @Test
     void successTest() {
         SearchInputData inputData = new SearchInputData("Frozen");
-        SearchDataAccessInterface searchDataAccessInterface = new MovieAccessObject();
+        LoggedOutSearchDataAccessInterface loggedOutSearchDataAccessInterface = new MovieAccessObject();
 
         // This creates a successPresenter that tests whether the test case is as we expect.
         SearchOutputBoundary successPresenter = new SearchOutputBoundary() {
@@ -42,7 +42,7 @@ class SearchInteractorTest {
             }
         };
 
-        SearchInputBoundary interactor = new SearchInteractor(searchDataAccessInterface, successPresenter, new MovieFactory());
+        SearchInputBoundary interactor = new SearchInteractor(loggedOutSearchDataAccessInterface, successPresenter, new MovieFactory());
         interactor.execute(inputData);
 
     }

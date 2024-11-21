@@ -3,6 +3,7 @@ package view;
 import interface_adapter.logged_in_search.LoggedInSearchController;
 import interface_adapter.logged_in_search.LoggedInSearchState;
 import interface_adapter.logged_in_search.LoggedInSearchViewModel;
+import interface_adapter.to_logged_in_view.ToLoggedInViewController;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -20,6 +21,7 @@ public class LoggedInSearchView extends JPanel implements ActionListener, Proper
     private final String viewName = "logged in search";
     private final LoggedInSearchViewModel loggedInSearchViewModel;
     public LoggedInSearchController loggedInSearchController;
+    public ToLoggedInViewController toLoggedInViewController;
 
     private final JTextField searchQueryInputField = new JTextField(15);
     private final JLabel searchQueryErrorField = new JLabel();
@@ -86,7 +88,7 @@ public class LoggedInSearchView extends JPanel implements ActionListener, Proper
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(cancel)) {
                             final LoggedInSearchState currentState = loggedInSearchViewModel.getState();
-                            loggedInSearchController.switchToLoggedInView(currentState.getUsername());
+                            toLoggedInViewController.toLoggedInView(currentState.getUsername());
                         }
                     }
                 }
@@ -125,5 +127,9 @@ public class LoggedInSearchView extends JPanel implements ActionListener, Proper
             JOptionPane.showMessageDialog(this, state.getSearchError());
             state.setSearchError(null);
         }
+    }
+
+    public void setToLoggedInViewController(ToLoggedInViewController toLoggedInViewController) {
+        this.toLoggedInViewController = toLoggedInViewController;
     }
 }

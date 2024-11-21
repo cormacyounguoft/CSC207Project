@@ -14,18 +14,8 @@ public class LoggedInSearchResultController {
         this.useCaseInteractor = interactor;
     }
 
-    public void switchToLoggedInView(String username) {
-        final LoggedInSearchResultInputData inputData = new LoggedInSearchResultInputData(username, new Movie());
-        useCaseInteractor.switchToLoggedInView(inputData);
-    }
-
-    public void execute(String username, Movie movie) {
+    public void execute(String username, String movie) {
         final LoggedInSearchResultInputData inputData = new LoggedInSearchResultInputData(username, movie);
         useCaseInteractor.execute(inputData);
-    }
-
-    public void switchToRateView(String username, Movie movie) {
-        final LoggedInSearchResultInputData inputData = new LoggedInSearchResultInputData(username, movie);
-        useCaseInteractor.switchToRateView(inputData);
     }
 }

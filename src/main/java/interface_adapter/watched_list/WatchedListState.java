@@ -2,9 +2,12 @@ package interface_adapter.watched_list;
 
 import entity.MovieList;
 
+import java.util.List;
+
 public class WatchedListState {
     private String username;
-    private MovieList watchedList;
+    private List<String> watchedListTitle;
+    private List<String> watchedListURL;
     private String movieError;
 
     public String getUsername() {
@@ -15,12 +18,20 @@ public class WatchedListState {
         this.username = username;
     }
 
-    public MovieList getWatchedList() {
-        return watchedList;
+    public List<String> getWatchedListTitle() {
+        return watchedListTitle;
     }
 
-    public void setWatchedList(MovieList watchedList) {
-        this.watchedList = watchedList;
+    public void setWatchedListTitle(List<String> watchedListTitle) {
+        this.watchedListTitle = watchedListTitle;
+    }
+
+    public List<String> getWatchedListURL() {
+        return watchedListURL;
+    }
+
+    public void setWatchedListURL(List<String> watchedListURL) {
+        this.watchedListURL = watchedListURL;
     }
 
     public String getMovieError() {

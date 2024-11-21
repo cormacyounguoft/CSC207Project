@@ -7,9 +7,9 @@ import entity.Movie;
  */
 public class LoggedInSearchResultInputData {
     private String username;
-    private final Movie movie;
+    private final String movie;
 
-    public LoggedInSearchResultInputData(String username, Movie movie) {
+    public LoggedInSearchResultInputData(String username, String movie) {
         this.username = username;
         this.movie = movie;
     }
@@ -18,7 +18,7 @@ public class LoggedInSearchResultInputData {
         return username;
     }
 
-    public Movie getMovie() {
+    public String getMovie() {
         return movie;
     }
 }
