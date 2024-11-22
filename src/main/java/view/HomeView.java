@@ -61,25 +61,13 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
 
         // Add Action Listeners
         toLogin.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        homeController.switchToLoginView();
-                    }
-                }
+                evt -> homeController.switchToLoginView()
         );
         toSignup.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        homeController.switchToSignupView();
-                    }
-                }
+                evt -> homeController.switchToSignupView()
         );
         toSearch.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        homeController.switchToSearchView();
-                    }
-                }
+                evt -> homeController.switchToSearchView()
         );
     }
 
