@@ -9,12 +9,15 @@ import entity.MovieFactory;
  * The Search Interactor.
  */
 public class SearchInteractor implements SearchInputBoundary {
-    private final SearchDataAccessInterface searchDataAccessObject;
+    private final LoggedOutSearchDataAccessInterface searchDataAccessObject;
     private final SearchOutputBoundary searchPresenter;
 
-    public SearchInteractor(SearchDataAccessInterface searchDataAccessInterface,
-                            SearchOutputBoundary searchOutputBoundary) {
-        this.searchDataAccessObject = searchDataAccessInterface;
+
+    public SearchInteractor(LoggedOutSearchDataAccessInterface loggedOutSearchDataAccessInterface,
+                            SearchOutputBoundary searchOutputBoundary,
+                            MovieFactory movieFactory) {
+        this.searchDataAccessObject = loggedOutSearchDataAccessInterface;
+
         this.searchPresenter = searchOutputBoundary;
 
     }

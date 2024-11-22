@@ -12,11 +12,4 @@ public interface LoggedInSearchResultOutputBoundary {
      * @param errorMessage the explanation of the failure
      */
     void prepareFailView(String errorMessage);
-
-    /**
-     * Switches to the logged in View.
-     */
-    void switchToLoggedInView(LoggedInSearchResultOutputData outputData);
-
-    void switchToRateView(LoggedInSearchResultOutputData outputData);
 }

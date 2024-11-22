@@ -7,10 +7,10 @@ import entity.Movie;
  */
 public class LoggedInSearchResultOutputData {
     private final String username;
-    private final Movie movie;
+    private final String movie;
     private final boolean useCaseFailed;
 
-    public LoggedInSearchResultOutputData(String username, Movie movie, boolean useCaseFailed) {
+    public LoggedInSearchResultOutputData(String username, String movie, boolean useCaseFailed) {
         this.username = username;
         this.movie = movie;
         this.useCaseFailed = useCaseFailed;
@@ -20,7 +20,7 @@ public class LoggedInSearchResultOutputData {
         return username;
     }
 
-    public Movie getMovie() {
+    public String getMovie() {
         return movie;
     }
 

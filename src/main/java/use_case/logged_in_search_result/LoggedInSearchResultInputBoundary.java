@@ -10,11 +10,4 @@ public interface LoggedInSearchResultInputBoundary {
      * @param loggedInSearchResultInputData the input data
      */
     void execute(LoggedInSearchResultInputData loggedInSearchResultInputData);
-
-    /**
-     * Executes the switch to Logged In view use case.
-     */
-    void switchToLoggedInView(LoggedInSearchResultInputData loggedInSearchResultInputData);
-
-    void switchToRateView(LoggedInSearchResultInputData loggedInSearchResultInputData);
 }

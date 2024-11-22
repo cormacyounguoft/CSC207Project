@@ -1,9 +1,9 @@
 package view;
 
 import entity.Movie;
-import entity.MovieList;
 import interface_adapter.go_to_rate.GoRateController;
-import interface_adapter.logged_in_search_result.LoggedInSearchResultState;
+import interface_adapter.go_to_rate.GoRateController;
+import interface_adapter.to_logged_in_view.ToLoggedInViewController;
 import interface_adapter.watched_list.WatchedListController;
 import interface_adapter.watched_list.WatchedListState;
 import interface_adapter.watched_list.WatchedListViewModel;
@@ -26,7 +26,8 @@ public class WatchedListView extends JPanel implements ActionListener, PropertyC
 
     private final WatchedListViewModel watchedListViewModel;
     private WatchedListController watchedListController;
-    private GoRateController goRateController;
+    private GoRateController goToRateController;
+    private ToLoggedInViewController goToLoggedInViewController;
 
     private final JButton cancel;
 
@@ -53,7 +54,7 @@ public class WatchedListView extends JPanel implements ActionListener, PropertyC
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         final WatchedListState currentState = watchedListViewModel.getState();
-                        watchedListController.switchToLoggedInView(currentState.getUsername());
+                        goToLoggedInViewController.toLoggedInView(currentState.getUsername());
                     }
                 }
         );
@@ -74,33 +75,32 @@ public class WatchedListView extends JPanel implements ActionListener, PropertyC
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
             final WatchedListState state = (WatchedListState) evt.getNewValue();
-            final List<Movie> posters = state.getWatchedList().getMovieList();
+            final List<String> moviePosters = state.getWatchedListURL();
+            final List<String> movieTitles = state.getWatchedListTitle();
             watchedList.removeAll();
 
-            for (Movie poster: posters) {
+            for (int i = 0; i < moviePosters.size(); i++) {
                 JButton posterLabels = new JButton();
-                String c = poster.getPosterLink();
-                if (c.isEmpty()) {
+                if (moviePosters.get(i).isEmpty()) {
                     posterLabels.setText("Poster not available.");
                 }
                 else {
                     try {
-                        URL url = new URL(c);
+                        URL url = new URL(moviePosters.get(i));
                         BufferedImage image = ImageIO.read(url);
                         posterLabels.setText("");
                         posterLabels.setIcon(new ImageIcon(image));
+                        int finalI = i;
                         posterLabels.addActionListener(
                                 new ActionListener() {
                                     public void actionPerformed(ActionEvent evt) {
-                                        final WatchedListState currentState = watchedListViewModel.getState();
-                                        goRateController.goToRate(currentState.getUsername(), poster);
+                                        goToRateController.goToRate(state.getUsername(), new Movie());
+                                        // movieTitles.get(finalI)
                                     }
                                 }
                         );
-
-
                     } catch (IOException e) {
-                        System.out.println("Poster not available");
+                        posterLabels.setText("Poster not available.");
                     }
                 }
                 watchedList.add(posterLabels);
@@ -117,7 +117,11 @@ public class WatchedListView extends JPanel implements ActionListener, PropertyC
         this.watchedListController = watchedListController;
     }
 
-    public void setGoRateController(GoRateController goRateController) {
-        this.goRateController = goRateController;
+    public void setGoToRateController(GoRateController goToRateController) {
+        this.goToRateController = goToRateController;
+    }
+
+    public void setGoToLoggedInViewController(ToLoggedInViewController goToLoggedInViewController) {
+        this.goToLoggedInViewController = goToLoggedInViewController;
     }
 }

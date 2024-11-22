@@ -1,21 +1,27 @@
 package use_case.watchlist;
 
-import entity.MovieList;
+import java.util.List;
 
 public class WatchlistInputData {
     private final String username;
-    private final MovieList watchlist;
+    private final List<String> watchlistTitle;
+    private final List<String> watchlistURL;
 
-    public WatchlistInputData(String username, MovieList watchlist) {
+    public WatchlistInputData(String username, List<String> watchlistTitle, List<String> watchlistURL) {
         this.username = username;
-        this.watchlist = watchlist;
+        this.watchlistTitle = watchlistTitle;
+        this.watchlistURL = watchlistURL;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public MovieList getWatchlist() {
-        return watchlist;
+    public List<String> getWatchlistTitle() {
+        return watchlistTitle;
+    }
+
+    public List<String> getWatchlistURL() {
+        return watchlistURL;
     }
 }

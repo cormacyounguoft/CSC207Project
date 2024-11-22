@@ -14,7 +14,7 @@ public class AddToWatchedListController {
         this.useCaseInteractor = useCaseInteractor;
     }
 
-    public void execute(String username, Movie movie) {
+    public void execute(String username, String movie) {
         final AddToWatchedListInputData inputData = new AddToWatchedListInputData(username, movie);
         useCaseInteractor.execute(inputData);
     }
