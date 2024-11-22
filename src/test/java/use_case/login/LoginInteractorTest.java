@@ -33,6 +33,7 @@ class LoginInteractorTest {
             public void prepareFailView(String error) {
                 fail("Use case failure is unexpected.");
             }
+
         };
 
         LoginInputBoundary interactor = new LoginInteractor(userRepository, successPresenter);
@@ -60,6 +61,7 @@ class LoginInteractorTest {
             public void prepareFailView(String error) {
                 fail("Use case failure is unexpected.");
             }
+
         };
 
         LoginInputBoundary interactor = new LoginInteractor(userRepository, successPresenter);
@@ -91,6 +93,7 @@ class LoginInteractorTest {
             public void prepareFailView(String error) {
                 assertEquals("Incorrect password for \"Paul\".", error);
             }
+
         };
 
         LoginInputBoundary interactor = new LoginInteractor(userRepository, failurePresenter);
@@ -116,6 +119,7 @@ class LoginInteractorTest {
             public void prepareFailView(String error) {
                 assertEquals("Paul: Account does not exist.", error);
             }
+
         };
 
         LoginInputBoundary interactor = new LoginInteractor(userRepository, failurePresenter);

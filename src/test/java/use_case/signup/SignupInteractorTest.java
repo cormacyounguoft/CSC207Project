@@ -35,6 +35,7 @@ class SignupInteractorTest {
             public void switchToLoginView() {
                 // This is expected
             }
+
         };
 
         SignupInputBoundary interactor = new SignupInteractor(userRepository, successPresenter, new CommonUserFactory());
@@ -97,6 +98,7 @@ class SignupInteractorTest {
             public void switchToLoginView() {
                 // This is expected
             }
+
         };
 
         SignupInputBoundary interactor = new SignupInteractor(userRepository, failurePresenter, new CommonUserFactory());

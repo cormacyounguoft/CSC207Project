@@ -219,6 +219,7 @@ public class AppBuilder {
         return this;
     }
 
+
     /**
      * Adds the Login View to the application.
      * @return this builder
@@ -357,17 +358,26 @@ public class AppBuilder {
      */
     public AppBuilder addSignupUseCase() {
 
-        final SignupOutputBoundary signupOutputBoundary =
-                new SignupPresenter(viewManagerModel, signupViewModel, loginViewModel, homeViewModel);
-        final SignupInputBoundary userSignupInteractor =
-                new SignupInteractor(userDataAccessObject, signupOutputBoundary, userFactory);
+        final SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel,
+                signupViewModel, loginViewModel, homeViewModel);
+
+        final SignupInputBoundary userSignupInteractor = new SignupInteractor(
+                userDataAccessObject, signupOutputBoundary, userFactory);
 
         final SignupController controller = new SignupController(userSignupInteractor);
         signupView.setSignupController(controller);
-        final ToHomeViewOutputBoundary toHomeViewOutputBoundary = new ToHomeViewPresenter(viewManagerModel, homeViewModel);
+        return this;
+    }
+
+    public AppBuilder addToHomeViewUseCase(){
+        final ToHomeViewOutputBoundary toHomeViewOutputBoundary = new ToHomeViewPresenter(viewManagerModel, homeViewModel, signupViewModel, loginViewModel, searchViewModel);
+
         final ToHomeViewInputBoundary toHomeViewInputBoundary = new ToHomeInteractor(toHomeViewOutputBoundary);
         final ToHomeViewController toHomeViewController = new ToHomeViewController(toHomeViewInputBoundary);
         signupView.setToHomeViewController(toHomeViewController);
+        loginView.setToHomeViewController(toHomeViewController);
+        searchView.setToHomeViewController(toHomeViewController);
+        searchResultView.setToHomeViewController(toHomeViewController);
         return this;
     }
 
@@ -377,16 +387,15 @@ public class AppBuilder {
      */
     public AppBuilder addLoginUseCase() {
 
-        final LoginOutputBoundary loginOutputBoundary =
-                new LoginPresenter(viewManagerModel, loggedInViewModel, loginViewModel, homeViewModel);
-        final LoginInputBoundary loginInteractor = new LoginInteractor(userDataAccessObject, loginOutputBoundary);
+        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
+                loggedInViewModel, loginViewModel, homeViewModel);
+
+        final LoginInputBoundary loginInteractor = new LoginInteractor(
+                userDataAccessObject, loginOutputBoundary);
 
         final LoginController loginController = new LoginController(loginInteractor);
         loginView.setLoginController(loginController);
-        final ToHomeViewOutputBoundary toHomeViewOutputBoundary = new ToHomeViewPresenter(viewManagerModel, homeViewModel);
-        final ToHomeViewInputBoundary toHomeViewInputBoundary = new ToHomeInteractor(toHomeViewOutputBoundary);
-        final ToHomeViewController toHomeViewController = new ToHomeViewController(toHomeViewInputBoundary);
-        loginView.setToHomeViewController(toHomeViewController);
+
         return this;
     }
 
@@ -410,9 +419,14 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addLogoutUseCase() {
-        final LogoutOutputBoundary logoutOutputBoundary =
-                new LogoutPresenter(viewManagerModel, changePasswordViewModel, loginViewModel);
-        final LogoutInputBoundary logoutInteractor = new LogoutInteractor(userDataAccessObject, logoutOutputBoundary);
+
+        final LogoutOutputBoundary logoutOutputBoundary = new LogoutPresenter(viewManagerModel,
+                changePasswordViewModel, loginViewModel, signupViewModel);
+
+        final LogoutInputBoundary logoutInteractor =
+                new LogoutInteractor(userDataAccessObject, logoutOutputBoundary);
+
+
         final LogoutController logoutController = new LogoutController(logoutInteractor);
         changePasswordView.setLogoutController(logoutController);
         loggedInView.setLogoutController(logoutController);
@@ -431,11 +445,7 @@ public class AppBuilder {
                 new SearchInteractor(movieAccessObject, searchOutputBoundary, movieFactory);
 
         final SearchController controller = new SearchController(searchInteractor);
-        final ToHomeViewOutputBoundary toHomeViewOutputBoundary = new ToHomeViewPresenter(viewManagerModel, homeViewModel);
-        final ToHomeViewInputBoundary toHomeViewInputBoundary = new ToHomeInteractor(toHomeViewOutputBoundary);
-        final ToHomeViewController toHomeViewController = new ToHomeViewController(toHomeViewInputBoundary);
         searchView.setSearchController(controller);
-        searchView.setToHomeViewController(toHomeViewController);
         return this;
     }
 
@@ -448,11 +458,7 @@ public class AppBuilder {
                 new SearchResultPresenter(viewManagerModel, searchResultViewModel, homeViewModel);
         final SearchResultInputBoundary searchResultInteractor = new SearchResultInteractor(searchResultOutputBoundary);
         final SearchResultController controller = new SearchResultController(searchResultInteractor);
-        final ToHomeViewOutputBoundary toHomeViewOutputBoundary = new ToHomeViewPresenter(viewManagerModel, homeViewModel);
-        final ToHomeViewInputBoundary toHomeViewInputBoundary = new ToHomeInteractor(toHomeViewOutputBoundary);
-        final ToHomeViewController toHomeViewController = new ToHomeViewController(toHomeViewInputBoundary);
         searchResultView.setSearchResultController(controller);
-        searchResultView.setToHomeViewController(toHomeViewController);
         return this;
     }
 
