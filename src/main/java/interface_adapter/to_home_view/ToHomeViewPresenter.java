@@ -29,15 +29,12 @@ public class ToHomeViewPresenter implements ToHomeViewOutputBoundary {
     @Override
     public void prepareSuccessView() {
         final SignupState signupState = signupViewModel.getState();
-        signupState.setPassword("");
-        signupState.setRepeatPassword("");
-        signupState.setUsername("");
+        signupState.resetInputFields();
         signupViewModel.setState(signupState);
         signupViewModel.firePropertyChanged();
 
         final LoginState loginState = loginViewModel.getState();
-        loginState.setUsername("");
-        loginState.setPassword("");
+        loginState.resetInputFields();
         loginViewModel.setState(loginState);
         loginViewModel.firePropertyChanged();
 
@@ -45,6 +42,7 @@ public class ToHomeViewPresenter implements ToHomeViewOutputBoundary {
         searchState.setSearchQuery("");
         searchViewModel.setState(searchState);
         searchViewModel.firePropertyChanged();
+
         viewManagerModel.setState(homeViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }

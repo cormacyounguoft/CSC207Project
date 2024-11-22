@@ -59,6 +59,14 @@ public class SignupState {
         this.repeatPasswordError = repeatPasswordError;
     }
 
+    public void resetInputFields(){
+        this.password = null;
+        this.repeatPassword = null;
+        this.username = null;
+        this.passwordError = null;
+        this.usernameError = null;
+    }
+
     @Override
     public String toString() {
         return "SignupState{"
