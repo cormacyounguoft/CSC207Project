@@ -23,19 +23,34 @@ public class ChangePasswordInteractor implements ChangePasswordInputBoundary {
 
     @Override
     public void execute(ChangePasswordInputData changePasswordInputData) {
-        final User user = userFactory.create(changePasswordInputData.getUsername(),
-                                             changePasswordInputData.getPassword());
-        userDataAccessObject.changePassword(changePasswordInputData.getUsername(),
-                changePasswordInputData.getPassword());
+        if (!validatePassword(changePasswordInputData.getPassword())) {
+            userPresenter.prepareFailView("Invalid password. Ensure it is at least 8 characters long, "
+                    + "contains an uppercase letter, a lowercase letter, a digit, and a special character.");
+        }
+        else {
+            final User user = userFactory.create(changePasswordInputData.getUsername(),
+                    changePasswordInputData.getPassword());
+            userDataAccessObject.changePassword(changePasswordInputData.getUsername(),
+                    changePasswordInputData.getPassword());
 
-        final ChangePasswordOutputData changePasswordOutputData = new ChangePasswordOutputData(user.getName(),
-                                                                                  false);
-        userPresenter.prepareSuccessView(changePasswordOutputData);
+            final ChangePasswordOutputData changePasswordOutputData = new ChangePasswordOutputData(user.getName(),
+                    false);
+            userPresenter.prepareSuccessView(changePasswordOutputData);
+        }
     }
 
     @Override
     public void switchToLoggedInView(ChangePasswordInputData inputData) {
         final ChangePasswordOutputData outputData = new ChangePasswordOutputData(inputData.getUsername(), false);
         userPresenter.switchToLoggedInView(outputData);
+    }
+
+    private boolean validatePassword(String password) {
+        return password != null &&
+                password.length() >= 8 &&
+                password.matches(".*[A-Z].*") &&
+                password.matches(".*[a-z].*") &&
+                password.matches(".*\\d.*") &&
+                password.matches(".*[(){}\\[\\]'\";:><,./?\\\\|\\+=\\-_\\*&^%$#@!~`].*");
     }
 }
