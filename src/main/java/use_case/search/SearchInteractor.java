@@ -50,9 +50,6 @@ public class SearchInteractor implements SearchInputBoundary {
         String result;
 
         switch (info.toLowerCase()) {
-            case "title":
-                result = movie.getTitle().isEmpty() ? "Title not available." : movie.getTitle();
-                break;
             case "release_date":
                 result = movie.getReleaseDate().isEmpty() ? "Release date not available." : movie.getReleaseDate();
                 break;
@@ -78,7 +75,7 @@ public class SearchInteractor implements SearchInputBoundary {
                 result = movie.getPosterLink().isEmpty() ? "Poster not available." : movie.getPosterLink();
                 break;
             default:
-                result = "Property not recognized.";
+                result = movie.getTitle().isEmpty() ? "Title not available." : movie.getTitle();
 
         }
 

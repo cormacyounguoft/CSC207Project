@@ -34,7 +34,6 @@ class LoginInteractorTest {
                 fail("Use case failure is unexpected.");
             }
 
-
         };
 
         LoginInputBoundary interactor = new LoginInteractor(userRepository, successPresenter);
@@ -120,7 +119,6 @@ class LoginInteractorTest {
             public void prepareFailView(String error) {
                 assertEquals("Paul: Account does not exist.", error);
             }
-
 
         };
 
