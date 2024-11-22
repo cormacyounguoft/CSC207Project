@@ -13,6 +13,7 @@ import javax.swing.event.DocumentListener;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchState;
 import interface_adapter.search.SearchViewModel;
+import interface_adapter.signup.SignupState;
 import interface_adapter.to_home_view.ToHomeViewController;
 
 /**
@@ -108,10 +109,12 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         final SearchState state = (SearchState) evt.getNewValue();
+        setFields(state);
         if (state.getSearchError() != null) {
             JOptionPane.showMessageDialog(this, state.getSearchError());
         }
     }
+
 
     private void setFields(SearchState state) {
         searchQueryInputField.setText(state.getSearchQuery());

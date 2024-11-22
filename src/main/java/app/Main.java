@@ -46,6 +46,7 @@ public class Main {
                 .addGoToRateUseCase()
                 .addGetRatedListUseCase()
                 .addRatedListUseCase()
+                .addToHomeViewUseCase()
                 .addToLoggedInViewUseCase()
                 .build();
 
