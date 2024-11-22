@@ -1,17 +1,8 @@
 package view;
 
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -23,7 +14,7 @@ import interface_adapter.to_home_view.ToHomeViewController;
 /**
  * The View for when the user is logging into the program.
  */
-public class LoginView extends JPanel implements ActionListener, PropertyChangeListener {
+public class LoginView extends JPanel {
 
     private final String viewName = "log in";
     private final LoginViewModel loginViewModel;
@@ -40,115 +31,129 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     private ToHomeViewController toHomeViewController;
 
     public LoginView(LoginViewModel loginViewModel) {
-
         this.loginViewModel = loginViewModel;
-        this.loginViewModel.addPropertyChangeListener(this);
-
-        final JLabel title = new JLabel("Login Screen");
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        final LabelTextPanel usernameInfo = new LabelTextPanel(
-                new JLabel("Username"), usernameInputField);
-        final LabelTextPanel passwordInfo = new LabelTextPanel(
-                new JLabel("Password"), passwordInputField);
-
-        final JPanel buttons = new JPanel();
-        logIn = new JButton("log in");
-        buttons.add(logIn);
-        cancel = new JButton("cancel");
-        buttons.add(cancel);
-
-        logIn.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(logIn)) {
-                            final LoginState currentState = loginViewModel.getState();
-
-                            loginController.execute(
-                                    currentState.getUsername(),
-                                    currentState.getPassword()
-                            );
-                        }
-                    }
-                }
-        );
-
-        cancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                toHomeViewController.toHomeView();
-            }
+        this.loginViewModel.addPropertyChangeListener(evt -> {
+            final LoginState state = (LoginState) evt.getNewValue();
+            setFields(state);
+            usernameErrorField.setText(state.getLoginError());
         });
 
-        usernameInputField.getDocument().addDocumentListener(new DocumentListener() {
+        // Set layout and background
+        this.setLayout(new BorderLayout(20, 20));
+        this.setBackground(new Color(240, 248, 255)); // Light blue background
+        this.setBorder(new EmptyBorder(20, 20, 20, 20)); // Padding around the panel
 
-            private void documentListenerHelper() {
-                final LoginState currentState = loginViewModel.getState();
-                currentState.setUsername(usernameInputField.getText());
-                loginViewModel.setState(currentState);
-            }
+        // Title Label
+        final JLabel title = new JLabel("Login Screen", SwingConstants.CENTER);
+        title.setFont(new Font("SansSerif", Font.BOLD, 24));
+        title.setForeground(new Color(0, 51, 102)); // Dark blue
+        this.add(title, BorderLayout.NORTH);
 
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                documentListenerHelper();
-            }
+        // Input Fields Panel
+        final JPanel inputPanel = new JPanel();
+        inputPanel.setLayout(new GridLayout(4, 1, 10, 10)); // Fields and errors with spacing
+        inputPanel.setOpaque(false);
 
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                documentListenerHelper();
-            }
+        inputPanel.add(createLabeledField("Username", usernameInputField, usernameErrorField));
+        inputPanel.add(createLabeledField("Password", passwordInputField, passwordErrorField));
+        this.add(inputPanel, BorderLayout.CENTER);
 
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                documentListenerHelper();
-            }
+        // Buttons Panel
+        final JPanel buttonsPanel = new JPanel(new GridLayout(1, 2, 15, 0)); // Side-by-side buttons
+        buttonsPanel.setOpaque(false);
+
+        logIn = createStyledButton("Log In");
+        cancel = createStyledButton("Cancel");
+
+        buttonsPanel.add(logIn);
+        buttonsPanel.add(cancel);
+        this.add(buttonsPanel, BorderLayout.SOUTH);
+
+        // Add Action Listeners
+        logIn.addActionListener(evt -> {
+            final LoginState currentState = loginViewModel.getState();
+            loginController.execute(currentState.getUsername(), currentState.getPassword());
         });
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        cancel.addActionListener(evt -> toHomeViewController.toHomeView());
 
-        passwordInputField.getDocument().addDocumentListener(new DocumentListener() {
-
-            private void documentListenerHelper() {
-                final LoginState currentState = loginViewModel.getState();
-                currentState.setPassword(new String(passwordInputField.getPassword()));
-                loginViewModel.setState(currentState);
-            }
-
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                documentListenerHelper();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                documentListenerHelper();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                documentListenerHelper();
-            }
+        // Attach Document Listeners
+        addDocumentListener(usernameInputField, text -> {
+            final LoginState currentState = loginViewModel.getState();
+            currentState.setUsername(text);
+            loginViewModel.setState(currentState);
         });
 
-        this.add(title);
-        this.add(usernameInfo);
-        this.add(usernameErrorField);
-        this.add(passwordInfo);
-        this.add(buttons);
+        addDocumentListener(passwordInputField, text -> {
+            final LoginState currentState = loginViewModel.getState();
+            currentState.setPassword(text);
+            loginViewModel.setState(currentState);
+        });
     }
 
     /**
-     * React to a button click that results in evt.
-     * @param evt the ActionEvent to react to
+     * Creates a labeled field with an error message label underneath.
      */
-    public void actionPerformed(ActionEvent evt) {
-        System.out.println("Click " + evt.getActionCommand());
+    private JPanel createLabeledField(String labelText, JTextField inputField, JLabel errorLabel) {
+        JPanel panel = new JPanel(new BorderLayout(5, 5));
+        panel.setOpaque(false);
+
+        JLabel label = new JLabel(labelText);
+        label.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        label.setForeground(new Color(0, 51, 102));
+
+        inputField.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        inputField.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(173, 216, 230), 1),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)
+        ));
+
+        errorLabel.setFont(new Font("SansSerif", Font.ITALIC, 12));
+        errorLabel.setForeground(Color.RED);
+
+        panel.add(label, BorderLayout.NORTH);
+        panel.add(inputField, BorderLayout.CENTER);
+        panel.add(errorLabel, BorderLayout.SOUTH);
+
+        return panel;
     }
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        final LoginState state = (LoginState) evt.getNewValue();
-        setFields(state);
-        usernameErrorField.setText(state.getLoginError());
+    /**
+     * Utility method to create a styled button.
+     */
+    private JButton createStyledButton(String text) {
+        JButton button = new JButton(text);
+        button.setFont(new Font("SansSerif", Font.PLAIN, 22));
+        button.setBackground(new Color(93, 186, 255)); // Pastel blue
+        button.setForeground(Color.WHITE);
+        button.setFocusPainted(false);
+        button.setBorder(BorderFactory.createLineBorder(new Color(124, 183, 205), 2));
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        button.setPreferredSize(new Dimension(150, 50)); // Consistent size
+        return button;
+    }
+
+    /**
+     * Adds a document listener to a text field.
+     */
+    private void addDocumentListener(JTextField textField, DocumentListenerCallback callback) {
+        textField.getDocument().addDocumentListener(new DocumentListener() {
+            public void insertUpdate(DocumentEvent e) {
+                callback.update(textField.getText());
+            }
+
+            public void removeUpdate(DocumentEvent e) {
+                callback.update(textField.getText());
+            }
+
+            public void changedUpdate(DocumentEvent e) {
+                callback.update(textField.getText());
+            }
+        });
+    }
+
+    private interface DocumentListenerCallback {
+        void update(String text);
     }
 
     private void setFields(LoginState state) {
