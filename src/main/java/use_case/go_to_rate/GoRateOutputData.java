@@ -7,11 +7,11 @@ import java.util.Map;
 
 public class GoRateOutputData {
     private final String username;
-    private final Movie movie;
+    private final String title;
     private final boolean useCaseFailed;
-    public GoRateOutputData(String username, Movie movie, boolean useCaseFailed) {
+    public GoRateOutputData(String username, String title, boolean useCaseFailed) {
         this.username = username;
-        this.movie = movie;
+        this.title = title;
         this.useCaseFailed = useCaseFailed;
     }
 
@@ -19,11 +19,11 @@ public class GoRateOutputData {
         return username;
     }
 
-    public Movie getMovie() {
-        return movie;
-    }
-
     public boolean isUseCaseFailed() {
         return useCaseFailed;
+    }
+
+    public String getTitle() {
+        return title;
     }
 }

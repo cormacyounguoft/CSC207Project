@@ -1,7 +1,5 @@
 package view;
 
-import entity.Movie;
-import interface_adapter.go_to_rate.GoRateController;
 import interface_adapter.go_to_rate.GoRateController;
 import interface_adapter.to_logged_in_view.ToLoggedInViewController;
 import interface_adapter.watched_list.WatchedListController;
@@ -83,6 +81,15 @@ public class WatchedListView extends JPanel implements ActionListener, PropertyC
                 JButton posterLabels = new JButton();
                 if (moviePosters.get(i).isEmpty()) {
                     posterLabels.setText("Poster not available.");
+                    int finalI = i;
+                    posterLabels.addActionListener(
+                            new ActionListener() {
+                                public void actionPerformed(ActionEvent evt) {
+                                    goToRateController.goToRate(state.getUsername(), movieTitles.get(finalI));
+                                    // movieTitles.get(finalI)
+                                }
+                            }
+                    );
                 }
                 else {
                     try {
@@ -90,11 +97,11 @@ public class WatchedListView extends JPanel implements ActionListener, PropertyC
                         BufferedImage image = ImageIO.read(url);
                         posterLabels.setText("");
                         posterLabels.setIcon(new ImageIcon(image));
-                        int finalI = i;
+                        int finalI1 = i;
                         posterLabels.addActionListener(
                                 new ActionListener() {
                                     public void actionPerformed(ActionEvent evt) {
-                                        goToRateController.goToRate(state.getUsername(), new Movie());
+                                        goToRateController.goToRate(state.getUsername(), movieTitles.get(finalI1));
                                         // movieTitles.get(finalI)
                                     }
                                 }

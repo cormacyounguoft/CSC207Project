@@ -128,6 +128,7 @@ public class SearchResultView extends JPanel implements ActionListener, Property
 
 
     public void setMoviePoster(String poster) {
+        moviePoster.setIcon(null);
         if (Objects.equals(poster, "Poster not available.")) {
             moviePoster.setText("Poster not available.");
         }

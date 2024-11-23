@@ -39,6 +39,15 @@ public class MovieList {
         return result;
     }
 
+    public Movie findMovieByTitle(String title) {
+        for (Movie movie : movieList) {
+            if (movie.getTitle().equalsIgnoreCase(title)) { // Case-insensitive comparison
+                return movie; // Return the matching movie
+            }
+        }
+        return null; // Return null if no movie is found
+    }
+
     public boolean contains(Movie movie) {
         return movieList.contains(movie);
     }

@@ -49,14 +49,14 @@ public class RateView extends JPanel implements ActionListener, PropertyChangeLi
                         if (evt.getSource().equals(rate)) {
                             final RateState currentState = rateViewModel.getState();
                             int rating = Integer.parseInt(rateInputField.getText());
-                            rateController.execute(currentState.getUsername(), currentState.getMovie(), rating);
+                            rateController.execute(currentState.getUsername(), currentState.getTitle(), rating);
                             if (currentState.getRateError() != null) {
                                 JOptionPane.showMessageDialog(null, currentState.getRateError());
                                 currentState.setRateError(null);
                             }
                             else {
                                     JOptionPane.showMessageDialog(null, "The rating of " +
-                                            rating + " out of 5 for \"" + currentState.getMovie().getTitle() +
+                                            rating + " out of 5 for \"" + currentState.getTitle() +
                                             "\" has been saved to your account.");
                                 }
                         }
@@ -100,7 +100,7 @@ public class RateView extends JPanel implements ActionListener, PropertyChangeLi
     public void propertyChange(PropertyChangeEvent evt) {
         final RateState state = (RateState) evt.getNewValue();
         final String username = state.getUsername();
-        final String movie = state.getMovie().getTitle();
+        final String movie = state.getTitle();
 
         this.movie.setText("Movie: " + movie);
         this.username.setText("Username: " + username);

@@ -12,12 +12,12 @@ public class RateController {
     }
 
     public void switchToLoggedInView(String username) {
-        final RateInputData inputData = new RateInputData(username, new Movie(), 0);
+        final RateInputData inputData = new RateInputData(username, "", 0);
         useCaseInteractor.switchToLoggedInView(inputData);
     }
 
-    public void execute(String username, Movie movie, int rating) {
-        final RateInputData inputData = new RateInputData(username, movie, rating);
+    public void execute(String username, String title, int rating) {
+        final RateInputData inputData = new RateInputData(username, title, rating);
         useCaseInteractor.execute(inputData);
     }
 }

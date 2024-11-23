@@ -81,7 +81,9 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     }
 
     @Override
-    public void saveUserRating(String username, Movie movie, int rating) {
+    public void saveUserRating(String username, String title, int rating) {
+        MovieList list = this.get(username).getWatchedList();
+        Movie movie = list.findMovieByTitle(title);
         this.get(username).getUserRatings().addRating(movie, rating);
     }
 
