@@ -26,7 +26,6 @@ public class GetRatedListInteractorTest {
         userRepository.saveToWatchedList("Paul", movie);
         userRepository.saveUserRating("Paul", "Frozen", 5);
         GetRateListInputData inputData = new GetRateListInputData("Paul");
-        LoggedOutSearchDataAccessInterface loggedOutSearchDataAccessInterface = new MovieAccessObject();
 
 
         GetRateListOutputBoundary presenter = new GetRateListOutputBoundary() {
