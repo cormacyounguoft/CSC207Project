@@ -2,6 +2,7 @@ package use_case.get_rated_list;
 
 import entity.UserRating;
 
+import java.util.List;
 import java.util.Map;
 
 public class GetRateListInteractor implements GetRateListInputBoundary {
@@ -15,7 +16,7 @@ public class GetRateListInteractor implements GetRateListInputBoundary {
 
     @Override
     public void execute(GetRateListInputData getRateListInputData) {
-        final Map<String, Integer> rating = dataAccessInterface.getUserRating(getRateListInputData.getUsername()).getMovieToRating();
+        final Map<String, List<String>> rating = dataAccessInterface.getUserRating(getRateListInputData.getUsername());
         GetRateListOutputData outputData = new GetRateListOutputData(getRateListInputData.getUsername(), rating, false);
         presenter.prepareSuccessView(outputData);
     }

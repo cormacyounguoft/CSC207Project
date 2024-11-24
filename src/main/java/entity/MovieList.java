@@ -69,5 +69,14 @@ public class MovieList {
         return result;
     }
 
+    public String getPoster(String title){
+        for (Movie movie : movieList) {
+            if (movie.getTitle().equalsIgnoreCase(title)) {
+                return movie.getPosterLink();
+            }
+        }
+        return title;
+    }
+
 
 }

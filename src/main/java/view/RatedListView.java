@@ -1,10 +1,9 @@
 package view;
 
-import entity.Movie;
 import interface_adapter.ratedList.RatedListController;
 import interface_adapter.ratedList.RatedListState;
 import interface_adapter.ratedList.RatedListViewModel;
-import interface_adapter.watched_list.WatchedListState;
+
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -18,6 +17,7 @@ import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.net.URL;
 
+import java.util.List;
 import java.util.Map;
 
 public class RatedListView extends JPanel implements ActionListener, PropertyChangeListener {
@@ -70,18 +70,11 @@ public class RatedListView extends JPanel implements ActionListener, PropertyCha
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
             final RatedListState state = (RatedListState) evt.getNewValue();
-            final Map<String, Integer> ratings = state.getRating();
+            final Map<String, List<String>> ratings = state.getRating();
             ratedList.removeAll();
 
-            for (Map.Entry<String, Integer> entry : ratings.entrySet()) {
-                String key = entry.getKey();
-                Integer value = entry.getValue();
-                JPanel rating = new JPanel(new BorderLayout());
-                JLabel textLabel = new JLabel(key, SwingConstants.CENTER);
-                JLabel textLabel1 = new JLabel(String.valueOf(value), SwingConstants.CENTER);
-
-                rating.add(textLabel, BorderLayout.NORTH);
-                rating.add(textLabel1, BorderLayout.SOUTH);
+            for (Map.Entry<String,  List<String>> entry : ratings.entrySet()) {
+                JPanel rating = getjPanel(entry);
                 Border border = BorderFactory.createLineBorder(Color.BLACK, 2); // Black border, 2 pixels thick
                 rating.setBorder(BorderFactory.createTitledBorder(border));
 
@@ -91,6 +84,36 @@ public class RatedListView extends JPanel implements ActionListener, PropertyCha
 
             username.setText("Username: " + state.getUsername());
         }
+    }
+
+    private JPanel getjPanel(Map.Entry<String, List<String>> entry) {
+        String key = entry.getKey();
+        List<String> value = entry.getValue();
+        String ratingNum = value.get(0);
+        String poster = value.get(1);
+        JPanel rating = new JPanel(new BorderLayout());
+        JLabel textLabel = new JLabel(key, SwingConstants.CENTER);
+        JLabel textLabel2 = new JLabel(ratingNum, SwingConstants.CENTER);
+        JLabel textLabel1 = new JLabel(ratingNum, SwingConstants.CENTER);
+        if (poster.isEmpty()) {
+            textLabel2.setText("Poster not available.");
+        }
+        else {
+            try {
+                URL url = new URL(poster);
+                BufferedImage image = ImageIO.read(url);
+                textLabel2.setText("");
+                textLabel2.setIcon(new ImageIcon(image));
+
+            } catch (IOException e) {
+                textLabel2.setText("Poster not available.");
+            }
+        }
+        rating.add(textLabel2);
+
+        rating.add(textLabel, BorderLayout.NORTH);
+        rating.add(textLabel1, BorderLayout.SOUTH);
+        return rating;
     }
 
     public String getViewName() {
