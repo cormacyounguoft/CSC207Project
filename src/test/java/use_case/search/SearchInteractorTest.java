@@ -91,4 +91,34 @@ class SearchInteractorTest {
         SearchInputBoundary interactor = new SearchInteractor(loggedOutSearchDataAccessInterface, successPresenter, new MovieFactory());
         interactor.execute(inputData);
     }
+
+    @Test
+    void successTestEmptyDirector() {
+        SearchInputData inputData = new SearchInputData("cs");
+        LoggedOutSearchDataAccessInterface loggedOutSearchDataAccessInterface = new MovieAccessObject();
+
+        SearchOutputBoundary successPresenter = new SearchOutputBoundary() {
+            @Override
+            public void prepareSuccessView(SearchOutputData outputData) {
+                assertEquals(outputData.getTitle(), "Ant!cs with Pooja K");
+                assertEquals(outputData.getReleaseDate(), "16 May 2017");
+                assertEquals(outputData.getDescription(), "Description not available.");
+                assertEquals(outputData.getRottenTomatoes(), "Rotten Tomatoes not available.");
+                assertEquals(outputData.getRuntime(), "RunTime not available.");
+                assertEquals(outputData.getGenre(), "[Short, Comedy, Drama]");
+                assertEquals(outputData.getActors(), "[Pooja Kimaya, Kumud Pant, Abdul Zafar]");
+                assertEquals(outputData.getDirector(), "Director not available.");
+                assertEquals(outputData.getPoster(), "https://m.media-amazon.com/images/M/MV5BYTliODBkZTktYTliYi00MGI1LTkyNDQtNzQ4NDg0OGFmMWE1XkEyXkFqcGc@._V1_SX300.jpg");
+                assertFalse(outputData.isUseCaseFailed());
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                fail("Use case failure is unexpected.");
+            }
+        };
+
+        SearchInputBoundary interactor = new SearchInteractor(loggedOutSearchDataAccessInterface, successPresenter, new MovieFactory());
+        interactor.execute(inputData);
+    }
 }

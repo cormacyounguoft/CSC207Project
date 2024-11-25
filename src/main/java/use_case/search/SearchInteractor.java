@@ -75,7 +75,7 @@ public class SearchInteractor implements SearchInputBoundary {
                 result = movie.getPosterLink().isEmpty() ? "Poster not available." : movie.getPosterLink();
                 break;
             default:
-                result = movie.getTitle().isEmpty() ? "Title not available." : movie.getTitle();
+                result = movie.getTitle();
 
         }
 
