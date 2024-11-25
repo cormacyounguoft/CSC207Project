@@ -34,6 +34,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
     private final JButton toChangePassword;
     private final JButton logout;
     private final JButton toRatedList;
+    private final JButton toDashboard; // New Dashboard Button
     final JLabel username;
 
     public LoggedInView(LoggedInViewModel loggedInViewModel) {
@@ -56,8 +57,10 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         buttons.add(toChangePassword);
         logout = new JButton(loggedInViewModel.LOGOUT_BUTTON_LABEL);
         buttons.add(logout);
-        toRatedList= new JButton("Go Rated List");
+        toRatedList = new JButton("Go Rated List");
         buttons.add(toRatedList);
+        toDashboard = new JButton("Go Dashboard");
+        buttons.add(toDashboard);
 
         toSearch.addActionListener(
                 new ActionListener() {
@@ -109,6 +112,15 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
                     public void actionPerformed(ActionEvent evt) {
                         final LoggedInState currentState = loggedInViewModel.getState();
                         logoutController.execute(currentState.getUsername());
+                    }
+                }
+        );
+
+        toDashboard.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        final LoggedInState currentState = loggedInViewModel.getState();
+                        loggedInController.switchToDashboardView(currentState.getUsername());
                     }
                 }
         );
