@@ -33,6 +33,5 @@ public class LoggedInSearchResultInteractorTest {
         LoggedInSearchResultInputBoundary interactor = new LoggedInSearchResultInteractor(presenter);
         interactor.execute(inputData);
     }
-
 }
 
