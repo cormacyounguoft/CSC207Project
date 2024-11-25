@@ -14,7 +14,7 @@ class SignupInteractorTest {
 
     @Test
     void successTest() {
-        SignupInputData inputData = new SignupInputData("Paul", "password", "password");
+        SignupInputData inputData = new SignupInputData("Paul", "Password1!", "Password1!");
         SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
 
         // This creates a successPresenter that tests whether the test case is as we expect.

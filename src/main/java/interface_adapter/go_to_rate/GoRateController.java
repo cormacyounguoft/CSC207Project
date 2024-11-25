@@ -9,8 +9,8 @@ public class GoRateController {
     public GoRateController(GoRateInputBoundary interactor) {
         this.interactor = interactor;
     }
-    public void goToRate(String username, Movie movie) {
-        GoRateInputData inputData = new GoRateInputData(username, movie);
+    public void goToRate(String username, String title) {
+        GoRateInputData inputData = new GoRateInputData(username, title);
         interactor.switchToRateView(inputData);
     }
 }

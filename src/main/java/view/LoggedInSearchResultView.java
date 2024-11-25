@@ -172,6 +172,7 @@ public class LoggedInSearchResultView extends JPanel implements ActionListener, 
     }
 
     public void setMoviePoster(String posterLink) {
+        moviePoster.setIcon(null);
         if (posterLink.equals("Poster not available.")) {
             moviePoster.setText("Poster not available.");
         }

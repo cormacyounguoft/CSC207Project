@@ -7,5 +7,5 @@ import entity.Movie;
  */
 public interface RateUserDataAccessInterface {
 
-    void saveUserRating(String username, Movie movie, int rating);
+    void saveUserRating(String username, String title, int rating);
 }

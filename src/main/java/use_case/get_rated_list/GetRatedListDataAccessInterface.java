@@ -1,7 +1,8 @@
 package use_case.get_rated_list;
 
-import entity.UserRating;
+import java.util.List;
+import java.util.Map;
 
 public interface GetRatedListDataAccessInterface {
-    UserRating getUserRating(String username);
+    Map<String, List<String>> getUserRating(String username);
 }

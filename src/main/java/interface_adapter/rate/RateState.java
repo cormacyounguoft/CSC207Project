@@ -4,7 +4,7 @@ import entity.Movie;
 
 public class RateState {
     private String username = "";
-    private Movie movie;
+    private String title;
     private int rate;
     private String rateError;
 
@@ -16,13 +16,6 @@ public class RateState {
         this.username = username;
     }
 
-    public Movie getMovie() {
-        return movie;
-    }
-
-    public void setMovie(Movie movie) {
-        this.movie = movie;
-    }
 
     public int getRate() {
         return rate;
@@ -38,5 +31,13 @@ public class RateState {
 
     public void setRateError(String rateError) {
         this.rateError = rateError;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

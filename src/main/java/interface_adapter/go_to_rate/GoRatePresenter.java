@@ -23,7 +23,7 @@ public class GoRatePresenter implements GoRateOutputBoundary {
     public void switchToRateView(GoRateOutputData outputData) {
         final RateState state = rateViewModel.getState();
         state.setUsername(outputData.getUsername());
-        state.setMovie(outputData.getMovie());
+        state.setTitle(outputData.getTitle());
         rateViewModel.setState(state);
         rateViewModel.firePropertyChanged();
 

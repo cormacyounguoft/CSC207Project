@@ -18,15 +18,15 @@ public class RateInteractor implements RateInputBoundary {
             presenter.prepareFailView("Rating must be between 0 and 5 inclusive.");
         }
         else {
-            userDataAccessInterface.saveUserRating(inputData.getUsername(), inputData.getMovie(), inputData.getRating());
-            final RateOutputData outputData = new RateOutputData(inputData.getUsername(), inputData.getMovie(), false);
+            userDataAccessInterface.saveUserRating(inputData.getUsername(), inputData.getTitle(), inputData.getRating());
+            final RateOutputData outputData = new RateOutputData(inputData.getUsername(), inputData.getTitle(), false);
             presenter.prepareSuccessView(outputData);
         }
     }
 
     @Override
     public void switchToLoggedInView(RateInputData inputData) {
-        final RateOutputData outputData = new RateOutputData(inputData.getUsername(), inputData.getMovie(), false);
+        final RateOutputData outputData = new RateOutputData(inputData.getUsername(), inputData.getTitle(), false);
         presenter.switchToLoggedInView(outputData);
     }
 }
