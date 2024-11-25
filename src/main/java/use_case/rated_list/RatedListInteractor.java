@@ -2,20 +2,17 @@ package use_case.rated_list;
 
 public class RatedListInteractor implements RatedListInputBoundary{
     private final RatedListOutputBoundary presenter;
+    private final RatedListDataAccessInterface useraccess;
 
-    public RatedListInteractor(RatedListOutputBoundary presenter) {
+    public RatedListInteractor(RatedListOutputBoundary presenter, RatedListDataAccessInterface useraccess) {
         this.presenter = presenter;
+        this.useraccess = useraccess;
     }
 
     @Override
     public void execute(RatedListInputData ratedListInputData) {
-        final RatedListOutputData ratedListOutputData = new RatedListOutputData(ratedListInputData.getUsername(), ratedListInputData.getRating(), false);
-        presenter.prepareSuccessView(ratedListOutputData);
+        useraccess.removeUserRating(ratedListInputData.getUsername(), ratedListInputData.getTitle());
+        presenter.prepareSuccessView();
     }
 
-    @Override
-    public void switchToLoggedInView(RatedListInputData ratedListInputData) {
-        final RatedListOutputData ratedListOutputData = new RatedListOutputData(ratedListInputData.getUsername(), ratedListInputData.getRating(), false);
-        presenter.switchToLoggedInView(ratedListOutputData);
-    }
 }

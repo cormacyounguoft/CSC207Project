@@ -23,18 +23,10 @@ public class RatedListPresenter implements RatedListOutputBoundary {
 
 
     @Override
-    public void prepareSuccessView(RatedListOutputData outputData) {
-        ratedListViewModel.firePropertyChanged();
-    }
-
-    @Override
-    public void switchToLoggedInView(RatedListOutputData outputData) {
-        final LoggedInState state = loggedInViewModel.getState();
-        state.setUsername(outputData.getUsername());
-        loggedInViewModel.setState(state);
-        loggedInViewModel.firePropertyChanged();
-
+    public void prepareSuccessView() {
         viewManagerModel.setState(loggedInViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
+
+
 }

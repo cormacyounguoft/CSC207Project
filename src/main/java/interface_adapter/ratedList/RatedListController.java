@@ -15,14 +15,9 @@ public class RatedListController {
         this.interactor = interactor;
     }
 
-    public void execute(String username, Map<String, Integer> rating) {
-        final RatedListInputData inputData = new RatedListInputData(username, rating);
+    public void execute(String username, String title) {
+        final RatedListInputData inputData = new RatedListInputData(username, title);
         interactor.execute(inputData);
     }
 
-    public void switchToLoggedInView(String username) {
-        Map<String, Integer> c = new HashMap<String, Integer>();
-        final RatedListInputData inputData = new RatedListInputData(username, c);
-        interactor.switchToLoggedInView(inputData);
-    }
 }

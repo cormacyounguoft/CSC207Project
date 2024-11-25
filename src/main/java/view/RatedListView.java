@@ -3,6 +3,8 @@ package view;
 import interface_adapter.ratedList.RatedListController;
 import interface_adapter.ratedList.RatedListState;
 import interface_adapter.ratedList.RatedListViewModel;
+import interface_adapter.to_logged_in_view.ToLoggedInViewController;
+import interface_adapter.watched_list.WatchedListState;
 
 
 import javax.imageio.ImageIO;
@@ -24,6 +26,7 @@ public class RatedListView extends JPanel implements ActionListener, PropertyCha
     private final String viewName = "rated list";
     private final RatedListViewModel ratedListViewModel;
     private RatedListController ratedListController;
+    private ToLoggedInViewController toLoggedInViewController;
     private final JButton cancel;
 
     private final JLabel username;
@@ -49,7 +52,7 @@ public class RatedListView extends JPanel implements ActionListener, PropertyCha
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         final RatedListState currentState = ratedListViewModel.getState();
-                        ratedListController.switchToLoggedInView(currentState.getUsername());
+                        toLoggedInViewController.toLoggedInView(currentState.getUsername());
                     }
                 }
         );
@@ -102,6 +105,14 @@ public class RatedListView extends JPanel implements ActionListener, PropertyCha
         textLabel2.setAlignmentX(Component.CENTER_ALIGNMENT);
         remove.setAlignmentX(Component.CENTER_ALIGNMENT);
         textLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        remove.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        final RatedListState state = ratedListViewModel.getState();
+                        ratedListController.execute(state.getUsername(), key);
+                    }
+                }
+        );
 
 
         rating.add(textLabel);
@@ -139,5 +150,9 @@ public class RatedListView extends JPanel implements ActionListener, PropertyCha
 
     public void setRatedListController(RatedListController ratedListController){
         this.ratedListController = ratedListController;
+    }
+
+    public void setToLoggedInViewController(ToLoggedInViewController toLoggedInViewController) {
+        this.toLoggedInViewController = toLoggedInViewController;
     }
 }
