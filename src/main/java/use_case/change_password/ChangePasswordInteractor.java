@@ -26,18 +26,18 @@ public class ChangePasswordInteractor implements ChangePasswordInputBoundary {
         if (!validatePassword(changePasswordInputData.getPassword())) {
             userPresenter.prepareFailView("Invalid password. Ensure it is at least 8 characters long, "
                     + "contains an uppercase letter, a lowercase letter, a digit, and a special character.");
+            return;
         }
-        else {
-            final User user = userFactory.create(changePasswordInputData.getUsername(),
-                    changePasswordInputData.getPassword());
-            userDataAccessObject.changePassword(changePasswordInputData.getUsername(),
-                    changePasswordInputData.getPassword());
+        final User user = userFactory.create(changePasswordInputData.getUsername(),
+                changePasswordInputData.getPassword());
+        userDataAccessObject.changePassword(changePasswordInputData.getUsername(),
+                changePasswordInputData.getPassword());
 
-            final ChangePasswordOutputData changePasswordOutputData = new ChangePasswordOutputData(user.getName(),
-                    false);
-            userPresenter.prepareSuccessView(changePasswordOutputData);
-        }
+        final ChangePasswordOutputData changePasswordOutputData = new ChangePasswordOutputData(user.getName(),
+                false);
+        userPresenter.prepareSuccessView(changePasswordOutputData);
     }
+
 
     @Override
     public void switchToLoggedInView(ChangePasswordInputData inputData) {
