@@ -75,6 +75,7 @@ public class RatedListView extends JPanel implements ActionListener, PropertyCha
 
             for (Map.Entry<String,  List<String>> entry : ratings.entrySet()) {
                 JPanel rating = getjPanel(entry);
+                rating.setPreferredSize(new Dimension(320, 500));
                 Border border = BorderFactory.createLineBorder(Color.BLACK, 2); // Black border, 2 pixels thick
                 rating.setBorder(BorderFactory.createTitledBorder(border));
 
@@ -91,10 +92,20 @@ public class RatedListView extends JPanel implements ActionListener, PropertyCha
         List<String> value = entry.getValue();
         String ratingNum = value.get(0);
         String poster = value.get(1);
-        JPanel rating = new JPanel(new BorderLayout());
-        JLabel textLabel = new JLabel(key, SwingConstants.CENTER);
-        JLabel textLabel2 = new JLabel(ratingNum, SwingConstants.CENTER);
-        JLabel textLabel1 = new JLabel(ratingNum, SwingConstants.CENTER);
+        JPanel rating = new JPanel();
+        rating.setLayout(new BoxLayout(rating, BoxLayout.Y_AXIS));
+        JLabel textLabel = new JLabel(key);
+        JLabel textLabel2 = new JLabel(ratingNum);
+        JLabel textLabel1 = new JLabel(ratingNum);
+        JButton remove = new JButton("Remove");
+        textLabel1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        textLabel2.setAlignmentX(Component.CENTER_ALIGNMENT);
+        remove.setAlignmentX(Component.CENTER_ALIGNMENT);
+        textLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+
+        rating.add(textLabel);
+        rating.add(Box.createVerticalStrut(10));
         if (poster.isEmpty()) {
             textLabel2.setText("Poster not available.");
         }
@@ -102,17 +113,23 @@ public class RatedListView extends JPanel implements ActionListener, PropertyCha
             try {
                 URL url = new URL(poster);
                 BufferedImage image = ImageIO.read(url);
+                Image scaledImage = image.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
                 textLabel2.setText("");
-                textLabel2.setIcon(new ImageIcon(image));
+                textLabel2.setIcon(new ImageIcon(scaledImage));
 
             } catch (IOException e) {
                 textLabel2.setText("Poster not available.");
             }
         }
         rating.add(textLabel2);
+        rating.add(Box.createVerticalStrut(10));
 
-        rating.add(textLabel, BorderLayout.NORTH);
-        rating.add(textLabel1, BorderLayout.SOUTH);
+
+        rating.add(textLabel1);
+        rating.add(Box.createVerticalStrut(10));
+
+        rating.add(remove);
+
         return rating;
     }
 

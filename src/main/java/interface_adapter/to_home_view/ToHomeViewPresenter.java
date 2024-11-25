@@ -40,6 +40,7 @@ public class ToHomeViewPresenter implements ToHomeViewOutputBoundary {
 
         final SearchState searchState = searchViewModel.getState();
         searchState.setSearchQuery("");
+        searchState.setSearchError(null);
         searchViewModel.setState(searchState);
         searchViewModel.firePropertyChanged();
 
