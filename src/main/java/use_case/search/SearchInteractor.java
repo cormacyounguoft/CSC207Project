@@ -4,19 +4,20 @@ import java.io.IOException;
 
 import entity.Movie;
 import entity.MovieFactory;
+import use_case.SearchDataAccessInterface;
 
 /**
  * The Search Interactor.
  */
 public class SearchInteractor implements SearchInputBoundary {
-    private final LoggedOutSearchDataAccessInterface searchDataAccessObject;
+    private final SearchDataAccessInterface searchDataAccessObject;
     private final SearchOutputBoundary searchPresenter;
 
 
-    public SearchInteractor(LoggedOutSearchDataAccessInterface loggedOutSearchDataAccessInterface,
+    public SearchInteractor(SearchDataAccessInterface searchDataAccessInterface,
                             SearchOutputBoundary searchOutputBoundary,
                             MovieFactory movieFactory) {
-        this.searchDataAccessObject = loggedOutSearchDataAccessInterface;
+        this.searchDataAccessObject = searchDataAccessInterface;
 
         this.searchPresenter = searchOutputBoundary;
 

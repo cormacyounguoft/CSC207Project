@@ -3,6 +3,7 @@ package use_case.search;
 import data_access.MovieAccessObject;
 import entity.MovieFactory;
 import org.junit.jupiter.api.Test;
+import use_case.SearchDataAccessInterface;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -12,7 +13,7 @@ class SearchInteractorTest {
     @Test
     void successTest() {
         SearchInputData inputData = new SearchInputData("Frozen");
-        LoggedOutSearchDataAccessInterface loggedOutSearchDataAccessInterface = new MovieAccessObject();
+        SearchDataAccessInterface searchDataAccessInterface = new MovieAccessObject();
 
         SearchOutputBoundary successPresenter = new SearchOutputBoundary() {
             @Override
@@ -35,7 +36,7 @@ class SearchInteractorTest {
             }
         };
 
-        SearchInputBoundary interactor = new SearchInteractor(loggedOutSearchDataAccessInterface, successPresenter, new MovieFactory());
+        SearchInputBoundary interactor = new SearchInteractor(searchDataAccessInterface, successPresenter, new MovieFactory());
         interactor.execute(inputData);
 
     }
@@ -43,7 +44,7 @@ class SearchInteractorTest {
     @Test
     void failTest() {
         SearchInputData inputData = new SearchInputData("123123");
-        LoggedOutSearchDataAccessInterface loggedOutSearchDataAccessInterface = new MovieAccessObject();
+        SearchDataAccessInterface searchDataAccessInterface = new MovieAccessObject();
 
         SearchOutputBoundary successPresenter = new SearchOutputBoundary() {
             @Override
@@ -57,7 +58,7 @@ class SearchInteractorTest {
             }
         };
 
-        SearchInputBoundary interactor = new SearchInteractor(loggedOutSearchDataAccessInterface, successPresenter, new MovieFactory());
+        SearchInputBoundary interactor = new SearchInteractor(searchDataAccessInterface, successPresenter, new MovieFactory());
         interactor.execute(inputData);
 
     }
@@ -65,7 +66,7 @@ class SearchInteractorTest {
     @Test
     void successTestEmpty() {
         SearchInputData inputData = new SearchInputData("Shal");
-        LoggedOutSearchDataAccessInterface loggedOutSearchDataAccessInterface = new MovieAccessObject();
+        SearchDataAccessInterface searchDataAccessInterface = new MovieAccessObject();
 
         SearchOutputBoundary successPresenter = new SearchOutputBoundary() {
             @Override
@@ -88,14 +89,14 @@ class SearchInteractorTest {
             }
         };
 
-        SearchInputBoundary interactor = new SearchInteractor(loggedOutSearchDataAccessInterface, successPresenter, new MovieFactory());
+        SearchInputBoundary interactor = new SearchInteractor(searchDataAccessInterface, successPresenter, new MovieFactory());
         interactor.execute(inputData);
     }
 
     @Test
     void successTestEmptyDirector() {
         SearchInputData inputData = new SearchInputData("cs");
-        LoggedOutSearchDataAccessInterface loggedOutSearchDataAccessInterface = new MovieAccessObject();
+        SearchDataAccessInterface searchDataAccessInterface = new MovieAccessObject();
 
         SearchOutputBoundary successPresenter = new SearchOutputBoundary() {
             @Override
@@ -118,7 +119,7 @@ class SearchInteractorTest {
             }
         };
 
-        SearchInputBoundary interactor = new SearchInteractor(loggedOutSearchDataAccessInterface, successPresenter, new MovieFactory());
+        SearchInputBoundary interactor = new SearchInteractor(searchDataAccessInterface, successPresenter, new MovieFactory());
         interactor.execute(inputData);
     }
 }
