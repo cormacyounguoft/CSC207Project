@@ -23,4 +23,9 @@ public interface LoggedInInputBoundary {
      * Executes the switch to watched list view use case.
      */
     void switchToWatchedListView(LoggedInInputData loggedInInputData);
+
+    /**
+     * Executes the switch to dashboard view use case.
+     */
+    void switchToDashboardView(LoggedInInputData loggedInInputData);
 }
