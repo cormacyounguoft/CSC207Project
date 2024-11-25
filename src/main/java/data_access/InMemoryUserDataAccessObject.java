@@ -14,10 +14,7 @@ import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.rate.RateUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * In-memory implementation of the DAO for storing user data. This implementation does
@@ -99,18 +96,16 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
 
     @Override
     public Map<String, List<String>> getUserRating(String username) {
-        Map<String, Integer> ratings = this.get(username).getUserRatings().getMovieToRating();
-        MovieList movieList = this.get(username).getWatchedList();
+        User user = this.get(username);
+        Map<String, Integer> ratings = user.getUserRatings().getMovieToRating();
+        MovieList movieList = user.getWatchedList();
+
         Map<String, List<String>> result = new HashMap<>();
-        for (Map.Entry<String, Integer> entry : ratings.entrySet()) {
-            String key = entry.getKey();
-            String poster = movieList.getPoster(key);
-            Integer value = entry.getValue();
-            List<String> list = new ArrayList<>();
-            list.add(String.valueOf(value));
-            list.add(poster);
-            result.put(key, list);
-        }
+        ratings.forEach((title, rating) -> {
+            String poster = movieList.getPoster(title);
+            result.put(title, Arrays.asList(String.valueOf(rating), poster));
+        });
         return result;
     }
+
 }
