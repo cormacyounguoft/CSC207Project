@@ -1,7 +1,7 @@
 package use_case.dashboard;
-
 import entity.Movie;
 import entity.MovieList;
+
 import use_case.get_watched_list.GetWatchedListDataAccessInterface;
 import use_case.get_watched_list.GetWatchedListInputData;
 
@@ -14,26 +14,23 @@ import java.util.stream.Collectors;
 public class DashboardInteractor implements DashboardInputBoundary {
     private final GetWatchedListDataAccessInterface watchedListDataAccess;
     private final DashboardOutputBoundary dashboardPresenter;
-
-    public DashboardInteractor(GetWatchedListDataAccessInterface watchedListDataAccess,
-                               DashboardOutputBoundary dashboardPresenter) {
+    public DashboardInteractor(GetWatchedListDataAccessInterface watchedListDataAccess, DashboardOutputBoundary dashboardPresenter) {
         this.watchedListDataAccess = watchedListDataAccess;
         this.dashboardPresenter = dashboardPresenter;
     }
-
     @Override
     public void execute(DashboardInputData inputData) {
         String username = inputData.getUsername();
-
+        // Fetch the watched list for the user
         MovieList watchedList = watchedListDataAccess.getWatchedList(username);
         List<Movie> movies = watchedList.getMovieList();
-
+        // Aggregate metrics
         double totalHoursWatched = calculateTotalHoursWatched(movies);
         Map<String, Integer> favoriteGenres = calculateFavoriteGenres(movies);
         double averageRating = calculateAverageRating(movies);
         Map<String, Double> highestRatedGenres = calculateHighestRatedGenres(movies);
         List<String> longestMovies = findLongestMovies(movies);
-
+        // Create output data
         DashboardOutputData outputData = new DashboardOutputData(
                 totalHoursWatched,
                 favoriteGenres,
@@ -42,10 +39,9 @@ public class DashboardInteractor implements DashboardInputBoundary {
                 longestMovies,
                 username
         );
-
+        // Pass the data to the presenter
         dashboardPresenter.prepareSuccessView(outputData);
     }
-
     @Override
     public void switchToLoggedInView(DashboardInputData inputData) {
         DashboardOutputData outputData = new DashboardOutputData(
@@ -58,13 +54,11 @@ public class DashboardInteractor implements DashboardInputBoundary {
         );
         dashboardPresenter.switchToLoggedInView(outputData);
     }
-
     private double calculateTotalHoursWatched(List<Movie> movies) {
         return movies.stream()
                 .mapToDouble(Movie::getRuntime)
-                .sum() / 60.0;
+                .sum() / 60.0; // Convert minutes to hours
     }
-
     private Map<String, Integer> calculateFavoriteGenres(List<Movie> movies) {
         Map<String, Integer> genreCounts = new HashMap<>();
         for (Movie movie : movies) {
@@ -74,7 +68,6 @@ public class DashboardInteractor implements DashboardInputBoundary {
         }
         return genreCounts;
     }
-
     private double calculateAverageRating(List<Movie> movies) {
         return movies.stream()
                 .mapToDouble(Movie::getRottenTomatoes)
@@ -82,7 +75,6 @@ public class DashboardInteractor implements DashboardInputBoundary {
                 .average()
                 .orElse(0.0);
     }
-
     private Map<String, Double> calculateHighestRatedGenres(List<Movie> movies) {
         Map<String, List<Integer>> genreRatings = new HashMap<>();
         for (Movie movie : movies) {
@@ -101,12 +93,11 @@ public class DashboardInteractor implements DashboardInputBoundary {
                                 .orElse(0.0)
                 ));
     }
-
     private List<String> findLongestMovies(List<Movie> movies) {
         return movies.stream()
                 .sorted(Comparator.comparing(Movie::getRuntime).reversed())
                 .limit(5) // Get top 5 longest movies
                 .map(Movie::getTitle)
-                .collect(Collectors.toList());
+                .toList();
     }
 }
