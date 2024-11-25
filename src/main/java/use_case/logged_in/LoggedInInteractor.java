@@ -37,4 +37,11 @@ public class LoggedInInteractor implements LoggedInInputBoundary {
                 false);
         presenter.switchToWatchedListView(loggedInOutputData);
     }
+
+    @Override
+    public void switchToDashboardView(LoggedInInputData loggedInInputData) {
+        final LoggedInOutputData loggedInOutputData = new LoggedInOutputData(loggedInInputData.getUsername(),
+                false);
+        presenter.switchToDashboardView(loggedInOutputData);
+    }
 }
