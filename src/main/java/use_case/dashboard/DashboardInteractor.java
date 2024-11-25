@@ -18,6 +18,7 @@ public class DashboardInteractor implements DashboardInputBoundary {
         this.watchedListDataAccess = watchedListDataAccess;
         this.dashboardPresenter = dashboardPresenter;
     }
+
     @Override
     public void execute(DashboardInputData inputData) {
         String username = inputData.getUsername();
@@ -42,6 +43,7 @@ public class DashboardInteractor implements DashboardInputBoundary {
         // Pass the data to the presenter
         dashboardPresenter.prepareSuccessView(outputData);
     }
+
     @Override
     public void switchToLoggedInView(DashboardInputData inputData) {
         DashboardOutputData outputData = new DashboardOutputData(
@@ -54,11 +56,13 @@ public class DashboardInteractor implements DashboardInputBoundary {
         );
         dashboardPresenter.switchToLoggedInView(outputData);
     }
+
     private double calculateTotalHoursWatched(List<Movie> movies) {
         return movies.stream()
                 .mapToDouble(Movie::getRuntime)
                 .sum() / 60.0; // Convert minutes to hours
     }
+
     private Map<String, Integer> calculateFavoriteGenres(List<Movie> movies) {
         Map<String, Integer> genreCounts = new HashMap<>();
         for (Movie movie : movies) {
@@ -68,6 +72,7 @@ public class DashboardInteractor implements DashboardInputBoundary {
         }
         return genreCounts;
     }
+
     private double calculateAverageRating(List<Movie> movies) {
         return movies.stream()
                 .mapToDouble(Movie::getRottenTomatoes)
@@ -75,6 +80,7 @@ public class DashboardInteractor implements DashboardInputBoundary {
                 .average()
                 .orElse(0.0);
     }
+
     private Map<String, Double> calculateHighestRatedGenres(List<Movie> movies) {
         Map<String, List<Integer>> genreRatings = new HashMap<>();
         for (Movie movie : movies) {
@@ -93,6 +99,7 @@ public class DashboardInteractor implements DashboardInputBoundary {
                                 .orElse(0.0)
                 ));
     }
+
     private List<String> findLongestMovies(List<Movie> movies) {
         return movies.stream()
                 .sorted(Comparator.comparing(Movie::getRuntime).reversed())
