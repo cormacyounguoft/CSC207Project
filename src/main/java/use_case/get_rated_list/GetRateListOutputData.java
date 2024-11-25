@@ -20,4 +20,8 @@ public class GetRateListOutputData {
     public Map<String, List<String>> getUserRating(){
         return this.userRating;
     }
+    public boolean isUseCaseFailed() {
+        return useCaseFailed;
+    }
+
 }
