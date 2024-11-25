@@ -635,7 +635,7 @@ public class AppBuilder {
     public AppBuilder addRatedListUseCase() {
         final RatedListOutputBoundary ratedListOutputBoundary =
                 new RatedListPresenter(viewManagerModel, loggedInViewModel, ratedListViewModel);
-        final RatedListInputBoundary ratedListInputBoundary = new RatedListInteractor(ratedListOutputBoundary);
+        final RatedListInputBoundary ratedListInputBoundary = new RatedListInteractor(ratedListOutputBoundary, userDataAccessObject);
         final RatedListController ratedListController = new RatedListController(ratedListInputBoundary);
         ratedListView.setRatedListController(ratedListController);
         return this;
@@ -695,12 +695,13 @@ public class AppBuilder {
                 new ToLoggedInViewInteractor(toLoggedInViewOutputBoundary);
         final ToLoggedInViewController toLoggedInViewController =
                 new ToLoggedInViewController(toLoggedInViewInputBoundary);
-//        ratedListView.setToLoggedInViewController(toLoggedInViewController);
-//        rateView.setToLoggedInViewController(toLoggedInViewController);
         loggedInSearchView.setToLoggedInViewController(toLoggedInViewController);
         loggedInSearchResultView.setToLoggedInViewController(toLoggedInViewController);
         watchedListView.setGoToLoggedInViewController(toLoggedInViewController);
         watchlistView.setToLoggedInViewController(toLoggedInViewController);
+        ratedListView.setToLoggedInViewController(toLoggedInViewController);
+        changePasswordView.setToLoggedInViewController(toLoggedInViewController);
+        rateView.setToLoggedInViewController(toLoggedInViewController);
         return this;
     }
 

@@ -11,10 +11,6 @@ public class RateController {
         this.useCaseInteractor = useCaseInteractor;
     }
 
-    public void switchToLoggedInView(String username) {
-        final RateInputData inputData = new RateInputData(username, "", 0);
-        useCaseInteractor.switchToLoggedInView(inputData);
-    }
 
     public void execute(String username, String title, int rating) {
         final RateInputData inputData = new RateInputData(username, title, rating);

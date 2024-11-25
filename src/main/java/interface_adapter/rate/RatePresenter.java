@@ -38,14 +38,4 @@ public class RatePresenter implements RateOutputBoundary {
         rateViewModel.firePropertyChanged();
     }
 
-    @Override
-    public void switchToLoggedInView(RateOutputData outputData) {
-        LoggedInState state = loggedInViewModel.getState();
-        state.setUsername(outputData.getUsername());
-        loggedInViewModel.setState(state);
-        loggedInViewModel.firePropertyChanged();
-
-        viewManagerModel.setState(loggedInViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
-    }
 }
