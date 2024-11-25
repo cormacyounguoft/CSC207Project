@@ -126,6 +126,13 @@ import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
 
+import interface_adapter.dashboard.DashboardController;
+import interface_adapter.dashboard.DashboardPresenter;
+import view.DashboardView;
+import interface_adapter.dashboard.DashboardViewModel;
+import use_case.dashboard.DashboardInputBoundary;
+import use_case.dashboard.DashboardInteractor;
+import use_case.dashboard.DashboardOutputBoundary;
 import use_case.to_logged_in_view.ToLoggedInViewInputBoundary;
 import use_case.to_logged_in_view.ToLoggedInViewInteractor;
 import use_case.to_logged_in_view.ToLoggedInViewOutputBoundary;
@@ -140,20 +147,7 @@ import use_case.watched_list.WatchedListOutputBoundary;
 import use_case.watchlist.WatchlistInputBoundary;
 import use_case.watchlist.WatchlistInteractor;
 import use_case.watchlist.WatchlistOutputBoundary;
-import view.ChangePasswordView;
-import view.HomeView;
-import view.LoggedInSearchResultView;
-import view.LoggedInSearchView;
-import view.LoggedInView;
-import view.LoginView;
-import view.RateView;
-import view.RatedListView;
-import view.SearchResultView;
-import view.SearchView;
-import view.SignupView;
-import view.ViewManager;
-import view.WatchedListView;
-import view.WatchlistView;
+import view.*;
 
 /**
  * The AppBuilder class is responsible for putting together the pieces of
@@ -182,6 +176,8 @@ public class AppBuilder {
     private LoginViewModel loginViewModel;
     private ChangePasswordViewModel changePasswordViewModel;
     private ChangePasswordView changePasswordView;
+    private DashboardView dashboardView;
+    private DashboardViewModel dashboardViewModel;
     private LoginView loginView;
     private HomeView homeView;
     private HomeViewModel homeViewModel;
@@ -239,6 +235,20 @@ public class AppBuilder {
         changePasswordViewModel = new ChangePasswordViewModel();
         changePasswordView = new ChangePasswordView(changePasswordViewModel);
         cardPanel.add(changePasswordView, changePasswordView.getViewName());
+        return this;
+    }
+
+    /**
+     * Adds the Dashboard View to the application.
+     * @return this builder
+     */
+    public AppBuilder addDashboardView() {
+        dashboardViewModel = new DashboardViewModel();
+        DashboardPresenter dashboardPresenter = new DashboardPresenter(viewManagerModel, loggedInViewModel, dashboardViewModel);
+        DashboardController dashboardController = new DashboardController(new DashboardInteractor(userDataAccessObject, dashboardPresenter));
+        dashboardView = new DashboardView(dashboardViewModel);
+        dashboardView.setDashboardController(dashboardController);
+        cardPanel.add(dashboardView, "dashboard");
         return this;
     }
 
@@ -463,6 +473,18 @@ public class AppBuilder {
     }
 
     /**
+     * Adds the Dashboard Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addDashboardUseCase() {
+        final DashboardOutputBoundary dashboardOutputBoundary = new DashboardPresenter(viewManagerModel, loggedInViewModel, dashboardViewModel);
+        final DashboardInputBoundary dashboardInteractor = new DashboardInteractor(userDataAccessObject, dashboardOutputBoundary);
+        final DashboardController dashboardController = new DashboardController(dashboardInteractor);
+        dashboardView.setDashboardController(dashboardController);
+        return this;
+    }
+
+    /**
      * Adds the Home Use Case to the application.
      * @return this builder
      */
@@ -485,7 +507,9 @@ public class AppBuilder {
                 changePasswordViewModel,
                 loggedInSearchViewModel,
                 watchlistViewModel,
-                watchedListViewModel);
+                watchedListViewModel,
+                dashboardViewModel);
+
         final LoggedInInputBoundary loggedInInteractor = new LoggedInInteractor(loggedInOutputBoundary);
         final LoggedInController loggedInController = new LoggedInController(loggedInInteractor);
         loggedInView.setLoggedInController(loggedInController);
@@ -695,4 +719,8 @@ public class AppBuilder {
 
         return application;
     }
+    public ViewManager getViewManager() {
+        return viewManager;
+    }
+
 }
