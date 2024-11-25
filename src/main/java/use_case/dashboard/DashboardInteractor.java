@@ -1,7 +1,7 @@
 package use_case.dashboard;
-
 import entity.Movie;
 import entity.MovieList;
+
 import use_case.get_watched_list.GetWatchedListDataAccessInterface;
 import use_case.get_watched_list.GetWatchedListInputData;
 
@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 public class DashboardInteractor implements DashboardInputBoundary {
     private final GetWatchedListDataAccessInterface watchedListDataAccess;
     private final DashboardOutputBoundary dashboardPresenter;
-
     public DashboardInteractor(GetWatchedListDataAccessInterface watchedListDataAccess, DashboardOutputBoundary dashboardPresenter) {
         this.watchedListDataAccess = watchedListDataAccess;
         this.dashboardPresenter = dashboardPresenter;
@@ -23,18 +22,15 @@ public class DashboardInteractor implements DashboardInputBoundary {
     @Override
     public void execute(DashboardInputData inputData) {
         String username = inputData.getUsername();
-
         // Fetch the watched list for the user
         MovieList watchedList = watchedListDataAccess.getWatchedList(username);
         List<Movie> movies = watchedList.getMovieList();
-
         // Aggregate metrics
         double totalHoursWatched = calculateTotalHoursWatched(movies);
         Map<String, Integer> favoriteGenres = calculateFavoriteGenres(movies);
         double averageRating = calculateAverageRating(movies);
         Map<String, Double> highestRatedGenres = calculateHighestRatedGenres(movies);
         List<String> longestMovies = findLongestMovies(movies);
-
         // Create output data
         DashboardOutputData outputData = new DashboardOutputData(
                 totalHoursWatched,
@@ -44,7 +40,6 @@ public class DashboardInteractor implements DashboardInputBoundary {
                 longestMovies,
                 username
         );
-
         // Pass the data to the presenter
         dashboardPresenter.prepareSuccessView(outputData);
     }
