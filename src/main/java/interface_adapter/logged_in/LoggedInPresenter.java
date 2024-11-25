@@ -3,6 +3,8 @@ package interface_adapter.logged_in;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.change_password.ChangePasswordState;
 import interface_adapter.change_password.ChangePasswordViewModel;
+import interface_adapter.dashboard.DashboardState;
+import interface_adapter.dashboard.DashboardViewModel;
 import interface_adapter.logged_in_search.LoggedInSearchState;
 import interface_adapter.logged_in_search.LoggedInSearchViewModel;
 import interface_adapter.watched_list.WatchedListState;
@@ -21,17 +23,21 @@ public class LoggedInPresenter implements LoggedInOutputBoundary {
     private final LoggedInSearchViewModel loggedInSearchViewModel;
     private final WatchlistViewModel watchlistViewModel;
     private final WatchedListViewModel watchedListViewModel;
+    private final DashboardViewModel dashboardViewModel;
+
 
     public LoggedInPresenter(ViewManagerModel viewManagerModel,
                              ChangePasswordViewModel changePasswordViewModel,
                              LoggedInSearchViewModel loggedInSearchViewModel,
                              WatchlistViewModel watchlistViewModel,
-                             WatchedListViewModel watchedListViewModel) {
+                             WatchedListViewModel watchedListViewModel,
+                             DashboardViewModel dashboardViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.changePasswordViewModel = changePasswordViewModel;
         this.loggedInSearchViewModel = loggedInSearchViewModel;
         this.watchlistViewModel = watchlistViewModel;
         this.watchedListViewModel = watchedListViewModel;
+        this.dashboardViewModel = dashboardViewModel;
     }
 
     @Override
@@ -75,6 +81,16 @@ public class LoggedInPresenter implements LoggedInOutputBoundary {
         watchedListViewModel.firePropertyChanged();
 
         viewManagerModel.setState(watchedListViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+    }
+
+    @Override
+    public void switchToDashboardView(LoggedInOutputData loggedInOutputData) {
+        final DashboardState dashboardState = dashboardViewModel.getState();
+        dashboardState.setUsername(loggedInOutputData.getUsername());
+        dashboardViewModel.setState(dashboardState);
+        dashboardViewModel.firePropertyChanged();
+        viewManagerModel.setState(dashboardViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 }
