@@ -1,18 +1,16 @@
 package use_case.search;
 
 import data_access.MovieAccessObject;
-import entity.CommonUserFactory;
 import entity.MovieFactory;
-import entity.User;
-import entity.UserFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.MockDataAccessObject;
 import use_case.SearchDataAccessInterface;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.fail;
 
 class SearchInteractorTest {
     MockDataAccessObject dataAccessObject;
