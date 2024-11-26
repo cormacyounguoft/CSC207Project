@@ -11,19 +11,15 @@ import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.to_home_view.ToHomeViewController;
 
-/**
- * The View for the Signup Use Case.
- */
 public class SignupView extends JPanel {
+
     private final String viewName = "sign up";
 
     private final SignupViewModel signupViewModel;
     private final JTextField usernameInputField = new JTextField(15);
-    private final JLabel usernameErrorField = new JLabel();
     private final JPasswordField passwordInputField = new JPasswordField(15);
-    private final JLabel passwordErrorField = new JLabel();
     private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
-    private final JLabel repeatPasswordErrorField = new JLabel();
+    private final JLabel errorField = new JLabel(); // Single error label for all errors
 
     private final JButton signUp;
     private final JButton cancel;
@@ -34,9 +30,20 @@ public class SignupView extends JPanel {
 
     public SignupView(SignupViewModel signupViewModel) {
         this.signupViewModel = signupViewModel;
-        signupViewModel.addPropertyChangeListener(evt -> {
+        this.signupViewModel.addPropertyChangeListener(evt -> {
             final SignupState state = (SignupState) evt.getNewValue();
             setFields(state);
+
+            // Set the error message to the single error label
+            if (state.getUsernameError() != null) {
+                errorField.setText(state.getUsernameError());
+            } else if (state.getPasswordError() != null) {
+                errorField.setText(state.getPasswordError());
+            } else if (state.getRepeatPasswordError() != null) {
+                errorField.setText(state.getRepeatPasswordError());
+            } else {
+                errorField.setText(""); // Clear the error message if no errors
+            }
         });
 
         // Set layout and background
@@ -51,21 +58,28 @@ public class SignupView extends JPanel {
         this.add(title, BorderLayout.NORTH);
 
         // Input Fields Panel
-        final JPanel inputPanel = new JPanel(new GridLayout(6, 1, 10, 10)); // Fields and errors with spacing
+        final JPanel inputPanel = new JPanel(new GridLayout(4, 1, 10, 10)); // 3 inputs + 1 error label
         inputPanel.setOpaque(false);
 
-        inputPanel.add(labelCreator("Username", usernameInputField, usernameErrorField));
-        inputPanel.add(labelCreator("Password", passwordInputField, passwordErrorField));
-        inputPanel.add(labelCreator("Repeat Password", repeatPasswordInputField, repeatPasswordErrorField));
+        inputPanel.add(createLabeledField("Username", usernameInputField));
+        inputPanel.add(createLabeledField("Password", passwordInputField));
+        inputPanel.add(createLabeledField("Repeat Password", repeatPasswordInputField));
+
+        // Add error field below all inputs
+        errorField.setFont(new Font("SansSerif", Font.ITALIC, 12));
+        errorField.setForeground(Color.RED);
+        errorField.setHorizontalAlignment(SwingConstants.CENTER);
+        inputPanel.add(errorField);
+
         this.add(inputPanel, BorderLayout.CENTER);
 
         // Buttons Panel
-        final JPanel buttonsPanel = new JPanel(new GridLayout(1, 3, 15, 0)); // Side-by-side buttons
+        final JPanel buttonsPanel = new JPanel(new GridLayout(1, 3, 15, 0));
         buttonsPanel.setOpaque(false);
 
-        toLogin = buttonFactory("Go to Login");
-        signUp = buttonFactory("Sign Up");
-        cancel = buttonFactory("Cancel");
+        toLogin = createStyledButton("Go to Login");
+        signUp = createStyledButton("Sign Up");
+        cancel = createStyledButton("Cancel");
 
         buttonsPanel.add(toLogin);
         buttonsPanel.add(signUp);
@@ -107,9 +121,9 @@ public class SignupView extends JPanel {
     }
 
     /**
-     * Creates a labeled field with an error message label underneath.
+     * Creates a labeled field.
      */
-    private JPanel labelCreator(String labelText, JTextField inputField, JLabel errorLabel) {
+    private JPanel createLabeledField(String labelText, JTextField inputField) {
         JPanel panel = new JPanel(new BorderLayout(5, 5));
         panel.setOpaque(false);
 
@@ -123,12 +137,8 @@ public class SignupView extends JPanel {
                 BorderFactory.createEmptyBorder(5, 5, 5, 5)
         ));
 
-        errorLabel.setFont(new Font("SansSerif", Font.ITALIC, 12));
-        errorLabel.setForeground(Color.RED);
-
         panel.add(label, BorderLayout.NORTH);
         panel.add(inputField, BorderLayout.CENTER);
-        panel.add(errorLabel, BorderLayout.SOUTH);
 
         return panel;
     }
@@ -136,7 +146,7 @@ public class SignupView extends JPanel {
     /**
      * Utility method to create a styled button.
      */
-    private JButton buttonFactory(String text) {
+    private JButton createStyledButton(String text) {
         JButton button = new JButton(text);
         button.setFont(new Font("SansSerif", Font.PLAIN, 22));
         button.setBackground(new Color(93, 186, 255)); // Pastel blue
@@ -185,7 +195,7 @@ public class SignupView extends JPanel {
         this.signupController = controller;
     }
 
-    public void setToHomeViewController(ToHomeViewController toHomeViewController) {
-        this.toHomeViewController = toHomeViewController;
+    public void setToHomeViewController(ToHomeViewController controller) {
+        this.toHomeViewController = controller;
     }
 }
