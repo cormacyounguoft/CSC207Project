@@ -78,5 +78,14 @@ public class MovieList {
         return title;
     }
 
+    public boolean containsTitle(String title) {
+        for (Movie movie : movieList) {
+            if (movie.getTitle().equalsIgnoreCase(title)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 }
