@@ -126,11 +126,9 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         });
 
         toDashboard.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        final LoggedInState currentState = loggedInViewModel.getState();
-                        loggedInController.switchToDashboardView(currentState.getUsername());
-                    }
+                evt -> {
+                    final LoggedInState currentState = loggedInViewModel.getState();
+                    loggedInController.switchToDashboardView(currentState.getUsername());
                 }
         );
     }
