@@ -182,23 +182,6 @@ public class LoggedInSearchResultView extends JPanel implements ActionListener, 
         }
     }
 
-    public void setMoviePoster(String poster) {
-        if (Objects.equals(poster, "Poster not available.")) {
-            moviePoster.setText("Poster not available.");
-            moviePoster.setIcon(null);
-        } else {
-            try {
-                URL url = new URL(poster);
-                BufferedImage image = ImageIO.read(url);
-                moviePoster.setText("");
-                moviePoster.setIcon(new ImageIcon(image));
-            } catch (IOException e) {
-                moviePoster.setText("Poster not available.");
-                moviePoster.setIcon(null);
-            }
-        }
-    }
-
     public String getViewName() {
         return viewName;
     }
@@ -222,5 +205,22 @@ public class LoggedInSearchResultView extends JPanel implements ActionListener, 
     @Override
     public void actionPerformed(ActionEvent evt) {
         System.out.println("Click " + evt.getActionCommand());
+    }
+
+    public void setMoviePoster(String poster) {
+        if (Objects.equals(poster, "Poster not available.")) {
+            moviePoster.setText("Poster not available.");
+            moviePoster.setIcon(null);
+        } else {
+            try {
+                URL url = new URL(poster);
+                BufferedImage image = ImageIO.read(url);
+                moviePoster.setText("");
+                moviePoster.setIcon(new ImageIcon(image));
+            } catch (IOException e) {
+                moviePoster.setText("Poster not available.");
+                moviePoster.setIcon(null);
+            }
+        }
     }
 }
