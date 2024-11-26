@@ -41,7 +41,7 @@ public class MockDataAccessObject implements
     @Override
     public Movie search(String title) throws IOException {
         Movie result = new Movie();
-        if (title.equals("movie")) {
+        if (title.equalsIgnoreCase("movie")) {
             result.setTitle("title");
             result.setReleaseDate("date");
             result.setDescription("description");
@@ -52,7 +52,7 @@ public class MockDataAccessObject implements
             result.setDirector(List.of("director"));
             result.setPosterLink("url");
         }
-        else if (title.equals("blank")) {
+        else if (title.equalsIgnoreCase("blank")) {
             result.setTitle("title");
             result.setReleaseDate("");
             result.setDescription("");

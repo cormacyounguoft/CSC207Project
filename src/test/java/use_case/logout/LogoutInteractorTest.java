@@ -6,7 +6,10 @@ import entity.User;
 import entity.UserFactory;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 class LogoutInteractorTest {
 
@@ -27,6 +30,7 @@ class LogoutInteractorTest {
             public void prepareSuccessView(LogoutOutputData user) {
                 // check that the output data contains the username of who logged out
                 assertEquals("Paul", user.getUsername());
+                assertFalse(user.isUseCaseFailed());
             }
 
             @Override
