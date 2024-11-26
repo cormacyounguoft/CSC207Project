@@ -22,11 +22,14 @@ import java.util.Objects;
  * The View for the Search Result Use Case.
  */
 public class SearchResultView extends JPanel implements ActionListener, PropertyChangeListener {
-
     private final String viewName = "search result";
     private final SearchResultViewModel searchResultViewModel;
 
+    private SearchResultController searchResultController;
+    private ToHomeViewController toHomeViewController;
+
     private final JButton toHome;
+
     private final JLabel movieTitle = new JLabel();
     private final JLabel movieReleaseDate = new JLabel();
     private final JLabel movieRottenTomatoes = new JLabel();
@@ -36,8 +39,6 @@ public class SearchResultView extends JPanel implements ActionListener, Property
     private final JLabel movieDirector = new JLabel();
     private final JLabel moviePoster = new JLabel();
 
-    private SearchResultController searchResultController;
-    private ToHomeViewController toHomeViewController;
 
     public SearchResultView(SearchResultViewModel searchResultViewModel) {
         this.searchResultViewModel = searchResultViewModel;
