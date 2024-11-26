@@ -52,7 +52,8 @@ public class Main {
                 .addToLoggedInViewUseCase()
                 .build();
 
-        application.pack();
+        // Commented out to keep consistent size
+        // application.pack();
         application.setVisible(true);
     }
 }
