@@ -1,21 +1,19 @@
 package use_case.watched_list;
 
-import data_access.InMemoryUserDataAccessObject;
 import entity.CommonUserFactory;
 import entity.Movie;
 import entity.MovieFactory;
 import entity.User;
 import entity.UserFactory;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.MockDataAccessObject;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class WatchedListInteractorTest {
     MockDataAccessObject dataAccessObject;
@@ -46,10 +44,10 @@ class WatchedListInteractorTest {
         WatchedListOutputBoundary presenter = new WatchedListOutputBoundary() {
             @Override
             public void prepareSuccessView(WatchedListOutputData outputData) {
-                Assertions.assertEquals("Username", outputData.getUsername());
-                Assertions.assertEquals(List.of("Movie"), outputData.getWatchedListTitle());
-                Assertions.assertEquals(List.of("url"), outputData.getWatchedListURL());
-                Assertions.assertFalse(outputData.isUseCaseFailed());
+                assertEquals("Username", outputData.getUsername());
+                assertEquals(List.of("Movie"), outputData.getWatchedListTitle());
+                assertEquals(List.of("url"), outputData.getWatchedListURL());
+                assertFalse(outputData.isUseCaseFailed());
             }
         };
 

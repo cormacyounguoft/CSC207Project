@@ -4,12 +4,13 @@ import entity.CommonUserFactory;
 import entity.User;
 import entity.UserFactory;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.MockDataAccessObject;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 
@@ -36,10 +37,10 @@ public class AddToWatchedListInteractorTest {
         AddToWatchedListOutputBoundary presenter = new AddToWatchedListOutputBoundary() {
             @Override
             public void prepareSuccessView(AddToWatchedListOutputData outputData) {
-                Assertions.assertEquals("Username", outputData.getUsername());
-                Assertions.assertTrue(dataAccessObject.get(outputData.getUsername()).getWatchedList().containsTitle("title"));
-                Assertions.assertFalse(outputData.isUseCaseFailed());
-                Assertions.assertEquals("Username", outputData.getUsername());
+                assertEquals("Username", outputData.getUsername());
+                assertTrue(dataAccessObject.get(outputData.getUsername()).getWatchedList().containsTitle("title"));
+                assertFalse(outputData.isUseCaseFailed());
+                assertEquals("Username", outputData.getUsername());
             }
 
             @Override
@@ -64,7 +65,7 @@ public class AddToWatchedListInteractorTest {
 
             @Override
             public void prepareFailView(String error) {
-                Assertions.assertEquals("Error", error);
+                assertEquals("Error", error);
             }
         };
 

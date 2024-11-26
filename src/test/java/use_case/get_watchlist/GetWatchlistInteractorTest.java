@@ -6,12 +6,14 @@ import entity.MovieFactory;
 import entity.User;
 import entity.UserFactory;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.MockDataAccessObject;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class GetWatchlistInteractorTest {
     MockDataAccessObject dataAccessObject;
@@ -42,10 +44,10 @@ class GetWatchlistInteractorTest {
         GetWatchlistOutputBoundary presenter = new GetWatchlistOutputBoundary() {
             @Override
             public void prepareSuccessView(GetWatchlistOutputData outputData) {
-                Assertions.assertEquals("Username", outputData.getUsername());
-                Assertions.assertEquals(List.of("Movie"), outputData.getWatchlistTitle());
-                Assertions.assertEquals(List.of("url"), outputData.getWatchlistURL());
-                Assertions.assertFalse(outputData.isUseCaseFailed());
+                assertEquals("Username", outputData.getUsername());
+                assertEquals(List.of("Movie"), outputData.getWatchlistTitle());
+                assertEquals(List.of("url"), outputData.getWatchlistURL());
+                assertFalse(outputData.isUseCaseFailed());
             }
         };
 
