@@ -6,44 +6,53 @@ import entity.Movie;
 import entity.MovieFactory;
 import entity.User;
 import entity.UserFactory;
-import org.junit.Test;
-import use_case.watched_list.WatchedListInputBoundary;
-import use_case.watched_list.WatchedListInputData;
-import use_case.watched_list.WatchedListInteractor;
-import use_case.watched_list.WatchedListOutputBoundary;
-import use_case.watched_list.WatchedListOutputData;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import use_case.MockDataAccessObject;
 
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-public class WatchlistInteractorTest {
-    @Test
-    public void successTest() {
-        WatchlistInputData inputData = new WatchlistInputData("Username", List.of("Movie"), List.of("url"));
-        InMemoryUserDataAccessObject inMemoryUserDataAccessObject = new InMemoryUserDataAccessObject();
+class WatchlistInteractorTest {
+    MockDataAccessObject dataAccessObject;
 
+    @BeforeEach
+    void setUp() {
+        dataAccessObject = new MockDataAccessObject();
         UserFactory factory = new CommonUserFactory();
         User user = factory.create("Username", "Password123!");
-        inMemoryUserDataAccessObject.save(user);
+        dataAccessObject.save(user);
 
         MovieFactory movieFactory = new MovieFactory();
         Movie movie = movieFactory.create();
         movie.setTitle("Movie");
         movie.setPosterLink("url");
+        dataAccessObject.saveToWatchlist("Username", movie);
+    }
 
-        inMemoryUserDataAccessObject.get("Username").getWatchedList().addMovie(movie);
+    @AfterEach
+    void tearDown() {
+        dataAccessObject.clear();
+    }
+
+    @Test
+    void successTest() {
+        WatchlistInputData inputData = new WatchlistInputData("Username", List.of("Movie"), List.of("url"));
 
         WatchlistOutputBoundary presenter = new WatchlistOutputBoundary() {
             @Override
             public void prepareSuccessView(WatchlistOutputData outputData) {
-                assertEquals("Username", outputData.getUsername());
-                assertEquals(List.of("Movie"), outputData.getWatchlistTitle());
-                assertEquals(List.of("url"), outputData.getWatchlistURL());
-                assertFalse(outputData.isUseCaseFailed());
+                Assertions.assertEquals("Username", outputData.getUsername());
+                Assertions.assertEquals(List.of("Movie"), outputData.getWatchlistTitle());
+                Assertions.assertEquals(List.of("url"), outputData.getWatchlistURL());
+                Assertions.assertFalse(outputData.isUseCaseFailed());
             }
         };
+
         WatchlistInputBoundary interactor = new WatchlistInteractor(presenter);
         interactor.execute(inputData);
     }

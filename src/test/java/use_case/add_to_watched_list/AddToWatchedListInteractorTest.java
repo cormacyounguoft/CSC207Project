@@ -1,61 +1,60 @@
 package use_case.add_to_watched_list;
 
-import data_access.InMemoryUserDataAccessObject;
-import data_access.MovieAccessObject;
 import entity.CommonUserFactory;
 import entity.User;
 import entity.UserFactory;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import use_case.SearchDataAccessInterface;
+import use_case.MockDataAccessObject;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 
 public class AddToWatchedListInteractorTest {
-    @Test
-    void successTest() {
-        AddToWatchedListInputData inputData = new AddToWatchedListInputData("Username", "Spider-man");
+    MockDataAccessObject dataAccessObject;
 
-
-        InMemoryUserDataAccessObject inMemoryUserDataAccessObject = new InMemoryUserDataAccessObject();
-        SearchDataAccessInterface searchDataAccessInterface = new MovieAccessObject();
-
+    @BeforeEach
+    void setUp() {
+        dataAccessObject = new MockDataAccessObject();
         UserFactory factory = new CommonUserFactory();
         User user = factory.create("Username", "Password123!");
-        inMemoryUserDataAccessObject.save(user);
+        dataAccessObject.save(user);
+    }
+
+    @AfterEach
+    void tearDown() {
+        dataAccessObject.clear();
+    }
+
+    @Test
+    void successTest() {
+        AddToWatchedListInputData inputData = new AddToWatchedListInputData("Username", "movie");
 
         AddToWatchedListOutputBoundary presenter = new AddToWatchedListOutputBoundary() {
             @Override
             public void prepareSuccessView(AddToWatchedListOutputData outputData) {
-                assertEquals("Username", outputData.getUsername());
-                Assertions.assertTrue(inMemoryUserDataAccessObject.get(outputData.getUsername()).getWatchedList().containsTitle("Spider-Man"));
+                Assertions.assertEquals("Username", outputData.getUsername());
+                Assertions.assertTrue(dataAccessObject.get(outputData.getUsername()).getWatchedList().containsTitle("title"));
                 Assertions.assertFalse(outputData.isUseCaseFailed());
-                assertEquals("Username", outputData.getUsername());
+                Assertions.assertEquals("Username", outputData.getUsername());
             }
 
             @Override
             public void prepareFailView(String error) {
                 fail("Use case failure is unexpected.");
             }
-
         };
 
-        AddToWatchedListInputBoundary interactor = new AddToWatchedListInteractor(inMemoryUserDataAccessObject, searchDataAccessInterface, presenter);
+        AddToWatchedListInputBoundary interactor = new AddToWatchedListInteractor(dataAccessObject, dataAccessObject, presenter);
         interactor.execute(inputData);
     }
 
     @Test
     void failTest() {
-        AddToWatchedListInputData inputData = new AddToWatchedListInputData("Username", "123456");
-        InMemoryUserDataAccessObject inMemoryUserDataAccessObject = new InMemoryUserDataAccessObject();
-        SearchDataAccessInterface searchDataAccessInterface = new MovieAccessObject();
-
-        UserFactory factory = new CommonUserFactory();
-        User user = factory.create("Username", "Password123!");
-        inMemoryUserDataAccessObject.save(user);
+        AddToWatchedListInputData inputData = new AddToWatchedListInputData("Username", "movie not found");
 
         AddToWatchedListOutputBoundary presenter = new AddToWatchedListOutputBoundary() {
             @Override
@@ -65,12 +64,11 @@ public class AddToWatchedListInteractorTest {
 
             @Override
             public void prepareFailView(String error) {
-                assertEquals("Error", error);
+                Assertions.assertEquals("Error", error);
             }
-
         };
 
-        AddToWatchedListInputBoundary interactor = new AddToWatchedListInteractor(inMemoryUserDataAccessObject, searchDataAccessInterface, presenter);
+        AddToWatchedListInputBoundary interactor = new AddToWatchedListInteractor(dataAccessObject, dataAccessObject, presenter);
         interactor.execute(inputData);
     }
 }

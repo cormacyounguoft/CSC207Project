@@ -1,50 +1,55 @@
 package use_case.get_watched_list;
 
-import data_access.InMemoryUserDataAccessObject;
-import data_access.MovieAccessObject;
 import entity.CommonUserFactory;
 import entity.Movie;
 import entity.MovieFactory;
 import entity.User;
 import entity.UserFactory;
-import org.junit.Test;
-import use_case.SearchDataAccessInterface;
-import use_case.add_to_watched_list.AddToWatchedListInputData;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import use_case.MockDataAccessObject;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+class GetWatchedListInteractorTest {
+    MockDataAccessObject dataAccessObject;
 
-public class GetWatchedListInteractorTest {
-    @Test
-    public void successTest() {
-        GetWatchedListInputData inputData = new GetWatchedListInputData("Username");
-        InMemoryUserDataAccessObject inMemoryUserDataAccessObject = new InMemoryUserDataAccessObject();
-
+    @BeforeEach
+    void setUp() {
+        dataAccessObject = new MockDataAccessObject();
         UserFactory factory = new CommonUserFactory();
         User user = factory.create("Username", "Password123!");
-        inMemoryUserDataAccessObject.save(user);
+        dataAccessObject.save(user);
 
         MovieFactory movieFactory = new MovieFactory();
         Movie movie = movieFactory.create();
         movie.setTitle("Movie");
         movie.setPosterLink("url");
+        dataAccessObject.saveToWatchedList("Username", movie);
+    }
 
-        inMemoryUserDataAccessObject.get("Username").getWatchedList().addMovie(movie);
+    @AfterEach
+    void tearDown() {
+        dataAccessObject.clear();
+    }
+
+    @Test
+    void successTest() {
+        GetWatchedListInputData inputData = new GetWatchedListInputData("Username");
 
         GetWatchedListOutputBoundary presenter = new GetWatchedListOutputBoundary() {
             @Override
             public void prepareSuccessView(GetWatchedListOutputData outputData) {
-                assertEquals("Username", outputData.getUsername());
-                assertEquals(List.of("Movie"), outputData.getWatchedListTitle());
-                assertEquals(List.of("url"), outputData.getWatchedListURL());
-                assertFalse(outputData.isUseCaseFailed());
+                Assertions.assertEquals("Username", outputData.getUsername());
+                Assertions.assertEquals(List.of("Movie"), outputData.getWatchedListTitle());
+                Assertions.assertEquals(List.of("url"), outputData.getWatchedListURL());
+                Assertions.assertFalse(outputData.isUseCaseFailed());
             }
         };
-        GetWatchedListInputBoundary interactor = new GetWatchedListInteractor(presenter, inMemoryUserDataAccessObject);
+
+        GetWatchedListInputBoundary interactor = new GetWatchedListInteractor(presenter, dataAccessObject);
         interactor.execute(inputData);
     }
 }
