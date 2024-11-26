@@ -116,7 +116,6 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
             result.put(title, Arrays.asList(String.valueOf(rating), poster));
         });
 
-
         return result.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.comparing(list -> Integer.parseInt(list.get(0)))))
