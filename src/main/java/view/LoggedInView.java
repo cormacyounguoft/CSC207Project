@@ -137,7 +137,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         JButton button = new JButton(text);
         button.setFont(new Font("SansSerif", Font.PLAIN, 28)); // Larger font size
         button.setBackground(new Color(93, 186, 255)); // Pastel blue
-        button.setForeground(Color.WHITE);
+        button.setForeground(Color.BLACK);
         button.setFocusPainted(false);
         button.setBorder(BorderFactory.createLineBorder(new Color(124, 183, 205), 3)); // Slightly thicker border
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
