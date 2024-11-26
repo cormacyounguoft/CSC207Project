@@ -113,7 +113,7 @@ public class SearchView extends JPanel {
         JButton button = new JButton(text);
         button.setFont(new Font("SansSerif", Font.PLAIN, 22));
         button.setBackground(new Color(93, 186, 255)); // Pastel blue
-        button.setForeground(Color.WHITE);
+        button.setForeground(Color.BLACK);
         button.setFocusPainted(false);
         button.setBorder(BorderFactory.createLineBorder(new Color(124, 183, 205), 2));
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
