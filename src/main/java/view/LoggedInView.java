@@ -9,16 +9,14 @@ import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.logout.LogoutController;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-/**
- * The View for when the user is Logged In.
- */
-public class LoggedInView extends JPanel implements ActionListener, PropertyChangeListener {
+public class LoggedInView extends JPanel implements PropertyChangeListener {
     private final String viewName = "logged in";
 
     private final LoggedInViewModel loggedInViewModel;
@@ -34,137 +32,148 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
     private final JButton toChangePassword;
     private final JButton logout;
     private final JButton toRatedList;
+
+    private final JLabel username;
     private final JButton toDashboard; // New Dashboard Button
-    final JLabel username;
 
     public LoggedInView(LoggedInViewModel loggedInViewModel) {
         this.loggedInViewModel = loggedInViewModel;
         this.loggedInViewModel.addPropertyChangeListener(this);
 
-        final JLabel title = new JLabel(loggedInViewModel.TITLE_LABEL);
-        username = new JLabel();
-        username.setAlignmentX(Component.CENTER_ALIGNMENT);
+        // Set layout and background
+        this.setLayout(new BorderLayout(20, 20));
+        this.setBackground(new Color(240, 248, 255)); // Light blue background
+        this.setBorder(new EmptyBorder(20, 20, 20, 20)); // Padding around the panel
+
+        // Title Section
+        JPanel titlePanel = new JPanel();
+        titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.Y_AXIS));
+        titlePanel.setOpaque(false);
+
+        // View Title
+        final JLabel title = new JLabel(loggedInViewModel.TITLE_LABEL, SwingConstants.CENTER);
+        title.setFont(new Font("SansSerif", Font.BOLD, 24));
+        title.setForeground(new Color(0, 51, 102));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        final JPanel buttons = new JPanel();
-        toSearch = new JButton(loggedInViewModel.TO_SEARCH_BUTTON_LABEL);
-        buttons.add(toSearch);
-        toWatchList = new JButton(loggedInViewModel.TO_WATCHLIST_BUTTON_LABEL);
-        buttons.add(toWatchList);
-        toWatchedList = new JButton(loggedInViewModel.TO_WATCHED_LIST_BUTTON_LABEL);
-        buttons.add(toWatchedList);
-        toChangePassword = new JButton(loggedInViewModel.TO_CHANGE_PASSWORD_BUTTON_LABEL);
-        buttons.add(toChangePassword);
-        logout = new JButton(loggedInViewModel.LOGOUT_BUTTON_LABEL);
-        buttons.add(logout);
-        toRatedList = new JButton("Go Rated List");
-        buttons.add(toRatedList);
-        toDashboard = new JButton("Go Dashboard");
-        buttons.add(toDashboard);
+        // Welcome Text
+        username = new JLabel("Welcome!", SwingConstants.CENTER);
+        username.setFont(new Font("SansSerif", Font.PLAIN, 18));
+        username.setForeground(new Color(0, 51, 102));
+        username.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        toSearch.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        final LoggedInState currentState = loggedInViewModel.getState();
-                        loggedInController.switchToLoggedInSearchView(currentState.getUsername());
-                    }
-                }
-        );
+        titlePanel.add(title);
+        titlePanel.add(Box.createVerticalStrut(10)); // Add spacing between title and welcome text
+        titlePanel.add(username);
+        this.add(titlePanel, BorderLayout.NORTH);
 
-        toWatchList.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        final LoggedInState currentState = loggedInViewModel.getState();
-                        watchlistController.execute(currentState.getUsername());
-                    }
-                }
-        );
+        // Buttons Section
+        final JPanel buttonsPanel = new JPanel(new GridLayout(3, 2, 20, 20)); // 3 rows, 2 columns
+        buttonsPanel.setOpaque(false);
 
-        toRatedList.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        final LoggedInState currentState = loggedInViewModel.getState();
-                        getRatedListController.execute(currentState.getUsername());
-                    }
-                }
-        );
+        toSearch = buttonFactory(loggedInViewModel.TO_SEARCH_BUTTON_LABEL);
+        toWatchList = buttonFactory(loggedInViewModel.TO_WATCHLIST_BUTTON_LABEL);
+        toWatchedList = buttonFactory(loggedInViewModel.TO_WATCHED_LIST_BUTTON_LABEL);
+        toChangePassword = buttonFactory(loggedInViewModel.TO_CHANGE_PASSWORD_BUTTON_LABEL);
+        logout = buttonFactory(loggedInViewModel.LOGOUT_BUTTON_LABEL);
+        toRatedList = buttonFactory("Go to Rated List");
+        toDashboard = buttonFactory("Go Dashboard");
 
-        toWatchedList.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        final LoggedInState currentState = loggedInViewModel.getState();
-                        watchedListController.execute(currentState.getUsername());
-                    }
-                }
-        );
+        buttonsPanel.add(toSearch);
+        buttonsPanel.add(toWatchList);
+        buttonsPanel.add(toWatchedList);
+        buttonsPanel.add(toRatedList);
+        buttonsPanel.add(toDashboard);
+        buttonsPanel.add(toChangePassword);
+        buttonsPanel.add(logout);
 
-        toChangePassword.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        final LoggedInState currentState = loggedInViewModel.getState();
-                        loggedInController.switchToChangePasswordView(currentState.getUsername());
-                    }
-                }
-        );
+        JPanel centeredPanel = new JPanel(new BorderLayout());
+        centeredPanel.setOpaque(false);
+        centeredPanel.setBorder(new EmptyBorder(20, 50, 20, 50)); // Padding around the buttons panel
+        centeredPanel.add(buttonsPanel, BorderLayout.CENTER);
 
-        logout.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        final LoggedInState currentState = loggedInViewModel.getState();
-                        logoutController.execute(currentState.getUsername());
-                    }
-                }
-        );
+        this.add(centeredPanel, BorderLayout.CENTER);
+
+        // Action Listeners
+        toSearch.addActionListener(evt -> {
+            LoggedInState state = loggedInViewModel.getState();
+            loggedInController.switchToLoggedInSearchView(state.getUsername());
+        });
+
+        toWatchList.addActionListener(evt -> {
+            LoggedInState state = loggedInViewModel.getState();
+            watchlistController.execute(state.getUsername());
+        });
+
+        toWatchedList.addActionListener(evt -> {
+            LoggedInState state = loggedInViewModel.getState();
+            watchedListController.execute(state.getUsername());
+        });
+
+        toChangePassword.addActionListener(evt -> {
+            LoggedInState state = loggedInViewModel.getState();
+            loggedInController.switchToChangePasswordView(state.getUsername());
+        });
+
+        logout.addActionListener(evt -> {
+            LoggedInState state = loggedInViewModel.getState();
+            logoutController.execute(state.getUsername());
+        });
+
+        toRatedList.addActionListener(evt -> {
+            LoggedInState state = loggedInViewModel.getState();
+            getRatedListController.execute(state.getUsername());
+        });
 
         toDashboard.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        final LoggedInState currentState = loggedInViewModel.getState();
-                        loggedInController.switchToDashboardView(currentState.getUsername());
-                    }
+                evt -> {
+                    final LoggedInState currentState = loggedInViewModel.getState();
+                    loggedInController.switchToDashboardView(currentState.getUsername());
                 }
         );
+    }
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.add(title);
-        this.add(username);
-        this.add(buttons);
+    private JButton buttonFactory(String text) {
+        JButton button = new JButton(text);
+        button.setFont(new Font("SansSerif", Font.PLAIN, 28)); // Larger font size
+        button.setBackground(new Color(93, 186, 255)); // Pastel blue
+        button.setForeground(Color.WHITE);
+        button.setFocusPainted(false);
+        button.setBorder(BorderFactory.createLineBorder(new Color(124, 183, 205), 3)); // Slightly thicker border
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        button.setPreferredSize(new Dimension(400, 100)); // Larger button size
+        return button;
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if ("state".equals(evt.getPropertyName())) {
+            final LoggedInState state = (LoggedInState) evt.getNewValue();
+            username.setText("Welcome, " + state.getUsername() + "!");
+        }
     }
 
     public String getViewName() {
         return viewName;
     }
 
-    public void setLoggedInController(LoggedInController loggedInController) {
-        this.loggedInController = loggedInController;
+    public void setLoggedInController(LoggedInController controller) {
+        this.loggedInController = controller;
     }
 
-    public void setLogoutController(LogoutController logoutController) {
-        this.logoutController = logoutController;
+    public void setLogoutController(LogoutController controller) {
+        this.logoutController = controller;
     }
 
-    public void setWatchedListController(GetWatchedListController watchedListController) {
-        this.watchedListController = watchedListController;
+    public void setWatchedListController(GetWatchedListController controller) {
+        this.watchedListController = controller;
     }
 
-    public void setWatchlistController(GetWatchlistController watchlistController) {
-        this.watchlistController = watchlistController;
+    public void setWatchlistController(GetWatchlistController controller) {
+        this.watchlistController = controller;
     }
 
-    public void setGetRatedListController(GetRatedListController getRatedListController) {
-        this.getRatedListController = getRatedListController;
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-    }
-
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals("state")) {
-            final LoggedInState state = (LoggedInState) evt.getNewValue();
-            username.setText("username: " + state.getUsername());
-        }
+    public void setGetRatedListController(GetRatedListController controller) {
+        this.getRatedListController = controller;
     }
 }

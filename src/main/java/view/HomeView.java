@@ -1,6 +1,10 @@
 package view;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import interface_adapter.home.HomeController;
@@ -9,7 +13,7 @@ import interface_adapter.home.HomeViewModel;
 /**
  * The View for Home. This screen has 3 buttons: Go to log in, Go to sign up, and Go to search.
  */
-public class HomeView extends JPanel {
+public class HomeView extends JPanel implements ActionListener, PropertyChangeListener {
     private final String viewName = "home";
 
     private final HomeViewModel homeViewModel;
@@ -39,9 +43,9 @@ public class HomeView extends JPanel {
         buttonsPanel.setOpaque(false); // Blend with background
 
         // Create buttons with a uniform pastel green color
-        toLogin = createStyledButton(HomeViewModel.TO_LOGIN_BUTTON_LABEL);
-        toSignup = createStyledButton(HomeViewModel.TO_SIGNUP_BUTTON_LABEL);
-        toSearch = createStyledButton(HomeViewModel.TO_SEARCH_BUTTON_LABEL);
+        toLogin = buttonFactory(HomeViewModel.TO_LOGIN_BUTTON_LABEL);
+        toSignup = buttonFactory(HomeViewModel.TO_SIGNUP_BUTTON_LABEL);
+        toSearch = buttonFactory(HomeViewModel.TO_SEARCH_BUTTON_LABEL);
 
         buttonsPanel.add(toLogin);
         buttonsPanel.add(toSignup);
@@ -56,15 +60,21 @@ public class HomeView extends JPanel {
         this.add(centeredButtonsPanel, BorderLayout.CENTER);
 
         // Add Action Listeners
-        toLogin.addActionListener(evt -> homeController.switchToLoginView());
-        toSignup.addActionListener(evt -> homeController.switchToSignupView());
-        toSearch.addActionListener(evt -> homeController.switchToSearchView());
+        toLogin.addActionListener(
+                evt -> homeController.switchToLoginView()
+        );
+        toSignup.addActionListener(
+                evt -> homeController.switchToSignupView()
+        );
+        toSearch.addActionListener(
+                evt -> homeController.switchToSearchView()
+        );
     }
 
     /**
      * Method to create a styled button.
      */
-    private JButton createStyledButton(String text) {
+    private JButton buttonFactory(String text) {
         JButton button = new JButton(text);
         button.setFont(new Font("SansSerif", Font.PLAIN, 26));
         button.setBackground(new Color(93, 186, 255)); // Pastel green
@@ -82,5 +92,15 @@ public class HomeView extends JPanel {
 
     public void setHomeController(HomeController controller) {
         this.homeController = controller;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+
     }
 }

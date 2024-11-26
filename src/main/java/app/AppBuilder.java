@@ -715,6 +715,8 @@ public class AppBuilder {
 
         application.add(cardPanel);
 
+        application.setSize(1280, 720);
+
         viewManagerModel.setState(homeView.getViewName());
         viewManagerModel.firePropertyChanged();
 
