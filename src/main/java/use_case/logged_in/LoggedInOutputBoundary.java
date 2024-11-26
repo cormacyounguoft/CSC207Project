@@ -23,4 +23,9 @@ public interface LoggedInOutputBoundary {
      * Switches to the Watched List View.
      */
     void switchToWatchedListView(LoggedInOutputData loggedInOutputData);
+
+    /**
+     * Switches to the Dashboard View.
+     */
+    void switchToDashboardView(LoggedInOutputData loggedInOutputData);
 }

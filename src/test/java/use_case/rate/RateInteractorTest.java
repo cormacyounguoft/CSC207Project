@@ -34,12 +34,10 @@ public class RateInteractorTest {
                 fail("Use case failure is unexpected.");
             }
 
-            @Override
-            public void switchToLoggedInView(RateOutputData outputData) {
 
-            }
 
         };
+
         RateInputBoundary interactor = new RateInteractor(userRepository, presenter);
         interactor.execute(inputData);
     }
@@ -65,10 +63,32 @@ public class RateInteractorTest {
                 assertEquals("Rating must be between 0 and 5 inclusive.", errorMessage);
             }
 
-            @Override
-            public void switchToLoggedInView(RateOutputData outputData) {
 
+        };
+        RateInputBoundary interactor = new RateInteractor(userRepository, presenter);
+        interactor.execute(inputData);
+    }
+    @Test
+    void FailureTest1(){
+        InMemoryUserDataAccessObject userRepository = new InMemoryUserDataAccessObject();
+        UserFactory factory = new CommonUserFactory();
+        User user = factory.create("Paul", "Password1!");
+        RateInputData inputData = new RateInputData("Paul", "Frozen", -1);
+        userRepository.save(user);
+        Movie movie = new Movie();
+        movie.setTitle("Frozen");
+        userRepository.saveToWatchedList("Paul", movie);
+        RateOutputBoundary presenter = new RateOutputBoundary() {
+            @Override
+            public void prepareSuccessView(RateOutputData outputData) {
+                fail("Use case success is unexpected.");
             }
+
+            @Override
+            public void prepareFailView(String errorMessage) {
+                assertEquals("Rating must be between 0 and 5 inclusive.", errorMessage);
+            }
+
 
         };
         RateInputBoundary interactor = new RateInteractor(userRepository, presenter);

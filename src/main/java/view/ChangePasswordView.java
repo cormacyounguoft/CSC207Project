@@ -19,7 +19,8 @@ import interface_adapter.change_password.ChangePasswordController;
 import interface_adapter.change_password.ChangePasswordState;
 import interface_adapter.change_password.ChangePasswordViewModel;
 import interface_adapter.logout.LogoutController;
-import interface_adapter.watched_list.WatchedListState;
+import interface_adapter.to_logged_in_view.ToLoggedInViewController;
+
 
 /**
  * The View for when the user is logged into the program.
@@ -31,6 +32,7 @@ public class ChangePasswordView extends JPanel implements PropertyChangeListener
     private final JLabel passwordErrorField = new JLabel();
     private ChangePasswordController changePasswordController;
     private LogoutController logoutController;
+    private ToLoggedInViewController toLoggedInViewController;
 
     private final JLabel username;
 
@@ -95,11 +97,12 @@ public class ChangePasswordView extends JPanel implements PropertyChangeListener
                 evt -> {
                     if (evt.getSource().equals(changePassword)) {
                         final ChangePasswordState currentState = changePasswordViewModel.getState();
-
+                        passwordErrorField.setText(null);
                         this.changePasswordController.execute(
                                 currentState.getUsername(),
                                 currentState.getPassword()
                         );
+                        passwordInputField.setText(null);
                     }
                 }
         );
@@ -122,7 +125,9 @@ public class ChangePasswordView extends JPanel implements PropertyChangeListener
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         final ChangePasswordState currentState = changePasswordViewModel.getState();
-                        changePasswordController.switchToLoggedInView(currentState.getUsername());
+                        passwordErrorField.setText(null);
+                        toLoggedInViewController.toLoggedInView(currentState.getUsername());
+                        passwordInputField.setText(null);
                     }
                 }
         );
@@ -163,5 +168,9 @@ public class ChangePasswordView extends JPanel implements PropertyChangeListener
     public void setLogoutController(LogoutController logoutController) {
         // TODO: save the logout controller in the instance variable.
         this.logoutController = logoutController;
+    }
+
+    public void setToLoggedInViewController(ToLoggedInViewController toLoggedInViewController) {
+        this.toLoggedInViewController = toLoggedInViewController;
     }
 }

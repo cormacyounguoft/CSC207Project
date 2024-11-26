@@ -11,6 +11,8 @@ import interface_adapter.logout.LogoutController;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -32,6 +34,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private final JButton toRatedList;
 
     private final JLabel username;
+    private final JButton toDashboard; // New Dashboard Button
 
     public LoggedInView(LoggedInViewModel loggedInViewModel) {
         this.loggedInViewModel = loggedInViewModel;
@@ -74,12 +77,14 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         toChangePassword = buttonFactory(loggedInViewModel.TO_CHANGE_PASSWORD_BUTTON_LABEL);
         logout = buttonFactory(loggedInViewModel.LOGOUT_BUTTON_LABEL);
         toRatedList = buttonFactory("Go to Rated List");
+        toDashboard = buttonFactory("Go Dashboard");
 
         buttonsPanel.add(toSearch);
         buttonsPanel.add(toWatchList);
         buttonsPanel.add(toWatchedList);
-        buttonsPanel.add(toChangePassword);
         buttonsPanel.add(toRatedList);
+        buttonsPanel.add(toDashboard);
+        buttonsPanel.add(toChangePassword);
         buttonsPanel.add(logout);
 
         JPanel centeredPanel = new JPanel(new BorderLayout());
@@ -119,6 +124,15 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
             LoggedInState state = loggedInViewModel.getState();
             getRatedListController.execute(state.getUsername());
         });
+
+        toDashboard.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        final LoggedInState currentState = loggedInViewModel.getState();
+                        loggedInController.switchToDashboardView(currentState.getUsername());
+                    }
+                }
+        );
     }
 
     private JButton buttonFactory(String text) {

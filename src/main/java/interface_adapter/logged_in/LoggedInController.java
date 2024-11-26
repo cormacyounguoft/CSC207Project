@@ -23,6 +23,11 @@ public class LoggedInController {
         loggedInUseCaseInteractor.switchToChangePasswordView(loggedInInputData);
     }
 
+    public void switchToDashboardView(String username) {
+        final LoggedInInputData loggedInInputData = new LoggedInInputData(username);
+        loggedInUseCaseInteractor.switchToDashboardView(loggedInInputData);
+    }
+
     public void switchToWatchListView(String username) {
         final LoggedInInputData loggedInInputData = new LoggedInInputData(username);
         loggedInUseCaseInteractor.switchToWatchListView(loggedInInputData);

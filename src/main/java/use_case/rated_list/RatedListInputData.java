@@ -4,18 +4,19 @@ import java.util.Map;
 
 public class RatedListInputData {
     private final String username;
-    private final Map<String, Integer> rating;
+    private final String title;
 
-    public RatedListInputData(String username, Map<String, Integer> rating) {
+    public RatedListInputData(String username, String title) {
         this.username = username;
-        this.rating = rating;
+        this.title = title;
     }
 
     public String getUsername(){
         return this.username;
     }
 
-    public Map<String, Integer> getRating(){
-        return this.rating;
+
+    public String getTitle() {
+        return title;
     }
 }
