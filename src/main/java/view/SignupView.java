@@ -177,6 +177,7 @@ public class SignupView extends JPanel {
         repeatPasswordInputField.setText(state.getRepeatPassword());
     }
 
+
     public String getViewName() {
         return viewName;
     }
