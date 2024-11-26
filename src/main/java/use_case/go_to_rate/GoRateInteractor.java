@@ -9,7 +9,7 @@ public class GoRateInteractor implements GoRateInputBoundary {
 
     @Override
     public void switchToRateView(GoRateInputData inputData) {
-        final GoRateOutputData outputData = new GoRateOutputData(inputData.getUsername(), inputData.getMovie(), false);
+        final GoRateOutputData outputData = new GoRateOutputData(inputData.getUsername(), inputData.getTitle(), false);
         presenter.switchToRateView(outputData);
     }
 }

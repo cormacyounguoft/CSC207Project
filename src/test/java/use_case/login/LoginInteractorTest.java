@@ -34,10 +34,6 @@ class LoginInteractorTest {
                 fail("Use case failure is unexpected.");
             }
 
-            @Override
-            public void switchToHomeView() {
-
-            }
         };
 
         LoginInputBoundary interactor = new LoginInteractor(userRepository, successPresenter);
@@ -66,10 +62,6 @@ class LoginInteractorTest {
                 fail("Use case failure is unexpected.");
             }
 
-            @Override
-            public void switchToHomeView() {
-
-            }
         };
 
         LoginInputBoundary interactor = new LoginInteractor(userRepository, successPresenter);
@@ -102,10 +94,6 @@ class LoginInteractorTest {
                 assertEquals("Incorrect password for \"Paul\".", error);
             }
 
-            @Override
-            public void switchToHomeView() {
-
-            }
         };
 
         LoginInputBoundary interactor = new LoginInteractor(userRepository, failurePresenter);
@@ -132,10 +120,6 @@ class LoginInteractorTest {
                 assertEquals("Paul: Account does not exist.", error);
             }
 
-            @Override
-            public void switchToHomeView() {
-
-            }
         };
 
         LoginInputBoundary interactor = new LoginInteractor(userRepository, failurePresenter);

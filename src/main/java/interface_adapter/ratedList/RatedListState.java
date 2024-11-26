@@ -1,16 +1,17 @@
 package interface_adapter.ratedList;
 
+import java.util.List;
 import java.util.Map;
 
 public class RatedListState {
     private String username;
-    private Map<String, Integer> rating;
+    private Map<String, List<String>> rating;
 
-    public Map<String, Integer> getRating() {
+    public Map<String, List<String>> getRating() {
         return rating;
     }
 
-    public void setRating(Map<String, Integer> rating) {
+    public void setRating(Map<String, List<String>> rating) {
         this.rating = rating;
     }
 

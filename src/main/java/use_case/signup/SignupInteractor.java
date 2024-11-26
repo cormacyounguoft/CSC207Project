@@ -21,11 +21,24 @@ public class SignupInteractor implements SignupInputBoundary {
 
     @Override
     public void execute(SignupInputData signupInputData) {
-        if (userDataAccessObject.existsByName(signupInputData.getUsername())) {
+        if (signupInputData.getUsername().isEmpty()) {
+            userPresenter.prepareFailView("Username cannot be empty.");
+        }
+        else if (signupInputData.getPassword().isEmpty()) {
+            userPresenter.prepareFailView("Password cannot be empty.");
+        }
+        else if (userDataAccessObject.existsByName(signupInputData.getUsername())) {
             userPresenter.prepareFailView("User already exists.");
         }
         else if (!signupInputData.getPassword().equals(signupInputData.getRepeatPassword())) {
             userPresenter.prepareFailView("Passwords don't match.");
+        }
+        else if (validateUsername(signupInputData.getUsername())) {
+            userPresenter.prepareFailView("Invalid username. Ensure it contains at least 3 characters and no spaces.");
+        }
+        else if (!validatePassword(signupInputData.getPassword())) {
+            userPresenter.prepareFailView("Invalid password. Ensure it is at least 8 characters long, "
+                    + "contains an uppercase letter, a lowercase letter, a digit, and a special character.");
         }
         else {
             final User user = userFactory.create(signupInputData.getUsername(), signupInputData.getPassword());
@@ -35,6 +48,20 @@ public class SignupInteractor implements SignupInputBoundary {
             userPresenter.prepareSuccessView(signupOutputData);
         }
     }
+
+    private boolean validateUsername(String username) {
+        return username == null || username.length() < 3 || username.contains(" ");
+    }
+
+    private boolean validatePassword(String password) {
+        return password != null &&
+                password.length() >= 8 &&
+                password.matches(".*[A-Z].*") &&
+                password.matches(".*[a-z].*") &&
+                password.matches(".*\\d.*") &&
+                password.matches(".*[(){}\\[\\]'\";:><,./?\\\\|\\+=\\-_\\*&^%$#@!~`].*");
+    }
+
 
     @Override
     public void switchToLoginView() {

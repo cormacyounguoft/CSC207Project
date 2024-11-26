@@ -4,19 +4,20 @@ import java.io.IOException;
 
 import entity.Movie;
 import entity.MovieFactory;
+import use_case.SearchDataAccessInterface;
 
 /**
  * The Search Interactor.
  */
 public class SearchInteractor implements SearchInputBoundary {
-    private final LoggedOutSearchDataAccessInterface searchDataAccessObject;
+    private final SearchDataAccessInterface searchDataAccessObject;
     private final SearchOutputBoundary searchPresenter;
 
 
-    public SearchInteractor(LoggedOutSearchDataAccessInterface loggedOutSearchDataAccessInterface,
+    public SearchInteractor(SearchDataAccessInterface searchDataAccessInterface,
                             SearchOutputBoundary searchOutputBoundary,
                             MovieFactory movieFactory) {
-        this.searchDataAccessObject = loggedOutSearchDataAccessInterface;
+        this.searchDataAccessObject = searchDataAccessInterface;
 
         this.searchPresenter = searchOutputBoundary;
 
@@ -50,9 +51,6 @@ public class SearchInteractor implements SearchInputBoundary {
         String result;
 
         switch (info.toLowerCase()) {
-            case "title":
-                result = movie.getTitle().isEmpty() ? "Title not available." : movie.getTitle();
-                break;
             case "release_date":
                 result = movie.getReleaseDate().isEmpty() ? "Release date not available." : movie.getReleaseDate();
                 break;
@@ -78,7 +76,7 @@ public class SearchInteractor implements SearchInputBoundary {
                 result = movie.getPosterLink().isEmpty() ? "Poster not available." : movie.getPosterLink();
                 break;
             default:
-                result = "Property not recognized.";
+                result = movie.getTitle();
 
         }
 

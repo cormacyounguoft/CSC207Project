@@ -217,6 +217,7 @@ public class LoggedInSearchResultView extends JPanel implements ActionListener, 
                 BufferedImage image = ImageIO.read(url);
                 moviePoster.setText("");
                 moviePoster.setIcon(new ImageIcon(image));
+
             } catch (IOException e) {
                 moviePoster.setText("Poster not available.");
                 moviePoster.setIcon(null);

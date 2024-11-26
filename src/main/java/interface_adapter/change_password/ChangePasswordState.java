@@ -39,4 +39,6 @@ public class ChangePasswordState {
     public String getPassword() {
         return password;
     }
+
+    public String getPasswordError() {return passwordError;}
 }

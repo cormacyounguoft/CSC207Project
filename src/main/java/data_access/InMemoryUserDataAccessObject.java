@@ -3,7 +3,6 @@ package data_access;
 import entity.Movie;
 import entity.MovieList;
 import entity.User;
-import entity.UserRating;
 import use_case.add_to_watched_list.AddToWatchedListDataAccessInterface;
 import use_case.add_to_watchlist.AddToWatchlistDataAccessInterface;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
@@ -15,9 +14,7 @@ import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.rate.RateUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * In-memory implementation of the DAO for storing user data. This implementation does
@@ -81,7 +78,9 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     }
 
     @Override
-    public void saveUserRating(String username, Movie movie, int rating) {
+    public void saveUserRating(String username, String title, int rating) {
+        MovieList list = this.get(username).getWatchedList();
+        Movie movie = list.findMovieByTitle(title);
         this.get(username).getUserRatings().addRating(movie, rating);
     }
 
@@ -96,5 +95,17 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     }
 
     @Override
-    public UserRating getUserRating(String username) {return this.get(username).getUserRatings();}
+    public Map<String, List<String>> getUserRating(String username) {
+        User user = this.get(username);
+        Map<String, Integer> ratings = user.getUserRatings().getMovieToRating();
+        MovieList movieList = user.getWatchedList();
+
+        Map<String, List<String>> result = new HashMap<>();
+        ratings.forEach((title, rating) -> {
+            String poster = movieList.getPoster(title);
+            result.put(title, Arrays.asList(String.valueOf(rating), poster));
+        });
+        return result;
+    }
+
 }

@@ -1,19 +1,19 @@
 package use_case.go_to_rate;
 
-import entity.Movie;
 
 public class GoRateInputData {
     private final String username;
-    private final Movie movie;
-    public GoRateInputData(String username, Movie movie) {
+    private final String title;
+    public GoRateInputData(String username, String title) {
         this.username = username;
-        this.movie = movie;
+        this.title = title;
     }
+
     public String getUsername() {
         return username;
     }
-    public Movie getMovie() {
-        return movie;
-    }
 
+    public String getTitle() {
+        return title;
+    }
 }
