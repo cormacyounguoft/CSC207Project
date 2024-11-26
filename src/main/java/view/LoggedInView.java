@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapter.dashboard.DashboardController;
 import interface_adapter.get_rated_list.GetRatedListController;
 import interface_adapter.get_watched_list.GetWatchedListController;
 import interface_adapter.get_watchlist.GetWatchlistController;
@@ -25,6 +26,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private GetWatchedListController watchedListController;
     private GetWatchlistController watchlistController;
     private GetRatedListController getRatedListController;
+    private DashboardController dashboardController;
 
     private final JButton toSearch;
     private final JButton toWatchList;
@@ -32,9 +34,9 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private final JButton toChangePassword;
     private final JButton logout;
     private final JButton toRatedList;
+    private final JButton toDashboard; // New Dashboard Button
 
     private final JLabel username;
-    private final JButton toDashboard; // New Dashboard Button
 
     public LoggedInView(LoggedInViewModel loggedInViewModel) {
         this.loggedInViewModel = loggedInViewModel;
@@ -125,12 +127,10 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
             getRatedListController.execute(state.getUsername());
         });
 
-        toDashboard.addActionListener(
-                evt -> {
-                    final LoggedInState currentState = loggedInViewModel.getState();
-                    loggedInController.switchToDashboardView(currentState.getUsername());
-                }
-        );
+        toDashboard.addActionListener(evt -> {
+            LoggedInState state = loggedInViewModel.getState();
+            dashboardController.execute(state.getUsername());
+        });
     }
 
     private JButton buttonFactory(String text) {
@@ -175,5 +175,9 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
     public void setGetRatedListController(GetRatedListController controller) {
         this.getRatedListController = controller;
+    }
+
+    public void setDashboardController(DashboardController dashboardController) {
+        this.dashboardController = dashboardController;
     }
 }

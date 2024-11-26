@@ -244,11 +244,8 @@ public class AppBuilder {
      */
     public AppBuilder addDashboardView() {
         dashboardViewModel = new DashboardViewModel();
-        DashboardPresenter dashboardPresenter = new DashboardPresenter(viewManagerModel, loggedInViewModel, dashboardViewModel);
-        DashboardController dashboardController = new DashboardController(new DashboardInteractor(userDataAccessObject, dashboardPresenter));
         dashboardView = new DashboardView(dashboardViewModel);
-        dashboardView.setDashboardController(dashboardController);
-        cardPanel.add(dashboardView, "dashboard");
+        cardPanel.add(dashboardView, dashboardView.getViewName());
         return this;
     }
 
@@ -477,10 +474,14 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addDashboardUseCase() {
-        final DashboardOutputBoundary dashboardOutputBoundary = new DashboardPresenter(viewManagerModel, loggedInViewModel, dashboardViewModel);
-        final DashboardInputBoundary dashboardInteractor = new DashboardInteractor(userDataAccessObject, dashboardOutputBoundary);
-        final DashboardController dashboardController = new DashboardController(dashboardInteractor);
+        final DashboardOutputBoundary dashboardOutputBoundary =
+                new DashboardPresenter(viewManagerModel, dashboardViewModel);
+        final DashboardInputBoundary dashboardInteractor =
+                new DashboardInteractor(userDataAccessObject, dashboardOutputBoundary);
+        final DashboardController dashboardController =
+                new DashboardController(dashboardInteractor);
         dashboardView.setDashboardController(dashboardController);
+        loggedInView.setDashboardController(dashboardController);
         return this;
     }
 
@@ -702,6 +703,7 @@ public class AppBuilder {
         ratedListView.setToLoggedInViewController(toLoggedInViewController);
         changePasswordView.setToLoggedInViewController(toLoggedInViewController);
         rateView.setToLoggedInViewController(toLoggedInViewController);
+        dashboardView.setToLoggedInViewController(toLoggedInViewController);
         return this;
     }
 

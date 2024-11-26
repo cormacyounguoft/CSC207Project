@@ -6,6 +6,7 @@ public class DashboardInputData {
     public DashboardInputData(String username) {
         this.username = username;
     }
+
     public String getUsername() {
         return username;
     }
