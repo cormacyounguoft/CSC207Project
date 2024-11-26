@@ -7,11 +7,4 @@ public interface DashboardInputBoundary {
      * @param inputData the input data containing the username
      */
     void execute(DashboardInputData inputData);
-
-    /**
-     * Switches to the logged-in view, typically after viewing the dashboard.
-     *
-     * @param inputData the input data containing the username
-     */
-    void switchToLoggedInView(DashboardInputData inputData);
 }

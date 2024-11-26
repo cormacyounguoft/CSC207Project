@@ -8,53 +8,57 @@ import java.util.List;
  */
 public class DashboardState {
     private String username;
-    private double totalHoursWatched;
-    private Map<String, Integer> favoriteGenres;
+    private String favoriteMovie;
+    private int totalHoursWatched;
+    private String favoriteGenre;
     private double averageRating;
-    private Map<String, Double> highestRatedGenres;
-    private List<String> longestMovies;
-    public DashboardState() {
-        this.username = "";
-        this.totalHoursWatched = 0.0;
-        this.favoriteGenres = new HashMap<>(); // Initialize to avoid null
-        this.averageRating = 0.0;
-        this.highestRatedGenres = new HashMap<>(); // Initialize to avoid null
-        this.longestMovies = new ArrayList<>();
-    }
+    private String longestMovie;
+
     public String getUsername() {
         return username;
     }
+
     public void setUsername(String username) {
         this.username = username;
     }
-    public double getTotalHoursWatched() {
+
+    public String getFavoriteMovie() {
+        return favoriteMovie;
+    }
+
+    public void setFavoriteMovie(String favoriteMovie) {
+        this.favoriteMovie = favoriteMovie;
+    }
+
+    public int getTotalHoursWatched() {
         return totalHoursWatched;
     }
-    public void setTotalHoursWatched(double totalHoursWatched) {
+
+    public void setTotalHoursWatched(int totalHoursWatched) {
         this.totalHoursWatched = totalHoursWatched;
     }
-    public Map<String, Integer> getFavoriteGenres() {
-        return favoriteGenres;
+
+    public String getFavoriteGenre() {
+        return favoriteGenre;
     }
-    public void setFavoriteGenres(Map<String, Integer> favoriteGenres) {
-        this.favoriteGenres = favoriteGenres;
+
+    public void setFavoriteGenre(String favoriteGenre) {
+        this.favoriteGenre = favoriteGenre;
     }
+
     public double getAverageRating() {
         return averageRating;
     }
+
     public void setAverageRating(double averageRating) {
         this.averageRating = averageRating;
     }
-    public Map<String, Double> getHighestRatedGenres() {
-        return highestRatedGenres;
+
+    public String getLongestMovie() {
+        return longestMovie;
     }
-    public void setHighestRatedGenres(Map<String, Double> highestRatedGenres) {
-        this.highestRatedGenres = highestRatedGenres;
-    }
-    public List<String> getLongestMovies() {
-        return longestMovies;
-    }
-    public void setLongestMovies(List<String> longestMovies) {
-        this.longestMovies = longestMovies;
+
+    public void setLongestMovie(String longestMovie) {
+        this.longestMovie = longestMovie;
     }
 }

@@ -16,9 +16,4 @@ public class DashboardController {
         interactor.execute(inputData);
     }
 
-    public void switchToLoggedInView(String username) {
-        final DashboardInputData inputData = new DashboardInputData(username);
-        interactor.switchToLoggedInView(inputData);
-    }
-
 }
