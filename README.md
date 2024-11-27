@@ -13,6 +13,17 @@ The purpose of this project is to create a movie organization system that allows
 ### Table of contents
 
 ### Features of the software
+Users can search for movies, where the release date, rotten tomatoes score, genre, actors, and directors of the movie is displayed. 
+Users are able to sign up and create an account. In which you set a password that must meet a criteria. 
+When users sign up, they are able to log into their accounts, using the password and username created at signup. 
+
+After logging in, users have the ability to: 
+Users have the ability to add a movie to their watched list. This is intended to contain movies that the user has watched. 
+Users have the ability to add a movie to their watch list, which is intended to contain movies that users want to watch in the future. 
+Users have the ability to rate movies after they have added the movie to their watched list. To do this users must click on the poster after navigating to their watched list page, which would then prompt you to enter a rating out of 5. 
+Users can change the password of their account. The changed password must also match the restrictions required for passwords in account creation.
+Users can navigate to a dashboard panel, which consists of their username, total hours watched, their favourite movie, their favourite genre, an average of the ratings they have given, and the longest movie that they have watched.
+Users can navigate to a rated list panel, which displays the names and posters of movies that they have rated accompanied by the rating they gave each movie. 
 
 ### Installation instructions
 1. Fork the GitHub repository and clone it to your computer. Refer to these guides for assistance: [Set up a Git repository in IntelliJ](https://www.jetbrains.com/help/idea/set-up-a-git-repository.html#clone-repo) and [Fork a repository on GitHub](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo).
