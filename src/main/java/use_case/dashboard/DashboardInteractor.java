@@ -35,7 +35,14 @@ public class DashboardInteractor implements DashboardInputBoundary {
         int hours = totalMinutes / 60;
         int minutes = totalMinutes % 60;
 
-        return hours + " hours and " + minutes + " minutes";
+        if (hours == 0){
+            if (minutes == 0){
+                return "No time watched";
+            }
+            return minutes + " minutes";
+        }
+        else
+            return hours + " hours and " + minutes + " minutes";
     }
 
     private String getFavoriteGenre(String username) {

@@ -13,12 +13,10 @@ import use_case.watchlist.WatchlistOutputData;
 public class ChangePasswordPresenter implements ChangePasswordOutputBoundary {
 
     private final ChangePasswordViewModel changePasswordViewModel;
-    private final LoggedInViewModel loggedInViewModel;
     private ViewManagerModel viewManagerModel;
 
-    public ChangePasswordPresenter(ChangePasswordViewModel changePasswordViewModel, LoggedInViewModel loggedInViewModel, ViewManagerModel viewManagerModel) {
+    public ChangePasswordPresenter(ChangePasswordViewModel changePasswordViewModel, ViewManagerModel viewManagerModel) {
         this.changePasswordViewModel = changePasswordViewModel;
-        this.loggedInViewModel = loggedInViewModel;
         this.viewManagerModel = viewManagerModel;
     }
 
@@ -38,16 +36,5 @@ public class ChangePasswordPresenter implements ChangePasswordOutputBoundary {
         currentState.setPasswordError(error); // Update the error message in the state
         changePasswordViewModel.setState(currentState); // Ensure the state is updated
         changePasswordViewModel.firePropertyChanged("passwordError"); // Notify the listeners
-    }
-
-    @Override
-    public void switchToLoggedInView(ChangePasswordOutputData outputData) {
-        final LoggedInState state = loggedInViewModel.getState();
-        state.setUsername(outputData.getUsername());
-        loggedInViewModel.setState(state);
-        loggedInViewModel.firePropertyChanged();
-
-        viewManagerModel.setState(loggedInViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
     }
 }

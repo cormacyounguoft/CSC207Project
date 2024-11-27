@@ -38,13 +38,6 @@ public class ChangePasswordInteractor implements ChangePasswordInputBoundary {
         userPresenter.prepareSuccessView(changePasswordOutputData);
     }
 
-
-    @Override
-    public void switchToLoggedInView(ChangePasswordInputData inputData) {
-        final ChangePasswordOutputData outputData = new ChangePasswordOutputData(inputData.getUsername(), false);
-        userPresenter.switchToLoggedInView(outputData);
-    }
-
     private boolean validatePassword(String password) {
         return password != null &&
                 password.length() >= 8 &&
