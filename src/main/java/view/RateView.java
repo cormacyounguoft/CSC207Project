@@ -63,7 +63,8 @@ public class RateView extends JPanel implements ActionListener, PropertyChangeLi
                                             "\" has been saved to your account.");
                                 }
                             } catch (NumberFormatException e) {
-                                JOptionPane.showMessageDialog(null, "The rating must be a number between 0 and 5.");
+                                JOptionPane.showMessageDialog(null, "The rating must be an " +
+                                        "integer between 0 and 5.");
                                 currentState.setRateError(null);
                             }
 
