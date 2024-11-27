@@ -55,7 +55,6 @@ public class RateView extends JPanel implements ActionListener, PropertyChangeLi
                                 rateController.execute(currentState.getUsername(), currentState.getTitle(), rating);
                                 if (currentState.getRateError() != null) {
                                     JOptionPane.showMessageDialog(null, currentState.getRateError());
-                                    currentState.setRateError(null);
                                 }
                                 else {
                                     JOptionPane.showMessageDialog(null, "The rating of " +
@@ -64,7 +63,6 @@ public class RateView extends JPanel implements ActionListener, PropertyChangeLi
                                 }
                             } catch (NumberFormatException e) {
                                 JOptionPane.showMessageDialog(null, "The rating must be a number between 0 and 5.");
-                                currentState.setRateError(null);
                             }
 
                         }
