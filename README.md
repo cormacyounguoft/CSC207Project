@@ -13,23 +13,17 @@ The purpose of this project is to create a movie organization system that allows
 ### Table of contents
 
 ### Features of the software
-Users can search for movies, where the release date, rotten tomatoes score, genre, actors, and directors of the movie is displayed. 
-Users are able to sign up and create an account. In which you set a password that must meet a criteria. 
-When users sign up, they are able to log into their accounts, using the password and username created at signup. 
+- Signup, login, and change password.
+- Search for movies and view detailed information, including title, release date, Rotten Tomatoes score, genres, actors, directors, and a description.
+- Add and remove movies from a watchlist to keep track of films you want to watch.
+- Add and remove movies from a watched list to track films you’ve already seen.
+- Rate movies you’ve watched on a scale of 0 to 5.
+- View a dashboard with insights including total hours watched, longest movie watched, favorite genre, favorite movie, and your average movie rating.
 
-After logging in, users also have the ability to: 
-Users have the ability to add a movie to their watched list. This is intended to contain movies that the user has watched. 
-Users have the ability to add a movie to their watch list, which is intended to contain movies that users want to watch in the future. 
-Users have the ability to rate movies after they have added the movie to their watched list. To do this users must click on the poster after navigating to their watched list page, which would then prompt you to enter a rating out of 5. 
-Users can change the password of their account. The changed password must also match the restrictions required for passwords in account creation.
-Users can navigate to a dashboard panel, which consists of their username, total hours watched, their favourite movie, their favourite genre, an average of the ratings they have given, and the longest movie that they have watched.
-Users can navigate to a rated list panel, which displays the names and posters of movies that they have rated accompanied by the rating they gave each movie. 
-Users can log out of their accounts. 
-
-#### Here is how our Logged in View user interface looks!
+#### Here's what the Logged-In View looks like:
 ![img.png](images/LoggedInView.png)
 
-#### Here is what happens when you find a movie you searched for!
+#### Here's what the Logged-In Search Result View looks like:
 ![img.png](images/searchedMovie.png)
 
 ### Installation instructions
@@ -41,6 +35,18 @@ Users can log out of their accounts.
 5. Once the API key is set up, you can run the Main program.
 
 ### Usage guide
+Users can search for movies, where the release date, rotten tomatoes score, genre, actors, and directors of the movie is displayed.
+Users are able to sign up and create an account. In which you set a password that must meet a criteria.
+When users sign up, they are able to log into their accounts, using the password and username created at signup.
+
+After logging in, users also have the ability to:
+Users have the ability to add a movie to their watched list. This is intended to contain movies that the user has watched.
+Users have the ability to add a movie to their watch list, which is intended to contain movies that users want to watch in the future.
+Users have the ability to rate movies after they have added the movie to their watched list. To do this users must click on the poster after navigating to their watched list page, which would then prompt you to enter a rating out of 5.
+Users can change the password of their account. The changed password must also match the restrictions required for passwords in account creation.
+Users can navigate to a dashboard panel, which consists of their username, total hours watched, their favourite movie, their favourite genre, an average of the ratings they have given, and the longest movie that they have watched.
+Users can navigate to a rated list panel, which displays the names and posters of movies that they have rated accompanied by the rating they gave each movie.
+Users can log out of their accounts.
 
 ### License
 
