@@ -48,18 +48,16 @@ The purpose of this project is to create a movie organization system that allows
 6. Once the API key and the Maven Project are set up, you can run the Main program.
 
 ### Usage guide
-Users can search for movies, where the release date, rotten tomatoes score, genre, actors, and directors of the movie is displayed.
-Users are able to sign up and create an account. In which you set a password that must meet a criteria.
-When users sign up, they are able to log into their accounts, using the password and username created at signup.
-
-After logging in, users also have the ability to:
-Users have the ability to add a movie to their watched list. This is intended to contain movies that the user has watched.
-Users have the ability to add a movie to their watch list, which is intended to contain movies that users want to watch in the future.
-Users have the ability to rate movies after they have added the movie to their watched list. To do this users must click on the poster after navigating to their watched list page, which would then prompt you to enter a rating out of 5.
-Users can change the password of their account. The changed password must also match the restrictions required for passwords in account creation.
-Users can navigate to a dashboard panel, which consists of their username, total hours watched, their favourite movie, their favourite genre, an average of the ratings they have given, and the longest movie that they have watched.
-Users can navigate to a rated list panel, which displays the names and posters of movies that they have rated accompanied by the rating they gave each movie.
-Users can log out of their accounts.
+- Signup: When you open the app, you’ll start at the Home View, where you can sign up, log in, or search. Since the program doesn’t save users between sessions, you’ll need to sign up each time you run the app. To sign up, click Go to Sign Up, then enter a username and password. Passwords must be at least 8 characters long and include an uppercase letter, a lowercase letter, a digit, and a special character. 
+- Login: From the Home View, click Go to Login and enter your credentials to access your account. 
+- Search: You can search for movies while logged in or out. If you search while logged out, you won’t be able to add movies to your watchlist or watched list. To search, click Go to Search from either the Home View or the Logged In View, enter a movie title, and click Search. This takes you to the Search Result View, where logged-in users can add movies to their watchlist or watched list. 
+- Add to Watchlist: Log in and search for a movie, then click Add to Watchlist to save it to your watchlist. 
+- Add to Watched List: Log in, search for a movie, and click Add to Watched List to save it to your watched list
+- Rate a Movie: To rate a movie, it must first be in your watched list. Go to your watched list, find the movie you want to rate, and click Rate. Enter a rating between 0 and 5 inclusive. 
+- View Watchlist: Log in and click Go to Watchlist to view all the movies you’ve added to your watchlist. 
+- View Watched List: Log in and click Go to Watched List to see the movies you’ve added to your watched list. 
+- View Rated List: Log in and click Go to Rated List to view all the movies you’ve rated. 
+- View Dashboard: The dashboard provides statistics based on your watched and rated movies. To access it, log in and click Go to Dashboard.
 
 ### License
 You can find the license [here](LICENSE).
