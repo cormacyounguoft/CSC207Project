@@ -9,7 +9,7 @@ import java.util.List;
 public class DashboardState {
     private String username;
     private String favoriteMovie;
-    private int totalHoursWatched;
+    private String totalHoursWatched;
     private String favoriteGenre;
     private double averageRating;
     private String longestMovie;
@@ -30,11 +30,11 @@ public class DashboardState {
         this.favoriteMovie = favoriteMovie;
     }
 
-    public int getTotalHoursWatched() {
+    public String getTotalHoursWatched() {
         return totalHoursWatched;
     }
 
-    public void setTotalHoursWatched(int totalHoursWatched) {
+    public void setTotalHoursWatched(String totalHoursWatched) {
         this.totalHoursWatched = totalHoursWatched;
     }
 
