@@ -30,7 +30,7 @@ Users can log out of their accounts.
 ![img.png](images/LoggedInView.png)
 
 #### Here is what happens when you find a movie you searched for!
-![img.png](searchedMovie/img.png)
+![img.png](images/searchedMovie.png)
 
 ### Installation instructions
 1. Fork the GitHub repository and clone it to your computer. Refer to these guides for assistance: [Set up a Git repository in IntelliJ](https://www.jetbrains.com/help/idea/set-up-a-git-repository.html#clone-repo) and [Fork a repository on GitHub](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo).
