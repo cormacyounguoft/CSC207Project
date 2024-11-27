@@ -12,6 +12,18 @@ The purpose of this project is to create a movie organization system that allows
 
 ### Table of contents
 
+<!-- TOC -->
+* [Authors and Contributers](#authors-and-contributers)
+* [Project Purpose](#project-purpose)
+* [Features of the software](#features-of-the-software)
+* [Installation instructions](#installation-instructions)
+* [Usage guide](#usage-guide)
+* [License](#license)
+* [Feedback](#feedback)
+* [Contributions](#contributions)
+* [User Stories](#user-stories)
+<!-- TOC -->
+
 ### Features of the software
 - Signup, login, and change password.
 - Search for movies and view detailed information, including title, release date, Rotten Tomatoes score, genres, actors, directors, and a description.
@@ -24,7 +36,7 @@ The purpose of this project is to create a movie organization system that allows
 ![img.png](images/LoggedInView.png)
 
 #### Here's what the Logged-In Search Result View looks like:
-![img.png](images/searchedMovie.png)
+![img.png](images/SearchedMovie.png)
 
 ### Installation instructions
 1. Fork the GitHub repository and clone it to your computer. Refer to these guides for assistance: [Set up a Git repository in IntelliJ](https://www.jetbrains.com/help/idea/set-up-a-git-repository.html#clone-repo) and [Fork a repository on GitHub](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo).
