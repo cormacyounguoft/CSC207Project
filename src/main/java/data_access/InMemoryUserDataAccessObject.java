@@ -7,6 +7,7 @@ import entity.UserRating;
 import use_case.add_to_watched_list.AddToWatchedListDataAccessInterface;
 import use_case.add_to_watchlist.AddToWatchlistDataAccessInterface;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
+import use_case.dashboard.DashboardDataAccessInterface;
 import use_case.get_rated_list.GetRatedListDataAccessInterface;
 import use_case.get_watched_list.GetWatchedListDataAccessInterface;
 import use_case.get_watchlist.GetWatchlistDataAccessInterface;
@@ -34,7 +35,8 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         GetWatchedListDataAccessInterface,
         GetRatedListDataAccessInterface,
         RatedListDataAccessInterface,
-        WatchedListUserDataAccessInterface
+        WatchedListUserDataAccessInterface,
+        DashboardDataAccessInterface
 {
 
     private final Map<String, User> users = new HashMap<>();
@@ -135,5 +137,15 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
                         LinkedHashMap::putAll
                 );
     }
+
+    @Override
+    public MovieList getWatchedMovies(String username) {
+        return this.get(username).getWatchedList();
     }
+
+    @Override
+    public UserRating getUserRatings(String username) {
+        return this.get(username).getUserRatings();
+    }
+}
 
