@@ -32,11 +32,6 @@ class GetWatchlistInteractorTest {
         dataAccessObject.saveToWatchlist("Username", movie);
     }
 
-    @AfterEach
-    void tearDown() {
-        dataAccessObject.clear();
-    }
-
     @Test
     void successTest() {
         GetWatchlistInputData inputData = new GetWatchlistInputData("Username");

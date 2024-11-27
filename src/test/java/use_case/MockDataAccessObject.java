@@ -140,9 +140,4 @@ public class MockDataAccessObject implements
     public void save(User user) {
         users.put(user.getName(), user);
     }
-
-    public void clear() {
-        users.clear();
-        currentUsername = "";
-    }
 }

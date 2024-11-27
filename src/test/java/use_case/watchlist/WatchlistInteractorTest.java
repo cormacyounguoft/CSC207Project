@@ -32,11 +32,6 @@ class WatchlistInteractorTest {
         dataAccessObject.saveToWatchlist("Username", movie);
     }
 
-    @AfterEach
-    void tearDown() {
-        dataAccessObject.clear();
-    }
-
     @Test
     void successTest() {
         WatchlistInputData inputData = new WatchlistInputData("Username", List.of("Movie"), List.of("url"));

@@ -32,11 +32,6 @@ public class GetRatedListInteractorTest {
         dataAccessObject.saveUserRating("Username", "Movie", 0);
     }
 
-    @AfterEach
-    void tearDown() {
-        dataAccessObject.clear();
-    }
-
     @Test
     void successTest() {
         GetRateListInputData inputData = new GetRateListInputData("Username");

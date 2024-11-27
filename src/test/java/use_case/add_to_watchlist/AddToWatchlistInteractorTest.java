@@ -25,11 +25,6 @@ public class AddToWatchlistInteractorTest {
         dataAccessObject.save(user);
     }
 
-    @AfterEach
-    void tearDown() {
-        dataAccessObject.clear();
-    }
-
     @Test
     void successTest() {
         AddToWatchlistInputData inputData = new AddToWatchlistInputData("Username", "movie");

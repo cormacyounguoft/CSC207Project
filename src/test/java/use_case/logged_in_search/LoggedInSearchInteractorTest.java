@@ -23,11 +23,6 @@ class LoggedInSearchInteractorTest {
         dataAccessObject.save(user);
     }
 
-    @AfterEach
-    void tearDown() {
-        dataAccessObject.clear();
-    }
-
     @Test
     void successTest() {
         LoggedInSearchInputData inputData = new LoggedInSearchInputData("Username", "movie");

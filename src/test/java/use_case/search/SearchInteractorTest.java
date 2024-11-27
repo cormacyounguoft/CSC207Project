@@ -20,11 +20,6 @@ class SearchInteractorTest {
         dataAccessObject = new MockDataAccessObject();
     }
 
-    @AfterEach
-    void tearDown() {
-        dataAccessObject.clear();
-    }
-
     @Test
     void successTest() {
         SearchInputData inputData = new SearchInputData("Movie");
