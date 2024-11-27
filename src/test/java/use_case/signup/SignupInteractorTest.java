@@ -210,4 +210,30 @@ class SignupInteractorTest {
         SignupInputBoundary interactor = new SignupInteractor(userRepository, failurePresenter, new CommonUserFactory());
         interactor.execute(inputData);
     }
+
+    @Test
+    void toLoginView() {
+        SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+
+        // This creates a successPresenter that tests whether the test case is as we expect.
+        SignupOutputBoundary toLoginPresenter = new SignupOutputBoundary() {
+            @Override
+            public void prepareSuccessView(SignupOutputData user) {
+                fail("Use case success is unexpected.");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                fail("Use case failure is unexpected.");
+            }
+
+            @Override
+            public void switchToLoginView() {
+                assertTrue(true);
+            }
+
+        };
+        SignupInputBoundary interactor = new SignupInteractor(userRepository, toLoginPresenter, new CommonUserFactory());
+        interactor.switchToLoginView();
+    }
 }
