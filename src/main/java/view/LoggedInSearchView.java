@@ -63,6 +63,7 @@ public class LoggedInSearchView extends JPanel implements PropertyChangeListener
         search.addActionListener(evt -> {
             final LoggedInSearchState currentState = loggedInSearchViewModel.getState();
             loggedInSearchController.execute(currentState.getSearchQuery(), currentState.getUsername());
+            searchQueryInputField.setText("");
         });
 
         cancel.addActionListener(evt -> {
