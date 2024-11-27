@@ -27,6 +27,10 @@ public class RatePresenter implements RateOutputBoundary {
         loggedInViewModel.setState(state);
         loggedInViewModel.firePropertyChanged();
 
+        RateState state1 = rateViewModel.getState();
+        state1.setRateError(null);
+        rateViewModel.firePropertyChanged();
+
         viewManagerModel.setState(loggedInViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }

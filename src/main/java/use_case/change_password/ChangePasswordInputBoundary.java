@@ -10,7 +10,4 @@ public interface ChangePasswordInputBoundary {
      * @param changePasswordInputData the input data for this use case
      */
     void execute(ChangePasswordInputData changePasswordInputData);
-
-    void switchToLoggedInView(ChangePasswordInputData changePasswordInputData);
-
 }

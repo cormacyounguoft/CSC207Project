@@ -42,9 +42,11 @@ The purpose of this project is to create a movie organization system that allows
 1. Fork the GitHub repository and clone it to your computer. Refer to these guides for assistance: [Set up a Git repository in IntelliJ](https://www.jetbrains.com/help/idea/set-up-a-git-repository.html#clone-repo) and [Fork a repository on GitHub](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo).
 2. Visit [OMDb API](https://www.omdbapi.com) and generate an API key.
 3. In IntelliJ, navigate to Run > Edit Configurations > Environment variables.
-4. Add your API key in the format: APIKEY=YOUR_API_KEY. It should look like this:  
+4. Add your API key in the format: APIKEY=YOUR_API_KEY. It should look like this:
+
 <img src="images/adding_api_key.png" alt="Adding API key" width="500"/>
-5. Set `pom.xml` as Maven by right-clicking on the `pom.xml` file and selecting "Add as Maven Project." You may need to reload the Maven project. 
+
+5. Set `pom.xml` as Maven by right-clicking on the `pom.xml` file and selecting "Add as Maven Project." You may need to reload the Maven project.
 6. Once the API key and the Maven Project are set up, you can run the Main program.
 
 ### Usage guide
