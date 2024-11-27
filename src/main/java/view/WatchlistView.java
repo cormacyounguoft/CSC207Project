@@ -1,5 +1,7 @@
 package view;
 
+import interface_adapter.add_to_watched_list.AddToWatchedListController;
+import interface_adapter.add_to_watchlist.AddToWatchlistController;
 import interface_adapter.to_logged_in_view.ToLoggedInViewController;
 import interface_adapter.watchlist.WatchlistController;
 import interface_adapter.watchlist.WatchlistState;
@@ -14,6 +16,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class WatchlistView extends JPanel implements PropertyChangeListener {
@@ -22,6 +26,8 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
     private final WatchlistViewModel watchlistViewModel;
     private WatchlistController watchlistController;
     private ToLoggedInViewController toLoggedInViewController;
+    private AddToWatchedListController addToWatchedListController;
+
 
     private final JButton cancel;
 
@@ -82,9 +88,28 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
         if (evt.getPropertyName().equals("state")) {
             final WatchlistState state = (WatchlistState) evt.getNewValue();
             final List<String> moviePosters = state.getWatchlistURL();
+            final List<String> movieTitles = state.getWatchlistTitle();
+
+            // Combine movie titles and posters into a single list for sorting
+            List<Movie> movies = new ArrayList<>();
+            for (int i = 0; i < movieTitles.size(); i++) {
+                movies.add(new Movie(movieTitles.get(i), moviePosters.get(i)));
+            }
+
+            // Sort movies by title
+            movies.sort(Comparator.comparing(Movie::getTitle));
+
             watchlist.removeAll();
 
-            for (String poster : moviePosters) {
+            for (Movie movie : movies) {
+                String poster = movie.getPosterUrl();
+                String movieTitle = movie.getTitle();
+
+                JPanel moviePanel = new JPanel(new BorderLayout());
+                JLabel titleLabel = new JLabel(movieTitle, SwingConstants.CENTER);
+                titleLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
+                moviePanel.add(titleLabel, BorderLayout.NORTH);
+
                 JLabel posterLabel = new JLabel();
                 posterLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -94,14 +119,42 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
                     try {
                         URL url = new URL(poster);
                         BufferedImage image = ImageIO.read(url);
-                        Image scaledImage = image.getScaledInstance(150, 225, Image.SCALE_SMOOTH); // Larger poster size
+                        Image scaledImage = image.getScaledInstance(150, 225, Image.SCALE_SMOOTH);
                         posterLabel.setIcon(new ImageIcon(scaledImage));
                     } catch (IOException e) {
                         posterLabel.setText("Poster not available.");
                     }
                 }
 
-                watchlist.add(posterLabel);
+                moviePanel.add(posterLabel, BorderLayout.CENTER);
+
+                // Add buttons for each movie
+                JPanel buttonPanel = new JPanel(new GridLayout(1, 2, 10, 10));
+                JButton removeButton = createStyledButton("Remove");
+                removeButton.addActionListener(evt1 -> {
+                    state.removeMovie(movieTitle, poster);
+
+                    watchlist.remove(moviePanel);
+
+                    watchlist.revalidate();
+                    watchlist.repaint();
+                    JOptionPane.showMessageDialog(null, "\"" + movieTitle + "\" has " +
+                            "been removed from your watchlist.");
+                });
+
+                JButton moveToWatchedButton = createStyledButton("Watched");
+                moveToWatchedButton.addActionListener(evt1 -> {
+                    final WatchlistState currentState = watchlistViewModel.getState();
+                    addToWatchedListController.execute(currentState.getUsername(), movieTitle);
+                    JOptionPane.showMessageDialog(null, "\"" + movieTitle + "\" has " +
+                            "been added to your watched list.");
+                });
+
+                buttonPanel.add(removeButton);
+                buttonPanel.add(moveToWatchedButton);
+                moviePanel.add(buttonPanel, BorderLayout.SOUTH);
+
+                watchlist.add(moviePanel);
             }
 
             username.setText("Currently logged in as: " + state.getUsername());
@@ -109,6 +162,26 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
             watchlist.repaint();
         }
     }
+
+    // Helper class for sorting movies
+    private static class Movie {
+        private final String title;
+        private final String posterUrl;
+
+        public Movie(String title, String posterUrl) {
+            this.title = title;
+            this.posterUrl = posterUrl;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public String getPosterUrl() {
+            return posterUrl;
+        }
+    }
+
 
     /**
      * Creates a styled button.
@@ -133,7 +206,11 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
         this.watchlistController = watchlistController;
     }
 
+    public void setAddToWatchedListController(AddToWatchedListController controller) {
+        this.addToWatchedListController = controller;
+    }
     public void setToLoggedInViewController(ToLoggedInViewController toLoggedInViewController) {
         this.toLoggedInViewController = toLoggedInViewController;
     }
+
 }

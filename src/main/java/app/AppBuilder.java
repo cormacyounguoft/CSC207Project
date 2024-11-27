@@ -573,6 +573,7 @@ public class AppBuilder {
         final AddToWatchedListController addToWatchedListController =
                 new AddToWatchedListController(addToWatchedListInteractor);
         loggedInSearchResultView.setAddToWatchedListController(addToWatchedListController);
+        watchlistView.setAddToWatchedListController(addToWatchedListController);
         return this;
     }
 
