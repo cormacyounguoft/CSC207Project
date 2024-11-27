@@ -13,6 +13,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -78,39 +79,60 @@ public class WatchedListView extends JPanel implements ActionListener, PropertyC
             watchedList.removeAll();
 
             for (int i = 0; i < moviePosters.size(); i++) {
-                JButton posterLabels = new JButton();
+                int finalI = i;
+                JPanel movieWatched = new JPanel();
+                movieWatched.setPreferredSize(new Dimension(320, 500));
+                Border border = BorderFactory.createLineBorder(Color.BLACK, 2); // Black border, 2 pixels thick
+                movieWatched.setBorder(BorderFactory.createTitledBorder(border));
+                movieWatched.setLayout(new BoxLayout(movieWatched, BoxLayout.Y_AXIS));
+
+                JLabel title = new JLabel(movieTitles.get(finalI));
+
+                JLabel posterLabels = new JLabel();
                 if (moviePosters.get(i).isEmpty()) {
                     posterLabels.setText("Poster not available.");
-                    int finalI = i;
-                    posterLabels.addActionListener(
-                            new ActionListener() {
-                                public void actionPerformed(ActionEvent evt) {
-                                    goToRateController.goToRate(state.getUsername(), movieTitles.get(finalI));
-                                    // movieTitles.get(finalI)
-                                }
-                            }
-                    );
                 }
                 else {
                     try {
                         URL url = new URL(moviePosters.get(i));
                         BufferedImage image = ImageIO.read(url);
+                        Image scaledImage = image.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
                         posterLabels.setText("");
-                        posterLabels.setIcon(new ImageIcon(image));
-                        int finalI1 = i;
-                        posterLabels.addActionListener(
-                                new ActionListener() {
-                                    public void actionPerformed(ActionEvent evt) {
-                                        goToRateController.goToRate(state.getUsername(), movieTitles.get(finalI1));
-                                        // movieTitles.get(finalI)
-                                    }
-                                }
-                        );
+                        posterLabels.setIcon(new ImageIcon(scaledImage));
+
                     } catch (IOException e) {
                         posterLabels.setText("Poster not available.");
                     }
                 }
-                watchedList.add(posterLabels);
+
+                JButton rate = new JButton("Rate");
+                rate.addActionListener(
+                        new ActionListener() {
+                            public void actionPerformed(ActionEvent evt) {
+                                goToRateController.goToRate(state.getUsername(), movieTitles.get(finalI));
+                            }
+                        }
+                );
+
+                JButton remove = new JButton("Remove");
+                remove.addActionListener(
+                        new ActionListener() {
+                            public void actionPerformed(ActionEvent evt) {
+                                watchedListController.execute(state.getUsername(), movieTitles.get(finalI));
+                            }
+                        }
+                );
+
+                title.setAlignmentX(Component.CENTER_ALIGNMENT);
+                posterLabels.setAlignmentX(Component.CENTER_ALIGNMENT);
+                rate.setAlignmentX(Component.CENTER_ALIGNMENT);
+                remove.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+                movieWatched.add(title);
+                movieWatched.add(posterLabels);
+                movieWatched.add(rate);
+                movieWatched.add(remove);
+                watchedList.add(movieWatched);
             }
             username.setText("Username: " + state.getUsername());
         }

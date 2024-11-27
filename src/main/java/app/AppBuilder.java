@@ -608,8 +608,8 @@ public class AppBuilder {
      */
     public AppBuilder addWatchedListUseCase() {
         final WatchedListOutputBoundary watchedListOutputBoundary =
-                new WatchedListPresenter(viewManagerModel, watchedListViewModel);
-        final WatchedListInputBoundary watchedListInputBoundary = new WatchedListInteractor(watchedListOutputBoundary);
+                new WatchedListPresenter(viewManagerModel, loggedInViewModel);
+        final WatchedListInputBoundary watchedListInputBoundary = new WatchedListInteractor(watchedListOutputBoundary, userDataAccessObject);
         final WatchedListController watchedListController = new WatchedListController(watchedListInputBoundary);
         watchedListView.setWatchedListController(watchedListController);
         return this;
@@ -634,7 +634,7 @@ public class AppBuilder {
      */
     public AppBuilder addRatedListUseCase() {
         final RatedListOutputBoundary ratedListOutputBoundary =
-                new RatedListPresenter(viewManagerModel, loggedInViewModel, ratedListViewModel);
+                new RatedListPresenter(viewManagerModel, loggedInViewModel);
         final RatedListInputBoundary ratedListInputBoundary = new RatedListInteractor(ratedListOutputBoundary, userDataAccessObject);
         final RatedListController ratedListController = new RatedListController(ratedListInputBoundary);
         ratedListView.setRatedListController(ratedListController);

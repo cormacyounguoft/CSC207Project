@@ -11,19 +11,23 @@ import use_case.watched_list.WatchedListOutputData;
 public class RatedListPresenter implements RatedListOutputBoundary {
     private final ViewManagerModel viewManagerModel;
     private final LoggedInViewModel loggedInViewModel;
-    private final RatedListViewModel ratedListViewModel;
+
 
     public RatedListPresenter(ViewManagerModel viewManagerModel,
-                              LoggedInViewModel loggedInViewModel,
-                              RatedListViewModel ratedListViewModel) {
+                              LoggedInViewModel loggedInViewModel
+                              ) {
         this.viewManagerModel = viewManagerModel;
         this.loggedInViewModel = loggedInViewModel;
-        this.ratedListViewModel = ratedListViewModel;
+
     }
 
 
     @Override
-    public void prepareSuccessView() {
+    public void prepareSuccessView(RatedListOutputData outputData) {
+        final LoggedInState state = loggedInViewModel.getState();
+        state.setUsername(outputData.getUsername());
+        this.loggedInViewModel.setState(state);
+        this.loggedInViewModel.firePropertyChanged();
         viewManagerModel.setState(loggedInViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }

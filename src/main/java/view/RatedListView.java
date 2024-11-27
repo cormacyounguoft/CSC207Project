@@ -97,14 +97,14 @@ public class RatedListView extends JPanel implements ActionListener, PropertyCha
         String poster = value.get(1);
         JPanel rating = new JPanel();
         rating.setLayout(new BoxLayout(rating, BoxLayout.Y_AXIS));
-        JLabel textLabel = new JLabel(key);
-        JLabel textLabel2 = new JLabel(ratingNum);
-        JLabel textLabel1 = new JLabel(ratingNum);
+        JLabel title = new JLabel(key);
+        JLabel posterPic = new JLabel();
+        JLabel ratingNumber = new JLabel(ratingNum);
         JButton remove = new JButton("Remove");
-        textLabel1.setAlignmentX(Component.CENTER_ALIGNMENT);
-        textLabel2.setAlignmentX(Component.CENTER_ALIGNMENT);
+        ratingNumber.setAlignmentX(Component.CENTER_ALIGNMENT);
+        posterPic.setAlignmentX(Component.CENTER_ALIGNMENT);
         remove.setAlignmentX(Component.CENTER_ALIGNMENT);
-        textLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
         remove.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
@@ -115,28 +115,28 @@ public class RatedListView extends JPanel implements ActionListener, PropertyCha
         );
 
 
-        rating.add(textLabel);
+        rating.add(title);
         rating.add(Box.createVerticalStrut(10));
         if (poster.isEmpty()) {
-            textLabel2.setText("Poster not available.");
+            posterPic.setText("Poster not available.");
         }
         else {
             try {
                 URL url = new URL(poster);
                 BufferedImage image = ImageIO.read(url);
                 Image scaledImage = image.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
-                textLabel2.setText("");
-                textLabel2.setIcon(new ImageIcon(scaledImage));
+                posterPic.setText("");
+                posterPic.setIcon(new ImageIcon(scaledImage));
 
             } catch (IOException e) {
-                textLabel2.setText("Poster not available.");
+                posterPic.setText("Poster not available.");
             }
         }
-        rating.add(textLabel2);
+        rating.add(posterPic);
         rating.add(Box.createVerticalStrut(10));
 
 
-        rating.add(textLabel1);
+        rating.add(ratingNumber);
         rating.add(Box.createVerticalStrut(10));
 
         rating.add(remove);
