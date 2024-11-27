@@ -79,7 +79,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         toChangePassword = buttonFactory(loggedInViewModel.TO_CHANGE_PASSWORD_BUTTON_LABEL);
         logout = buttonFactory(loggedInViewModel.LOGOUT_BUTTON_LABEL);
         toRatedList = buttonFactory("Go to Rated List");
-        toDashboard = buttonFactory("Go Dashboard");
+        toDashboard = buttonFactory("Go to Dashboard");
 
         buttonsPanel.add(toSearch);
         buttonsPanel.add(toWatchList);

@@ -7,6 +7,7 @@ import entity.UserRating;
 import use_case.add_to_watched_list.AddToWatchedListDataAccessInterface;
 import use_case.add_to_watchlist.AddToWatchlistDataAccessInterface;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
+import use_case.dashboard.DashboardDataAccessInterface;
 import use_case.get_rated_list.GetRatedListDataAccessInterface;
 import use_case.get_watched_list.GetWatchedListDataAccessInterface;
 import use_case.get_watchlist.GetWatchlistDataAccessInterface;
@@ -28,6 +29,7 @@ public class MockDataAccessObject implements
         SignupUserDataAccessInterface,
         LoginUserDataAccessInterface,
         ChangePasswordUserDataAccessInterface,
+        DashboardDataAccessInterface,
         LogoutUserDataAccessInterface,
         AddToWatchlistDataAccessInterface,
         AddToWatchedListDataAccessInterface,
@@ -160,5 +162,12 @@ public class MockDataAccessObject implements
         UserRating userRating = this.get(username).getUserRatings();
         userRating.getMovieToRating().remove(title);
 
+    public MovieList getWatchedMovies(String username) {
+        return this.get(username).getWatchedList();
+    }
+
+    @Override
+    public UserRating getUserRatings(String username) {
+        return this.get(username).getUserRatings();
     }
 }

@@ -26,13 +26,16 @@ public class DashboardInteractor implements DashboardInputBoundary {
         dashboardPresenter.prepareSuccessView(outputData);
     }
 
-    private int getTotalHoursWatched(String username) {
-        int result = 0;
+    private String getTotalHoursWatched(String username) {
+        int totalMinutes = 0;
 
         for (Movie movie : dashboaedListDataAccess.getWatchedMovies(username).getMovieList()) {
-            result += movie.getRuntime();
+            totalMinutes += movie.getRuntime();
         }
-        return result;
+        int hours = totalMinutes / 60;
+        int minutes = totalMinutes % 60;
+
+        return hours + " hours and " + minutes + " minutes";
     }
 
     private String getFavoriteGenre(String username) {

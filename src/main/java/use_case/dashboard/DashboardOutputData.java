@@ -4,14 +4,14 @@ import java.util.Map;
 
 
 public class DashboardOutputData {
-    private final int totalHoursWatched;
+    private final String totalHoursWatched;
     private final String favoriteMovie;
     private final String favoriteGenre;
     private final double averageRating;
     private final String longestMovie;
     private final String username;
 
-    public DashboardOutputData(int totalHoursWatched, String favoriteMovie, String favoriteGenre, double averageRating, String longestMovie, String username) {
+    public DashboardOutputData(String totalHoursWatched, String favoriteMovie, String favoriteGenre, double averageRating, String longestMovie, String username) {
         this.totalHoursWatched = totalHoursWatched;
         this.favoriteMovie = favoriteMovie;
         this.favoriteGenre = favoriteGenre;
@@ -24,7 +24,7 @@ public class DashboardOutputData {
         return favoriteMovie;
     }
 
-    public int getTotalHoursWatched() {
+    public String getTotalHoursWatched() {
         return totalHoursWatched;
     }
 
