@@ -3,6 +3,8 @@ package view;
 import interface_adapter.dashboard.DashboardController;
 import interface_adapter.dashboard.DashboardState;
 import interface_adapter.dashboard.DashboardViewModel;
+import interface_adapter.to_logged_in_view.ToLoggedInViewController;
+import interface_adapter.watched_list.WatchedListState;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.List;
 import java.util.Map;
 
 public class DashboardView extends JPanel implements ActionListener, PropertyChangeListener {
@@ -18,15 +19,16 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
 
     private final DashboardViewModel dashboardViewModel;
     private DashboardController dashboardController;
+    private ToLoggedInViewController toLoggedInViewController;
 
-    private final JLabel usernameLabel;
-    private final JLabel totalHoursWatchedLabel;
-    private final JPanel favoriteGenresPanel;
-    private final JPanel highestRatedGenresPanel;
-    private final JPanel longestMoviesPanel;
-    private final JLabel averageRatingLabel;
+    private final JLabel usernameLabel = new JLabel();
+    private final JLabel totalHoursWatchedLabel = new JLabel();
+    private final JLabel favoriteMovieLabel = new JLabel();
+    private final JLabel favoriteGenreLable = new JLabel();
+    private final JLabel longestMovieLabel = new JLabel();
+    private final JLabel averageRatingLabel = new JLabel();
 
-    private final JButton backButton;
+    private final JButton cancel;
 
     public DashboardView(DashboardViewModel dashboardViewModel) {
         this.dashboardViewModel = dashboardViewModel;
@@ -35,39 +37,28 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
         final JLabel title = new JLabel("Movie Dashboard");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        usernameLabel = new JLabel();
-        totalHoursWatchedLabel = new JLabel();
-        averageRatingLabel = new JLabel();
+        final JPanel buttons = new JPanel();
+        cancel = new JButton(DashboardViewModel.CANCEL_BUTTON_LABEL);
+        buttons.add(cancel);
 
-        favoriteGenresPanel = new JPanel();
-        favoriteGenresPanel.setLayout(new BoxLayout(favoriteGenresPanel, BoxLayout.Y_AXIS));
-        favoriteGenresPanel.setBorder(BorderFactory.createTitledBorder("Favorite Genres"));
-
-        highestRatedGenresPanel = new JPanel();
-        highestRatedGenresPanel.setLayout(new BoxLayout(highestRatedGenresPanel, BoxLayout.Y_AXIS));
-        highestRatedGenresPanel.setBorder(BorderFactory.createTitledBorder("Highest-Rated Genres"));
-
-        longestMoviesPanel = new JPanel();
-        longestMoviesPanel.setLayout(new BoxLayout(longestMoviesPanel, BoxLayout.Y_AXIS));
-        longestMoviesPanel.setBorder(BorderFactory.createTitledBorder("Longest Movies"));
-
-        backButton = new JButton("Back to Logged-In View");
-
-        backButton.addActionListener(
-                evt -> {
-                    DashboardState currentState = dashboardViewModel.getState();
-                    dashboardController.switchToLoggedInView(currentState.getUsername());
+        cancel.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        final DashboardState currentState = dashboardViewModel.getState();
+                        toLoggedInViewController.toLoggedInView(currentState.getUsername());
+                    }
                 }
         );
+
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(title);
         this.add(usernameLabel);
         this.add(totalHoursWatchedLabel);
+        this.add(favoriteMovieLabel);
+        this.add(favoriteGenreLable);
+        this.add(longestMovieLabel);
         this.add(averageRatingLabel);
-        this.add(favoriteGenresPanel);
-        this.add(highestRatedGenresPanel);
-        this.add(longestMoviesPanel);
-        this.add(backButton);
+        this.add(buttons);
     }
 
     @Override
@@ -78,35 +69,13 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
-            DashboardState state = (DashboardState) evt.getNewValue();
+            final DashboardState state = (DashboardState) evt.getNewValue();
             usernameLabel.setText("Username: " + state.getUsername());
             totalHoursWatchedLabel.setText("Total Hours Watched: " + state.getTotalHoursWatched());
+            favoriteMovieLabel.setText("Favorite Movie: " + state.getFavoriteMovie());
+            favoriteGenreLable.setText("Favorite Genre: " + state.getFavoriteGenre());
+            longestMovieLabel.setText("Longest Movie Watched: " + state.getLongestMovie());
             averageRatingLabel.setText("Average Rating: " + state.getAverageRating());
-            favoriteGenresPanel.removeAll();
-
-            for (Map.Entry<String, Integer> entry : state.getFavoriteGenres().entrySet()) {
-                JLabel genreLabel = new JLabel(entry.getKey() + ": " + entry.getValue() + " movies");
-                favoriteGenresPanel.add(genreLabel);
-            }
-
-            highestRatedGenresPanel.removeAll();
-            for (Map.Entry<String, Double> entry : state.getHighestRatedGenres().entrySet()) {
-                JLabel genreLabel = new JLabel(entry.getKey() + ": " + String.format("%.2f", entry.getValue()) + " average rating");
-                highestRatedGenresPanel.add(genreLabel);
-            }
-
-            longestMoviesPanel.removeAll();
-            for (String movie : state.getLongestMovies()) {
-                JLabel movieLabel = new JLabel(movie);
-                longestMoviesPanel.add(movieLabel);
-            }
-
-            favoriteGenresPanel.revalidate();
-            favoriteGenresPanel.repaint();
-            highestRatedGenresPanel.revalidate();
-            highestRatedGenresPanel.repaint();
-            longestMoviesPanel.revalidate();
-            longestMoviesPanel.repaint();
         }
     }
 
@@ -116,5 +85,9 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
 
     public void setDashboardController(DashboardController dashboardController) {
         this.dashboardController = dashboardController;
+    }
+
+    public void setToLoggedInViewController(ToLoggedInViewController toLoggedInViewController) {
+        this.toLoggedInViewController = toLoggedInViewController;
     }
 }

@@ -27,6 +27,7 @@ public class Main {
                 .addWatchedListView()
                 .addWatchlistView()
                 .addRatedListView()
+                .addDashboardView()
                 .addHomeUseCase()
                 .addSearchUseCase()
                 .addSignupUseCase()
@@ -50,6 +51,7 @@ public class Main {
                 .addRatedListUseCase()
                 .addToHomeViewUseCase()
                 .addToLoggedInViewUseCase()
+                .addDashboardUseCase()
                 .build();
 
         // Commented out to keep consistent size
