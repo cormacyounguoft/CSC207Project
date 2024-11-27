@@ -62,6 +62,7 @@ Users can navigate to a rated list panel, which displays the names and posters o
 Users can log out of their accounts.
 
 ### License
+You can find the license [here](LICENSE).
 
 ### Feedback
 
