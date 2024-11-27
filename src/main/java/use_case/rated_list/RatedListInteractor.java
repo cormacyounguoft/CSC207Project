@@ -12,7 +12,8 @@ public class RatedListInteractor implements RatedListInputBoundary{
     @Override
     public void execute(RatedListInputData ratedListInputData) {
         useraccess.removeUserRating(ratedListInputData.getUsername(), ratedListInputData.getTitle());
-        presenter.prepareSuccessView();
+        final RatedListOutputData outputData = new RatedListOutputData(ratedListInputData.getUsername());
+        presenter.prepareSuccessView(outputData);
     }
 
 }

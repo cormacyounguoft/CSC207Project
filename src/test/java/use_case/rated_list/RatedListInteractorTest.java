@@ -1,21 +1,12 @@
-package use_case.watched_list;
+package use_case.rated_list;
 
-import entity.CommonUserFactory;
-import entity.Movie;
-import entity.MovieFactory;
-import entity.User;
-import entity.UserFactory;
-import org.junit.jupiter.api.AfterEach;
+import entity.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.MockDataAccessObject;
-
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
-class WatchedListInteractorTest {
+class RatedListInteractorTest {
     MockDataAccessObject dataAccessObject;
 
     @BeforeEach
@@ -30,21 +21,23 @@ class WatchedListInteractorTest {
         movie.setTitle("Movie");
         movie.setPosterLink("url");
         dataAccessObject.saveToWatchedList("Username", movie);
+        dataAccessObject.saveUserRating("Username", "Movie", 1);
     }
 
     @Test
-    void successTest() {
-        WatchedListInputData inputData = new WatchedListInputData("Username", "Movie");
+    public void successTest() {
+        RatedListInputData inputData = new RatedListInputData("Username", "Movie");
 
-        WatchedListOutputBoundary presenter = new WatchedListOutputBoundary() {
+        RatedListOutputBoundary presenter = new RatedListOutputBoundary() {
             @Override
-            public void prepareSuccessView(WatchedListOutputData outputData) {
-                assertEquals("Username", outputData.getUsername());
-
+            public void prepareSuccessView(RatedListOutputData outputData) {
+                assertEquals(outputData.getUsername(), "Username");
             }
         };
 
-        WatchedListInputBoundary interactor = new WatchedListInteractor(presenter, dataAccessObject);
+        RatedListInputBoundary interactor = new RatedListInteractor(presenter, dataAccessObject);
         interactor.execute(inputData);
+
     }
 }
+
