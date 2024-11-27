@@ -15,6 +15,12 @@ The purpose of this project is to create a movie organization system that allows
 ### Features of the software
 
 ### Installation instructions
+1. Fork the GitHub repository and clone it to your computer. Refer to these guides for assistance: [Set up a Git repository in IntelliJ](https://www.jetbrains.com/help/idea/set-up-a-git-repository.html#clone-repo) and [Fork a repository on GitHub](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo).
+2. Visit [OMDb API](www.omdbapi.com) and generate an API key.
+3. In IntelliJ, navigate to Run > Edit Configurations > Environment variables.
+4. Add your API key in the format: APIKEY=[YOUR_API_KEY_HERE]. It should look like this: 
+![image of adding the api key as an environment variable.](images/adding_api_key.png "adding api key")
+5. Once the API key is set up, you can run the Main program.
 
 ### Usage guide
 
