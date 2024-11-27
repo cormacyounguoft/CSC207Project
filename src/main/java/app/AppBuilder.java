@@ -244,11 +244,8 @@ public class AppBuilder {
      */
     public AppBuilder addDashboardView() {
         dashboardViewModel = new DashboardViewModel();
-        DashboardPresenter dashboardPresenter = new DashboardPresenter(viewManagerModel, loggedInViewModel, dashboardViewModel);
-        DashboardController dashboardController = new DashboardController(new DashboardInteractor(userDataAccessObject, dashboardPresenter));
         dashboardView = new DashboardView(dashboardViewModel);
-        dashboardView.setDashboardController(dashboardController);
-        cardPanel.add(dashboardView, "dashboard");
+        cardPanel.add(dashboardView, dashboardView.getViewName());
         return this;
     }
 
@@ -477,10 +474,14 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addDashboardUseCase() {
-        final DashboardOutputBoundary dashboardOutputBoundary = new DashboardPresenter(viewManagerModel, loggedInViewModel, dashboardViewModel);
-        final DashboardInputBoundary dashboardInteractor = new DashboardInteractor(userDataAccessObject, dashboardOutputBoundary);
-        final DashboardController dashboardController = new DashboardController(dashboardInteractor);
+        final DashboardOutputBoundary dashboardOutputBoundary =
+                new DashboardPresenter(viewManagerModel, dashboardViewModel);
+        final DashboardInputBoundary dashboardInteractor =
+                new DashboardInteractor(userDataAccessObject, dashboardOutputBoundary);
+        final DashboardController dashboardController =
+                new DashboardController(dashboardInteractor);
         dashboardView.setDashboardController(dashboardController);
+        loggedInView.setDashboardController(dashboardController);
         return this;
     }
 
@@ -635,7 +636,7 @@ public class AppBuilder {
     public AppBuilder addRatedListUseCase() {
         final RatedListOutputBoundary ratedListOutputBoundary =
                 new RatedListPresenter(viewManagerModel, loggedInViewModel, ratedListViewModel);
-        final RatedListInputBoundary ratedListInputBoundary = new RatedListInteractor(ratedListOutputBoundary);
+        final RatedListInputBoundary ratedListInputBoundary = new RatedListInteractor(ratedListOutputBoundary, userDataAccessObject);
         final RatedListController ratedListController = new RatedListController(ratedListInputBoundary);
         ratedListView.setRatedListController(ratedListController);
         return this;
@@ -695,12 +696,14 @@ public class AppBuilder {
                 new ToLoggedInViewInteractor(toLoggedInViewOutputBoundary);
         final ToLoggedInViewController toLoggedInViewController =
                 new ToLoggedInViewController(toLoggedInViewInputBoundary);
-//        ratedListView.setToLoggedInViewController(toLoggedInViewController);
-//        rateView.setToLoggedInViewController(toLoggedInViewController);
         loggedInSearchView.setToLoggedInViewController(toLoggedInViewController);
         loggedInSearchResultView.setToLoggedInViewController(toLoggedInViewController);
         watchedListView.setGoToLoggedInViewController(toLoggedInViewController);
         watchlistView.setToLoggedInViewController(toLoggedInViewController);
+        ratedListView.setToLoggedInViewController(toLoggedInViewController);
+        changePasswordView.setToLoggedInViewController(toLoggedInViewController);
+        rateView.setToLoggedInViewController(toLoggedInViewController);
+        dashboardView.setToLoggedInViewController(toLoggedInViewController);
         return this;
     }
 
@@ -713,6 +716,8 @@ public class AppBuilder {
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         application.add(cardPanel);
+
+        application.setSize(1280, 720);
 
         viewManagerModel.setState(homeView.getViewName());
         viewManagerModel.firePropertyChanged();

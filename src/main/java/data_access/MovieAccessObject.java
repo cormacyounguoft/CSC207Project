@@ -5,7 +5,6 @@ import entity.MovieFactory;
 import kong.unirest.Unirest;
 import kong.unirest.json.JSONObject;
 import use_case.SearchDataAccessInterface;
-import use_case.search.LoggedOutSearchDataAccessInterface;
 
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -18,7 +17,7 @@ import java.util.List;
  * DAO for searching for movies using the API.
  * @Null
  */
-public class MovieAccessObject implements SearchDataAccessInterface, LoggedOutSearchDataAccessInterface {
+public class MovieAccessObject implements SearchDataAccessInterface {
     public static final String N_A = "N/A";
     public static final String COMMA = ",";
     public static final String COMMA_SPACE = ", ";

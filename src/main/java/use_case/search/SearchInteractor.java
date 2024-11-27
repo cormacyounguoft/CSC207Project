@@ -4,19 +4,20 @@ import java.io.IOException;
 
 import entity.Movie;
 import entity.MovieFactory;
+import use_case.SearchDataAccessInterface;
 
 /**
  * The Search Interactor.
  */
 public class SearchInteractor implements SearchInputBoundary {
-    private final LoggedOutSearchDataAccessInterface searchDataAccessObject;
+    private final SearchDataAccessInterface searchDataAccessObject;
     private final SearchOutputBoundary searchPresenter;
 
 
-    public SearchInteractor(LoggedOutSearchDataAccessInterface loggedOutSearchDataAccessInterface,
+    public SearchInteractor(SearchDataAccessInterface searchDataAccessInterface,
                             SearchOutputBoundary searchOutputBoundary,
                             MovieFactory movieFactory) {
-        this.searchDataAccessObject = loggedOutSearchDataAccessInterface;
+        this.searchDataAccessObject = searchDataAccessInterface;
 
         this.searchPresenter = searchOutputBoundary;
 
@@ -60,16 +61,16 @@ public class SearchInteractor implements SearchInputBoundary {
                 result = movie.getRottenTomatoes() == -1 ? "Rotten Tomatoes not available." : String.valueOf(movie.getRottenTomatoes());
                 break;
             case "runtime":
-                result = movie.getRuntime() == -1 ? "RunTime not available." : String.valueOf(movie.getRuntime());
+                result = movie.getRuntime() == -1 ? "Runtime not available." : String.valueOf(movie.getRuntime());
                 break;
             case "genre":
-                result = movie.getGenre().isEmpty() ? "Genre not available." : String.valueOf(movie.getGenre());
+                result = movie.getGenre().isEmpty() ? "Genres not available." : String.valueOf(movie.getGenre());
                 break;
             case "actors":
                 result = movie.getActors().isEmpty() ? "Actors not available." : String.valueOf(movie.getActors());
                 break;
             case "director":
-                result = movie.getDirector().isEmpty() ? "Director not available." : String.valueOf(movie.getDirector());
+                result = movie.getDirector().isEmpty() ? "Directors not available." : String.valueOf(movie.getDirector());
                 break;
             case "poster":
                 result = movie.getPosterLink().isEmpty() ? "Poster not available." : movie.getPosterLink();

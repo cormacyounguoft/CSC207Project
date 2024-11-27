@@ -4,5 +4,4 @@ public interface RateInputBoundary {
 
     void execute(RateInputData inputData);
 
-    void switchToLoggedInView(RateInputData inputData);
 }

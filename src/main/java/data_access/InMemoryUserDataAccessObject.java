@@ -3,15 +3,18 @@ package data_access;
 import entity.Movie;
 import entity.MovieList;
 import entity.User;
+import entity.UserRating;
 import use_case.add_to_watched_list.AddToWatchedListDataAccessInterface;
 import use_case.add_to_watchlist.AddToWatchlistDataAccessInterface;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
+import use_case.dashboard.DashboardDataAccessInterface;
 import use_case.get_rated_list.GetRatedListDataAccessInterface;
 import use_case.get_watched_list.GetWatchedListDataAccessInterface;
 import use_case.get_watchlist.GetWatchlistDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.rate.RateUserDataAccessInterface;
+import use_case.rated_list.RatedListDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 
 import java.util.*;
@@ -29,7 +32,9 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         RateUserDataAccessInterface,
         GetWatchlistDataAccessInterface,
         GetWatchedListDataAccessInterface,
-        GetRatedListDataAccessInterface
+        GetRatedListDataAccessInterface,
+        RatedListDataAccessInterface,
+        DashboardDataAccessInterface
 {
 
     private final Map<String, User> users = new HashMap<>();
@@ -85,6 +90,13 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     }
 
     @Override
+    public void removeUserRating(String username, String title) {
+        UserRating userRating = this.get(username).getUserRatings();
+        userRating.getMovieToRating().remove(title);
+
+    }
+
+    @Override
     public MovieList getWatchedList(String username) {
         return this.get(username).getWatchedList();
     }
@@ -105,7 +117,25 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
             String poster = movieList.getPoster(title);
             result.put(title, Arrays.asList(String.valueOf(rating), poster));
         });
-        return result;
+
+        return result.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.comparing(list -> Integer.parseInt(list.get(0)))))
+                .collect(
+                        LinkedHashMap::new,
+                        (map, entry) -> map.put(entry.getKey(), entry.getValue()),
+                        LinkedHashMap::putAll
+                );
     }
 
+    @Override
+    public MovieList getWatchedMovies(String username) {
+        return this.get(username).getWatchedList();
+    }
+
+    @Override
+    public UserRating getUserRatings(String username) {
+        return this.get(username).getUserRatings();
+    }
 }
+

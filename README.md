@@ -25,8 +25,6 @@ Users can change the password of their account. The changed password must also m
 Users can navigate to a dashboard panel, which consists of their username, total hours watched, their favourite movie, their favourite genre, an average of the ratings they have given, and the longest movie that they have watched.
 Users can navigate to a rated list panel, which displays the names and posters of movies that they have rated accompanied by the rating they gave each movie. 
 
-
-
 ### Installation instructions
 1. Fork the GitHub repository and clone it to your computer. Refer to these guides for assistance: [Set up a Git repository in IntelliJ](https://www.jetbrains.com/help/idea/set-up-a-git-repository.html#clone-repo) and [Fork a repository on GitHub](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo).
 2. Visit [OMDb API](www.omdbapi.com) and generate an API key.

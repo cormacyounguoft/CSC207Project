@@ -24,9 +24,4 @@ public class RateInteractor implements RateInputBoundary {
         }
     }
 
-    @Override
-    public void switchToLoggedInView(RateInputData inputData) {
-        final RateOutputData outputData = new RateOutputData(inputData.getUsername(), inputData.getTitle(), false);
-        presenter.switchToLoggedInView(outputData);
-    }
 }

@@ -6,15 +6,16 @@ import entity.User;
 import entity.UserFactory;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 class SignupInteractorTest {
 
     @Test
     void successTest() {
-        SignupInputData inputData = new SignupInputData("Paul", "Password1!", "Password1!");
+        SignupInputData inputData = new SignupInputData("Paul", "Password123!", "Password123!");
         SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
 
         // This creates a successPresenter that tests whether the test case is as we expect.
@@ -24,6 +25,7 @@ class SignupInteractorTest {
                 // 2 things to check: the output data is correct, and the user has been created in the DAO.
                 assertEquals("Paul", user.getUsername());
                 assertTrue(userRepository.existsByName("Paul"));
+                assertFalse(user.isUseCaseFailed());
             }
 
             @Override
@@ -44,7 +46,7 @@ class SignupInteractorTest {
 
     @Test
     void failurePasswordMismatchTest() {
-        SignupInputData inputData = new SignupInputData("Paul", "password", "wrong");
+        SignupInputData inputData = new SignupInputData("Paul", "Password123!", "wrong");
         SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
 
         // This creates a presenter that tests whether the test case is as we expect.
@@ -72,8 +74,60 @@ class SignupInteractorTest {
     }
 
     @Test
+    void failurePasswordMissingTest() {
+        SignupInputData inputData = new SignupInputData("User", "", "");
+        SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+
+        SignupOutputBoundary failurePresenter = new SignupOutputBoundary() {
+            @Override
+            public void prepareSuccessView(SignupOutputData user) {
+                fail("Use case success is unexpected.");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                assertEquals("Password cannot be empty.", error);
+            }
+
+            @Override
+            public void switchToLoginView() {
+            }
+
+        };
+
+        SignupInputBoundary interactor = new SignupInteractor(userRepository, failurePresenter, new CommonUserFactory());
+        interactor.execute(inputData);
+    }
+
+    @Test
+    void failureUsernameMissingTest() {
+        SignupInputData inputData = new SignupInputData("", "Password123!", "Password123!");
+        SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+
+        SignupOutputBoundary failurePresenter = new SignupOutputBoundary() {
+            @Override
+            public void prepareSuccessView(SignupOutputData user) {
+                fail("Use case success is unexpected.");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                assertEquals("Username cannot be empty.", error);
+            }
+
+            @Override
+            public void switchToLoginView() {
+            }
+
+        };
+
+        SignupInputBoundary interactor = new SignupInteractor(userRepository, failurePresenter, new CommonUserFactory());
+        interactor.execute(inputData);
+    }
+
+    @Test
     void failureUserExistsTest() {
-        SignupInputData inputData = new SignupInputData("Paul", "password", "wrong");
+        SignupInputData inputData = new SignupInputData("Paul", "Password123!", "wrong");
         SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
 
         // Add Paul to the repo so that when we check later they already exist
@@ -97,6 +151,58 @@ class SignupInteractorTest {
             @Override
             public void switchToLoginView() {
                 // This is expected
+            }
+
+        };
+
+        SignupInputBoundary interactor = new SignupInteractor(userRepository, failurePresenter, new CommonUserFactory());
+        interactor.execute(inputData);
+    }
+
+    @Test
+    void failureBadUsernameTest() {
+        SignupInputData inputData = new SignupInputData("ab", "Password123!", "Password123!");
+        SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+
+        SignupOutputBoundary failurePresenter = new SignupOutputBoundary() {
+            @Override
+            public void prepareSuccessView(SignupOutputData user) {
+                fail("Use case success is unexpected.");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                assertEquals("Invalid username. Ensure it contains at least 3 characters and no spaces.", error);
+            }
+
+            @Override
+            public void switchToLoginView() {
+            }
+
+        };
+
+        SignupInputBoundary interactor = new SignupInteractor(userRepository, failurePresenter, new CommonUserFactory());
+        interactor.execute(inputData);
+    }
+
+    @Test
+    void failureBadPasswordTest() {
+        SignupInputData inputData = new SignupInputData("Username", "pass", "pass");
+        SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+
+        SignupOutputBoundary failurePresenter = new SignupOutputBoundary() {
+            @Override
+            public void prepareSuccessView(SignupOutputData user) {
+                fail("Use case success is unexpected.");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                assertEquals("Invalid password. Ensure it is at least 8 characters long, contains an uppercase letter, a lowercase letter, a digit, and a special character.", error);
+            }
+
+            @Override
+            public void switchToLoginView() {
             }
 
         };

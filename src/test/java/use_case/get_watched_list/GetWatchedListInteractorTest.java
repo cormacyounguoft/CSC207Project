@@ -1,4 +1,4 @@
-package use_case.get_rated_list;
+package use_case.get_watched_list;
 
 import entity.CommonUserFactory;
 import entity.Movie;
@@ -10,11 +10,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.MockDataAccessObject;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class GetRatedListInteractorTest {
+class GetWatchedListInteractorTest {
     MockDataAccessObject dataAccessObject;
 
     @BeforeEach
@@ -29,25 +30,23 @@ public class GetRatedListInteractorTest {
         movie.setTitle("Movie");
         movie.setPosterLink("url");
         dataAccessObject.saveToWatchedList("Username", movie);
-        dataAccessObject.saveUserRating("Username", "Movie", 0);
     }
 
     @Test
     void successTest() {
-        GetRateListInputData inputData = new GetRateListInputData("Username");
+        GetWatchedListInputData inputData = new GetWatchedListInputData("Username");
 
-        GetRateListOutputBoundary presenter = new GetRateListOutputBoundary() {
+        GetWatchedListOutputBoundary presenter = new GetWatchedListOutputBoundary() {
             @Override
-            public void prepareSuccessView(GetRateListOutputData outputData) {
+            public void prepareSuccessView(GetWatchedListOutputData outputData) {
                 assertEquals("Username", outputData.getUsername());
-                assertTrue(outputData.getUserRating().containsKey("Movie"));
-                assertEquals(outputData.getUserRating().get("Movie").get(0), "0");
-                assertEquals(outputData.getUserRating().get("Movie").get(1), "url");
+                assertEquals(List.of("Movie"), outputData.getWatchedListTitle());
+                assertEquals(List.of("url"), outputData.getWatchedListURL());
                 assertFalse(outputData.isUseCaseFailed());
             }
         };
 
-        GetRateListInputBoundary interactor = new GetRateListInteractor(dataAccessObject, presenter);
+        GetWatchedListInputBoundary interactor = new GetWatchedListInteractor(presenter, dataAccessObject);
         interactor.execute(inputData);
     }
 }
