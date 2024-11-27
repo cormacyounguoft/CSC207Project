@@ -1,11 +1,11 @@
 # CSC207Project: Movie Application
 
 ### Authors and Contributers
+- Aseer Baset 
+- Cormac Young 
 - Humza Chaudhry 
 - Samir Hendawi 
-- Cormac Young 
-- Serdar Zhangali 
-- Aseer Baset
+- Serdar Zhangali
 
 ### Project Purpose
 The purpose of this project is to create a movie organization system that allows users to explore and manage a comprehensive database of movies. Users can search for movies by title, view details including the rating, release date, and genre, create and manage watchlists, rate movies, and maintain a history of watched films.
@@ -65,8 +65,10 @@ Users can log out of their accounts.
 You can find the license [here](LICENSE).
 
 ### Feedback
+We welcome constructive feedback to improve our software! You can share your thoughts through the GitHub Discussion Board by navigating to the Discussions tab in our repository and starting a new discussion under the relevant category (e.g., "Bugs," "Suggestions"). For bugs or feature requests, create a GitHub Issue with a clear and concise description, including steps to reproduce any problems. Valid feedback should be relevant, well-detailed, and respectful. Once submitted, a team member will review your feedback and address it based on priority and feasibility.
 
 ### Contributions
+We’re excited to have you contribute! Start by forking the repository on GitHub and cloning it to your local machine. Create a new branch for your changes, implement your updates, and commit with clear messages. Push your branch to your fork and open a Pull Request in the original repository, including a detailed description of your changes. Ensure your pull request is well-tested, properly formatted, and limited to relevant changes. A team will review your pull request, provide feedback if needed, and merge approved contributions.
 
 ### User Stories
 1. **Team Story:** John wants to log into his account. After logging in, he can search for movies, view his watchlist, view his watched list, and see what movies he has rated.
