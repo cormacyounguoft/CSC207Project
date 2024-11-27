@@ -120,7 +120,7 @@ public class WatchedListView extends JPanel implements ActionListener, PropertyC
                         new ActionListener() {
                             public void actionPerformed(ActionEvent evt) {
                                 watchedListController.execute(state.getUsername(), movieTitles.get(finalI));
-                                JOptionPane.showMessageDialog(null, "\"" + movieTitles.get(finalI) + "\" has been deleted from your watchedlist and ratedlist.");
+                                JOptionPane.showMessageDialog(null, "\"" + movieTitles.get(finalI) + "\" has been deleted from your watched list and rated list.");
                             }
                         }
                 );
