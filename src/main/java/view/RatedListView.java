@@ -135,7 +135,10 @@ public class RatedListView extends JPanel implements PropertyChangeListener {
         // Remove Button
         JButton removeButton = createStyledButton("Remove");
         removeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        removeButton.addActionListener(evt -> ratedListController.execute(username, movieTitle));
+        removeButton.addActionListener(evt -> {
+            ratedListController.execute(username, movieTitle);
+            JOptionPane.showMessageDialog(null, "\"" + movieTitle + "\" has been deleted from your ratedlist.");
+        });
 
         // Add components to the panel
         ratingPanel.add(titleLabel);
