@@ -115,7 +115,6 @@ public class ChangePasswordView extends JPanel {
         changePassword.addActionListener(evt -> {
             final ChangePasswordState currentState = changePasswordViewModel.getState();
             changePasswordController.execute(currentState.getUsername(), currentState.getPassword());
-            toLoggedInViewController.toLoggedInView(currentState.getUsername());
             JOptionPane.showMessageDialog(null, "The password has been changed.");
             passwordInputField.setText(null);
         });
