@@ -161,7 +161,9 @@ public class MockDataAccessObject implements
     public void removeUserRating(String username, String title) {
         UserRating userRating = this.get(username).getUserRatings();
         userRating.getMovieToRating().remove(title);
+    }
 
+    @Override
     public MovieList getWatchedMovies(String username) {
         return this.get(username).getWatchedList();
     }
