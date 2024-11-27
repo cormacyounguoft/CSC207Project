@@ -3,6 +3,7 @@ package use_case;
 import entity.Movie;
 import entity.MovieList;
 import entity.User;
+import entity.UserRating;
 import use_case.add_to_watched_list.AddToWatchedListDataAccessInterface;
 import use_case.add_to_watchlist.AddToWatchlistDataAccessInterface;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
@@ -12,7 +13,9 @@ import use_case.get_watchlist.GetWatchlistDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.rate.RateUserDataAccessInterface;
+import use_case.rated_list.RatedListDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
+import use_case.watched_list.WatchedListUserDataAccessInterface;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,7 +35,10 @@ public class MockDataAccessObject implements
         GetWatchlistDataAccessInterface,
         GetWatchedListDataAccessInterface,
         GetRatedListDataAccessInterface,
-        SearchDataAccessInterface {
+        SearchDataAccessInterface,
+        WatchedListUserDataAccessInterface,
+        RatedListDataAccessInterface
+{
 
     private final Map<String, User> users = new HashMap<>();
 
@@ -139,5 +145,20 @@ public class MockDataAccessObject implements
     @Override
     public void save(User user) {
         users.put(user.getName(), user);
+    }
+
+    @Override
+    public void removeFromWatchedlist(String username, String title) {
+        MovieList list = this.get(username).getWatchedList();
+        Movie movie = list.findMovieByTitle(title);
+        this.get(username).getWatchedList().removeMovie(movie);
+        this.removeUserRating(username, title);
+    }
+
+    @Override
+    public void removeUserRating(String username, String title) {
+        UserRating userRating = this.get(username).getUserRatings();
+        userRating.getMovieToRating().remove(title);
+
     }
 }

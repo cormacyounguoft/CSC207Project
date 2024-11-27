@@ -34,19 +34,17 @@ class WatchedListInteractorTest {
 
     @Test
     void successTest() {
-        WatchedListInputData inputData = new WatchedListInputData("Username", List.of("Movie"), List.of("url"));
+        WatchedListInputData inputData = new WatchedListInputData("Username", "Movie");
 
         WatchedListOutputBoundary presenter = new WatchedListOutputBoundary() {
             @Override
             public void prepareSuccessView(WatchedListOutputData outputData) {
                 assertEquals("Username", outputData.getUsername());
-                assertEquals(List.of("Movie"), outputData.getWatchedListTitle());
-                assertEquals(List.of("url"), outputData.getWatchedListURL());
-                assertFalse(outputData.isUseCaseFailed());
+
             }
         };
 
-        WatchedListInputBoundary interactor = new WatchedListInteractor(presenter);
+        WatchedListInputBoundary interactor = new WatchedListInteractor(presenter, dataAccessObject);
         interactor.execute(inputData);
     }
 }
