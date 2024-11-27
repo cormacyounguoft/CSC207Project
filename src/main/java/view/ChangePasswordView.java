@@ -1,17 +1,8 @@
 package view;
 
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -21,55 +12,84 @@ import interface_adapter.change_password.ChangePasswordViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.to_logged_in_view.ToLoggedInViewController;
 
-
-/**
- * The View for when the user is logged into the program.
- */
-public class ChangePasswordView extends JPanel implements PropertyChangeListener {
+public class ChangePasswordView extends JPanel {
 
     private final String viewName = "change password";
     private final ChangePasswordViewModel changePasswordViewModel;
+
     private final JLabel passwordErrorField = new JLabel();
     private ChangePasswordController changePasswordController;
     private LogoutController logoutController;
     private ToLoggedInViewController toLoggedInViewController;
 
-    private final JLabel username;
-
-    private final JButton logOut;
-
-    private final JButton cancel;
-
+    private final JLabel usernameLabel = new JLabel();
     private final JTextField passwordInputField = new JTextField(15);
+
     private final JButton changePassword;
+    private final JButton logOut;
+    private final JButton cancel;
 
     public ChangePasswordView(ChangePasswordViewModel changePasswordViewModel) {
         this.changePasswordViewModel = changePasswordViewModel;
-        this.changePasswordViewModel.addPropertyChangeListener(this);
+        this.changePasswordViewModel.addPropertyChangeListener(evt -> {
+            final ChangePasswordState state = (ChangePasswordState) evt.getNewValue();
+            usernameLabel.setText(state.getUsername());
+            passwordErrorField.setText(state.getPasswordError());
+        });
 
-        final JLabel title = new JLabel("Change Password Screen");
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        // Set layout and background
+        this.setLayout(new BorderLayout(20, 20));
+        this.setBackground(new Color(240, 248, 255)); // Light blue background
+        this.setBorder(new EmptyBorder(20, 20, 20, 20)); // Padding around the panel
 
-        final LabelTextPanel passwordInfo = new LabelTextPanel(
-                new JLabel("Password"), passwordInputField);
+        // Title Section
+        final JLabel title = new JLabel("Change Password Screen", SwingConstants.CENTER);
+        title.setFont(new Font("SansSerif", Font.BOLD, 24));
+        title.setForeground(new Color(0, 51, 102)); // Dark blue
+        this.add(title, BorderLayout.NORTH);
 
-        final JLabel usernameInfo = new JLabel("Currently logged in: ");
-        username = new JLabel();
+        // Input Panel
+        final JPanel inputPanel = new JPanel(new GridLayout(4, 1, 10, 10));
+        inputPanel.setOpaque(false);
 
-        final JPanel buttons = new JPanel();
-        logOut = new JButton("Log Out");
-        buttons.add(logOut);
+        JLabel usernamePrompt = new JLabel("Currently logged in as: ");
+        usernamePrompt.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        usernamePrompt.setForeground(new Color(0, 51, 102));
 
-        changePassword = new JButton("Change Password");
-        buttons.add(changePassword);
+        usernameLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        usernameLabel.setForeground(new Color(0, 51, 102));
 
-        cancel = new JButton("Cancel");
-        buttons.add(cancel);
+        JPanel usernamePanel = new JPanel();
+        usernamePanel.setOpaque(false);
+        usernamePanel.setLayout(new BoxLayout(usernamePanel, BoxLayout.Y_AXIS));
+        usernamePrompt.setAlignmentX(Component.CENTER_ALIGNMENT);
+        usernameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        usernamePanel.add(usernamePrompt);
+        usernamePanel.add(usernameLabel);
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        inputPanel.add(usernamePanel);
+        inputPanel.add(createLabeledField("New Password", passwordInputField));
+        passwordErrorField.setFont(new Font("SansSerif", Font.ITALIC, 12));
+        passwordErrorField.setForeground(Color.RED);
+        inputPanel.add(passwordErrorField);
 
+        this.add(inputPanel, BorderLayout.CENTER);
+
+        // Buttons Panel
+        final JPanel buttonsPanel = new JPanel(new GridLayout(1, 3, 15, 0));
+        buttonsPanel.setOpaque(false);
+
+        logOut = createStyledButton("Log Out");
+        changePassword = createStyledButton("Change Password");
+        cancel = createStyledButton("Cancel");
+
+        buttonsPanel.add(logOut);
+        buttonsPanel.add(changePassword);
+        buttonsPanel.add(cancel);
+        this.add(buttonsPanel, BorderLayout.SOUTH);
+
+        // Add Action Listeners
         passwordInputField.getDocument().addDocumentListener(new DocumentListener() {
-
             private void documentListenerHelper() {
                 final ChangePasswordState currentState = changePasswordViewModel.getState();
                 currentState.setPassword(passwordInputField.getText());
@@ -92,85 +112,75 @@ public class ChangePasswordView extends JPanel implements PropertyChangeListener
             }
         });
 
-        changePassword.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
-                evt -> {
-                    if (evt.getSource().equals(changePassword)) {
-                        final ChangePasswordState currentState = changePasswordViewModel.getState();
-                        passwordErrorField.setText(null);
-                        this.changePasswordController.execute(
-                                currentState.getUsername(),
-                                currentState.getPassword()
-                        );
-                        passwordInputField.setText(null);
-                    }
-                }
-        );
+        changePassword.addActionListener(evt -> {
+            final ChangePasswordState currentState = changePasswordViewModel.getState();
+            changePasswordController.execute(currentState.getUsername(), currentState.getPassword());
+            passwordInputField.setText(null);
+        });
 
-        logOut.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
-                evt -> {
-                    if (evt.getSource().equals(logOut)) {
-                        // TODO: execute the logout use case through the Controller
-                        // 1. get the state out of the loggedInViewModel. It contains the username.
-                        // 2. Execute the logout Controller.
-                        final ChangePasswordState currentState = changePasswordViewModel.getState();
-                        logoutController.execute(currentState.getUsername());
-                    }
-                }
+        logOut.addActionListener(evt -> {
+            final ChangePasswordState currentState = changePasswordViewModel.getState();
+            logoutController.execute(currentState.getUsername());
+        });
 
-        );
-
-        cancel.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        final ChangePasswordState currentState = changePasswordViewModel.getState();
-                        passwordErrorField.setText(null);
-                        toLoggedInViewController.toLoggedInView(currentState.getUsername());
-                        passwordInputField.setText(null);
-                    }
-                }
-        );
-
-        this.add(title);
-        this.add(usernameInfo);
-        this.add(username);
-
-        this.add(passwordInfo);
-        this.add(passwordErrorField);
-        this.add(buttons);
+        cancel.addActionListener(evt -> {
+            final ChangePasswordState currentState = changePasswordViewModel.getState();
+            toLoggedInViewController.toLoggedInView(currentState.getUsername());
+            passwordInputField.setText(null);
+        });
     }
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals("state")) {
-            final ChangePasswordState state = (ChangePasswordState) evt.getNewValue();
-            username.setText(state.getUsername());
-        }
-        else if (evt.getPropertyName().equals("password")) {
-            final ChangePasswordState state = (ChangePasswordState) evt.getNewValue();
-            JOptionPane.showMessageDialog(null, "password updated for " + state.getUsername());
-        }
-        else if (evt.getPropertyName().equals("passwordError")) {
-            final ChangePasswordState state = (ChangePasswordState) evt.getNewValue();
-            passwordErrorField.setText(state.getPasswordError());
-        }
+    /**
+     * Creates a labeled input field.
+     */
+    private JPanel createLabeledField(String labelText, JTextField inputField) {
+        JPanel panel = new JPanel(new BorderLayout(5, 5));
+        panel.setOpaque(false);
+
+        JLabel label = new JLabel(labelText);
+        label.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        label.setForeground(new Color(0, 51, 102));
+
+        inputField.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        inputField.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(173, 216, 230), 1),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)
+        ));
+
+        panel.add(label, BorderLayout.NORTH);
+        panel.add(inputField, BorderLayout.CENTER);
+
+        return panel;
+    }
+
+    /**
+     * Creates a styled button.
+     */
+    private JButton createStyledButton(String text) {
+        JButton button = new JButton(text);
+        button.setFont(new Font("SansSerif", Font.PLAIN, 22));
+        button.setBackground(new Color(93, 186, 255)); // Pastel blue
+        button.setForeground(Color.BLACK); // Black text for visibility
+        button.setFocusPainted(false);
+        button.setBorder(BorderFactory.createLineBorder(new Color(124, 183, 205), 2));
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        button.setPreferredSize(new Dimension(150, 50)); // Consistent size
+        return button;
     }
 
     public String getViewName() {
         return viewName;
     }
 
-    public void setChangePasswordController(ChangePasswordController changePasswordController) {
-        this.changePasswordController = changePasswordController;
+    public void setChangePasswordController(ChangePasswordController controller) {
+        this.changePasswordController = controller;
     }
 
-    public void setLogoutController(LogoutController logoutController) {
-        // TODO: save the logout controller in the instance variable.
-        this.logoutController = logoutController;
+    public void setLogoutController(LogoutController controller) {
+        this.logoutController = controller;
     }
 
-    public void setToLoggedInViewController(ToLoggedInViewController toLoggedInViewController) {
-        this.toLoggedInViewController = toLoggedInViewController;
+    public void setToLoggedInViewController(ToLoggedInViewController controller) {
+        this.toLoggedInViewController = controller;
     }
 }
