@@ -54,16 +54,16 @@ public class LoginView extends JPanel {
         inputPanel.setLayout(new GridLayout(4, 1, 10, 10)); // Fields and errors with spacing
         inputPanel.setOpaque(false);
 
-        inputPanel.add(createLabeledField("Username", usernameInputField, usernameErrorField));
-        inputPanel.add(createLabeledField("Password", passwordInputField, passwordErrorField));
+        inputPanel.add(labelCreator("Username", usernameInputField, usernameErrorField));
+        inputPanel.add(labelCreator("Password", passwordInputField, passwordErrorField));
         this.add(inputPanel, BorderLayout.CENTER);
 
         // Buttons Panel
         final JPanel buttonsPanel = new JPanel(new GridLayout(1, 2, 15, 0)); // Side-by-side buttons
         buttonsPanel.setOpaque(false);
 
-        logIn = createStyledButton("Log In");
-        cancel = createStyledButton("Cancel");
+        logIn = buttonFactory("Log In");
+        cancel = buttonFactory("Cancel");
 
         buttonsPanel.add(logIn);
         buttonsPanel.add(cancel);
@@ -94,7 +94,7 @@ public class LoginView extends JPanel {
     /**
      * Creates a labeled field with an error message label underneath.
      */
-    private JPanel createLabeledField(String labelText, JTextField inputField, JLabel errorLabel) {
+    private JPanel labelCreator(String labelText, JTextField inputField, JLabel errorLabel) {
         JPanel panel = new JPanel(new BorderLayout(5, 5));
         panel.setOpaque(false);
 
@@ -121,11 +121,11 @@ public class LoginView extends JPanel {
     /**
      * Utility method to create a styled button.
      */
-    private JButton createStyledButton(String text) {
+    private JButton buttonFactory(String text) {
         JButton button = new JButton(text);
         button.setFont(new Font("SansSerif", Font.PLAIN, 22));
         button.setBackground(new Color(93, 186, 255)); // Pastel blue
-        button.setForeground(Color.WHITE);
+        button.setForeground(Color.BLACK);
         button.setFocusPainted(false);
         button.setBorder(BorderFactory.createLineBorder(new Color(124, 183, 205), 2));
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));

@@ -6,26 +6,23 @@ import interface_adapter.logged_in_search.LoggedInSearchViewModel;
 import interface_adapter.to_logged_in_view.ToLoggedInViewController;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-/**
- * The View for the Logged In Search Use Case.
- */
-public class LoggedInSearchView extends JPanel implements ActionListener, PropertyChangeListener {
+public class LoggedInSearchView extends JPanel implements PropertyChangeListener {
+
     private final String viewName = "logged in search";
     private final LoggedInSearchViewModel loggedInSearchViewModel;
-    public LoggedInSearchController loggedInSearchController;
-    public ToLoggedInViewController toLoggedInViewController;
+    private LoggedInSearchController loggedInSearchController;
+    private ToLoggedInViewController toLoggedInViewController;
 
     private final JTextField searchQueryInputField = new JTextField(15);
     private final JLabel searchQueryErrorField = new JLabel();
-    final JLabel username;
+    private final JLabel username = new JLabel();
 
     private final JButton search;
     private final JButton cancel;
@@ -34,102 +31,140 @@ public class LoggedInSearchView extends JPanel implements ActionListener, Proper
         this.loggedInSearchViewModel = loggedInSearchViewModel;
         this.loggedInSearchViewModel.addPropertyChangeListener(this);
 
-        final JLabel title = new JLabel(loggedInSearchViewModel.TITLE_LABEL);
-        username = new JLabel();
-        username.setAlignmentX(Component.CENTER_ALIGNMENT);
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        // Set layout and background
+        this.setLayout(new BorderLayout(20, 20));
+        this.setBackground(new Color(240, 248, 255)); // Light blue background
+        this.setBorder(new EmptyBorder(20, 20, 20, 20)); // Padding around the panel
 
-        final LabelTextPanel searchBox = new LabelTextPanel(
-                new JLabel(loggedInSearchViewModel.SEARCH_LABEL), searchQueryInputField);
+        // Title Section
+        final JLabel title = new JLabel("Logged-In Search", SwingConstants.CENTER);
+        title.setFont(new Font("SansSerif", Font.BOLD, 24));
+        title.setForeground(new Color(0, 51, 102)); // Dark blue
+        this.add(title, BorderLayout.NORTH);
 
-        final JPanel buttons = new JPanel();
-        search = new JButton(loggedInSearchViewModel.SEARCH_BUTTON_LABEL);
-        buttons.add(search);
-        cancel = new JButton(loggedInSearchViewModel.CANCEL_BUTTON_LABEL);
-        buttons.add(cancel);
+        // Input Field Panel
+        final JPanel inputPanel = new JPanel(new GridLayout(2, 1, 10, 10)); // Input field and error
+        inputPanel.setOpaque(false);
+        inputPanel.add(labelCreator("Search Query:", searchQueryInputField, searchQueryErrorField));
+        this.add(inputPanel, BorderLayout.CENTER);
 
-        search.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(search)) {
-                            final LoggedInSearchState currentState = loggedInSearchViewModel.getState();
-                            loggedInSearchController.execute(currentState.getSearchQuery(), currentState.getUsername());
-                        }
-                    }
-                }
-        );
+        // Buttons Panel
+        final JPanel buttonsPanel = new JPanel(new GridLayout(1, 2, 15, 0)); // Side-by-side buttons
+        buttonsPanel.setOpaque(false);
 
-        searchQueryInputField.getDocument().addDocumentListener(new DocumentListener() {
+        search = buttonFactory("Search");
+        cancel = buttonFactory("Cancel");
+        buttonsPanel.add(search);
+        buttonsPanel.add(cancel);
 
-            private void documentListenerHelper() {
-                final LoggedInSearchState currentState = loggedInSearchViewModel.getState();
-                currentState.setSearchQuery(searchQueryInputField.getText());
-                loggedInSearchViewModel.setState(currentState);
-            }
+        this.add(buttonsPanel, BorderLayout.SOUTH);
 
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                documentListenerHelper();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                documentListenerHelper();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                documentListenerHelper();
-            }
+        // Add Action Listeners
+        search.addActionListener(evt -> {
+            final LoggedInSearchState currentState = loggedInSearchViewModel.getState();
+            loggedInSearchController.execute(currentState.getSearchQuery(), currentState.getUsername());
         });
 
-        cancel.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(cancel)) {
-                            final LoggedInSearchState currentState = loggedInSearchViewModel.getState();
-                            toLoggedInViewController.toLoggedInView(currentState.getUsername());
-                        }
-                    }
-                }
-        );
+        cancel.addActionListener(evt -> {
+            final LoggedInSearchState currentState = loggedInSearchViewModel.getState();
+            toLoggedInViewController.toLoggedInView(currentState.getUsername());
+        });
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.add(title);
-        this.add(username);
-        this.add(searchBox);
-        this.add(buttons);
-        this.add(searchQueryErrorField);
+        // Attach Document Listener
+        addDocumentListener(searchQueryInputField, text -> {
+            final LoggedInSearchState currentState = loggedInSearchViewModel.getState();
+            currentState.setSearchQuery(text);
+            loggedInSearchViewModel.setState(currentState);
+        });
+    }
+
+    /**
+     * Creates a labeled field with an error message label underneath.
+     */
+    private JPanel labelCreator(String labelText, JTextField inputField, JLabel errorLabel) {
+        JPanel panel = new JPanel(new BorderLayout(5, 5));
+        panel.setOpaque(false);
+
+        JLabel label = new JLabel(labelText);
+        label.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        label.setForeground(new Color(0, 51, 102));
+
+        inputField.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        inputField.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(173, 216, 230), 1),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)
+        ));
+
+        errorLabel.setFont(new Font("SansSerif", Font.ITALIC, 12));
+        errorLabel.setForeground(Color.RED);
+
+        panel.add(label, BorderLayout.NORTH);
+        panel.add(inputField, BorderLayout.CENTER);
+        panel.add(errorLabel, BorderLayout.SOUTH);
+
+        return panel;
+    }
+
+    /**
+     * Utility method to create a styled button.
+     */
+    private JButton buttonFactory(String text) {
+        JButton button = new JButton(text);
+        button.setFont(new Font("SansSerif", Font.PLAIN, 22));
+        button.setBackground(new Color(93, 186, 255)); // Pastel blue
+        button.setForeground(Color.BLACK);
+        button.setFocusPainted(false);
+        button.setBorder(BorderFactory.createLineBorder(new Color(124, 183, 205), 2));
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        button.setPreferredSize(new Dimension(150, 50)); // Consistent size
+        return button;
+    }
+
+    /**
+     * Adds a document listener to a text field.
+     */
+    private void addDocumentListener(JTextField textField, DocumentListenerCallback callback) {
+        textField.getDocument().addDocumentListener(new DocumentListener() {
+            public void insertUpdate(DocumentEvent e) {
+                callback.update(textField.getText());
+            }
+
+            public void removeUpdate(DocumentEvent e) {
+                callback.update(textField.getText());
+            }
+
+            public void changedUpdate(DocumentEvent e) {
+                callback.update(textField.getText());
+            }
+        });
+    }
+
+    private interface DocumentListenerCallback {
+        void update(String text);
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equals("state")) {
+            final LoggedInSearchState state = (LoggedInSearchState) evt.getNewValue();
+            username.setText("Username: " + state.getUsername());
+
+            if (state.getSearchError() != null) {
+                JOptionPane.showMessageDialog(this, state.getSearchError());
+                state.setSearchError(null);
+            }
+        }
     }
 
     public String getViewName() {
         return viewName;
     }
 
-    public void setLoggedInSearchController(LoggedInSearchController loggedInSearchController) {
-        this.loggedInSearchController = loggedInSearchController;
+    public void setLoggedInSearchController(LoggedInSearchController controller) {
+        this.loggedInSearchController = controller;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-    }
-
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals("state")) {
-            final LoggedInSearchState currentState = (LoggedInSearchState) evt.getNewValue();
-            username.setText("username: " + currentState.getUsername());
-        }
-
-        final LoggedInSearchState state = (LoggedInSearchState) evt.getNewValue();
-        if (state.getSearchError() != null) {
-            JOptionPane.showMessageDialog(this, state.getSearchError());
-            state.setSearchError(null);
-        }
-    }
-
-    public void setToLoggedInViewController(ToLoggedInViewController toLoggedInViewController) {
-        this.toLoggedInViewController = toLoggedInViewController;
+    public void setToLoggedInViewController(ToLoggedInViewController controller) {
+        this.toLoggedInViewController = controller;
     }
 }

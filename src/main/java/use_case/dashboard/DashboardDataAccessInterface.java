@@ -1,6 +1,7 @@
 package use_case.dashboard;
 import java.util.Map;
 import entity.MovieList;
+import entity.UserRating;
 
 public interface DashboardDataAccessInterface {
 
@@ -18,5 +19,5 @@ public interface DashboardDataAccessInterface {
      * @param username the username of the user
      * @return a map of movie titles to their ratings
      */
-    Map<String, Integer> getUserRatings(String username);
+    UserRating getUserRatings(String username);
 }
