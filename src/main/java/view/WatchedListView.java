@@ -81,14 +81,15 @@ public class WatchedListView extends JPanel implements ActionListener, PropertyC
             for (int i = 0; i < moviePosters.size(); i++) {
                 int finalI = i;
                 JPanel movieWatched = new JPanel();
-                movieWatched.setPreferredSize(new Dimension(320, 500));
-                Border border = BorderFactory.createLineBorder(Color.BLACK, 2); // Black border, 2 pixels thick
-                movieWatched.setBorder(BorderFactory.createTitledBorder(border));
                 movieWatched.setLayout(new BoxLayout(movieWatched, BoxLayout.Y_AXIS));
+                movieWatched.setOpaque(false);
 
                 JLabel title = new JLabel(movieTitles.get(finalI));
+                title.setFont(new Font("SansSerif", Font.PLAIN, 16));
+                title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
                 JLabel posterLabels = new JLabel();
+                posterLabels.setAlignmentX(Component.CENTER_ALIGNMENT);
                 if (moviePosters.get(i).isEmpty()) {
                     posterLabels.setText("Poster not available.");
                 }
@@ -96,7 +97,7 @@ public class WatchedListView extends JPanel implements ActionListener, PropertyC
                     try {
                         URL url = new URL(moviePosters.get(i));
                         BufferedImage image = ImageIO.read(url);
-                        Image scaledImage = image.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+                        Image scaledImage = image.getScaledInstance(150, 225, Image.SCALE_SMOOTH);
                         posterLabels.setText("");
                         posterLabels.setIcon(new ImageIcon(scaledImage));
 
@@ -105,7 +106,7 @@ public class WatchedListView extends JPanel implements ActionListener, PropertyC
                     }
                 }
 
-                JButton rate = new JButton("Rate");
+                JButton rate = createStyledButton("Rate");
                 rate.addActionListener(
                         new ActionListener() {
                             public void actionPerformed(ActionEvent evt) {
@@ -114,7 +115,7 @@ public class WatchedListView extends JPanel implements ActionListener, PropertyC
                         }
                 );
 
-                JButton remove = new JButton("Remove");
+                JButton remove = createStyledButton("Remove");
                 remove.addActionListener(
                         new ActionListener() {
                             public void actionPerformed(ActionEvent evt) {
@@ -123,14 +124,15 @@ public class WatchedListView extends JPanel implements ActionListener, PropertyC
                         }
                 );
 
-                title.setAlignmentX(Component.CENTER_ALIGNMENT);
-                posterLabels.setAlignmentX(Component.CENTER_ALIGNMENT);
                 rate.setAlignmentX(Component.CENTER_ALIGNMENT);
                 remove.setAlignmentX(Component.CENTER_ALIGNMENT);
 
                 movieWatched.add(title);
+                movieWatched.add(Box.createVerticalStrut(10));
                 movieWatched.add(posterLabels);
+                movieWatched.add(Box.createVerticalStrut(10));
                 movieWatched.add(rate);
+                movieWatched.add(Box.createVerticalStrut(10));
                 movieWatched.add(remove);
                 watchedList.add(movieWatched);
             }
@@ -153,4 +155,18 @@ public class WatchedListView extends JPanel implements ActionListener, PropertyC
     public void setGoToLoggedInViewController(ToLoggedInViewController goToLoggedInViewController) {
         this.goToLoggedInViewController = goToLoggedInViewController;
     }
+
+    private JButton createStyledButton(String text) {
+        JButton button = new JButton(text);
+        button.setFont(new Font("SansSerif", Font.PLAIN, 22));
+        button.setBackground(new Color(93, 186, 255)); // Pastel blue
+        button.setForeground(Color.BLACK); // Black text for visibility
+        button.setFocusPainted(false);
+        button.setBorder(BorderFactory.createLineBorder(new Color(124, 183, 205), 2));
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        button.setPreferredSize(new Dimension(150, 50));
+        return button;
+    }
+
+
 }
