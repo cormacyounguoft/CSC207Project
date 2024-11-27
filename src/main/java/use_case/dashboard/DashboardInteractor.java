@@ -47,7 +47,11 @@ public class DashboardInteractor implements DashboardInputBoundary {
                 result = movie.getGenre().toString();
             }
         }
-        return result;
+        if (!result.isEmpty()) {
+            return result;
+        } else {
+            return "No favourite genre";
+        }
     }
 
     private String getFavoriteMovie(String username) {
@@ -60,7 +64,11 @@ public class DashboardInteractor implements DashboardInputBoundary {
                 highestRating = dashboaedListDataAccess.getUserRatings(username).getMovieToRating().get(key);
             }
         }
-        return result;
+        if (!result.isEmpty()) {
+            return result;
+        } else {
+            return "No favourite movie";
+        }
     }
 
     private double getAverageRating(String username) {
@@ -71,8 +79,12 @@ public class DashboardInteractor implements DashboardInputBoundary {
             totalRating += dashboaedListDataAccess.getUserRatings(username).getMovieToRating().get(key);
             totalNum ++;
             }
-
-        return (double) totalRating / totalNum;
+        if (totalNum == 0) {
+            return 0;
+        }
+        else {
+            return (double) totalRating / totalNum;
+        }
     }
 
     private String getLongestMovie(String username) {
@@ -85,6 +97,10 @@ public class DashboardInteractor implements DashboardInputBoundary {
                 result = movie.getTitle();
             }
         }
-        return result;
+        if (!result.isEmpty()) {
+            return result;
+        } else {
+            return "No movies watched";
+        }
     }
 }
