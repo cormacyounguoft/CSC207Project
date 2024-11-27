@@ -1,11 +1,5 @@
 package app;
 
-import java.awt.CardLayout;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
-
 import data_access.InMemoryUserDataAccessObject;
 import data_access.MovieAccessObject;
 import entity.CommonUserFactory;
@@ -19,6 +13,9 @@ import interface_adapter.add_to_watchlist.AddToWatchlistPresenter;
 import interface_adapter.change_password.ChangePasswordController;
 import interface_adapter.change_password.ChangePasswordPresenter;
 import interface_adapter.change_password.ChangePasswordViewModel;
+import interface_adapter.dashboard.DashboardController;
+import interface_adapter.dashboard.DashboardPresenter;
+import interface_adapter.dashboard.DashboardViewModel;
 import interface_adapter.get_rated_list.GetRatedListController;
 import interface_adapter.get_rated_list.GetRatedListPresenter;
 import interface_adapter.get_watched_list.GetWatchedListController;
@@ -59,12 +56,10 @@ import interface_adapter.search_result.SearchResultViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
-import interface_adapter.to_logged_in_view.ToLoggedInViewController;
-import interface_adapter.to_logged_in_view.ToLoggedInViewPresenter;
-
 import interface_adapter.to_home_view.ToHomeViewController;
 import interface_adapter.to_home_view.ToHomeViewPresenter;
-
+import interface_adapter.to_logged_in_view.ToLoggedInViewController;
+import interface_adapter.to_logged_in_view.ToLoggedInViewPresenter;
 import interface_adapter.watched_list.WatchedListController;
 import interface_adapter.watched_list.WatchedListPresenter;
 import interface_adapter.watched_list.WatchedListViewModel;
@@ -80,6 +75,9 @@ import use_case.add_to_watchlist.AddToWatchlistOutputBoundary;
 import use_case.change_password.ChangePasswordInputBoundary;
 import use_case.change_password.ChangePasswordInteractor;
 import use_case.change_password.ChangePasswordOutputBoundary;
+import use_case.dashboard.DashboardInputBoundary;
+import use_case.dashboard.DashboardInteractor;
+import use_case.dashboard.DashboardOutputBoundary;
 import use_case.get_rated_list.GetRateListInputBoundary;
 import use_case.get_rated_list.GetRateListInteractor;
 import use_case.get_rated_list.GetRateListOutputBoundary;
@@ -125,29 +123,38 @@ import use_case.search_result.SearchResultOutputBoundary;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
-
-import interface_adapter.dashboard.DashboardController;
-import interface_adapter.dashboard.DashboardPresenter;
-import view.DashboardView;
-import interface_adapter.dashboard.DashboardViewModel;
-import use_case.dashboard.DashboardInputBoundary;
-import use_case.dashboard.DashboardInteractor;
-import use_case.dashboard.DashboardOutputBoundary;
-import use_case.to_logged_in_view.ToLoggedInViewInputBoundary;
-import use_case.to_logged_in_view.ToLoggedInViewInteractor;
-import use_case.to_logged_in_view.ToLoggedInViewOutputBoundary;
-
 import use_case.to_home_view.ToHomeInteractor;
 import use_case.to_home_view.ToHomeViewInputBoundary;
 import use_case.to_home_view.ToHomeViewOutputBoundary;
-
+import use_case.to_logged_in_view.ToLoggedInViewInputBoundary;
+import use_case.to_logged_in_view.ToLoggedInViewInteractor;
+import use_case.to_logged_in_view.ToLoggedInViewOutputBoundary;
 import use_case.watched_list.WatchedListInputBoundary;
 import use_case.watched_list.WatchedListInteractor;
 import use_case.watched_list.WatchedListOutputBoundary;
 import use_case.watchlist.WatchlistInputBoundary;
 import use_case.watchlist.WatchlistInteractor;
 import use_case.watchlist.WatchlistOutputBoundary;
-import view.*;
+import view.ChangePasswordView;
+import view.DashboardView;
+import view.HomeView;
+import view.LoggedInSearchResultView;
+import view.LoggedInSearchView;
+import view.LoggedInView;
+import view.LoginView;
+import view.RateView;
+import view.RatedListView;
+import view.SearchResultView;
+import view.SearchView;
+import view.SignupView;
+import view.ViewManager;
+import view.WatchedListView;
+import view.WatchlistView;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
+import java.awt.CardLayout;
 
 /**
  * The AppBuilder class is responsible for putting together the pieces of
@@ -412,7 +419,7 @@ public class AppBuilder {
      */
     public AppBuilder addChangePasswordUseCase() {
         final ChangePasswordOutputBoundary changePasswordOutputBoundary =
-                new ChangePasswordPresenter(changePasswordViewModel, loggedInViewModel, viewManagerModel);
+                new ChangePasswordPresenter(changePasswordViewModel, viewManagerModel);
         final ChangePasswordInputBoundary changePasswordInteractor =
                 new ChangePasswordInteractor(userDataAccessObject, changePasswordOutputBoundary, userFactory);
         final ChangePasswordController changePasswordController =
