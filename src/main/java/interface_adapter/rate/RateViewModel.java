@@ -2,6 +2,9 @@ package interface_adapter.rate;
 
 import interface_adapter.ViewModel;
 
+/**
+ * The view model for the Rate Use Case.
+ */
 public class RateViewModel extends ViewModel<RateState> {
     public static final String TITLE_LABEL = "Rate View";
     public static final String RATE_LABEL = "Movie rating out of 5:";

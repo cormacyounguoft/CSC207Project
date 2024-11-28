@@ -1,7 +1,8 @@
 package interface_adapter.rate;
 
-import entity.Movie;
-
+/**
+ * The state of the Rate Use Case.
+ */
 public class RateState {
     private String username = "";
     private String title;
@@ -15,7 +16,6 @@ public class RateState {
     public void setUsername(String username) {
         this.username = username;
     }
-
 
     public int getRate() {
         return rate;

@@ -6,6 +6,9 @@ import interface_adapter.logged_in.LoggedInViewModel;
 import use_case.rate.RateOutputBoundary;
 import use_case.rate.RateOutputData;
 
+/**
+ * The presenter for the Rate Use Case.
+ */
 public class RatePresenter implements RateOutputBoundary {
     private final ViewManagerModel viewManagerModel;
     private final RateViewModel rateViewModel;
@@ -19,15 +22,14 @@ public class RatePresenter implements RateOutputBoundary {
         this.loggedInViewModel = loggedInViewModel;
     }
 
-
     @Override
     public void prepareSuccessView(RateOutputData outputData) {
-        LoggedInState state = loggedInViewModel.getState();
+        final LoggedInState state = loggedInViewModel.getState();
         state.setUsername(outputData.getUsername());
         loggedInViewModel.setState(state);
         loggedInViewModel.firePropertyChanged();
 
-        RateState state1 = rateViewModel.getState();
+        final RateState state1 = rateViewModel.getState();
         state1.setRateError(null);
         rateViewModel.firePropertyChanged();
 
@@ -37,7 +39,7 @@ public class RatePresenter implements RateOutputBoundary {
 
     @Override
     public void prepareFailView(String errorMessage) {
-        RateState state = rateViewModel.getState();
+        final RateState state = rateViewModel.getState();
         state.setRateError(errorMessage);
         rateViewModel.firePropertyChanged();
     }
