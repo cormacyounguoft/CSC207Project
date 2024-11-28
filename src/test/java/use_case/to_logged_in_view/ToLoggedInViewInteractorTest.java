@@ -11,7 +11,7 @@ public class ToLoggedInViewInteractorTest {
         ToLoggedInViewOutputBoundary presenter = new ToLoggedInViewOutputBoundary() {
             @Override
             public void prepareSuccessView(ToLoggedInViewOutputData outputData) {
-                assertEquals(outputData.getUsername(), "Username");
+                assertEquals("Username", outputData.getUsername());
             }
         };
         ToLoggedInViewInputBoundary interactor = new ToLoggedInViewInteractor(presenter);
