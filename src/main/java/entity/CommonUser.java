@@ -45,8 +45,7 @@ public class CommonUser implements User {
     }
 
     @Override
-    public void setUserPassword(String password) {
-        this.password= password;
+    public void setUserPassword(String newPassword) {
+        this.password = newPassword;
     }
-
 }

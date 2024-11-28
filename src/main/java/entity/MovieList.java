@@ -21,71 +21,112 @@ public class MovieList {
         return movieList;
     }
 
+    /**
+     * Adds a movie to the movie list.
+     * @param movie The movie to be added
+     */
     public void addMovie(Movie movie) {
         if (!this.contains(movie)) {
             movieList.add(movie);
         }
     }
 
+    /**
+     * Remove a movie from the movie list.
+     * @param movie The movie to be removed.
+     */
     public void removeMovie(Movie movie) {
         movieList.remove(movie);
     }
 
+    /**
+     * Gets the titles of the movies.
+     * @return result The list of movie titles.
+     */
     public List<String> getMovieTitles() {
-        List<String> result = new ArrayList<>();
+        final List<String> result = new ArrayList<>();
         for (Movie movie : movieList) {
             result.add(movie.getTitle());
         }
         return result;
     }
 
+    /**
+     * Finds the movie by the title.
+     * @param title The title of the movie
+     * @return returns movie if found and null returns null if no movie is found
+     */
     public Movie findMovieByTitle(String title) {
+        Movie foundMovie = null;
         for (Movie movie : movieList) {
-            if (movie.getTitle().equalsIgnoreCase(title)) { // Case-insensitive comparison
-                return movie; // Return the matching movie
+            if (movie.getTitle().equalsIgnoreCase(title)) {
+                foundMovie = movie;
+                break;
             }
         }
-        return null; // Return null if no movie is found
+        return foundMovie;
     }
 
+    /**
+     * Looks for if there is a specific movie in a movie list.
+     * @param movie The movie looked for in the list.
+     * @return If a movie is found.
+     */
     public boolean contains(Movie movie) {
         return movieList.contains(movie);
     }
 
     @Override
     public String toString() {
-        List<String> result = new ArrayList<>();
+        final List<String> result = new ArrayList<>();
         for (Movie movie : movieList) {
             result.add(movie.getTitle());
         }
         return result.toString();
     }
 
+    /**
+     * Gets the poster link of all movies in movie lists.
+     * @return returns the movie poster links in the movie list.
+     */
     public List<String> getPosters() {
-        List<String> result = new ArrayList<>();
+        final List<String> result = new ArrayList<>();
         for (Movie movie : movieList) {
             result.add(movie.getPosterLink());
         }
         return result;
     }
 
-    public String getPoster(String title){
+    /**
+     * Gets the poster link for a movie.
+     * @param title the title of the movie.
+     * @return returns the movie poster link if found
+     */
+    public String getPoster(String title) {
+        String posterLink = title;
         for (Movie movie : movieList) {
             if (movie.getTitle().equalsIgnoreCase(title)) {
-                return movie.getPosterLink();
+                posterLink = movie.getPosterLink();
+                break;
             }
         }
-        return title;
+        return posterLink;
     }
 
+    /**
+     * Checks if a movie with the given title exists in movieList.
+     * @param title the title of the movie.
+     * @return returns if the movie title exists in movieList.
+     */
     public boolean containsTitle(String title) {
+        boolean found = false;
         for (Movie movie : movieList) {
             if (movie.getTitle().equalsIgnoreCase(title)) {
-                return true;
+                found = true;
+                break;
             }
         }
-        return false;
+        return found;
     }
-
 
 }
