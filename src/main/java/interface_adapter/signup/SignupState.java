@@ -60,19 +60,11 @@ public class SignupState {
     }
 
     public void resetInputFields(){
-        this.password = null;
-        this.repeatPassword = null;
-        this.username = null;
-        this.passwordError = null;
-        this.usernameError = null;
-    }
-
-    @Override
-    public String toString() {
-        return "SignupState{"
-                + "username='" + username + '\''
-                + ", password='" + password + '\''
-                + ", repeatPassword='" + repeatPassword + '\''
-                + '}';
+        this.setUsername(null);
+        this.setUsernameError(null);
+        this.setPassword(null);
+        this.setPasswordError(null);
+        this.setRepeatPassword(null);
+        this.setRepeatPasswordError(null);
     }
 }

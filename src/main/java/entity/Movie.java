@@ -2,7 +2,6 @@ package entity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * The representation of a movie in our program.
@@ -100,65 +99,5 @@ public class Movie {
 
     public void setPosterLink(String posterLink) {
         this.posterLink = posterLink;
-    }
-
-    @Override
-    public String toString() {
-        return "Movie{"
-                + "title='" + title + '\''
-                + ", releaseDate='" + releaseDate + '\''
-                + ", description='" + description + '\''
-                + ", rottenTomatoes=" + rottenTomatoes
-                + ", genre=" + genre
-                + ", actors=" + actors
-                + ", director=" + director
-                + '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        boolean isEqual = false;
-        if (this == o) {
-            isEqual = true;
-        }
-        else if (o instanceof Movie movie) {
-            isEqual = isEqual(movie);
-        }
-        return isEqual;
-    }
-
-    private boolean isEqual(Movie movie) {
-        return hasSameBasicAttributes(movie)
-                && hasSameStrings(movie);
-    }
-
-    private boolean hasSameBasicAttributes(Movie movie) {
-        return getRottenTomatoes() == movie.getRottenTomatoes()
-                && getRuntime() == movie.getRuntime();
-    }
-
-    private boolean hasSameStrings(Movie movie) {
-        return Objects.equals(getTitle(), movie.getTitle())
-                && Objects.equals(getReleaseDate(), movie.getReleaseDate())
-                && Objects.equals(getDescription(), movie.getDescription())
-                && Objects.equals(getGenre(), movie.getGenre())
-                && Objects.equals(getActors(), movie.getActors())
-                && Objects.equals(getDirector(), movie.getDirector())
-                && Objects.equals(getPosterLink(), movie.getPosterLink());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-                getRottenTomatoes(),
-                getRuntime(),
-                getTitle(),
-                getReleaseDate(),
-                getDescription(),
-                getGenre(),
-                getActors(),
-                getDirector(),
-                getPosterLink()
-        );
     }
 }

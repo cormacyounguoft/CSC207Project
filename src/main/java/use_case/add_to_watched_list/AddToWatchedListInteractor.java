@@ -9,9 +9,9 @@ import java.io.IOException;
  * The add to watchlist Interactor.
  */
 public class AddToWatchedListInteractor implements AddToWatchedListInputBoundary {
-    private AddToWatchedListDataAccessInterface userDataAccessObject;
-    private SearchDataAccessInterface searchDataAccessObject;
-    private AddToWatchedListOutputBoundary presenter;
+    private final AddToWatchedListDataAccessInterface userDataAccessObject;
+    private final SearchDataAccessInterface searchDataAccessObject;
+    private final AddToWatchedListOutputBoundary presenter;
 
     public AddToWatchedListInteractor(AddToWatchedListDataAccessInterface userDataAccessObject,
                                       SearchDataAccessInterface searchDataAccessObject,

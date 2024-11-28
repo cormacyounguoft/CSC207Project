@@ -7,6 +7,7 @@ import entity.UserFactory;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -27,6 +28,7 @@ class LoginInteractorTest {
             @Override
             public void prepareSuccessView(LoginOutputData user) {
                 assertEquals("Paul", user.getUsername());
+                assertFalse(user.isUseCaseFailed());
             }
 
             @Override

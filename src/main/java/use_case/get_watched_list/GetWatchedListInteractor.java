@@ -2,7 +2,6 @@ package use_case.get_watched_list;
 
 import entity.Movie;
 import entity.MovieList;
-import use_case.SearchDataAccessInterface;
 
 import java.util.ArrayList;
 import java.util.List;

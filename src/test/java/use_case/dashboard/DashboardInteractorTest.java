@@ -1,13 +1,16 @@
 package use_case.dashboard;
 
-import entity.*;
+import entity.CommonUserFactory;
+import entity.Movie;
+import entity.User;
+import entity.UserFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.MockDataAccessObject;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DashboardInteractorTest {
 

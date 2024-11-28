@@ -1,6 +1,5 @@
 package interface_adapter.logged_in_search_result;
 
-import interface_adapter.ViewManagerModel;
 import use_case.logged_in_search_result.LoggedInSearchResultOutputBoundary;
 import use_case.logged_in_search_result.LoggedInSearchResultOutputData;
 
@@ -8,12 +7,9 @@ import use_case.logged_in_search_result.LoggedInSearchResultOutputData;
  * The Presenter for the Logged In Search Result Use Case.
  */
 public class LoggedInSearchResultPresenter implements LoggedInSearchResultOutputBoundary {
-    private final ViewManagerModel viewManagerModel;
     private final LoggedInSearchResultViewModel loggedInSearchResultViewModel;
 
-    public LoggedInSearchResultPresenter(ViewManagerModel viewManagerModel,
-                                         LoggedInSearchResultViewModel loggedInSearchResultViewModel) {
-        this.viewManagerModel = viewManagerModel;
+    public LoggedInSearchResultPresenter(LoggedInSearchResultViewModel loggedInSearchResultViewModel) {
         this.loggedInSearchResultViewModel = loggedInSearchResultViewModel;
     }
 

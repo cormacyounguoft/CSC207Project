@@ -4,7 +4,6 @@ package interface_adapter.search_result;
  * The state for the Search Result View Model.
  */
 public class SearchResultState {
-    private String movieError;
     private String title;
     private String releaseDate;
     private String description;
@@ -14,14 +13,6 @@ public class SearchResultState {
     private String actors;
     private String director;
     private String poster;
-
-    public String getMovieError() {
-        return movieError;
-    }
-
-    public void setMovieError(String movieError) {
-        this.movieError = movieError;
-    }
 
     public String getActors() {
         return actors;

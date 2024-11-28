@@ -1,7 +1,5 @@
 package use_case.get_watched_list;
 
-import entity.MovieList;
-
 import java.util.List;
 
 public class GetWatchedListOutputData {

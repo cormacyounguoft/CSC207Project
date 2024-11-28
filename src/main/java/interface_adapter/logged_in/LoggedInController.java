@@ -30,31 +30,4 @@ public class LoggedInController {
         final LoggedInInputData loggedInInputData = new LoggedInInputData(username);
         loggedInUseCaseInteractor.switchToChangePasswordView(loggedInInputData);
     }
-
-    /**
-     * Switches the current view to the dashboard view for a specific user.
-     * @param username the username of the user for whom the dashboard view is displayed
-     */
-    public void switchToDashboardView(String username) {
-        final LoggedInInputData loggedInInputData = new LoggedInInputData(username);
-        loggedInUseCaseInteractor.switchToDashboardView(loggedInInputData);
-    }
-
-    /**
-     * Switches the current view to the watchlist view for a specific user.
-     * @param username the username of the user for whom the watch list view is displayed
-     */
-    public void switchToWatchListView(String username) {
-        final LoggedInInputData loggedInInputData = new LoggedInInputData(username);
-        loggedInUseCaseInteractor.switchToWatchListView(loggedInInputData);
-    }
-
-    /**
-     * Switches the current view to the watched list view for a specific user.
-     * @param username the username of the user for whom the watched list view is displayed
-     */
-    public void switchToWatchedListView(String username) {
-        final LoggedInInputData loggedInInputData = new LoggedInInputData(username);
-        loggedInUseCaseInteractor.switchToWatchedListView(loggedInInputData);
-    }
 }

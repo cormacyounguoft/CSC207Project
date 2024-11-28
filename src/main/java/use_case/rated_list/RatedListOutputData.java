@@ -5,12 +5,18 @@ package use_case.rated_list;
  */
 public class RatedListOutputData {
     private final String username;
+    private final boolean useCaseFailed;
 
-    public RatedListOutputData(String username) {
+    public RatedListOutputData(String username, boolean useCaseFailed) {
         this.username = username;
+        this.useCaseFailed = useCaseFailed;
     }
 
     public String getUsername() {
         return username;
+    }
+
+    public boolean isUseCaseFailed() {
+        return useCaseFailed;
     }
 }

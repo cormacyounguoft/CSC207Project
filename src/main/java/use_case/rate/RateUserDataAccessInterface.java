@@ -1,7 +1,5 @@
 package use_case.rate;
 
-import entity.Movie;
-
 /**
  * DAO for the Rate Use Case.
  */

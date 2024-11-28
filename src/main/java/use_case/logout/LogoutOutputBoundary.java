@@ -9,10 +9,4 @@ public interface LogoutOutputBoundary {
      * @param outputData the output data
      */
     void prepareSuccessView(LogoutOutputData outputData);
-
-    /**
-     * Prepares the failure view for the Login Use Case.
-     * @param errorMessage the explanation of the failure
-     */
-    void prepareFailView(String errorMessage);
 }

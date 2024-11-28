@@ -1,7 +1,5 @@
 package use_case.search;
 
-import entity.Movie;
-
 /**
  * Output Data for the Search Use Case.
  */

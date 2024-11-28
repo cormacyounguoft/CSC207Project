@@ -1,10 +1,5 @@
 package use_case.go_to_rate;
 
-import entity.Movie;
-import entity.MovieList;
-
-import java.util.Map;
-
 public class GoRateOutputData {
     private final String username;
     private final String title;

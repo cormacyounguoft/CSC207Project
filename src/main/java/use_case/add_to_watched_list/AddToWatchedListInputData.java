@@ -1,7 +1,5 @@
 package use_case.add_to_watched_list;
 
-import entity.Movie;
-
 /**
  * The Input Data for the add to watched list Use Case.
  */
