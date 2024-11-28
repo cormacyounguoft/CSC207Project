@@ -1,4 +1,4 @@
-package use_case.watched_list;
+package use_case.watched_list_remove;
 
 import entity.CommonUserFactory;
 import entity.Movie;
@@ -8,16 +8,11 @@ import entity.UserFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.MockDataAccessObject;
-import use_case.watched_list_remove.WatchedListRemoveInputBoundary;
-import use_case.watched_list_remove.WatchedListRemoveInputData;
-import use_case.watched_list_remove.WatchedListRemoveInteractor;
-import use_case.watched_list_remove.WatchedListRemoveOutputBoundary;
-import use_case.watched_list_remove.WatchedListRemoveOutputData;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-class WatchedListInteractorTest {
+class WatchedListRemoveInteractorTest {
     MockDataAccessObject dataAccessObject;
 
     @BeforeEach
@@ -42,7 +37,7 @@ class WatchedListInteractorTest {
             @Override
             public void prepareSuccessView(WatchedListRemoveOutputData outputData) {
                 assertEquals("Username", outputData.getUsername());
-
+                assertFalse(outputData.isUseCaseFailed());
             }
         };
 

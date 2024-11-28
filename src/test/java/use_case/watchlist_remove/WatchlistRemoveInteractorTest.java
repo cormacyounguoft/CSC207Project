@@ -5,17 +5,14 @@ import entity.Movie;
 import entity.MovieFactory;
 import entity.User;
 import entity.UserFactory;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.MockDataAccessObject;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-public class Watchlist_removeInteractorTest {
+public class WatchlistRemoveInteractorTest {
     MockDataAccessObject dataAccessObject;
 
     @BeforeEach
@@ -41,7 +38,7 @@ public class Watchlist_removeInteractorTest {
             public void prepareSuccessView(WatchlistRemoveOutputData outputData) {
                 assertEquals("Username", outputData.getUsername());
                 assertFalse(dataAccessObject.getWatchlist("Username").containsTitle("Movie"));
-
+                assertFalse(outputData.isUseCaseFailed());
             }
         };
         WatchlistRemoveInputBoundary interactor = new WatchlistRemoveInteractor(presenter, dataAccessObject);
