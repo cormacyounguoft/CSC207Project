@@ -17,6 +17,7 @@ import use_case.rate.RateUserDataAccessInterface;
 import use_case.rated_list.RatedListDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 import use_case.watched_list.WatchedListUserDataAccessInterface;
+import use_case.watchlist_remove.WatchlistRemoveDataAccessInterface;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,7 +40,8 @@ public class MockDataAccessObject implements
         GetRatedListDataAccessInterface,
         SearchDataAccessInterface,
         WatchedListUserDataAccessInterface,
-        RatedListDataAccessInterface
+        RatedListDataAccessInterface,
+        WatchlistRemoveDataAccessInterface
 {
 
     private final Map<String, User> users = new HashMap<>();
@@ -91,6 +93,12 @@ public class MockDataAccessObject implements
     public void changePassword(String username, String password) {
         User user = this.get(username);
         user.setUserPassword(password);
+    }
+    @Override
+    public void removeFromWatchlist(String username, String movieTitle) {
+        MovieList movieList = this.get(username).getWatchList();
+        Movie movie = movieList.findMovieByTitle(movieTitle);
+        this.get(username).getWatchList().removeMovie(movie);
     }
 
     @Override
