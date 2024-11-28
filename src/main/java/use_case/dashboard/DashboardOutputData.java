@@ -1,8 +1,8 @@
 package use_case.dashboard;
-import java.util.List;
-import java.util.Map;
 
-
+/**
+ * The output data for the dashboard.
+ */
 public class DashboardOutputData {
     private final String totalHoursWatched;
     private final String favoriteMovie;
@@ -11,7 +11,8 @@ public class DashboardOutputData {
     private final String longestMovie;
     private final String username;
 
-    public DashboardOutputData(String totalHoursWatched, String favoriteMovie, String favoriteGenre, double averageRating, String longestMovie, String username) {
+    public DashboardOutputData(String totalHoursWatched, String favoriteMovie, String favoriteGenre,
+                               double averageRating, String longestMovie, String username) {
         this.totalHoursWatched = totalHoursWatched;
         this.favoriteMovie = favoriteMovie;
         this.favoriteGenre = favoriteGenre;

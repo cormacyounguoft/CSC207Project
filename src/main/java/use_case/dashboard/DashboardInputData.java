@@ -1,5 +1,8 @@
 package use_case.dashboard;
 
+/**
+ * The input data for the Dashboard.
+ */
 public class DashboardInputData {
     private final String username;
 

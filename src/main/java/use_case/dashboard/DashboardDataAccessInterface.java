@@ -1,8 +1,11 @@
 package use_case.dashboard;
-import java.util.Map;
+
 import entity.MovieList;
 import entity.UserRating;
 
+/**
+ * The Data Access Interface for the Dashboard.
+ */
 public interface DashboardDataAccessInterface {
 
     /**
