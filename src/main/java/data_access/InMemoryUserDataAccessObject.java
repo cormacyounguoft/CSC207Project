@@ -16,7 +16,7 @@ import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.rate.RateUserDataAccessInterface;
 import use_case.rated_list.RatedListDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
-import use_case.watchlistremove.WatchlistremoveDataAccessInterface;
+import use_case.watchlist_remove.WatchlistRemoveDataAccessInterface;
 
 import java.util.*;
 
@@ -36,7 +36,7 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         GetRatedListDataAccessInterface,
         RatedListDataAccessInterface,
         DashboardDataAccessInterface,
-        WatchlistremoveDataAccessInterface
+        WatchlistRemoveDataAccessInterface
 {
 
     private final Map<String, User> users = new HashMap<>();
@@ -99,8 +99,10 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     }
 
     @Override
-    public void removeMovieWatchlist(String username, String movieTitle){
-        this.get(username).getWatchList().removeMovie(movieTitle);
+    public void removeFromWatchlist(String username, String movieTitle){
+        MovieList movieList = this.get(username).getWatchList();
+        Movie movie = movieList.findMovieByTitle(movieTitle);
+        this.get(username).getWatchList().removeMovie(movie);
     }
 
     @Override

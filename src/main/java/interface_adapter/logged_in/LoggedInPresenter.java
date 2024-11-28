@@ -9,8 +9,8 @@ import interface_adapter.logged_in_search.LoggedInSearchState;
 import interface_adapter.logged_in_search.LoggedInSearchViewModel;
 import interface_adapter.watched_list.WatchedListState;
 import interface_adapter.watched_list.WatchedListViewModel;
-import interface_adapter.watchlist.WatchlistState;
-import interface_adapter.watchlist.WatchlistViewModel;
+import interface_adapter.watchlist_remove.WatchlistRemoveState;
+import interface_adapter.watchlist_remove.WatchlistRemoveViewModel;
 import use_case.logged_in.LoggedInOutputBoundary;
 import use_case.logged_in.LoggedInOutputData;
 
@@ -21,7 +21,7 @@ public class LoggedInPresenter implements LoggedInOutputBoundary {
     private final ViewManagerModel viewManagerModel;
     private final ChangePasswordViewModel changePasswordViewModel;
     private final LoggedInSearchViewModel loggedInSearchViewModel;
-    private final WatchlistViewModel watchlistViewModel;
+    private final WatchlistRemoveViewModel watchlistViewModel;
     private final WatchedListViewModel watchedListViewModel;
     private final DashboardViewModel dashboardViewModel;
 
@@ -29,7 +29,7 @@ public class LoggedInPresenter implements LoggedInOutputBoundary {
     public LoggedInPresenter(ViewManagerModel viewManagerModel,
                              ChangePasswordViewModel changePasswordViewModel,
                              LoggedInSearchViewModel loggedInSearchViewModel,
-                             WatchlistViewModel watchlistViewModel,
+                             WatchlistRemoveViewModel watchlistViewModel,
                              WatchedListViewModel watchedListViewModel,
                              DashboardViewModel dashboardViewModel) {
         this.viewManagerModel = viewManagerModel;
@@ -64,7 +64,7 @@ public class LoggedInPresenter implements LoggedInOutputBoundary {
 
     @Override
     public void switchToWatchListView(LoggedInOutputData loggedInOutputData) {
-        final WatchlistState watchlistState = watchlistViewModel.getState();
+        final WatchlistRemoveState watchlistState = watchlistViewModel.getState();
         watchlistState.setUsername(loggedInOutputData.getUsername());
         watchlistViewModel.setState(watchlistState);
         watchlistViewModel.firePropertyChanged();

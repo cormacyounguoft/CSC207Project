@@ -1,9 +1,8 @@
-package interface_adapter.watchlist;
+package interface_adapter.watchlist_remove;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class WatchlistState {
+public class WatchlistRemoveState {
     private String username;
     private List<String> watchlistTitle;
     private List<String> watchlistURL;

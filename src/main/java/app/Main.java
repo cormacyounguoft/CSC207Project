@@ -43,7 +43,7 @@ public class Main {
                 .addAddToWatchedListUseCase()
                 .addAddToWatchlistUseCase()
                 .addWatchedListUseCase()
-                .addWatchlistUseCase()
+                .addWatchlistRemoveUseCase()
                 .addGetWatchedListUseCase()
                 .addGetWatchlistUseCase()
                 .addGoToRateUseCase()
