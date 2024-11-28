@@ -37,6 +37,13 @@ class DashboardInteractorTest {
         movie2.setGenre(List.of("Drama"));
         dataAccessObject.saveToWatchedList("Username", movie2);
         dataAccessObject.saveUserRating("Username", "Movie2", 4);
+
+        Movie movie10 = new Movie();
+        movie10.setTitle("Movie10");
+        movie10.setRuntime(1);
+        movie10.setGenre(List.of("Comedy"));
+        dataAccessObject.saveToWatchedList("Username", movie10);
+        dataAccessObject.saveUserRating("Username", "Movie10", 4);
     }
 
     @Test
@@ -47,10 +54,10 @@ class DashboardInteractorTest {
             @Override
             public void prepareSuccessView(DashboardOutputData outputData) {
                 assertEquals("Username", outputData.getUsername());
-                assertEquals("4 hours and 30 minutes", outputData.getTotalHoursWatched());
+                assertEquals("4 hours and 31 minutes", outputData.getTotalHoursWatched());
                 assertEquals("Movie1", outputData.getFavoriteMovie());
                 assertEquals("[Action]", outputData.getFavoriteGenre());
-                assertEquals(4.5, outputData.getAverageRating());
+                assertEquals(4.33, outputData.getAverageRating(), 0.01);
                 assertEquals("Movie2", outputData.getLongestMovie());
             }
         };
@@ -114,7 +121,7 @@ class DashboardInteractorTest {
             @Override
             public void prepareSuccessView(DashboardOutputData outputData) {
                 assertEquals("Epic Movie", outputData.getLongestMovie());
-                assertEquals(3.33, outputData.getAverageRating(), 0.01); // Average considering all ratings
+                assertEquals(3.5, outputData.getAverageRating(), 0.01); // Average considering all ratings
             }
         };
 
@@ -146,6 +153,174 @@ class DashboardInteractorTest {
                 assertEquals("No favourite genre", outputData.getFavoriteGenre());
                 assertEquals(0, outputData.getAverageRating());
                 assertEquals("Unrated Movie", outputData.getLongestMovie());
+            }
+        };
+
+        DashboardInputBoundary interactor = new DashboardInteractor(dataAccessObject, presenter);
+        interactor.execute(inputData);
+    }
+
+    @Test
+    void oneHourTest() {
+        UserFactory factory = new CommonUserFactory();
+        User user = factory.create("Username1", "Pass123!");
+        dataAccessObject.save(user);
+
+        Movie movie = new Movie();
+        movie.setTitle("Movie");
+        movie.setRuntime(60);
+        dataAccessObject.saveToWatchedList("Username1", movie);
+        dataAccessObject.saveUserRating("Username1", "Movie", 5);
+        DashboardInputData inputData = new DashboardInputData("Username1");
+
+        DashboardOutputBoundary presenter = new DashboardOutputBoundary() {
+            @Override
+            public void prepareSuccessView(DashboardOutputData outputData) {
+                assertEquals("1 hour", outputData.getTotalHoursWatched());
+            }
+        };
+
+        DashboardInputBoundary interactor = new DashboardInteractor(dataAccessObject, presenter);
+        interactor.execute(inputData);
+    }
+
+    @Test
+    void oneMinuteTest() {
+        UserFactory factory = new CommonUserFactory();
+        User user = factory.create("Username2", "Pass123!");
+        dataAccessObject.save(user);
+
+        Movie movie = new Movie();
+        movie.setTitle("Movie");
+        movie.setRuntime(1);
+        dataAccessObject.saveToWatchedList("Username2", movie);
+        dataAccessObject.saveUserRating("Username2", "Movie", 5);
+        DashboardInputData inputData = new DashboardInputData("Username2");
+
+        DashboardOutputBoundary presenter = new DashboardOutputBoundary() {
+            @Override
+            public void prepareSuccessView(DashboardOutputData outputData) {
+                assertEquals("1 minute", outputData.getTotalHoursWatched());
+            }
+        };
+
+        DashboardInputBoundary interactor = new DashboardInteractor(dataAccessObject, presenter);
+        interactor.execute(inputData);
+    }
+
+    @Test
+    void oneHourAndOneMinuteTest() {
+        UserFactory factory = new CommonUserFactory();
+        User user = factory.create("Username3", "Pass123!");
+        dataAccessObject.save(user);
+
+        Movie movie = new Movie();
+        movie.setTitle("Movie");
+        movie.setRuntime(61);
+        dataAccessObject.saveToWatchedList("Username3", movie);
+        dataAccessObject.saveUserRating("Username3", "Movie", 5);
+        DashboardInputData inputData = new DashboardInputData("Username3");
+
+        DashboardOutputBoundary presenter = new DashboardOutputBoundary() {
+            @Override
+            public void prepareSuccessView(DashboardOutputData outputData) {
+                assertEquals("1 hour and 1 minute", outputData.getTotalHoursWatched());
+            }
+        };
+
+        DashboardInputBoundary interactor = new DashboardInteractor(dataAccessObject, presenter);
+        interactor.execute(inputData);
+    }
+
+    @Test
+    void twoHoursAndFiveMinutesTest() {
+        UserFactory factory = new CommonUserFactory();
+        User user = factory.create("Username4", "Pass123!");
+        dataAccessObject.save(user);
+
+        Movie movie = new Movie();
+        movie.setTitle("Movie");
+        movie.setRuntime(125);
+        dataAccessObject.saveToWatchedList("Username4", movie);
+        dataAccessObject.saveUserRating("Username4", "Movie", 5);
+        DashboardInputData inputData = new DashboardInputData("Username4");
+
+        DashboardOutputBoundary presenter = new DashboardOutputBoundary() {
+            @Override
+            public void prepareSuccessView(DashboardOutputData outputData) {
+                assertEquals("2 hours and 5 minutes", outputData.getTotalHoursWatched());
+            }
+        };
+
+        DashboardInputBoundary interactor = new DashboardInteractor(dataAccessObject, presenter);
+        interactor.execute(inputData);
+    }
+
+    @Test
+    void fortyFiveMinutesTest() {
+        UserFactory factory = new CommonUserFactory();
+        User user = factory.create("Username5", "Pass123!");
+        dataAccessObject.save(user);
+
+        Movie movie = new Movie();
+        movie.setTitle("Movie");
+        movie.setRuntime(45);
+        dataAccessObject.saveToWatchedList("Username5", movie);
+        dataAccessObject.saveUserRating("Username5", "Movie", 5);
+        DashboardInputData inputData = new DashboardInputData("Username5");
+
+        DashboardOutputBoundary presenter = new DashboardOutputBoundary() {
+            @Override
+            public void prepareSuccessView(DashboardOutputData outputData) {
+                assertEquals("45 minutes", outputData.getTotalHoursWatched());
+            }
+        };
+
+        DashboardInputBoundary interactor = new DashboardInteractor(dataAccessObject, presenter);
+        interactor.execute(inputData);
+    }
+
+    @Test
+    void oneHourAndTwoMinutesTest() {
+        UserFactory factory = new CommonUserFactory();
+        User user = factory.create("Username6", "Pass123!");
+        dataAccessObject.save(user);
+
+        Movie movie = new Movie();
+        movie.setTitle("Movie");
+        movie.setRuntime(62);
+        dataAccessObject.saveToWatchedList("Username6", movie);
+        dataAccessObject.saveUserRating("Username6", "Movie", 5);
+        DashboardInputData inputData = new DashboardInputData("Username6");
+
+        DashboardOutputBoundary presenter = new DashboardOutputBoundary() {
+            @Override
+            public void prepareSuccessView(DashboardOutputData outputData) {
+                assertEquals("1 hour and 2 minutes", outputData.getTotalHoursWatched());
+            }
+        };
+
+        DashboardInputBoundary interactor = new DashboardInteractor(dataAccessObject, presenter);
+        interactor.execute(inputData);
+    }
+
+    @Test
+    void twoHoursAndOneMinuteTest() {
+        UserFactory factory = new CommonUserFactory();
+        User user = factory.create("Username7", "Pass123!");
+        dataAccessObject.save(user);
+
+        Movie movie = new Movie();
+        movie.setTitle("Movie");
+        movie.setRuntime(121);
+        dataAccessObject.saveToWatchedList("Username7", movie);
+        dataAccessObject.saveUserRating("Username7", "Movie", 5);
+        DashboardInputData inputData = new DashboardInputData("Username7");
+
+        DashboardOutputBoundary presenter = new DashboardOutputBoundary() {
+            @Override
+            public void prepareSuccessView(DashboardOutputData outputData) {
+                assertEquals("2 hours and 1 minute", outputData.getTotalHoursWatched());
             }
         };
 
