@@ -41,6 +41,9 @@ public class DashboardInteractor implements DashboardInputBoundary {
             }
             return minutes + " minutes";
         }
+        else if (hours == 1){
+            return 1 + " hour and " + minutes + " minutes";
+        }
         else
             return hours + " hours and " + minutes + " minutes";
     }
