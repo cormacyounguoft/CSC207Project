@@ -16,7 +16,7 @@ import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.rate.RateUserDataAccessInterface;
 import use_case.rated_list.RatedListDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
-import use_case.watched_list.WatchedListUserDataAccessInterface;
+import use_case.watched_list_remove.WatchedListRemoveDataAccessInterface;
 import use_case.watchlist_remove.WatchlistRemoveDataAccessInterface;
 
 import java.io.IOException;
@@ -39,7 +39,7 @@ public class MockDataAccessObject implements
         GetWatchedListDataAccessInterface,
         GetRatedListDataAccessInterface,
         SearchDataAccessInterface,
-        WatchedListUserDataAccessInterface,
+        WatchedListRemoveDataAccessInterface,
         RatedListDataAccessInterface,
         WatchlistRemoveDataAccessInterface
 {

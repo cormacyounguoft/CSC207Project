@@ -1,21 +1,18 @@
-package use_case.watchlist;
+package use_case.watched_list_remove;
 
 import entity.CommonUserFactory;
 import entity.Movie;
 import entity.MovieFactory;
 import entity.User;
 import entity.UserFactory;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.MockDataAccessObject;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-class WatchlistInteractorTest {
+class WatchedListRemoveInteractorTest {
     MockDataAccessObject dataAccessObject;
 
     @BeforeEach
@@ -29,24 +26,22 @@ class WatchlistInteractorTest {
         Movie movie = movieFactory.create();
         movie.setTitle("Movie");
         movie.setPosterLink("url");
-        dataAccessObject.saveToWatchlist("Username", movie);
+        dataAccessObject.saveToWatchedList("Username", movie);
     }
 
     @Test
     void successTest() {
-        WatchlistInputData inputData = new WatchlistInputData("Username", List.of("Movie"), List.of("url"));
+        WatchedListRemoveInputData inputData = new WatchedListRemoveInputData("Username", "Movie");
 
-        WatchlistOutputBoundary presenter = new WatchlistOutputBoundary() {
+        WatchedListRemoveOutputBoundary presenter = new WatchedListRemoveOutputBoundary() {
             @Override
-            public void prepareSuccessView(WatchlistOutputData outputData) {
+            public void prepareSuccessView(WatchedListRemoveOutputData outputData) {
                 assertEquals("Username", outputData.getUsername());
-                assertEquals(List.of("Movie"), outputData.getWatchlistTitle());
-                assertEquals(List.of("url"), outputData.getWatchlistURL());
                 assertFalse(outputData.isUseCaseFailed());
             }
         };
 
-        WatchlistInputBoundary interactor = new WatchlistInteractor(presenter);
+        WatchedListRemoveInputBoundary interactor = new WatchedListRemoveInteractor(presenter, dataAccessObject);
         interactor.execute(inputData);
     }
 }

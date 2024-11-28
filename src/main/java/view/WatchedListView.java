@@ -2,9 +2,9 @@ package view;
 
 import interface_adapter.go_to_rate.GoRateController;
 import interface_adapter.to_logged_in_view.ToLoggedInViewController;
-import interface_adapter.watched_list.WatchedListController;
-import interface_adapter.watched_list.WatchedListState;
-import interface_adapter.watched_list.WatchedListViewModel;
+import interface_adapter.watched_list_remove.WatchedListRemoveController;
+import interface_adapter.watched_list_remove.WatchedListRemoveState;
+import interface_adapter.watched_list_remove.WatchedListRemoveViewModel;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -13,7 +13,6 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,8 +22,8 @@ import java.beans.PropertyChangeListener;
 public class WatchedListView extends JPanel implements ActionListener, PropertyChangeListener {
     private final String viewName = "watched list";
 
-    private final WatchedListViewModel watchedListViewModel;
-    private WatchedListController watchedListController;
+    private final WatchedListRemoveViewModel watchedListRemoveViewModel;
+    private WatchedListRemoveController watchedListRemoveController;
     private GoRateController goToRateController;
     private ToLoggedInViewController goToLoggedInViewController;
 
@@ -34,11 +33,11 @@ public class WatchedListView extends JPanel implements ActionListener, PropertyC
     private final JPanel watchedList;
     private final JScrollPane scroller;
 
-    public WatchedListView(WatchedListViewModel watchedListViewModel) {
-        this.watchedListViewModel = watchedListViewModel;
-        this.watchedListViewModel.addPropertyChangeListener(this);
+    public WatchedListView(WatchedListRemoveViewModel watchedListRemoveViewModel) {
+        this.watchedListRemoveViewModel = watchedListRemoveViewModel;
+        this.watchedListRemoveViewModel.addPropertyChangeListener(this);
 
-        final JLabel title = new JLabel(watchedListViewModel.TITLE_LABEL);
+        final JLabel title = new JLabel(watchedListRemoveViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         username = new JLabel();
@@ -46,13 +45,13 @@ public class WatchedListView extends JPanel implements ActionListener, PropertyC
         scroller = new JScrollPane(watchedList);
 
         final JPanel buttons = new JPanel();
-        cancel = new JButton(watchedListViewModel.CANCEL_BUTTON_LABEL);
+        cancel = new JButton(watchedListRemoveViewModel.CANCEL_BUTTON_LABEL);
         buttons.add(cancel);
 
         cancel.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        final WatchedListState currentState = watchedListViewModel.getState();
+                        final WatchedListRemoveState currentState = watchedListRemoveViewModel.getState();
                         goToLoggedInViewController.toLoggedInView(currentState.getUsername());
                     }
                 }
@@ -73,8 +72,8 @@ public class WatchedListView extends JPanel implements ActionListener, PropertyC
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
-            final WatchedListState state = (WatchedListState) evt.getNewValue();
-            final List<String> moviePosters = state.getWatchedListURL();
+            final WatchedListRemoveState state = (WatchedListRemoveState) evt.getNewValue();
+            final List<String> moviePosters = state.getWatchedListUrl();
             final List<String> movieTitles = state.getWatchedListTitle();
             watchedList.removeAll();
 
@@ -119,7 +118,7 @@ public class WatchedListView extends JPanel implements ActionListener, PropertyC
                 remove.addActionListener(
                         new ActionListener() {
                             public void actionPerformed(ActionEvent evt) {
-                                watchedListController.execute(state.getUsername(), movieTitles.get(finalI));
+                                watchedListRemoveController.execute(state.getUsername(), movieTitles.get(finalI));
                                 JOptionPane.showMessageDialog(null, "\"" + movieTitles.get(finalI) + "\" has been deleted from your watched list and rated list.");
                             }
                         }
@@ -145,8 +144,8 @@ public class WatchedListView extends JPanel implements ActionListener, PropertyC
         return viewName;
     }
 
-    public void setWatchedListController(WatchedListController watchedListController) {
-        this.watchedListController = watchedListController;
+    public void setWatchedListController(WatchedListRemoveController watchedListRemoveController) {
+        this.watchedListRemoveController = watchedListRemoveController;
     }
 
     public void setGoToRateController(GoRateController goToRateController) {

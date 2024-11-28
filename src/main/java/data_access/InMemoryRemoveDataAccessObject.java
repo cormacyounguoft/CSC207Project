@@ -23,14 +23,14 @@ import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.rate.RateUserDataAccessInterface;
 import use_case.rated_list.RatedListDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
-import use_case.watched_list.WatchedListUserDataAccessInterface;
+import use_case.watched_list_remove.WatchedListRemoveDataAccessInterface;
 import use_case.watchlist_remove.WatchlistRemoveDataAccessInterface;
 
 /**
  * In-memory implementation of the DAO for storing user data. This implementation does
  * NOT persist data between runs of the program.
  */
-public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterface,
+public class InMemoryRemoveDataAccessObject implements SignupUserDataAccessInterface,
         LoginUserDataAccessInterface,
         ChangePasswordUserDataAccessInterface,
         LogoutUserDataAccessInterface,
@@ -43,7 +43,7 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         RatedListDataAccessInterface,
         DashboardDataAccessInterface,
         WatchlistRemoveDataAccessInterface,
-        WatchedListUserDataAccessInterface {
+        WatchedListRemoveDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
 

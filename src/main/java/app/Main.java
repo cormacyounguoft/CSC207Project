@@ -42,8 +42,8 @@ public class Main {
                 .addRateUseCase()
                 .addAddToWatchedListUseCase()
                 .addAddToWatchlistUseCase()
-                .addWatchedListUseCase()
-                .addWatchlistRemoveUseCase()
+                .addWatchedListRemoveUseCase()
+                .addWatchListRemoveUseCase()
                 .addGetWatchedListUseCase()
                 .addGetWatchlistUseCase()
                 .addGoToRateUseCase()
@@ -52,7 +52,6 @@ public class Main {
                 .addToHomeViewUseCase()
                 .addToLoggedInViewUseCase()
                 .addDashboardUseCase()
-                .addWatchListRemoveUseCase()
                 .build();
 
         // Commented out to keep consistent size

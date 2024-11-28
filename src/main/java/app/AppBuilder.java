@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import data_access.InMemoryUserDataAccessObject;
+import data_access.InMemoryRemoveDataAccessObject;
 import data_access.MovieAccessObject;
 import entity.CommonUserFactory;
 import entity.MovieFactory;
@@ -66,9 +66,9 @@ import interface_adapter.to_home_view.ToHomeViewController;
 import interface_adapter.to_home_view.ToHomeViewPresenter;
 import interface_adapter.to_logged_in_view.ToLoggedInViewController;
 import interface_adapter.to_logged_in_view.ToLoggedInViewPresenter;
-import interface_adapter.watched_list.WatchedListController;
-import interface_adapter.watched_list.WatchedListPresenter;
-import interface_adapter.watched_list.WatchedListViewModel;
+import interface_adapter.watched_list_remove.WatchedListRemoveController;
+import interface_adapter.watched_list_remove.WatchedListRemovePresenter;
+import interface_adapter.watched_list_remove.WatchedListRemoveViewModel;
 import interface_adapter.watchlist_remove.WatchlistRemoveController;
 import interface_adapter.watchlist_remove.WatchlistRemovePresenter;
 import interface_adapter.watchlist_remove.WatchlistRemoveViewModel;
@@ -135,9 +135,9 @@ import use_case.to_home_view.ToHomeViewOutputBoundary;
 import use_case.to_logged_in_view.ToLoggedInViewInputBoundary;
 import use_case.to_logged_in_view.ToLoggedInViewInteractor;
 import use_case.to_logged_in_view.ToLoggedInViewOutputBoundary;
-import use_case.watched_list.WatchedListInputBoundary;
-import use_case.watched_list.WatchedListInteractor;
-import use_case.watched_list.WatchedListOutputBoundary;
+import use_case.watched_list_remove.WatchedListRemoveInputBoundary;
+import use_case.watched_list_remove.WatchedListRemoveInteractor;
+import use_case.watched_list_remove.WatchedListRemoveOutputBoundary;
 import use_case.watchlist_remove.WatchlistRemoveInputBoundary;
 import use_case.watchlist_remove.WatchlistRemoveInteractor;
 import use_case.watchlist_remove.WatchlistRemoveOutputBoundary;
@@ -176,7 +176,7 @@ public class AppBuilder {
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
-    private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
+    private final InMemoryRemoveDataAccessObject userDataAccessObject = new InMemoryRemoveDataAccessObject();
     private final MovieAccessObject movieAccessObject = new MovieAccessObject();
 
     private SignupView signupView;
@@ -205,7 +205,7 @@ public class AppBuilder {
     private RatedListViewModel ratedListViewModel;
     private WatchlistRemoveViewModel watchlistRemoveViewModel;
     private WatchlistView watchlistView;
-    private WatchedListViewModel watchedListViewModel;
+    private WatchedListRemoveViewModel watchedListRemoveViewModel;
     private WatchedListView watchedListView;
 
     public AppBuilder() {
@@ -350,8 +350,8 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addWatchedListView() {
-        watchedListViewModel = new WatchedListViewModel();
-        watchedListView = new WatchedListView(watchedListViewModel);
+        watchedListRemoveViewModel = new WatchedListRemoveViewModel();
+        watchedListView = new WatchedListView(watchedListRemoveViewModel);
         cardPanel.add(watchedListView, watchedListView.getViewName());
         return this;
     }
@@ -516,7 +516,7 @@ public class AppBuilder {
                 changePasswordViewModel,
                 loggedInSearchViewModel,
                 watchlistRemoveViewModel,
-                watchedListViewModel,
+                watchedListRemoveViewModel,
                 dashboardViewModel);
 
         final LoggedInInputBoundary loggedInInteractor = new LoggedInInteractor(loggedInOutputBoundary);
@@ -596,7 +596,7 @@ public class AppBuilder {
                 new WatchlistRemoveInteractor(watchlistremoveOutputBoundary, userDataAccessObject);
         final WatchlistRemoveController watchlistremoveController =
                 new WatchlistRemoveController(watchlistremoveInteractor);
-        watchlistView.setWatchlistremovecontroller(watchlistremoveController);
+        watchlistView.setWatchlistRemoveController(watchlistremoveController);
         return this;
     }
 
@@ -628,31 +628,16 @@ public class AppBuilder {
     }
 
     /**
-     * Adds the Watched List Use Case to the application.
+     * Adds the Watched List Remove Use Case to the application.
      * @return this builder
      */
-    public AppBuilder addWatchedListUseCase() {
-        final WatchedListOutputBoundary watchedListOutputBoundary =
-                new WatchedListPresenter(viewManagerModel, loggedInViewModel);
-        final WatchedListInputBoundary watchedListInputBoundary = new WatchedListInteractor(watchedListOutputBoundary,
+    public AppBuilder addWatchedListRemoveUseCase() {
+        final WatchedListRemoveOutputBoundary watchedListRemoveOutputBoundary =
+                new WatchedListRemovePresenter(viewManagerModel, loggedInViewModel);
+        final WatchedListRemoveInputBoundary watchedListRemoveInputBoundary = new WatchedListRemoveInteractor(watchedListRemoveOutputBoundary,
                 userDataAccessObject);
-        final WatchedListController watchedListController = new WatchedListController(watchedListInputBoundary);
-        watchedListView.setWatchedListController(watchedListController);
-        return this;
-    }
-
-    /**
-     * Adds the Watchlist Use Case to the application.
-     * @return this builder
-     */
-    public AppBuilder addWatchlistRemoveUseCase() {
-        final WatchlistRemoveOutputBoundary watchlistRemoveOutputBoundary =
-                new WatchlistRemovePresenter(viewManagerModel, loggedInViewModel);
-        final WatchlistRemoveInputBoundary watchlistRemoveInputBoundary =
-                new WatchlistRemoveInteractor(watchlistRemoveOutputBoundary, userDataAccessObject);
-        final WatchlistRemoveController watchlistRemoveController =
-                new WatchlistRemoveController(watchlistRemoveInputBoundary);
-        watchlistView.setWatchlistController(watchlistRemoveController);
+        final WatchedListRemoveController watchedListRemoveController = new WatchedListRemoveController(watchedListRemoveInputBoundary);
+        watchedListView.setWatchedListController(watchedListRemoveController);
         return this;
     }
 
@@ -676,7 +661,7 @@ public class AppBuilder {
      */
     public AppBuilder addGetWatchedListUseCase() {
         final GetWatchedListOutputBoundary getWatchedListOutputBoundary =
-                new GetWatchedListPresenter(viewManagerModel, loggedInViewModel, watchedListViewModel);
+                new GetWatchedListPresenter(viewManagerModel, loggedInViewModel, watchedListRemoveViewModel);
         final GetWatchedListInputBoundary getWatchedListInputBoundary =
                 new GetWatchedListInteractor(getWatchedListOutputBoundary, userDataAccessObject);
         final GetWatchedListController getWatchedListController =
