@@ -1,8 +1,10 @@
 package interface_adapter.ratedList;
 
 import interface_adapter.ViewModel;
-import interface_adapter.watched_list.WatchedListState;
 
+/**
+ * The View Model for the rated list.
+ */
 public class RatedListViewModel extends ViewModel<RatedListState> {
     public static final String TITLE_LABEL = "Logged In Search Result View";
 

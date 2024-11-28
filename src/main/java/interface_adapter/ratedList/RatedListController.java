@@ -1,13 +1,11 @@
 package interface_adapter.ratedList;
 
-import entity.MovieList;
 import use_case.rated_list.RatedListInputBoundary;
 import use_case.rated_list.RatedListInputData;
 
-
-import java.util.HashMap;
-import java.util.Map;
-
+/**
+ * The controller for the rated list use case.
+ */
 public class RatedListController {
     private final RatedListInputBoundary interactor;
 
@@ -15,9 +13,13 @@ public class RatedListController {
         this.interactor = interactor;
     }
 
+    /**
+     * Execute the rated list controller.
+     * @param username The username of the user.
+     * @param title The title of the movie.
+     */
     public void execute(String username, String title) {
         final RatedListInputData inputData = new RatedListInputData(username, title);
         interactor.execute(inputData);
     }
-
 }
