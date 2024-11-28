@@ -198,8 +198,8 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
         return viewName;
     }
 
-    public void setWatchlistController(WatchlistRemoveController watchlistController) {
-        this.watchlistRemoveController = watchlistController;
+    public void setWatchlistRemoveController(WatchlistRemoveController watchlistRemoveController) {
+        this.watchlistRemoveController = watchlistRemoveController;
     }
 
     public void setAddToWatchedListController(AddToWatchedListController controller) {
@@ -207,9 +207,6 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
     }
     public void setToLoggedInViewController(ToLoggedInViewController toLoggedInViewController) {
         this.toLoggedInViewController = toLoggedInViewController;
-    }
-    public void setWatchlistremovecontroller(WatchlistRemoveController watchlistremovecontroller) {
-        this.watchlistRemoveController = watchlistremovecontroller;
     }
 
 }

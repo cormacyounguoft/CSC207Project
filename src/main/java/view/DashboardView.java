@@ -4,7 +4,6 @@ import interface_adapter.dashboard.DashboardController;
 import interface_adapter.dashboard.DashboardState;
 import interface_adapter.dashboard.DashboardViewModel;
 import interface_adapter.to_logged_in_view.ToLoggedInViewController;
-import interface_adapter.watched_list.WatchedListState;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.Map;
 
 public class DashboardView extends JPanel implements ActionListener, PropertyChangeListener {
     private final String viewName = "dashboard";

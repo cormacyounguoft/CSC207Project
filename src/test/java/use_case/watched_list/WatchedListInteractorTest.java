@@ -5,12 +5,14 @@ import entity.Movie;
 import entity.MovieFactory;
 import entity.User;
 import entity.UserFactory;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.MockDataAccessObject;
-
-import java.util.List;
+import use_case.watched_list_remove.WatchedListRemoveInputBoundary;
+import use_case.watched_list_remove.WatchedListRemoveInputData;
+import use_case.watched_list_remove.WatchedListRemoveInteractor;
+import use_case.watched_list_remove.WatchedListRemoveOutputBoundary;
+import use_case.watched_list_remove.WatchedListRemoveOutputData;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -34,17 +36,17 @@ class WatchedListInteractorTest {
 
     @Test
     void successTest() {
-        WatchedListInputData inputData = new WatchedListInputData("Username", "Movie");
+        WatchedListRemoveInputData inputData = new WatchedListRemoveInputData("Username", "Movie");
 
-        WatchedListOutputBoundary presenter = new WatchedListOutputBoundary() {
+        WatchedListRemoveOutputBoundary presenter = new WatchedListRemoveOutputBoundary() {
             @Override
-            public void prepareSuccessView(WatchedListOutputData outputData) {
+            public void prepareSuccessView(WatchedListRemoveOutputData outputData) {
                 assertEquals("Username", outputData.getUsername());
 
             }
         };
 
-        WatchedListInputBoundary interactor = new WatchedListInteractor(presenter, dataAccessObject);
+        WatchedListRemoveInputBoundary interactor = new WatchedListRemoveInteractor(presenter, dataAccessObject);
         interactor.execute(inputData);
     }
 }

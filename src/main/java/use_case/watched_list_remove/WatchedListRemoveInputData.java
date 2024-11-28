@@ -1,14 +1,10 @@
-package use_case.watched_list;
+package use_case.watched_list_remove;
 
-import entity.MovieList;
-
-import java.util.List;
-
-public class WatchedListInputData {
+public class WatchedListRemoveInputData {
     private final String username;
     private final String title;
 
-    public WatchedListInputData(String username, String title) {
+    public WatchedListRemoveInputData(String username, String title) {
         this.username = username;
         this.title = title;
     }

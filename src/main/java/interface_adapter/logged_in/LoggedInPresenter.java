@@ -7,8 +7,8 @@ import interface_adapter.dashboard.DashboardState;
 import interface_adapter.dashboard.DashboardViewModel;
 import interface_adapter.logged_in_search.LoggedInSearchState;
 import interface_adapter.logged_in_search.LoggedInSearchViewModel;
-import interface_adapter.watched_list.WatchedListState;
-import interface_adapter.watched_list.WatchedListViewModel;
+import interface_adapter.watched_list_remove.WatchedListRemoveState;
+import interface_adapter.watched_list_remove.WatchedListRemoveViewModel;
 import interface_adapter.watchlist_remove.WatchlistRemoveState;
 import interface_adapter.watchlist_remove.WatchlistRemoveViewModel;
 import use_case.logged_in.LoggedInOutputBoundary;
@@ -22,20 +22,20 @@ public class LoggedInPresenter implements LoggedInOutputBoundary {
     private final ChangePasswordViewModel changePasswordViewModel;
     private final LoggedInSearchViewModel loggedInSearchViewModel;
     private final WatchlistRemoveViewModel watchlistViewModel;
-    private final WatchedListViewModel watchedListViewModel;
+    private final WatchedListRemoveViewModel watchedListRemoveViewModel;
     private final DashboardViewModel dashboardViewModel;
 
     public LoggedInPresenter(ViewManagerModel viewManagerModel,
                              ChangePasswordViewModel changePasswordViewModel,
                              LoggedInSearchViewModel loggedInSearchViewModel,
                              WatchlistRemoveViewModel watchlistViewModel,
-                             WatchedListViewModel watchedListViewModel,
+                             WatchedListRemoveViewModel watchedListRemoveViewModel,
                              DashboardViewModel dashboardViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.changePasswordViewModel = changePasswordViewModel;
         this.loggedInSearchViewModel = loggedInSearchViewModel;
         this.watchlistViewModel = watchlistViewModel;
-        this.watchedListViewModel = watchedListViewModel;
+        this.watchedListRemoveViewModel = watchedListRemoveViewModel;
         this.dashboardViewModel = dashboardViewModel;
     }
 
@@ -75,12 +75,12 @@ public class LoggedInPresenter implements LoggedInOutputBoundary {
 
     @Override
     public void switchToWatchedListView(LoggedInOutputData loggedInOutputData) {
-        final WatchedListState watchedListState = watchedListViewModel.getState();
-        watchedListState.setUsername(loggedInOutputData.getUsername());
-        watchedListViewModel.setState(watchedListState);
-        watchedListViewModel.firePropertyChanged();
+        final WatchedListRemoveState watchedListRemoveState = watchedListRemoveViewModel.getState();
+        watchedListRemoveState.setUsername(loggedInOutputData.getUsername());
+        watchedListRemoveViewModel.setState(watchedListRemoveState);
+        watchedListRemoveViewModel.firePropertyChanged();
 
-        viewManagerModel.setState(watchedListViewModel.getViewName());
+        viewManagerModel.setState(watchedListRemoveViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 
