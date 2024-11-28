@@ -51,7 +51,7 @@ public class SearchResultState {
         return poster;
     }
 
-    public void setPosterLink(String poster) {
+    public void setPoster(String poster) {
         this.poster = poster;
     }
 

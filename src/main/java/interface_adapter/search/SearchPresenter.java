@@ -34,7 +34,7 @@ public class SearchPresenter implements SearchOutputBoundary {
         searchResultState.setGenre(response.getGenre());
         searchResultState.setActors(response.getActors());
         searchResultState.setDirector(response.getDirector());
-        searchResultState.setPosterLink(response.getPoster());
+        searchResultState.setPoster(response.getPoster());
         this.searchResultViewModel.setState(searchResultState);
         searchResultViewModel.firePropertyChanged();
 
