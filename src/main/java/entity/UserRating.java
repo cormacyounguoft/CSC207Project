@@ -26,25 +26,8 @@ public class UserRating {
      * Remove a rating from the User profile.
      * @param movie The movie rated.
      */
-    public void removeRating(Movie movie) {
-        this.movieToRating.remove(movie.getTitle());
-    }
-
-    /**
-     * Get a rating.
-     * @param movie The movie rated.
-     * @return rating given.
-     */
-    public int getRating(Movie movie) {
-        return this.movieToRating.getOrDefault(movie.getTitle(), -1);
-    }
-
-    /**
-     * Get the count of ratings.
-     * @return the rating count
-     */
-    public int getRatingCount() {
-        return this.movieToRating.size();
+    public void remove(String movie) {
+        this.movieToRating.remove(movie);
     }
 
     /**

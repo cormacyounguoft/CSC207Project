@@ -108,7 +108,7 @@ public class InMemoryRemoveDataAccessObject implements SignupUserDataAccessInter
     @Override
     public void removeUserRating(String username, String title) {
         final UserRating userRating = this.get(username).getUserRatings();
-        userRating.getMovieToRating().remove(title);
+        userRating.remove(title);
 
     }
 

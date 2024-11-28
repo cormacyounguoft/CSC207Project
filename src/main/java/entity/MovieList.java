@@ -40,18 +40,6 @@ public class MovieList {
     }
 
     /**
-     * Gets the titles of the movies.
-     * @return result The list of movie titles.
-     */
-    public List<String> getMovieTitles() {
-        final List<String> result = new ArrayList<>();
-        for (Movie movie : movieList) {
-            result.add(movie.getTitle());
-        }
-        return result;
-    }
-
-    /**
      * Finds the movie by the title.
      * @param title The title of the movie
      * @return returns movie if found and null returns null if no movie is found
@@ -74,27 +62,6 @@ public class MovieList {
      */
     public boolean contains(Movie movie) {
         return movieList.contains(movie);
-    }
-
-    @Override
-    public String toString() {
-        final List<String> result = new ArrayList<>();
-        for (Movie movie : movieList) {
-            result.add(movie.getTitle());
-        }
-        return result.toString();
-    }
-
-    /**
-     * Gets the poster link of all movies in movie lists.
-     * @return returns the movie poster links in the movie list.
-     */
-    public List<String> getPosters() {
-        final List<String> result = new ArrayList<>();
-        for (Movie movie : movieList) {
-            result.add(movie.getPosterLink());
-        }
-        return result;
     }
 
     /**
