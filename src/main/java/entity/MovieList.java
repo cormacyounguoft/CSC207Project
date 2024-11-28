@@ -27,8 +27,12 @@ public class MovieList {
         }
     }
 
-    public void removeMovie(Movie movie) {
-        movieList.remove(movie);
+    public void removeMovie(String movie) {
+        for (Movie m : movieList) {
+            if (m.getTitle().equals(movie)) {
+                movieList.remove(m);
+            }
+        }
     }
 
     public List<String> getMovieTitles() {

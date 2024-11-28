@@ -71,6 +71,8 @@ import interface_adapter.watched_list.WatchedListViewModel;
 import interface_adapter.watchlist.WatchlistController;
 import interface_adapter.watchlist.WatchlistPresenter;
 import interface_adapter.watchlist.WatchlistViewModel;
+import interface_adapter.watchlistremove.WatchlistremovePresenter;
+import interface_adapter.watchlistremove.watchlistremovecontroller;
 import use_case.add_to_watched_list.AddToWatchedListInputBoundary;
 import use_case.add_to_watched_list.AddToWatchedListInteractor;
 import use_case.add_to_watched_list.AddToWatchedListOutputBoundary;
@@ -128,6 +130,9 @@ import use_case.signup.SignupOutputBoundary;
 
 import interface_adapter.dashboard.DashboardController;
 import interface_adapter.dashboard.DashboardPresenter;
+import use_case.watchlistremove.WatchlistremoveInputBoundary;
+import use_case.watchlistremove.watchlistremoveInteractor;
+import use_case.watchlistremove.watchlistremoveOutputBoundary;
 import view.DashboardView;
 import interface_adapter.dashboard.DashboardViewModel;
 import use_case.dashboard.DashboardInputBoundary;
@@ -576,6 +581,23 @@ public class AppBuilder {
         watchlistView.setAddToWatchedListController(addToWatchedListController);
         return this;
     }
+
+    /**
+     * Adds the Add To Watched List Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addWatchListRemoveUseCase() {
+        final watchlistremoveOutputBoundary watchlistremoveOutputBoundary =
+                new WatchlistremovePresenter(viewManagerModel, watchlistViewModel);
+        final WatchlistremoveInputBoundary watchlistremoveInteractor =
+                new watchlistremoveInteractor(watchlistremoveOutputBoundary,userDataAccessObject);
+        final watchlistremovecontroller watchlistremoveController =
+                new watchlistremovecontroller(watchlistremoveInteractor);
+        watchlistView.setWatchlistremovecontroller(watchlistremoveController);
+        return this;
+    }
+
+
 
     /**
      * Adds the To Rate Use Case to the application.

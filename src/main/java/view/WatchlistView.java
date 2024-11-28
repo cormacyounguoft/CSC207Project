@@ -6,6 +6,7 @@ import interface_adapter.to_logged_in_view.ToLoggedInViewController;
 import interface_adapter.watchlist.WatchlistController;
 import interface_adapter.watchlist.WatchlistState;
 import interface_adapter.watchlist.WatchlistViewModel;
+import interface_adapter.watchlistremove.watchlistremovecontroller;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -27,6 +28,7 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
     private WatchlistController watchlistController;
     private ToLoggedInViewController toLoggedInViewController;
     private AddToWatchedListController addToWatchedListController;
+    private watchlistremovecontroller watchlistremovecontroller;
 
 
     private final JButton cancel;
@@ -132,12 +134,9 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
                 JPanel buttonPanel = new JPanel(new GridLayout(1, 2, 10, 10));
                 JButton removeButton = createStyledButton("Remove");
                 removeButton.addActionListener(evt1 -> {
-                    state.removeMovie(movieTitle, poster);
-
-                    watchlist.remove(moviePanel);
-
-                    watchlist.revalidate();
-                    watchlist.repaint();
+                    final WatchlistState currentState = watchlistViewModel.getState();
+                    watchlistremovecontroller.execute(currentState.getUsername(), movieTitle, poster);
+                    toLoggedInViewController.toLoggedInView(currentState.getUsername());
                     JOptionPane.showMessageDialog(null, "\"" + movieTitle + "\" has " +
                             "been removed from your watchlist.");
                 });
@@ -146,8 +145,9 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
                 moveToWatchedButton.addActionListener(evt1 -> {
                     final WatchlistState currentState = watchlistViewModel.getState();
                     addToWatchedListController.execute(currentState.getUsername(), movieTitle);
+                    watchlistremovecontroller.execute(currentState.getUsername(), movieTitle, poster);
                     JOptionPane.showMessageDialog(null, "\"" + movieTitle + "\" has " +
-                            "been added to your watched list.");
+                            "been added to your watched list adn removed from your watchlist.");
                 });
 
                 buttonPanel.add(removeButton);
@@ -211,6 +211,9 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
     }
     public void setToLoggedInViewController(ToLoggedInViewController toLoggedInViewController) {
         this.toLoggedInViewController = toLoggedInViewController;
+    }
+    public void setWatchlistremovecontroller(watchlistremovecontroller watchlistremovecontroller) {
+        this.watchlistremovecontroller = watchlistremovecontroller;
     }
 
 }

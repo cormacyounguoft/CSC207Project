@@ -1,7 +1,5 @@
 package use_case.watchlist;
 
-import entity.MovieList;
-
 import java.util.List;
 
 public class WatchlistOutputData {
