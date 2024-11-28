@@ -1,13 +1,14 @@
 package interface_adapter.watched_list;
 
-import entity.MovieList;
-
 import java.util.List;
 
+/**
+ * The state for the watched list Use Case.
+ */
 public class WatchedListState {
     private String username;
     private List<String> watchedListTitle;
-    private List<String> watchedListURL;
+    private List<String> watchedListUrl;
     private String movieError;
 
     public String getUsername() {
@@ -26,12 +27,12 @@ public class WatchedListState {
         this.watchedListTitle = watchedListTitle;
     }
 
-    public List<String> getWatchedListURL() {
-        return watchedListURL;
+    public List<String> getWatchedListUrl() {
+        return watchedListUrl;
     }
 
-    public void setWatchedListURL(List<String> watchedListURL) {
-        this.watchedListURL = watchedListURL;
+    public void setWatchedListUrl(List<String> watchedListUrl) {
+        this.watchedListUrl = watchedListUrl;
     }
 
     public String getMovieError() {

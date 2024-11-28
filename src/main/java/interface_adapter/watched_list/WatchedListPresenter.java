@@ -3,10 +3,12 @@ package interface_adapter.watched_list;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.logged_in.LoggedInState;
 import interface_adapter.logged_in.LoggedInViewModel;
-import interface_adapter.logged_in_search_result.LoggedInSearchResultState;
 import use_case.watched_list.WatchedListOutputBoundary;
 import use_case.watched_list.WatchedListOutputData;
 
+/**
+ * The Presenter for the watched list Use Case.
+ */
 public class WatchedListPresenter implements WatchedListOutputBoundary {
     private final ViewManagerModel viewManagerModel;
     private final LoggedInViewModel loggedInViewModel;
@@ -15,7 +17,6 @@ public class WatchedListPresenter implements WatchedListOutputBoundary {
         this.viewManagerModel = viewManagerModel;
         this.loggedInViewModel = loggedInViewModel;
     }
-
 
     @Override
     public void prepareSuccessView(WatchedListOutputData outputData) {
