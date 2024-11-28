@@ -8,7 +8,7 @@ public class ToLoggedInViewInteractor implements ToLoggedInViewInputBoundary{
     }
     @Override
     public void toLoggedInView(ToLoggedInViewInputData inputData) {
-        final ToLoggedInViewOutputData outputData = new ToLoggedInViewOutputData(inputData.getUsername(), false);
+        final ToLoggedInViewOutputData outputData = new ToLoggedInViewOutputData(inputData.getUsername());
         presenter.prepareSuccessView(outputData);
     }
 }
