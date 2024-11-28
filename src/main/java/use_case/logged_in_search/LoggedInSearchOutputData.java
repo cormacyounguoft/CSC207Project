@@ -1,7 +1,5 @@
 package use_case.logged_in_search;
 
-import entity.Movie;
-
 /**
  * Output Data for the Logged In Search Use Case.
  */

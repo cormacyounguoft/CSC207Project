@@ -1,8 +1,8 @@
 package use_case;
 
-import java.io.IOException;
-
 import entity.Movie;
+
+import java.io.IOException;
 
 /**
  * Data access interface for searching for movies using the API.

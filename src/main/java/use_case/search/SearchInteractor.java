@@ -1,10 +1,10 @@
 package use_case.search;
 
-import java.io.IOException;
-
 import entity.Movie;
 import entity.MovieFactory;
 import use_case.SearchDataAccessInterface;
+
+import java.io.IOException;
 
 /**
  * The Search Interactor.

@@ -4,8 +4,8 @@ package use_case.add_to_watched_list;
  * Output Data for the add to watched list Use Case.
  */
 public class AddToWatchedListOutputData {
-    private String username;
-    private boolean useCaseFailed;
+    private final String username;
+    private final boolean useCaseFailed;
 
     public AddToWatchedListOutputData(String username, boolean useCaseFailed) {
         this.username = username;

@@ -1,7 +1,5 @@
 package use_case.rate;
 
-import entity.Movie;
-
 public class RateOutputData {
 
     private final String username;

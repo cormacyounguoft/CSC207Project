@@ -1,7 +1,5 @@
 package use_case.add_to_watchlist;
 
-import entity.Movie;
-
 /**
  * The Input Data for the add to watchlist Use Case.
  */
