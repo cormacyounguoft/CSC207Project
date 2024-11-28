@@ -1,6 +1,5 @@
 package interface_adapter.change_password;
 
-import entity.MovieList;
 import use_case.change_password.ChangePasswordInputBoundary;
 import use_case.change_password.ChangePasswordInputData;
 

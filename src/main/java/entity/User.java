@@ -1,7 +1,5 @@
 package entity;
 
-import java.util.List;
-
 /**
  * The representation of a user in our program.
  */
@@ -37,6 +35,9 @@ public interface User {
      */
     UserRating getUserRatings();
 
-
+    /**
+     * Returns all the of the user's rating.
+     * @param password The password set.
+     */
     void setUserPassword(String password);
 }

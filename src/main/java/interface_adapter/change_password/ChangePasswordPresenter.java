@@ -1,8 +1,6 @@
 package interface_adapter.change_password;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.logged_in.LoggedInState;
-import interface_adapter.logged_in.LoggedInViewModel;
 import use_case.change_password.ChangePasswordOutputBoundary;
 import use_case.change_password.ChangePasswordOutputData;
 
@@ -31,9 +29,9 @@ public class ChangePasswordPresenter implements ChangePasswordOutputBoundary {
 
     @Override
     public void prepareFailView(String error) {
-        ChangePasswordState currentState = changePasswordViewModel.getState();
-        currentState.setPasswordError(error); // Update the error message in the state
-        changePasswordViewModel.setState(currentState); // Ensure the state is updated
-        changePasswordViewModel.firePropertyChanged("passwordError"); // Notify the listeners
+        final ChangePasswordState currentState = changePasswordViewModel.getState();
+        currentState.setPasswordError(error);
+        changePasswordViewModel.setState(currentState);
+        changePasswordViewModel.firePropertyChanged("passwordError");
     }
 }

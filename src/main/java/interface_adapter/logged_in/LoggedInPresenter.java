@@ -25,7 +25,6 @@ public class LoggedInPresenter implements LoggedInOutputBoundary {
     private final WatchedListViewModel watchedListViewModel;
     private final DashboardViewModel dashboardViewModel;
 
-
     public LoggedInPresenter(ViewManagerModel viewManagerModel,
                              ChangePasswordViewModel changePasswordViewModel,
                              LoggedInSearchViewModel loggedInSearchViewModel,

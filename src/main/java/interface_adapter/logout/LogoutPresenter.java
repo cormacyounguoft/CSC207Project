@@ -5,7 +5,6 @@ import interface_adapter.change_password.ChangePasswordState;
 import interface_adapter.change_password.ChangePasswordViewModel;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
-import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
 import use_case.logout.LogoutOutputBoundary;
 import use_case.logout.LogoutOutputData;
@@ -55,8 +54,6 @@ public class LogoutPresenter implements LogoutOutputBoundary {
         loginViewModel.setState(loginState);
         // 8. firePropertyChanged so that the View that is listening is updated.
         loginViewModel.firePropertyChanged();
-
-
 
         // This code tells the View Manager to switch to the LoginView.
         this.viewManagerModel.setState(loginViewModel.getViewName());

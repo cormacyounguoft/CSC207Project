@@ -8,11 +8,14 @@ import interface_adapter.logged_in_search_result.LoggedInSearchResultViewModel;
 import use_case.add_to_watchlist.AddToWatchlistOutputBoundary;
 import use_case.add_to_watchlist.AddToWatchlistOutputData;
 
+/**
+ * The presenter for the Add To Watchlist.
+ */
 public class AddToWatchlistPresenter implements AddToWatchlistOutputBoundary {
 
-    private ViewManagerModel viewManagerModel;
-    private LoggedInSearchResultViewModel loggedInSearchResultViewModel;
-    private LoggedInViewModel loggedInViewModel;
+    private final ViewManagerModel viewManagerModel;
+    private final LoggedInSearchResultViewModel loggedInSearchResultViewModel;
+    private final LoggedInViewModel loggedInViewModel;
 
     public AddToWatchlistPresenter(ViewManagerModel viewManagerModel,
                                    LoggedInSearchResultViewModel loggedInSearchResultViewModel,

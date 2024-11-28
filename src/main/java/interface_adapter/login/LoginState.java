@@ -32,7 +32,10 @@ public class LoginState {
         this.password = password;
     }
 
-    public void resetInputFields(){
+    /**
+     * Resetting the input fiels when logging in.
+     */
+    public void resetInputFields() {
         this.username = null;
         this.password = null;
         this.loginError = null;

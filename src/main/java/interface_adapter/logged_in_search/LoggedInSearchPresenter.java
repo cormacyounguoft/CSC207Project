@@ -1,8 +1,6 @@
 package interface_adapter.logged_in_search;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.logged_in.LoggedInState;
-import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.logged_in_search_result.LoggedInSearchResultState;
 import interface_adapter.logged_in_search_result.LoggedInSearchResultViewModel;
 import use_case.logged_in_search.LoggedInSearchOutputBoundary;

@@ -1,7 +1,5 @@
 package interface_adapter.logged_in_search_result;
 
-import entity.Movie;
-
 /**
  * The state for the Logged In Search Result View Model.
  */

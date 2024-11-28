@@ -1,5 +1,12 @@
 package data_access;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import entity.Movie;
 import entity.MovieList;
 import entity.User;
@@ -18,8 +25,6 @@ import use_case.rated_list.RatedListDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 import use_case.watched_list.WatchedListUserDataAccessInterface;
 import use_case.watchlist_remove.WatchlistRemoveDataAccessInterface;
-
-import java.util.*;
 
 /**
  * In-memory implementation of the DAO for storing user data. This implementation does
@@ -61,7 +66,7 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
 
     @Override
     public void changePassword(String username, String password) {
-        User user = this.get(username);
+        final User user = this.get(username);
         user.setUserPassword(password);
     }
 
@@ -87,30 +92,30 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
 
     @Override
     public void removeFromWatchedlist(String username, String title) {
-        MovieList list = this.get(username).getWatchedList();
-        Movie movie = list.findMovieByTitle(title);
+        final MovieList list = this.get(username).getWatchedList();
+        final Movie movie = list.findMovieByTitle(title);
         this.get(username).getWatchedList().removeMovie(movie);
         this.removeUserRating(username, title);
     }
 
     @Override
     public void saveUserRating(String username, String title, int rating) {
-        MovieList list = this.get(username).getWatchedList();
-        Movie movie = list.findMovieByTitle(title);
+        final MovieList list = this.get(username).getWatchedList();
+        final Movie movie = list.findMovieByTitle(title);
         this.get(username).getUserRatings().addRating(movie, rating);
     }
 
     @Override
     public void removeUserRating(String username, String title) {
-        UserRating userRating = this.get(username).getUserRatings();
+        final UserRating userRating = this.get(username).getUserRatings();
         userRating.getMovieToRating().remove(title);
 
     }
 
     @Override
     public void removeFromWatchlist(String username, String movieTitle) {
-        MovieList movieList = this.get(username).getWatchList();
-        Movie movie = movieList.findMovieByTitle(movieTitle);
+        final MovieList movieList = this.get(username).getWatchList();
+        final Movie movie = movieList.findMovieByTitle(movieTitle);
         this.get(username).getWatchList().removeMovie(movie);
     }
 
@@ -126,13 +131,13 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
 
     @Override
     public Map<String, List<String>> getUserRating(String username) {
-        User user = this.get(username);
-        Map<String, Integer> ratings = user.getUserRatings().getMovieToRating();
-        MovieList movieList = user.getWatchedList();
+        final User user = this.get(username);
+        final Map<String, Integer> ratings = user.getUserRatings().getMovieToRating();
+        final MovieList movieList = user.getWatchedList();
 
-        Map<String, List<String>> result = new HashMap<>();
+        final Map<String, List<String>> result = new HashMap<>();
         ratings.forEach((title, rating) -> {
-            String poster = movieList.getPoster(title);
+            final String poster = movieList.getPoster(title);
             result.put(title, Arrays.asList(String.valueOf(rating), poster));
         });
 

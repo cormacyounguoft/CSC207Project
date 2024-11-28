@@ -1,17 +1,17 @@
 package data_access;
 
-import entity.Movie;
-import entity.MovieFactory;
-import kong.unirest.Unirest;
-import kong.unirest.json.JSONObject;
-import use_case.SearchDataAccessInterface;
-
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import entity.Movie;
+import entity.MovieFactory;
+import kong.unirest.Unirest;
+import kong.unirest.json.JSONObject;
+import use_case.SearchDataAccessInterface;
 
 /**
  * DAO for searching for movies using the API.
@@ -49,7 +49,8 @@ public class MovieAccessObject implements SearchDataAccessInterface {
     }
 
     private String getUrl(String title) {
-        return "http://www.omdbapi.com/?t=" + URLEncoder.encode(title, StandardCharsets.UTF_8) + "&apikey=" + System.getenv("APIKEY");
+        return "http://www.omdbapi.com/?t=" + URLEncoder.encode(title, StandardCharsets.UTF_8)
+                + "&apikey=" + System.getenv("APIKEY");
     }
 
     private JSONObject getResponse(String url) {
