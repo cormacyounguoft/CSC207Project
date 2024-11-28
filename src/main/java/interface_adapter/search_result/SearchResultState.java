@@ -1,7 +1,5 @@
 package interface_adapter.search_result;
 
-import entity.Movie;
-
 /**
  * The state for the Search Result View Model.
  */
@@ -16,7 +14,6 @@ public class SearchResultState {
     private String actors;
     private String director;
     private String poster;
-
 
     public String getMovieError() {
         return movieError;
