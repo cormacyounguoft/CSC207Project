@@ -63,9 +63,9 @@ import interface_adapter.to_logged_in_view.ToLoggedInViewPresenter;
 import interface_adapter.watched_list.WatchedListController;
 import interface_adapter.watched_list.WatchedListPresenter;
 import interface_adapter.watched_list.WatchedListViewModel;
-import interface_adapter.watchlist.WatchlistController;
-import interface_adapter.watchlist.WatchlistPresenter;
-import interface_adapter.watchlist.WatchlistViewModel;
+import interface_adapter.watchlist_remove.WatchlistRemoveController;
+import interface_adapter.watchlist_remove.WatchlistRemovePresenter;
+import interface_adapter.watchlist_remove.WatchlistRemoveViewModel;
 import use_case.add_to_watched_list.AddToWatchedListInputBoundary;
 import use_case.add_to_watched_list.AddToWatchedListInteractor;
 import use_case.add_to_watched_list.AddToWatchedListOutputBoundary;
@@ -132,9 +132,9 @@ import use_case.to_logged_in_view.ToLoggedInViewOutputBoundary;
 import use_case.watched_list.WatchedListInputBoundary;
 import use_case.watched_list.WatchedListInteractor;
 import use_case.watched_list.WatchedListOutputBoundary;
-import use_case.watchlist.WatchlistInputBoundary;
-import use_case.watchlist.WatchlistInteractor;
-import use_case.watchlist.WatchlistOutputBoundary;
+import use_case.watchlist_remove.WatchlistRemoveInputBoundary;
+import use_case.watchlist_remove.WatchlistRemoveInteractor;
+import use_case.watchlist_remove.WatchlistRemoveOutputBoundary;
 import view.ChangePasswordView;
 import view.DashboardView;
 import view.HomeView;
@@ -202,7 +202,7 @@ public class AppBuilder {
     private RateView rateView;
     private RatedListView ratedListView;
     private RatedListViewModel ratedListViewModel;
-    private WatchlistViewModel watchlistViewModel;
+    private WatchlistRemoveViewModel watchlistRemoveViewModel;
     private WatchlistView watchlistView;
     private WatchedListViewModel watchedListViewModel;
     private WatchedListView watchedListView;
@@ -360,8 +360,8 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addWatchlistView() {
-        watchlistViewModel = new WatchlistViewModel();
-        watchlistView = new WatchlistView(watchlistViewModel);
+        watchlistRemoveViewModel = new WatchlistRemoveViewModel();
+        watchlistView = new WatchlistView(watchlistRemoveViewModel);
         cardPanel.add(watchlistView, watchlistView.getViewName());
         return this;
     }
@@ -514,7 +514,7 @@ public class AppBuilder {
                 viewManagerModel,
                 changePasswordViewModel,
                 loggedInSearchViewModel,
-                watchlistViewModel,
+                watchlistRemoveViewModel,
                 watchedListViewModel,
                 dashboardViewModel);
 
@@ -580,8 +580,26 @@ public class AppBuilder {
         final AddToWatchedListController addToWatchedListController =
                 new AddToWatchedListController(addToWatchedListInteractor);
         loggedInSearchResultView.setAddToWatchedListController(addToWatchedListController);
+        watchlistView.setAddToWatchedListController(addToWatchedListController);
         return this;
     }
+
+    /**
+     * Adds the Add To Watched List Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addWatchListRemoveUseCase() {
+        final WatchlistRemoveOutputBoundary watchlistremoveOutputBoundary =
+                new WatchlistRemovePresenter(viewManagerModel, loggedInViewModel);
+        final WatchlistRemoveInputBoundary watchlistremoveInteractor =
+                new WatchlistRemoveInteractor(watchlistremoveOutputBoundary,userDataAccessObject);
+        final WatchlistRemoveController watchlistremoveController =
+                new WatchlistRemoveController(watchlistremoveInteractor);
+        watchlistView.setWatchlistremovecontroller(watchlistremoveController);
+        return this;
+    }
+
+
 
     /**
      * Adds the To Rate Use Case to the application.
@@ -627,12 +645,14 @@ public class AppBuilder {
      * Adds the Watchlist Use Case to the application.
      * @return this builder
      */
-    public AppBuilder addWatchlistUseCase() {
-        final WatchlistOutputBoundary watchlistOutputBoundary =
-                new WatchlistPresenter(viewManagerModel, watchlistViewModel);
-        final WatchlistInputBoundary watchlistInputBoundary = new WatchlistInteractor(watchlistOutputBoundary);
-        final WatchlistController watchlistController = new WatchlistController(watchlistInputBoundary);
-        watchlistView.setWatchlistController(watchlistController);
+    public AppBuilder addWatchlistRemoveUseCase() {
+        final WatchlistRemoveOutputBoundary watchlistRemoveOutputBoundary =
+                new WatchlistRemovePresenter(viewManagerModel, loggedInViewModel);
+        final WatchlistRemoveInputBoundary watchlistRemoveInputBoundary =
+                new WatchlistRemoveInteractor(watchlistRemoveOutputBoundary, userDataAccessObject);
+        final WatchlistRemoveController watchlistRemoveController =
+                new WatchlistRemoveController(watchlistRemoveInputBoundary);
+        watchlistView.setWatchlistController(watchlistRemoveController);
         return this;
     }
 
@@ -684,7 +704,7 @@ public class AppBuilder {
      */
     public AppBuilder addGetWatchlistUseCase() {
         final GetWatchlistOutputBoundary getWatchlistOutputBoundary =
-                new GetWatchlistPresenter(viewManagerModel, loggedInViewModel, watchlistViewModel);
+                new GetWatchlistPresenter(viewManagerModel, loggedInViewModel, watchlistRemoveViewModel);
         final GetWatchlistInputBoundary getWatchlistInputBoundary =
                 new GetWatchlistInteractor(getWatchlistOutputBoundary, userDataAccessObject);
         final GetWatchlistController getWatchlistController = new GetWatchlistController(getWatchlistInputBoundary);

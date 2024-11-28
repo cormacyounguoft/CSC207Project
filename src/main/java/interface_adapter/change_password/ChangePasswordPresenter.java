@@ -5,7 +5,6 @@ import interface_adapter.logged_in.LoggedInState;
 import interface_adapter.logged_in.LoggedInViewModel;
 import use_case.change_password.ChangePasswordOutputBoundary;
 import use_case.change_password.ChangePasswordOutputData;
-import use_case.watchlist.WatchlistOutputData;
 
 /**
  * The Presenter for the Change Password Use Case.

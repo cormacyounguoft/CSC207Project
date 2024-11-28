@@ -1,10 +1,8 @@
-package interface_adapter.watchlist;
-
-import entity.MovieList;
+package interface_adapter.watchlist_remove;
 
 import java.util.List;
 
-public class WatchlistState {
+public class WatchlistRemoveState {
     private String username;
     private List<String> watchlistTitle;
     private List<String> watchlistURL;
@@ -41,4 +39,17 @@ public class WatchlistState {
     public void setMovieError(String movieError) {
         this.movieError = movieError;
     }
+
+    public void removeMovie(String movieTitle, String movieURL) {
+        int index_of_title = watchlistTitle.indexOf(movieTitle);
+        int index_of_poster = watchlistURL.indexOf(movieURL);
+
+        if (index_of_poster >= 0) {
+            watchlistURL.remove(index_of_poster);
+        }
+        if (index_of_title >= 0) {
+            watchlistTitle.remove(index_of_title);
+        }
+    }
+
 }

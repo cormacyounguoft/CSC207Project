@@ -3,7 +3,6 @@ package interface_adapter.change_password;
 import entity.MovieList;
 import use_case.change_password.ChangePasswordInputBoundary;
 import use_case.change_password.ChangePasswordInputData;
-import use_case.watchlist.WatchlistInputData;
 
 /**
  * Controller for the Change Password Use Case.
