@@ -1,5 +1,11 @@
 package app;
 
+import java.awt.CardLayout;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
+
 import data_access.InMemoryUserDataAccessObject;
 import data_access.MovieAccessObject;
 import entity.CommonUserFactory;
@@ -150,11 +156,6 @@ import view.SignupView;
 import view.ViewManager;
 import view.WatchedListView;
 import view.WatchlistView;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
-import java.awt.CardLayout;
 
 /**
  * The AppBuilder class is responsible for putting together the pieces of
@@ -383,8 +384,9 @@ public class AppBuilder {
         return this;
     }
 
-    public AppBuilder addToHomeViewUseCase(){
-        final ToHomeViewOutputBoundary toHomeViewOutputBoundary = new ToHomeViewPresenter(viewManagerModel, homeViewModel, signupViewModel, loginViewModel, searchViewModel);
+    public AppBuilder addToHomeViewUseCase() {
+        final ToHomeViewOutputBoundary toHomeViewOutputBoundary = new ToHomeViewPresenter(viewManagerModel,
+                homeViewModel, signupViewModel, loginViewModel, searchViewModel);
 
         final ToHomeViewInputBoundary toHomeViewInputBoundary = new ToHomeInteractor(toHomeViewOutputBoundary);
         final ToHomeViewController toHomeViewController = new ToHomeViewController(toHomeViewInputBoundary);
@@ -439,7 +441,6 @@ public class AppBuilder {
 
         final LogoutInputBoundary logoutInteractor =
                 new LogoutInteractor(userDataAccessObject, logoutOutputBoundary);
-
 
         final LogoutController logoutController = new LogoutController(logoutInteractor);
         changePasswordView.setLogoutController(logoutController);
@@ -592,14 +593,12 @@ public class AppBuilder {
         final WatchlistRemoveOutputBoundary watchlistremoveOutputBoundary =
                 new WatchlistRemovePresenter(viewManagerModel, loggedInViewModel);
         final WatchlistRemoveInputBoundary watchlistremoveInteractor =
-                new WatchlistRemoveInteractor(watchlistremoveOutputBoundary,userDataAccessObject);
+                new WatchlistRemoveInteractor(watchlistremoveOutputBoundary, userDataAccessObject);
         final WatchlistRemoveController watchlistremoveController =
                 new WatchlistRemoveController(watchlistremoveInteractor);
         watchlistView.setWatchlistremovecontroller(watchlistremoveController);
         return this;
     }
-
-
 
     /**
      * Adds the To Rate Use Case to the application.
@@ -635,7 +634,8 @@ public class AppBuilder {
     public AppBuilder addWatchedListUseCase() {
         final WatchedListOutputBoundary watchedListOutputBoundary =
                 new WatchedListPresenter(viewManagerModel, loggedInViewModel);
-        final WatchedListInputBoundary watchedListInputBoundary = new WatchedListInteractor(watchedListOutputBoundary, userDataAccessObject);
+        final WatchedListInputBoundary watchedListInputBoundary = new WatchedListInteractor(watchedListOutputBoundary,
+                userDataAccessObject);
         final WatchedListController watchedListController = new WatchedListController(watchedListInputBoundary);
         watchedListView.setWatchedListController(watchedListController);
         return this;
@@ -663,7 +663,8 @@ public class AppBuilder {
     public AppBuilder addRatedListUseCase() {
         final RatedListOutputBoundary ratedListOutputBoundary =
                 new RatedListPresenter(viewManagerModel, loggedInViewModel);
-        final RatedListInputBoundary ratedListInputBoundary = new RatedListInteractor(ratedListOutputBoundary, userDataAccessObject);
+        final RatedListInputBoundary ratedListInputBoundary = new RatedListInteractor(ratedListOutputBoundary,
+                userDataAccessObject);
         final RatedListController ratedListController = new RatedListController(ratedListInputBoundary);
         ratedListView.setRatedListController(ratedListController);
         return this;
@@ -751,6 +752,7 @@ public class AppBuilder {
 
         return application;
     }
+
     public ViewManager getViewManager() {
         return viewManager;
     }
