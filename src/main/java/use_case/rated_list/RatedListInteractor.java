@@ -1,6 +1,9 @@
 package use_case.rated_list;
 
-public class RatedListInteractor implements RatedListInputBoundary{
+/**
+ * The interactor for the rated list use case.
+ */
+public class RatedListInteractor implements RatedListInputBoundary {
     private final RatedListOutputBoundary presenter;
     private final RatedListDataAccessInterface useraccess;
 

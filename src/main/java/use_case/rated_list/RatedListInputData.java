@@ -1,7 +1,8 @@
 package use_case.rated_list;
 
-import java.util.Map;
-
+/**
+ * The input data for the rated list use case.
+ */
 public class RatedListInputData {
     private final String username;
     private final String title;
@@ -11,10 +12,9 @@ public class RatedListInputData {
         this.title = title;
     }
 
-    public String getUsername(){
+    public String getUsername() {
         return this.username;
     }
-
 
     public String getTitle() {
         return title;

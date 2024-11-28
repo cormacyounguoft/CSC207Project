@@ -1,11 +1,10 @@
 package use_case.rated_list;
 
-import java.util.List;
-import java.util.Map;
-
+/**
+ * The output data for the rated list use case.
+ */
 public class RatedListOutputData {
     private final String username;
-
 
     public RatedListOutputData(String username) {
         this.username = username;
