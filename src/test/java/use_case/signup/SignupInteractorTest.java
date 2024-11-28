@@ -1,6 +1,8 @@
 package use_case.signup;
 
-import entity.*;
+import entity.CommonUserFactory;
+import entity.User;
+import entity.UserFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.MockDataAccessObject;

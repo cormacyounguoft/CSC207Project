@@ -3,7 +3,6 @@ package use_case.logged_in_search;
 import entity.CommonUserFactory;
 import entity.User;
 import entity.UserFactory;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.MockDataAccessObject;

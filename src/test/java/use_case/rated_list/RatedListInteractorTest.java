@@ -1,10 +1,16 @@
 package use_case.rated_list;
 
-import entity.*;
+import entity.CommonUserFactory;
+import entity.Movie;
+import entity.MovieFactory;
+import entity.User;
+import entity.UserFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.MockDataAccessObject;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class RatedListInteractorTest {
     MockDataAccessObject dataAccessObject;
@@ -32,6 +38,7 @@ class RatedListInteractorTest {
             @Override
             public void prepareSuccessView(RatedListOutputData outputData) {
                 assertEquals(outputData.getUsername(), "Username");
+                assertFalse(outputData.isUseCaseFailed());
             }
         };
 

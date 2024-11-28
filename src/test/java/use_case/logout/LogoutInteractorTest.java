@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.fail;
 
 class LogoutInteractorTest {
 
@@ -31,11 +30,6 @@ class LogoutInteractorTest {
                 // check that the output data contains the username of who logged out
                 assertEquals("Paul", user.getUsername());
                 assertFalse(user.isUseCaseFailed());
-            }
-
-            @Override
-            public void prepareFailView(String error) {
-                fail("Use case failure is unexpected.");
             }
         };
 

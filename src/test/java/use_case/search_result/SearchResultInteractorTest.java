@@ -3,7 +3,6 @@ package use_case.search_result;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class SearchResultInteractorTest {
     @Test
@@ -13,11 +12,6 @@ public class SearchResultInteractorTest {
             @Override
             public void prepareSuccessView(SearchResultOutputData outputData) {
                 assertFalse(outputData.isUseCaseFailed());
-            }
-
-            @Override
-            public void prepareFailView(String error) {
-                fail("Use case failure is unexpected.");
             }
         };
 
