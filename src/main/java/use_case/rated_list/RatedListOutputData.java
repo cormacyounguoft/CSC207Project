@@ -4,14 +4,14 @@ import java.util.List;
 import java.util.Map;
 
 public class RatedListOutputData {
-    private final Map<String, List<String>> userRating;
+    private final String username;
 
-    public RatedListOutputData(Map<String, List<String>> userRating) {
-        this.userRating = userRating;
 
+    public RatedListOutputData(String username) {
+        this.username = username;
     }
 
-    public Map<String, List<String>> getUserRating() {
-        return userRating;
+    public String getUsername() {
+        return username;
     }
 }

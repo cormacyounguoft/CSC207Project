@@ -50,17 +50,24 @@ public class RateView extends JPanel implements ActionListener, PropertyChangeLi
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(rate)) {
                             final RateState currentState = rateViewModel.getState();
-                            int rating = Integer.parseInt(rateInputField.getText());
-                            rateController.execute(currentState.getUsername(), currentState.getTitle(), rating);
-                            if (currentState.getRateError() != null) {
-                                JOptionPane.showMessageDialog(null, currentState.getRateError());
-                                currentState.setRateError(null);
-                            }
-                            else {
+                            try {
+                                int rating = Integer.parseInt(rateInputField.getText());
+                                rateController.execute(currentState.getUsername(), currentState.getTitle(), rating);
+                                if (currentState.getRateError() != null) {
+                                    JOptionPane.showMessageDialog(null, currentState.getRateError());
+                                }
+                                else {
                                     JOptionPane.showMessageDialog(null, "The rating of " +
                                             rating + " out of 5 for \"" + currentState.getTitle() +
                                             "\" has been saved to your account.");
                                 }
+                            } catch (NumberFormatException e) {
+
+                                JOptionPane.showMessageDialog(null, "The rating must be an " +
+                                        "integer between 0 and 5.");
+
+                            }
+
                         }
                         rateInputField.setText("");
                     }

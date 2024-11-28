@@ -37,6 +37,7 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         RatedListDataAccessInterface,
         DashboardDataAccessInterface,
         WatchlistRemoveDataAccessInterface
+        WatchedListUserDataAccessInterface,
 {
 
     private final Map<String, User> users = new HashMap<>();
@@ -82,6 +83,14 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     @Override
     public void saveToWatchlist(String username, Movie movie) {
         this.get(username).getWatchList().addMovie(movie);
+    }
+
+    @Override
+    public void removeFromWatchedlist(String username, String title) {
+        MovieList list = this.get(username).getWatchedList();
+        Movie movie = list.findMovieByTitle(title);
+        this.get(username).getWatchedList().removeMovie(movie);
+        this.removeUserRating(username, title);
     }
 
     @Override

@@ -44,6 +44,7 @@ public class LoggedInPresenter implements LoggedInOutputBoundary {
     public void switchToChangePasswordView(LoggedInOutputData loggedInOutputData) {
         final ChangePasswordState changePasswordState = changePasswordViewModel.getState();
         changePasswordState.setUsername(loggedInOutputData.getUsername());
+        changePasswordState.setPasswordError(null);
         changePasswordViewModel.setState(changePasswordState);
         changePasswordViewModel.firePropertyChanged();
 

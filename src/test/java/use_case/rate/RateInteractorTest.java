@@ -46,9 +46,6 @@ public class RateInteractorTest {
                 fail("Use case failure is unexpected.");
             }
 
-            @Override
-            public void switchToLoggedInView(RateOutputData outputData) {
-            }
         };
 
         RateInputBoundary interactor = new RateInteractor(dataAccessObject, presenter);
@@ -70,9 +67,6 @@ public class RateInteractorTest {
                 assertEquals(errorMessage, "Rating must be between 0 and 5 inclusive.");
             }
 
-            @Override
-            public void switchToLoggedInView(RateOutputData outputData) {
-            }
         };
 
         RateInputBoundary interactor = new RateInteractor(dataAccessObject, presenter);
@@ -94,9 +88,6 @@ public class RateInteractorTest {
                 assertEquals(errorMessage, "Rating must be between 0 and 5 inclusive.");
             }
 
-            @Override
-            public void switchToLoggedInView(RateOutputData outputData) {
-            }
         };
 
         RateInputBoundary interactor = new RateInteractor(dataAccessObject, presenter);

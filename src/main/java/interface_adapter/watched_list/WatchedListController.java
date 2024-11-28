@@ -13,8 +13,8 @@ public class WatchedListController {
         this.interactor = interactor;
     }
 
-    public void execute(String username, List<String> watchedListTitle, List<String> watchedListURL) {
-        final WatchedListInputData inputData = new WatchedListInputData(username, watchedListTitle, watchedListURL);
+    public void execute(String username, String title) {
+        final WatchedListInputData inputData = new WatchedListInputData(username, title);
         interactor.execute(inputData);
     }
 }

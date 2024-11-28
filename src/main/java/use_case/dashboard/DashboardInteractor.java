@@ -26,13 +26,26 @@ public class DashboardInteractor implements DashboardInputBoundary {
         dashboardPresenter.prepareSuccessView(outputData);
     }
 
-    private int getTotalHoursWatched(String username) {
-        int result = 0;
+    private String getTotalHoursWatched(String username) {
+        int totalMinutes = 0;
 
         for (Movie movie : dashboaedListDataAccess.getWatchedMovies(username).getMovieList()) {
-            result += movie.getRuntime();
+            totalMinutes += movie.getRuntime();
         }
-        return result;
+        int hours = totalMinutes / 60;
+        int minutes = totalMinutes % 60;
+
+        if (hours == 0){
+            if (minutes == 0){
+                return "No time watched";
+            }
+            return minutes + " minutes";
+        }
+        else if (hours == 1){
+            return 1 + " hour and " + minutes + " minutes";
+        }
+        else
+            return hours + " hours and " + minutes + " minutes";
     }
 
     private String getFavoriteGenre(String username) {
@@ -44,7 +57,11 @@ public class DashboardInteractor implements DashboardInputBoundary {
                 result = movie.getGenre().toString();
             }
         }
-        return result;
+        if (!result.isEmpty()) {
+            return result;
+        } else {
+            return "No favourite genre";
+        }
     }
 
     private String getFavoriteMovie(String username) {
@@ -57,7 +74,11 @@ public class DashboardInteractor implements DashboardInputBoundary {
                 highestRating = dashboaedListDataAccess.getUserRatings(username).getMovieToRating().get(key);
             }
         }
-        return result;
+        if (!result.isEmpty()) {
+            return result;
+        } else {
+            return "No favourite movie";
+        }
     }
 
     private double getAverageRating(String username) {
@@ -68,8 +89,12 @@ public class DashboardInteractor implements DashboardInputBoundary {
             totalRating += dashboaedListDataAccess.getUserRatings(username).getMovieToRating().get(key);
             totalNum ++;
             }
-
-        return (double) totalRating / totalNum;
+        if (totalNum == 0) {
+            return 0;
+        }
+        else {
+            return (double) totalRating / totalNum;
+        }
     }
 
     private String getLongestMovie(String username) {
@@ -82,6 +107,10 @@ public class DashboardInteractor implements DashboardInputBoundary {
                 result = movie.getTitle();
             }
         }
-        return result;
+        if (!result.isEmpty()) {
+            return result;
+        } else {
+            return "No movies watched";
+        }
     }
 }

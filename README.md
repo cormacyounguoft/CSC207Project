@@ -1,45 +1,74 @@
 # CSC207Project: Movie Application
 
 ### Authors and Contributers
+- Aseer Baset 
+- Cormac Young 
 - Humza Chaudhry 
 - Samir Hendawi 
-- Cormac Young 
-- Serdar Zhangali 
-- Aseer Baset
+- Serdar Zhangali
 
 ### Project Purpose
 The purpose of this project is to create a movie organization system that allows users to explore and manage a comprehensive database of movies. Users can search for movies by title, view details including the rating, release date, and genre, create and manage watchlists, rate movies, and maintain a history of watched films.
 
 ### Table of contents
 
-### Features of the software
-Users can search for movies, where the release date, rotten tomatoes score, genre, actors, and directors of the movie is displayed. 
-Users are able to sign up and create an account. In which you set a password that must meet a criteria. 
-When users sign up, they are able to log into their accounts, using the password and username created at signup. 
+<!-- TOC -->
+* [Authors and Contributers](#authors-and-contributers)
+* [Project Purpose](#project-purpose)
+* [Features of the software](#features-of-the-software)
+* [Installation instructions](#installation-instructions)
+* [Usage guide](#usage-guide)
+* [License](#license)
+* [Feedback](#feedback)
+* [Contributions](#contributions)
+* [User Stories](#user-stories)
+<!-- TOC -->
 
-After logging in, users have the ability to: 
-Users have the ability to add a movie to their watched list. This is intended to contain movies that the user has watched. 
-Users have the ability to add a movie to their watch list, which is intended to contain movies that users want to watch in the future. 
-Users have the ability to rate movies after they have added the movie to their watched list. To do this users must click on the poster after navigating to their watched list page, which would then prompt you to enter a rating out of 5. 
-Users can change the password of their account. The changed password must also match the restrictions required for passwords in account creation.
-Users can navigate to a dashboard panel, which consists of their username, total hours watched, their favourite movie, their favourite genre, an average of the ratings they have given, and the longest movie that they have watched.
-Users can navigate to a rated list panel, which displays the names and posters of movies that they have rated accompanied by the rating they gave each movie. 
+### Features of the software
+- Signup, login, and change password.
+- Search for movies and view detailed information, including title, release date, Rotten Tomatoes score, genres, actors, directors, and a description.
+- Add and remove movies from a watchlist to keep track of films you want to watch.
+- Add and remove movies from a watched list to track films you’ve already seen.
+- Rate movies you’ve watched on a scale of 0 to 5.
+- View a dashboard with insights including total hours watched, longest movie watched, favorite genre, favorite movie, and your average movie rating.
+
+#### Here's what the Logged-In View looks like:
+<img src="images/LoggedInView.png" alt="Logged In View" width="500"/>
+
+#### Here's what the Logged-In Search Result View looks like:
+<img src="images/SearchedMovie.png" alt="Logged In Search Result" width="500"/>
 
 ### Installation instructions
 1. Fork the GitHub repository and clone it to your computer. Refer to these guides for assistance: [Set up a Git repository in IntelliJ](https://www.jetbrains.com/help/idea/set-up-a-git-repository.html#clone-repo) and [Fork a repository on GitHub](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo).
-2. Visit [OMDb API](www.omdbapi.com) and generate an API key.
+2. Visit [OMDb API](https://www.omdbapi.com) and generate an API key.
 3. In IntelliJ, navigate to Run > Edit Configurations > Environment variables.
-4. Add your API key in the format: APIKEY=[YOUR_API_KEY_HERE]. It should look like this: 
-![image of adding the api key as an environment variable.](images/adding_api_key.png "adding api key")
-5. Once the API key is set up, you can run the Main program.
+4. Add your API key in the format: APIKEY=YOUR_API_KEY. It should look like this:
+
+<img src="images/adding_api_key.png" alt="Adding API key" width="500"/>
+
+5. Set `pom.xml` as Maven by right-clicking on the `pom.xml` file and selecting "Add as Maven Project." You may need to reload the Maven project.
+6. Once the API key and the Maven Project are set up, you can run the Main program.
 
 ### Usage guide
+- Signup: When you open the app, you’ll start at the Home View, where you can sign up, log in, or search. Since the program doesn’t save users between sessions, you’ll need to sign up each time you run the app. To sign up, click Go to Sign Up, then enter a username and password. Passwords must be at least 8 characters long and include an uppercase letter, a lowercase letter, a digit, and a special character. 
+- Login: From the Home View, click Go to Login and enter your credentials to access your account. 
+- Search: You can search for movies while logged in or out. If you search while logged out, you won’t be able to add movies to your watchlist or watched list. To search, click Go to Search from either the Home View or the Logged In View, enter a movie title, and click Search. This takes you to the Search Result View, where logged-in users can add movies to their watchlist or watched list. 
+- Add to Watchlist: Log in and search for a movie, then click Add to Watchlist to save it to your watchlist. 
+- Add to Watched List: Log in, search for a movie, and click Add to Watched List to save it to your watched list
+- Rate a Movie: To rate a movie, it must first be in your watched list. Go to your watched list, find the movie you want to rate, and click Rate. Enter a rating between 0 and 5 inclusive. 
+- View Watchlist: Log in and click Go to Watchlist to view all the movies you’ve added to your watchlist. 
+- View Watched List: Log in and click Go to Watched List to see the movies you’ve added to your watched list. 
+- View Rated List: Log in and click Go to Rated List to view all the movies you’ve rated. 
+- View Dashboard: The dashboard provides statistics based on your watched and rated movies. To access it, log in and click Go to Dashboard.
 
 ### License
+You can find the license [here](LICENSE).
 
 ### Feedback
+We welcome constructive feedback to improve our software! You can share your thoughts through the GitHub Discussion Board by navigating to the Discussions tab in our repository and starting a new discussion under the relevant category (e.g., "Bugs," "Suggestions"). For bugs or feature requests, create a GitHub Issue with a clear and concise description, including steps to reproduce any problems. Valid feedback should be relevant, well-detailed, and respectful. Once submitted, a team member will review your feedback and address it based on priority and feasibility.
 
 ### Contributions
+We’re excited to have you contribute! Start by forking the repository on GitHub and cloning it to your local machine. Create a new branch for your changes, implement your updates, and commit with clear messages. Push your branch to your fork and open a Pull Request in the original repository, including a detailed description of your changes. Ensure your pull request is well-tested, properly formatted, and limited to relevant changes. A team will review your pull request, provide feedback if needed, and merge approved contributions.
 
 ### User Stories
 1. **Team Story:** John wants to log into his account. After logging in, he can search for movies, view his watchlist, view his watched list, and see what movies he has rated.

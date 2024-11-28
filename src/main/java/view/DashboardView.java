@@ -71,7 +71,7 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
         if (evt.getPropertyName().equals("state")) {
             final DashboardState state = (DashboardState) evt.getNewValue();
             usernameLabel.setText("Username: " + state.getUsername());
-            totalHoursWatchedLabel.setText("Total Hours Watched: " + state.getTotalHoursWatched());
+            totalHoursWatchedLabel.setText("Total Time Watched: " + state.getTotalHoursWatched());
             favoriteMovieLabel.setText("Favorite Movie: " + state.getFavoriteMovie());
             favoriteGenreLable.setText("Favorite Genre: " + state.getFavoriteGenre());
             longestMovieLabel.setText("Longest Movie Watched: " + state.getLongestMovie());
