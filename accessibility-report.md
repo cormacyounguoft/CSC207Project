@@ -4,7 +4,7 @@
 
 (b) Explain why the principle does not apply to a program like yours.
 
-   Principle 4: Perceptible Information
+   Principle4: Perceptible Information
       a) We could add a feature for a text to speach option for poeple you cant see.
          We could add audio cues for certain important actions in the program 
 
