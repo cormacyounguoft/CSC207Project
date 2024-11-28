@@ -1,10 +1,6 @@
 package interface_adapter.logged_in_search_result;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.logged_in.LoggedInState;
-import interface_adapter.logged_in.LoggedInViewModel;
-import interface_adapter.rate.RateState;
-import interface_adapter.rate.RateViewModel;
 import use_case.logged_in_search_result.LoggedInSearchResultOutputBoundary;
 import use_case.logged_in_search_result.LoggedInSearchResultOutputData;
 
@@ -32,6 +28,5 @@ public class LoggedInSearchResultPresenter implements LoggedInSearchResultOutput
         searchResultState.setMovieError(errorMessage);
         loggedInSearchResultViewModel.firePropertyChanged();
     }
-
 
 }
