@@ -1,8 +1,5 @@
 package interface_adapter.dashboard;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ArrayList;
-import java.util.List;
+
 /**
  * The state class representing the data for the Dashboard View.
  */
