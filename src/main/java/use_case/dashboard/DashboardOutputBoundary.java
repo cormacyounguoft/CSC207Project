@@ -1,6 +1,8 @@
 package use_case.dashboard;
-import use_case.logged_in.LoggedInOutputData;
 
+/**
+ * The Output Boundary for the Dashboard.
+ */
 public interface DashboardOutputBoundary {
 
     /**

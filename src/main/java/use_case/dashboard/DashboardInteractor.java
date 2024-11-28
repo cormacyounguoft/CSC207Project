@@ -1,10 +1,12 @@
 package use_case.dashboard;
+
 import entity.Movie;
 
 /**
  * The interactor for the Dashboard Use Case, using the WatchedList as the data source.
  */
 public class DashboardInteractor implements DashboardInputBoundary {
+    private static final int MINUTES_IN_AN_HOUR = 60;
     private final DashboardDataAccessInterface dashboaedListDataAccess;
     private final DashboardOutputBoundary dashboardPresenter;
 
@@ -32,24 +34,27 @@ public class DashboardInteractor implements DashboardInputBoundary {
         for (Movie movie : dashboaedListDataAccess.getWatchedMovies(username).getMovieList()) {
             totalMinutes += movie.getRuntime();
         }
-        int hours = totalMinutes / 60;
-        int minutes = totalMinutes % 60;
 
-        if (hours == 0){
-            if (minutes == 0){
-                return "No time watched";
+        final int hours = totalMinutes / MINUTES_IN_AN_HOUR;
+        final int minutes = totalMinutes % MINUTES_IN_AN_HOUR;
+
+        final String timeWatched;
+        if (hours == 0) {
+            if (minutes == 0) {
+                timeWatched = "No time watched";
             }
-            return minutes + " minutes";
+            else {
+                timeWatched = minutes + " minutes";
+            }
         }
-        else if (hours == 1){
-            return 1 + " hour and " + minutes + " minutes";
+        else {
+            timeWatched = hours + " hours and " + minutes + " minutes";
         }
-        else
-            return hours + " hours and " + minutes + " minutes";
+        return timeWatched;
     }
 
     private String getFavoriteGenre(String username) {
-        String favoriteMovie = getFavoriteMovie(username);
+        final String favoriteMovie = getFavoriteMovie(username);
         String result = "";
 
         for (Movie movie : dashboaedListDataAccess.getWatchedMovies(username).getMovieList()) {
@@ -57,11 +62,14 @@ public class DashboardInteractor implements DashboardInputBoundary {
                 result = movie.getGenre().toString();
             }
         }
+        final String finalResult;
         if (!result.isEmpty()) {
-            return result;
-        } else {
-            return "No favourite genre";
+            finalResult = result;
         }
+        else {
+            finalResult = "No favourite genre";
+        }
+        return finalResult;
     }
 
     private String getFavoriteMovie(String username) {
@@ -74,11 +82,10 @@ public class DashboardInteractor implements DashboardInputBoundary {
                 highestRating = dashboaedListDataAccess.getUserRatings(username).getMovieToRating().get(key);
             }
         }
-        if (!result.isEmpty()) {
-            return result;
-        } else {
-            return "No favourite movie";
+        if (result.isEmpty()) {
+            result = "No favourite movie";
         }
+        return result;
     }
 
     private double getAverageRating(String username) {
@@ -87,14 +94,16 @@ public class DashboardInteractor implements DashboardInputBoundary {
 
         for (String key : dashboaedListDataAccess.getUserRatings(username).getMovieToRating().keySet()) {
             totalRating += dashboaedListDataAccess.getUserRatings(username).getMovieToRating().get(key);
-            totalNum ++;
-            }
+            totalNum++;
+        }
+        final double result;
         if (totalNum == 0) {
-            return 0;
+            result = 0;
         }
         else {
-            return (double) totalRating / totalNum;
+            result = (double) totalRating / totalNum;
         }
+        return result;
     }
 
     private String getLongestMovie(String username) {
@@ -107,10 +116,13 @@ public class DashboardInteractor implements DashboardInputBoundary {
                 result = movie.getTitle();
             }
         }
+        final String finalResult;
         if (!result.isEmpty()) {
-            return result;
-        } else {
-            return "No movies watched";
+            finalResult = result;
         }
+        else {
+            finalResult = "No movies watched";
+        }
+        return finalResult;
     }
 }
