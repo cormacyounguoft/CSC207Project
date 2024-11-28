@@ -50,12 +50,11 @@ public class SignupInteractor implements SignupInputBoundary {
     }
 
     private boolean validateUsername(String username) {
-        return username == null || username.length() < 3 || username.contains(" ");
+        return username.length() < 3 || username.contains(" ");
     }
 
     private boolean validatePassword(String password) {
-        return password != null &&
-                password.length() >= 8 &&
+        return password.length() >= 8 &&
                 password.matches(".*[A-Z].*") &&
                 password.matches(".*[a-z].*") &&
                 password.matches(".*\\d.*") &&
