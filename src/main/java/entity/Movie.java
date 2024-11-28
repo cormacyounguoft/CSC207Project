@@ -2,7 +2,6 @@ package entity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * The representation of a movie in our program.

@@ -1,12 +1,5 @@
 package data_access;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import entity.Movie;
 import entity.MovieList;
 import entity.User;
@@ -25,6 +18,13 @@ import use_case.rated_list.RatedListDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 import use_case.watched_list_remove.WatchedListRemoveDataAccessInterface;
 import use_case.watchlist_remove.WatchlistRemoveDataAccessInterface;
+
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * In-memory implementation of the DAO for storing user data. This implementation does

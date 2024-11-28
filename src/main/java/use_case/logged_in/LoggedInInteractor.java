@@ -23,25 +23,4 @@ public class LoggedInInteractor implements LoggedInInputBoundary {
                 false);
         presenter.switchToChangePasswordView(loggedInOutputData);
     }
-
-    @Override
-    public void switchToWatchListView(LoggedInInputData loggedInInputData) {
-        final LoggedInOutputData loggedInOutputData = new LoggedInOutputData(loggedInInputData.getUsername(),
-                false);
-        presenter.switchToWatchListView(loggedInOutputData);
-    }
-
-    @Override
-    public void switchToWatchedListView(LoggedInInputData loggedInInputData) {
-        final LoggedInOutputData loggedInOutputData = new LoggedInOutputData(loggedInInputData.getUsername(),
-                false);
-        presenter.switchToWatchedListView(loggedInOutputData);
-    }
-
-    @Override
-    public void switchToDashboardView(LoggedInInputData loggedInInputData) {
-        final LoggedInOutputData loggedInOutputData = new LoggedInOutputData(loggedInInputData.getUsername(),
-                false);
-        presenter.switchToDashboardView(loggedInOutputData);
-    }
 }

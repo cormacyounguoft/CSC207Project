@@ -1,6 +1,5 @@
 package interface_adapter.go_to_rate;
 
-import entity.Movie;
 import use_case.go_to_rate.GoRateInputBoundary;
 import use_case.go_to_rate.GoRateInputData;
 

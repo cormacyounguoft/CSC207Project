@@ -1,11 +1,5 @@
 package app;
 
-import java.awt.CardLayout;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
-
 import data_access.InMemoryRemoveDataAccessObject;
 import data_access.MovieAccessObject;
 import entity.CommonUserFactory;
@@ -156,6 +150,11 @@ import view.SignupView;
 import view.ViewManager;
 import view.WatchedListView;
 import view.WatchlistView;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
+import java.awt.CardLayout;
 
 /**
  * The AppBuilder class is responsible for putting together the pieces of
@@ -421,7 +420,7 @@ public class AppBuilder {
      */
     public AppBuilder addChangePasswordUseCase() {
         final ChangePasswordOutputBoundary changePasswordOutputBoundary =
-                new ChangePasswordPresenter(changePasswordViewModel, viewManagerModel);
+                new ChangePasswordPresenter(changePasswordViewModel);
         final ChangePasswordInputBoundary changePasswordInteractor =
                 new ChangePasswordInteractor(userDataAccessObject, changePasswordOutputBoundary, userFactory);
         final ChangePasswordController changePasswordController =
@@ -514,10 +513,8 @@ public class AppBuilder {
         final LoggedInOutputBoundary loggedInOutputBoundary = new LoggedInPresenter(
                 viewManagerModel,
                 changePasswordViewModel,
-                loggedInSearchViewModel,
-                watchlistRemoveViewModel,
-                watchedListRemoveViewModel,
-                dashboardViewModel);
+                loggedInSearchViewModel
+        );
 
         final LoggedInInputBoundary loggedInInteractor = new LoggedInInteractor(loggedInOutputBoundary);
         final LoggedInController loggedInController = new LoggedInController(loggedInInteractor);
@@ -546,7 +543,7 @@ public class AppBuilder {
      */
     public AppBuilder addLoggedInSearchResultUseCase() {
         final LoggedInSearchResultOutputBoundary loggedInSearchResultOutputBoundary =
-                new LoggedInSearchResultPresenter(viewManagerModel, loggedInSearchResultViewModel);
+                new LoggedInSearchResultPresenter(loggedInSearchResultViewModel);
         final LoggedInSearchResultInputBoundary loggedInSearchResultInteractor =
                 new LoggedInSearchResultInteractor(loggedInSearchResultOutputBoundary);
         final LoggedInSearchResultController loggedInSearchResultController =
@@ -661,7 +658,7 @@ public class AppBuilder {
      */
     public AppBuilder addGetWatchedListUseCase() {
         final GetWatchedListOutputBoundary getWatchedListOutputBoundary =
-                new GetWatchedListPresenter(viewManagerModel, loggedInViewModel, watchedListRemoveViewModel);
+                new GetWatchedListPresenter(viewManagerModel, watchedListRemoveViewModel);
         final GetWatchedListInputBoundary getWatchedListInputBoundary =
                 new GetWatchedListInteractor(getWatchedListOutputBoundary, userDataAccessObject);
         final GetWatchedListController getWatchedListController =
@@ -676,7 +673,7 @@ public class AppBuilder {
      */
     public AppBuilder addGetRatedListUseCase() {
         final GetRateListOutputBoundary getRateListOutputBoundary =
-                new GetRatedListPresenter(viewManagerModel, loggedInViewModel, ratedListViewModel);
+                new GetRatedListPresenter(viewManagerModel, ratedListViewModel);
         final GetRateListInputBoundary getRateListInputBoundary =
                 new GetRateListInteractor(userDataAccessObject, getRateListOutputBoundary);
         final GetRatedListController getRatedListController = new GetRatedListController(getRateListInputBoundary);
@@ -690,7 +687,7 @@ public class AppBuilder {
      */
     public AppBuilder addGetWatchlistUseCase() {
         final GetWatchlistOutputBoundary getWatchlistOutputBoundary =
-                new GetWatchlistPresenter(viewManagerModel, loggedInViewModel, watchlistRemoveViewModel);
+                new GetWatchlistPresenter(viewManagerModel, watchlistRemoveViewModel);
         final GetWatchlistInputBoundary getWatchlistInputBoundary =
                 new GetWatchlistInteractor(getWatchlistOutputBoundary, userDataAccessObject);
         final GetWatchlistController getWatchlistController = new GetWatchlistController(getWatchlistInputBoundary);

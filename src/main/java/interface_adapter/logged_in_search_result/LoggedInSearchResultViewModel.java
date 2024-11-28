@@ -10,7 +10,6 @@ public class LoggedInSearchResultViewModel extends ViewModel<LoggedInSearchResul
 
     public static final String ADD_TO_WATCHLIST_BUTTON_LABEL = "Add to watchlist";
     public static final String ADD_TO_WATCHED_LIST_BUTTON_LABEL = "Add to watched list";
-    public static final String RATE_BUTTON_LABEL = "Rate movie";
     public static final String CANCEL_BUTTON_LABEL = "Cancel";
 
     public LoggedInSearchResultViewModel() {
