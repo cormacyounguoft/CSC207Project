@@ -9,7 +9,6 @@ public class WatchedListRemoveState {
     private String username;
     private List<String> watchedListTitle;
     private List<String> watchedListUrl;
-    private String movieError;
 
     public String getUsername() {
         return username;
@@ -33,13 +32,5 @@ public class WatchedListRemoveState {
 
     public void setWatchedListUrl(List<String> watchedListUrl) {
         this.watchedListUrl = watchedListUrl;
-    }
-
-    public String getMovieError() {
-        return movieError;
-    }
-
-    public void setMovieError(String movieError) {
-        this.movieError = movieError;
     }
 }

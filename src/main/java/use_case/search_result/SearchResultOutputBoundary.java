@@ -9,11 +9,4 @@ public interface SearchResultOutputBoundary {
      * @param outputData the output data
      */
     void prepareSuccessView(SearchResultOutputData outputData);
-
-    /**
-     * Prepares the failure view for the Search Result Use Case.
-     * @param errorMessage the explanation of the failure
-     */
-    void prepareFailView(String errorMessage);
-
 }

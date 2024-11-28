@@ -373,7 +373,7 @@ public class AppBuilder {
     public AppBuilder addSignupUseCase() {
 
         final SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel,
-                signupViewModel, loginViewModel, homeViewModel);
+                signupViewModel, loginViewModel);
 
         final SignupInputBoundary userSignupInteractor = new SignupInteractor(
                 userDataAccessObject, signupOutputBoundary, userFactory);
@@ -403,7 +403,7 @@ public class AppBuilder {
     public AppBuilder addLoginUseCase() {
 
         final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
-                loggedInViewModel, loginViewModel, homeViewModel);
+                loggedInViewModel, loginViewModel);
 
         final LoginInputBoundary loginInteractor = new LoginInteractor(
                 userDataAccessObject, loginOutputBoundary);
@@ -436,7 +436,7 @@ public class AppBuilder {
     public AppBuilder addLogoutUseCase() {
 
         final LogoutOutputBoundary logoutOutputBoundary = new LogoutPresenter(viewManagerModel,
-                changePasswordViewModel, loginViewModel, signupViewModel);
+                changePasswordViewModel, loginViewModel);
 
         final LogoutInputBoundary logoutInteractor =
                 new LogoutInteractor(userDataAccessObject, logoutOutputBoundary);
@@ -469,7 +469,7 @@ public class AppBuilder {
      */
     public AppBuilder addSearchResultUseCase() {
         final SearchResultOutputBoundary searchResultOutputBoundary =
-                new SearchResultPresenter(viewManagerModel, searchResultViewModel, homeViewModel);
+                new SearchResultPresenter(searchResultViewModel);
         final SearchResultInputBoundary searchResultInteractor = new SearchResultInteractor(searchResultOutputBoundary);
         final SearchResultController controller = new SearchResultController(searchResultInteractor);
         searchResultView.setSearchResultController(controller);

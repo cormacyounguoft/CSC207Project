@@ -22,11 +22,4 @@ public class SearchState {
     public void setSearchQuery(String searchQuery) {
         this.searchQuery = searchQuery;
     }
-
-    @Override
-    public String toString() {
-        return "SearchState{"
-                + "searchQuery='" + searchQuery + '\''
-                + '}';
-    }
 }
