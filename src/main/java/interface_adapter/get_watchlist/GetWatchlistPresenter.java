@@ -6,7 +6,11 @@ import interface_adapter.watchlist_remove.WatchlistRemoveViewModel;
 import use_case.get_watchlist.GetWatchlistOutputBoundary;
 import use_case.get_watchlist.GetWatchlistOutputData;
 
+/**
+ * The presenter for the get watchlist use case.
+ */
 public class GetWatchlistPresenter implements GetWatchlistOutputBoundary {
+
     private final ViewManagerModel viewManagerModel;
     private final WatchlistRemoveViewModel watchlistViewModel;
 
@@ -20,7 +24,7 @@ public class GetWatchlistPresenter implements GetWatchlistOutputBoundary {
         final WatchlistRemoveState watchlistState = watchlistViewModel.getState();
         watchlistState.setUsername(outputData.getUsername());
         watchlistState.setWatchlistTitle(outputData.getWatchlistTitle());
-        watchlistState.setWatchlistURL(outputData.getWatchlistUrl());
+        watchlistState.setWatchlistUrl(outputData.getWatchlistUrl());
         watchlistViewModel.setState(watchlistState);
         watchlistViewModel.firePropertyChanged();
         viewManagerModel.setState(watchlistViewModel.getViewName());

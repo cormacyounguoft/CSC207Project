@@ -83,10 +83,8 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
         });
 
         export.addActionListener(e -> {
-            if (exportWatchlistController != null) {
-                exportWatchlistController.exportWatchlist(username.getText().split(": ")[1]);
-                JOptionPane.showMessageDialog(this, "Watchlist exported");
-            }
+            final WatchlistRemoveState currentState = watchlistRemoveViewModel.getState();
+            exportWatchlistController.exportWatchlist(username.getText().split(": ")[1]);
         });
 
 
@@ -97,77 +95,87 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
             final WatchlistRemoveState state = (WatchlistRemoveState) evt.getNewValue();
-            final List<String> moviePosters = state.getWatchlistURL();
-            final List<String> movieTitles = state.getWatchlistTitle();
-
-            // Combine movie titles and posters into a single list for sorting
-            List<Movie> movies = new ArrayList<>();
-            for (int i = 0; i < movieTitles.size(); i++) {
-                movies.add(new Movie(movieTitles.get(i), moviePosters.get(i)));
+            if (state.getError() != null) {
+                JOptionPane.showMessageDialog(this, state.getError());
+                state.setError(null);
             }
+            else if (state.getExport() != null) {
+                JOptionPane.showMessageDialog(this, state.getExport());
+                state.setExport(null);
+            }
+            else {
+                final List<String> moviePosters = state.getWatchlistUrl();
+                final List<String> movieTitles = state.getWatchlistTitle();
 
-            // Sort movies by title
-            movies.sort(Comparator.comparing(Movie::getTitle));
-
-            watchlist.removeAll();
-
-            for (Movie movie : movies) {
-                String poster = movie.getPosterUrl();
-                String movieTitle = movie.getTitle();
-
-                JPanel moviePanel = new JPanel(new BorderLayout());
-                JLabel titleLabel = new JLabel(movieTitle, SwingConstants.CENTER);
-                titleLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
-                moviePanel.add(titleLabel, BorderLayout.NORTH);
-
-                JLabel posterLabel = new JLabel();
-                posterLabel.setHorizontalAlignment(SwingConstants.CENTER);
-
-                if (poster.isEmpty()) {
-                    posterLabel.setText("Poster not available.");
-                } else {
-                    try {
-                        URL url = new URL(poster);
-                        BufferedImage image = ImageIO.read(url);
-                        Image scaledImage = image.getScaledInstance(150, 225, Image.SCALE_SMOOTH);
-                        posterLabel.setIcon(new ImageIcon(scaledImage));
-                    } catch (IOException e) {
-                        posterLabel.setText("Poster not available.");
-                    }
+                // Combine movie titles and posters into a single list for sorting
+                List<Movie> movies = new ArrayList<>();
+                for (int i = 0; i < movieTitles.size(); i++) {
+                    movies.add(new Movie(movieTitles.get(i), moviePosters.get(i)));
                 }
 
-                moviePanel.add(posterLabel, BorderLayout.CENTER);
+                // Sort movies by title
+                movies.sort(Comparator.comparing(Movie::getTitle));
 
-                // Add buttons for each movie
-                JPanel buttonPanel = new JPanel(new GridLayout(2, 1, 0, 0));
-                JButton removeButton = createStyledButton("Remove");
-                removeButton.addActionListener(evt1 -> {
-                    final WatchlistRemoveState currentState = watchlistRemoveViewModel.getState();
-                    watchlistRemoveController.execute(currentState.getUsername(), movieTitle);
-                    toLoggedInViewController.toLoggedInView(currentState.getUsername());
-                    JOptionPane.showMessageDialog(null, "\"" + movieTitle + "\" has " +
-                            "been removed from your watchlist.");
-                });
+                watchlist.removeAll();
 
-                JButton moveToWatchedButton = createStyledButton("Watched");
-                moveToWatchedButton.addActionListener(evt1 -> {
-                    final WatchlistRemoveState currentState = watchlistRemoveViewModel.getState();
-                    addToWatchedListController.execute(currentState.getUsername(), movieTitle);
-                    watchlistRemoveController.execute(currentState.getUsername(), movieTitle);
-                    JOptionPane.showMessageDialog(null, "\"" + movieTitle + "\" has " +
-                            "been added to your watched list and removed from your watchlist.");
-                });
+                for (Movie movie : movies) {
+                    String poster = movie.getPosterUrl();
+                    String movieTitle = movie.getTitle();
 
-                buttonPanel.add(removeButton);
-                buttonPanel.add(moveToWatchedButton);
-                moviePanel.add(buttonPanel, BorderLayout.SOUTH);
+                    JPanel moviePanel = new JPanel(new BorderLayout());
+                    JLabel titleLabel = new JLabel(movieTitle, SwingConstants.CENTER);
+                    titleLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
+                    moviePanel.add(titleLabel, BorderLayout.NORTH);
 
-                watchlist.add(moviePanel);
+                    JLabel posterLabel = new JLabel();
+                    posterLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+                    if (poster.isEmpty()) {
+                        posterLabel.setText("Poster not available.");
+                    } else {
+                        try {
+                            URL url = new URL(poster);
+                            BufferedImage image = ImageIO.read(url);
+                            Image scaledImage = image.getScaledInstance(150, 225, Image.SCALE_SMOOTH);
+                            posterLabel.setIcon(new ImageIcon(scaledImage));
+                        } catch (IOException e) {
+                            posterLabel.setText("Poster not available.");
+                        }
+                    }
+
+                    moviePanel.add(posterLabel, BorderLayout.CENTER);
+
+                    // Add buttons for each movie
+                    JPanel buttonPanel = new JPanel(new GridLayout(2, 1, 0, 0));
+                    JButton removeButton = createStyledButton("Remove");
+                    removeButton.addActionListener(evt1 -> {
+                        final WatchlistRemoveState currentState = watchlistRemoveViewModel.getState();
+                        watchlistRemoveController.execute(currentState.getUsername(), movieTitle);
+                        toLoggedInViewController.toLoggedInView(currentState.getUsername());
+                        JOptionPane.showMessageDialog(null, "\"" + movieTitle + "\" has " +
+                                "been removed from your watchlist.");
+                    });
+
+                    JButton moveToWatchedButton = createStyledButton("Watched");
+                    moveToWatchedButton.addActionListener(evt1 -> {
+                        final WatchlistRemoveState currentState = watchlistRemoveViewModel.getState();
+                        addToWatchedListController.execute(currentState.getUsername(), movieTitle);
+                        watchlistRemoveController.execute(currentState.getUsername(), movieTitle);
+                        JOptionPane.showMessageDialog(null, "\"" + movieTitle + "\" has " +
+                                "been added to your watched list and removed from your watchlist.");
+                    });
+
+                    buttonPanel.add(removeButton);
+                    buttonPanel.add(moveToWatchedButton);
+                    moviePanel.add(buttonPanel, BorderLayout.SOUTH);
+
+                    watchlist.add(moviePanel);
+                }
+
+                username.setText("Currently logged in as: " + state.getUsername());
+                watchlist.revalidate();
+                watchlist.repaint();
             }
-
-            username.setText("Currently logged in as: " + state.getUsername());
-            watchlist.revalidate();
-            watchlist.repaint();
         }
     }
 

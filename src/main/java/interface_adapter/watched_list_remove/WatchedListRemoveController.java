@@ -7,6 +7,7 @@ import use_case.watched_list_remove.WatchedListRemoveInputData;
  * The controller for the watched list remove Use Case.
  */
 public class WatchedListRemoveController {
+
     private final WatchedListRemoveInputBoundary interactor;
 
     public WatchedListRemoveController(WatchedListRemoveInputBoundary interactor) {

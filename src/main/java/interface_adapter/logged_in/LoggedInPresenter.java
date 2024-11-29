@@ -12,6 +12,7 @@ import use_case.logged_in.LoggedInOutputData;
  * The Presenter for the Logged In Use Case.
  */
 public class LoggedInPresenter implements LoggedInOutputBoundary {
+
     private final ViewManagerModel viewManagerModel;
     private final ChangePasswordViewModel changePasswordViewModel;
     private final LoggedInSearchViewModel loggedInSearchViewModel;

@@ -1,14 +1,13 @@
 package use_case.rate;
 
 /**
- * Input Boundary for the rate use case.
+ * Input Boundary for rate.
  */
 public interface RateInputBoundary {
 
     /**
-     * Execute the input boundary for the rate use case with the input data.
-     * @param inputData the input data for the rate use case.
+     * Executes the rate use case.
+     * @param inputData the input data
      */
     void execute(RateInputData inputData);
-
 }

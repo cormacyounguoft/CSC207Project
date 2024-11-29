@@ -6,6 +6,7 @@ import use_case.home.HomeInputBoundary;
  * Controller for the Home Use Case.
  */
 public class HomeController {
+
     private final HomeInputBoundary homeUseCaseInteractor;
 
     public HomeController(HomeInputBoundary homeUseCaseInteractor) {

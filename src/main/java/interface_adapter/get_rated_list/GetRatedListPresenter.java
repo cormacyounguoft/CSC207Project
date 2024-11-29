@@ -6,12 +6,15 @@ import interface_adapter.ratedList.RatedListViewModel;
 import use_case.get_rated_list.GetRateListOutputBoundary;
 import use_case.get_rated_list.GetRateListOutputData;
 
-
+/**
+ * The presenter for the get rated list use case.
+ */
 public class GetRatedListPresenter implements GetRateListOutputBoundary {
+
     private final ViewManagerModel viewManagerModel;
     private final RatedListViewModel ratedListViewModel;
 
-    public GetRatedListPresenter(ViewManagerModel viewManagerModel, RatedListViewModel ratedListViewModel ) {
+    public GetRatedListPresenter(ViewManagerModel viewManagerModel, RatedListViewModel ratedListViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.ratedListViewModel = ratedListViewModel;
     }

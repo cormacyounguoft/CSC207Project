@@ -4,6 +4,7 @@ package interface_adapter.dashboard;
  * The state class representing the data for the Dashboard View.
  */
 public class DashboardState {
+
     private String username;
     private String favoriteMovie;
     private String totalHoursWatched;

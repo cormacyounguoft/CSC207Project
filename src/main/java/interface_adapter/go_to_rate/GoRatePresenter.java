@@ -6,9 +6,14 @@ import interface_adapter.rate.RateViewModel;
 import use_case.go_to_rate.GoRateOutputBoundary;
 import use_case.go_to_rate.GoRateOutputData;
 
+/**
+ * The presenter for the goto rate use case.
+ */
 public class GoRatePresenter implements GoRateOutputBoundary {
+
     private final ViewManagerModel viewManager;
     private final RateViewModel rateViewModel;
+
     public GoRatePresenter(ViewManagerModel viewManager, RateViewModel rateViewModel) {
         this.viewManager = viewManager;
         this.rateViewModel = rateViewModel;

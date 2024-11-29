@@ -1,7 +1,7 @@
 package use_case.rate;
 
 /**
- * The output data of the rate use case.
+ * The output data for the Rate Use Case.
  */
 public class RateOutputData {
 

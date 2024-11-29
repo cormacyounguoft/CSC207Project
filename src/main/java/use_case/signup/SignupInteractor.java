@@ -7,6 +7,9 @@ import entity.UserFactory;
  * The Signup Interactor.
  */
 public class SignupInteractor implements SignupInputBoundary {
+
+    public static final int THREE = 3;
+    public static final int EIGHT = 8;
     private final SignupUserDataAccessInterface userDataAccessObject;
     private final SignupOutputBoundary userPresenter;
     private final UserFactory userFactory;
@@ -50,21 +53,19 @@ public class SignupInteractor implements SignupInputBoundary {
     }
 
     private boolean validateUsername(String username) {
-        return username.length() < 3 || username.contains(" ");
+        return username.length() < THREE || username.contains(" ");
     }
 
     private boolean validatePassword(String password) {
-        return password.length() >= 8 &&
-                password.matches(".*[A-Z].*") &&
-                password.matches(".*[a-z].*") &&
-                password.matches(".*\\d.*") &&
-                password.matches(".*[(){}\\[\\]'\";:><,./?\\\\|\\+=\\-_\\*&^%$#@!~`].*");
+        return password.length() >= EIGHT
+                && password.matches(".*[A-Z].*")
+                && password.matches(".*[a-z].*")
+                && password.matches(".*\\d.*")
+                && password.matches(".*[(){}\\[\\]'\";:><,./?\\\\|\\+=\\-_\\*&^%$#@!~`].*");
     }
-
 
     @Override
     public void switchToLoginView() {
         userPresenter.switchToLoginView();
     }
-
 }

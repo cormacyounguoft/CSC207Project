@@ -4,6 +4,7 @@ package use_case.go_to_rate;
  * Output data for go to rate use case.
  */
 public class GoRateOutputData {
+
     private final String username;
     private final String title;
     private final boolean useCaseFailed;

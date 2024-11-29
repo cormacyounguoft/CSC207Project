@@ -4,6 +4,7 @@ package interface_adapter.logged_in_search;
  * The state for the Logged In Search View Model.
  */
 public class LoggedInSearchState {
+
     private String username = "";
     private String searchQuery = "";
     private String searchError;

@@ -10,6 +10,7 @@ import use_case.rate.RateOutputData;
  * The presenter for the Rate Use Case.
  */
 public class RatePresenter implements RateOutputBoundary {
+
     private final ViewManagerModel viewManagerModel;
     private final RateViewModel rateViewModel;
     private final LoggedInViewModel loggedInViewModel;
@@ -43,5 +44,4 @@ public class RatePresenter implements RateOutputBoundary {
         state.setRateError(errorMessage);
         rateViewModel.firePropertyChanged();
     }
-
 }

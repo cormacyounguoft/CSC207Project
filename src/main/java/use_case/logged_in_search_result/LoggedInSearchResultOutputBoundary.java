@@ -1,7 +1,7 @@
 package use_case.logged_in_search_result;
 
 /**
- * Output Boundary for actions which are related to logged in search results.
+ * The output boundary for the Logged In Search result Use Case.
  */
 public interface LoggedInSearchResultOutputBoundary {
 

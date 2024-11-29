@@ -7,6 +7,7 @@ import java.util.Map;
  * The interactor for get rate list.
  */
 public class GetRateListInteractor implements GetRateListInputBoundary {
+
     private final GetRatedListDataAccessInterface dataAccessInterface;
     private final GetRateListOutputBoundary presenter;
 

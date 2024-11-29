@@ -32,7 +32,7 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
         this.setBorder(new EmptyBorder(20, 20, 20, 20)); // Padding around the panel
 
         // Title Label
-        final JLabel title = new JLabel(homeViewModel.TITLE_LABEL, SwingConstants.CENTER);
+        final JLabel title = new JLabel(homeViewModel.TITLE, SwingConstants.CENTER);
         title.setFont(new Font("SansSerif", Font.BOLD, 24));
         title.setForeground(new Color(0, 51, 102)); // Dark blue
         this.add(title, BorderLayout.NORTH);
@@ -43,9 +43,9 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
         buttonsPanel.setOpaque(false); // Blend with background
 
         // Create buttons with a uniform pastel green color
-        toLogin = buttonFactory(HomeViewModel.TO_LOGIN_BUTTON_LABEL);
-        toSignup = buttonFactory(HomeViewModel.TO_SIGNUP_BUTTON_LABEL);
-        toSearch = buttonFactory(HomeViewModel.TO_SEARCH_BUTTON_LABEL);
+        toLogin = buttonFactory(HomeViewModel.TO_LOGIN_BUTTON);
+        toSignup = buttonFactory(HomeViewModel.TO_SIGNUP_BUTTON);
+        toSearch = buttonFactory(HomeViewModel.TO_SEARCH_BUTTON);
 
         buttonsPanel.add(toLogin);
         buttonsPanel.add(toSignup);

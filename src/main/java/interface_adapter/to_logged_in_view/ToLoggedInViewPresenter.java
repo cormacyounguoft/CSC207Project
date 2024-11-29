@@ -10,6 +10,7 @@ import use_case.to_logged_in_view.ToLoggedInViewOutputData;
  * The Presenter for the ToLoggedInView Use Case.
  */
 public class ToLoggedInViewPresenter implements ToLoggedInViewOutputBoundary {
+
     private final ViewManagerModel viewManagerModel;
     private final LoggedInViewModel loggedInViewModel;
 

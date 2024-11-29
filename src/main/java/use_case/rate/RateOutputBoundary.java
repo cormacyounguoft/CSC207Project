@@ -1,20 +1,19 @@
 package use_case.rate;
 
 /**
- * The output boundary for the rate use case.
+ * Output Boundary for rate.
  */
 public interface RateOutputBoundary {
 
     /**
-     * Prepares the success view for the rate use case.
-     * @param outputData the output data of the rate use case.
+     * Prepares the success view for the rate Use Case.
+     * @param outputData the output data
      */
     void prepareSuccessView(RateOutputData outputData);
 
     /**
-     * Prepares the fail view for the rate use case.
-     * @param errorMessage the error message displayed when failing.
+     * Prepares the fail view for the rate Use Case.
+     * @param errorMessage the error message
      */
     void prepareFailView(String errorMessage);
-
 }
