@@ -86,7 +86,7 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
         export.addActionListener(e -> {
             if (exportWatchlistController != null) {
                 exportWatchlistController.exportWatchlist(username.getText().split(": ")[1]);
-                JOptionPane.showMessageDialog(this, "Watchlist export initiated!");
+                JOptionPane.showMessageDialog(this, "Watchlist exported");
             }
         });
 
