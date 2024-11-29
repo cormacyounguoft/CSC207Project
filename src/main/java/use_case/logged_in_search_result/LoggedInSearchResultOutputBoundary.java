@@ -1,6 +1,10 @@
 package use_case.logged_in_search_result;
 
+/**
+ * Output Boundary for actions which are related to logged in search results.
+ */
 public interface LoggedInSearchResultOutputBoundary {
+
     /**
      * Prepares the success view for the logged in search result Use Case.
      * @param outputData the output data
