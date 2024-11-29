@@ -7,6 +7,7 @@ import use_case.rate.RateInputData;
  * The controller for the Rate Use Case.
  */
 public class RateController {
+
     private final RateInputBoundary useCaseInteractor;
 
     public RateController(RateInputBoundary useCaseInteractor) {

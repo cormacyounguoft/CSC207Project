@@ -30,19 +30,19 @@ public class RateView extends JPanel implements ActionListener, PropertyChangeLi
         this.rateViewModel = rateViewModel;
         this.rateViewModel.addPropertyChangeListener(this);
 
-        final JLabel title = new JLabel(rateViewModel.TITLE_LABEL);
+        final JLabel title = new JLabel(rateViewModel.TITLE);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         final LabelTextPanel searchBox = new LabelTextPanel(
-                new JLabel(rateViewModel.RATE_LABEL), rateInputField);
+                new JLabel(rateViewModel.RATE), rateInputField);
 
         username = new JLabel();
         movie = new JLabel();
 
         final JPanel buttons = new JPanel();
-        rate = new JButton(rateViewModel.RATE_BUTTON_LABEL);
+        rate = new JButton(rateViewModel.RATE_BUTTON);
         buttons.add(rate);
-        cancel = new JButton(rateViewModel.CANCEL_BUTTON_LABEL);
+        cancel = new JButton(rateViewModel.CANCEL_BUTTON);
         buttons.add(cancel);
 
         rate.addActionListener(
