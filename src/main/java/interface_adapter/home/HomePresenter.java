@@ -10,6 +10,7 @@ import use_case.home.HomeOutputBoundary;
  * The Presenter for the Home Use Case.
  */
 public class HomePresenter implements HomeOutputBoundary {
+
     private final SignupViewModel signupViewModel;
     private final LoginViewModel loginViewModel;
     private final SearchViewModel searchViewModel;
