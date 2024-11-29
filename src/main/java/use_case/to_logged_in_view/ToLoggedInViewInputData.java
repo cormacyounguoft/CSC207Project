@@ -1,5 +1,8 @@
 package use_case.to_logged_in_view;
 
+/**
+ * Input data for to logged in view.
+ */
 public class ToLoggedInViewInputData {
     private final String username;
 
