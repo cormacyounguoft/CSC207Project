@@ -1,14 +1,15 @@
 package use_case.logged_in_search;
 
+import java.io.IOException;
+
 import entity.Movie;
 import use_case.SearchDataAccessInterface;
-
-import java.io.IOException;
 
 /**
  * The Logged In Search Interactor.
  */
 public class LoggedInSearchInteractor implements LoggedInSearchInputBoundary {
+
     private final LoggedInSearchOutputBoundary presenter;
     private final SearchDataAccessInterface searchDataAccessObject;
 
@@ -42,74 +43,66 @@ public class LoggedInSearchInteractor implements LoggedInSearchInputBoundary {
     }
 
     private String getMovieReleaseDate(Movie movie) {
-        if (movie.getReleaseDate().isEmpty()) {
-            return "Release date not available.";
+        String result = "Release date not available.";
+        if (!movie.getReleaseDate().isEmpty()) {
+            result = movie.getReleaseDate();
         }
-        else {
-            return movie.getReleaseDate();
-        }
+        return result;
     }
 
     private String getMovieDescription(Movie movie) {
-        if (movie.getDescription().isEmpty()) {
-            return "Description not available.";
+        String result = "Description not available.";
+        if (!movie.getDescription().isEmpty()) {
+            result = movie.getDescription();
         }
-        else {
-            return movie.getDescription();
-        }
+        return result;
     }
 
     private String getMovieRottenTomatoes(Movie movie) {
-        if (movie.getRottenTomatoes() == -1) {
-            return "Rotten Tomatoes not available.";
+        String result = "Rotten tomatoes not available.";
+        if (movie.getRottenTomatoes() != -1) {
+            result = String.valueOf(movie.getRottenTomatoes());
         }
-        else {
-            return String.valueOf(movie.getRottenTomatoes());
-        }
+        return result;
     }
 
     private String getMovieGenre(Movie movie) {
-        if (movie.getGenre().isEmpty()) {
-            return "Genres not available.";
+        String result = "Genre not available.";
+        if (!movie.getGenre().isEmpty()) {
+            result = movie.getGenre().toString();
         }
-        else {
-            return movie.getGenre().toString();
-        }
+        return result;
     }
 
     private String getMovieActors(Movie movie) {
-        if (movie.getActors().isEmpty()) {
-            return "Actors not available.";
+        String result = "Actor not available.";
+        if (!movie.getActors().isEmpty()) {
+            result = movie.getActors().toString();
         }
-        else {
-            return movie.getActors().toString();
-        }
+        return result;
     }
 
     private String getMovieDirector(Movie movie) {
-        if (movie.getDirector().isEmpty()) {
-            return "Directors not available.";
+        String result = "Director not available.";
+        if (!movie.getDirector().isEmpty()) {
+            result = movie.getDirector().toString();
         }
-        else {
-            return movie.getDirector().toString();
-        }
+        return result;
     }
 
     private String getMovieRuntime(Movie movie) {
-        if (movie.getRuntime() == -1) {
-            return "Runtime not available.";
+        String result = "Runtime not available.";
+        if (movie.getRuntime() != -1) {
+            result = String.valueOf(movie.getRuntime());
         }
-        else {
-            return String.valueOf(movie.getRuntime());
-        }
+        return result;
     }
 
     private String getMoviePoster(Movie movie) {
-        if (movie.getPosterLink().isEmpty()) {
-            return "Poster not available.";
+        String result = "Poster not available.";
+        if (!movie.getPosterLink().isEmpty()) {
+            result = movie.getPosterLink();
         }
-        else {
-            return movie.getPosterLink();
-        }
+        return result;
     }
 }
