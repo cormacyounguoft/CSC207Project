@@ -1,5 +1,11 @@
 package app;
 
+import java.awt.CardLayout;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
+
 import data_access.InMemoryUserDataAccessObject;
 import data_access.MovieAccessObject;
 import entity.CommonUserFactory;
@@ -16,6 +22,8 @@ import interface_adapter.change_password.ChangePasswordViewModel;
 import interface_adapter.dashboard.DashboardController;
 import interface_adapter.dashboard.DashboardPresenter;
 import interface_adapter.dashboard.DashboardViewModel;
+import interface_adapter.export_watchlist.ExportWatchlistController;
+import interface_adapter.export_watchlist.ExportWatchlistPresenter;
 import interface_adapter.get_rated_list.GetRatedListController;
 import interface_adapter.get_rated_list.GetRatedListPresenter;
 import interface_adapter.get_watched_list.GetWatchedListController;
@@ -79,6 +87,7 @@ import use_case.dashboard.DashboardInputBoundary;
 import use_case.dashboard.DashboardInteractor;
 import use_case.dashboard.DashboardOutputBoundary;
 import use_case.export_watchlist.ExportWatchlistInputBoundary;
+import use_case.export_watchlist.ExportWatchlistInteractor;
 import use_case.export_watchlist.ExportWatchlistOutputBoundary;
 import use_case.get_rated_list.GetRateListInputBoundary;
 import use_case.get_rated_list.GetRateListInteractor;
@@ -153,17 +162,6 @@ import view.ViewManager;
 import view.WatchedListView;
 import view.WatchlistView;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
-import java.awt.CardLayout;
-
-// export
-import interface_adapter.export_watchlist.ExportWatchlistController;
-import interface_adapter.export_watchlist.ExportWatchlistPresenter;
-import use_case.export_watchlist.ExportWatchlistInteractor;
-
-
 /**
  * The AppBuilder class is responsible for putting together the pieces of
  * our CA architecture; piece by piece.
@@ -176,6 +174,9 @@ import use_case.export_watchlist.ExportWatchlistInteractor;
 //                  if your team decides to work with this as your starter code
 //                  for your final project this term.
 public class AppBuilder {
+    private static final int WIDTH = 1280;
+    private static final int HEIGHT = 720;
+
     private final JPanel cardPanel = new JPanel();
     private final CardLayout cardLayout = new CardLayout();
     private final UserFactory userFactory = new CommonUserFactory();
@@ -229,7 +230,6 @@ public class AppBuilder {
         cardPanel.add(signupView, signupView.getViewName());
         return this;
     }
-
 
     /**
      * Adds the Login View to the application.
@@ -379,22 +379,26 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addSignupUseCase() {
-
-        final SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel,
-                signupViewModel, loginViewModel);
-
-        final SignupInputBoundary userSignupInteractor = new SignupInteractor(
-                userDataAccessObject, signupOutputBoundary, userFactory);
-
+        final SignupOutputBoundary signupOutputBoundary =
+                new SignupPresenter(viewManagerModel, signupViewModel, loginViewModel);
+        final SignupInputBoundary userSignupInteractor =
+                new SignupInteractor(userDataAccessObject, signupOutputBoundary, userFactory);
         final SignupController controller = new SignupController(userSignupInteractor);
         signupView.setSignupController(controller);
         return this;
     }
 
+    /**
+     * Adds the To Home Use Case to the application.
+     * @return this builder
+     */
     public AppBuilder addToHomeViewUseCase() {
-        final ToHomeViewOutputBoundary toHomeViewOutputBoundary = new ToHomeViewPresenter(viewManagerModel,
-                homeViewModel, signupViewModel, loginViewModel, searchViewModel);
-
+        final ToHomeViewOutputBoundary toHomeViewOutputBoundary = new ToHomeViewPresenter(
+                viewManagerModel,
+                homeViewModel,
+                signupViewModel,
+                loginViewModel,
+                searchViewModel);
         final ToHomeViewInputBoundary toHomeViewInputBoundary = new ToHomeInteractor(toHomeViewOutputBoundary);
         final ToHomeViewController toHomeViewController = new ToHomeViewController(toHomeViewInputBoundary);
         signupView.setToHomeViewController(toHomeViewController);
@@ -409,16 +413,12 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addLoginUseCase() {
-
-        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
-                loggedInViewModel, loginViewModel);
-
-        final LoginInputBoundary loginInteractor = new LoginInteractor(
-                userDataAccessObject, loginOutputBoundary);
-
+        final LoginOutputBoundary loginOutputBoundary =
+                new LoginPresenter(viewManagerModel, loggedInViewModel, loginViewModel);
+        final LoginInputBoundary loginInteractor =
+                new LoginInteractor(userDataAccessObject, loginOutputBoundary);
         final LoginController loginController = new LoginController(loginInteractor);
         loginView.setLoginController(loginController);
-
         return this;
     }
 
@@ -442,13 +442,9 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addLogoutUseCase() {
-
-        final LogoutOutputBoundary logoutOutputBoundary = new LogoutPresenter(viewManagerModel,
-                changePasswordViewModel, loginViewModel);
-
-        final LogoutInputBoundary logoutInteractor =
-                new LogoutInteractor(userDataAccessObject, logoutOutputBoundary);
-
+        final LogoutOutputBoundary logoutOutputBoundary =
+                new LogoutPresenter(viewManagerModel, changePasswordViewModel, loginViewModel);
+        final LogoutInputBoundary logoutInteractor = new LogoutInteractor(userDataAccessObject, logoutOutputBoundary);
         final LogoutController logoutController = new LogoutController(logoutInteractor);
         changePasswordView.setLogoutController(logoutController);
         loggedInView.setLogoutController(logoutController);
@@ -460,12 +456,10 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addSearchUseCase() {
-
         final SearchOutputBoundary searchOutputBoundary =
                 new SearchPresenter(viewManagerModel, searchViewModel, searchResultViewModel);
         final SearchInputBoundary searchInteractor =
                 new SearchInteractor(movieAccessObject, searchOutputBoundary, movieFactory);
-
         final SearchController controller = new SearchController(searchInteractor);
         searchView.setSearchController(controller);
         return this;
@@ -476,8 +470,7 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addSearchResultUseCase() {
-        final SearchResultOutputBoundary searchResultOutputBoundary =
-                new SearchResultPresenter(searchResultViewModel);
+        final SearchResultOutputBoundary searchResultOutputBoundary = new SearchResultPresenter(searchResultViewModel);
         final SearchResultInputBoundary searchResultInteractor = new SearchResultInteractor(searchResultOutputBoundary);
         final SearchResultController controller = new SearchResultController(searchResultInteractor);
         searchResultView.setSearchResultController(controller);
@@ -493,8 +486,7 @@ public class AppBuilder {
                 new DashboardPresenter(viewManagerModel, dashboardViewModel);
         final DashboardInputBoundary dashboardInteractor =
                 new DashboardInteractor(userDataAccessObject, dashboardOutputBoundary);
-        final DashboardController dashboardController =
-                new DashboardController(dashboardInteractor);
+        final DashboardController dashboardController = new DashboardController(dashboardInteractor);
         dashboardView.setDashboardController(dashboardController);
         loggedInView.setDashboardController(dashboardController);
         return this;
@@ -518,12 +510,8 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addLoggedInUseCase() {
-        final LoggedInOutputBoundary loggedInOutputBoundary = new LoggedInPresenter(
-                viewManagerModel,
-                changePasswordViewModel,
-                loggedInSearchViewModel
-        );
-
+        final LoggedInOutputBoundary loggedInOutputBoundary =
+                new LoggedInPresenter(viewManagerModel, changePasswordViewModel, loggedInSearchViewModel);
         final LoggedInInputBoundary loggedInInteractor = new LoggedInInteractor(loggedInOutputBoundary);
         final LoggedInController loggedInController = new LoggedInController(loggedInInteractor);
         loggedInView.setLoggedInController(loggedInController);
@@ -567,8 +555,7 @@ public class AppBuilder {
     public AppBuilder addRateUseCase() {
         final RateOutputBoundary rateOutputBoundary =
                 new RatePresenter(viewManagerModel, rateViewModel, loggedInViewModel);
-        final RateInputBoundary rateInteractor =
-                new RateInteractor(userDataAccessObject, rateOutputBoundary);
+        final RateInputBoundary rateInteractor = new RateInteractor(userDataAccessObject, rateOutputBoundary);
         final RateController rateController = new RateController(rateInteractor);
         rateView.setRateController(rateController);
         return this;
@@ -639,9 +626,10 @@ public class AppBuilder {
     public AppBuilder addWatchedListRemoveUseCase() {
         final WatchedListRemoveOutputBoundary watchedListRemoveOutputBoundary =
                 new WatchedListRemovePresenter(viewManagerModel, loggedInViewModel);
-        final WatchedListRemoveInputBoundary watchedListRemoveInputBoundary = new WatchedListRemoveInteractor(watchedListRemoveOutputBoundary,
-                userDataAccessObject);
-        final WatchedListRemoveController watchedListRemoveController = new WatchedListRemoveController(watchedListRemoveInputBoundary);
+        final WatchedListRemoveInputBoundary watchedListRemoveInputBoundary =
+                new WatchedListRemoveInteractor(watchedListRemoveOutputBoundary, userDataAccessObject);
+        final WatchedListRemoveController watchedListRemoveController =
+                new WatchedListRemoveController(watchedListRemoveInputBoundary);
         watchedListView.setWatchedListController(watchedListRemoveController);
         return this;
     }
@@ -653,8 +641,8 @@ public class AppBuilder {
     public AppBuilder addRatedListUseCase() {
         final RatedListOutputBoundary ratedListOutputBoundary =
                 new RatedListPresenter(viewManagerModel, loggedInViewModel);
-        final RatedListInputBoundary ratedListInputBoundary = new RatedListInteractor(ratedListOutputBoundary,
-                userDataAccessObject);
+        final RatedListInputBoundary ratedListInputBoundary =
+                new RatedListInteractor(ratedListOutputBoundary, userDataAccessObject);
         final RatedListController ratedListController = new RatedListController(ratedListInputBoundary);
         ratedListView.setRatedListController(ratedListController);
         return this;
@@ -739,8 +727,6 @@ public class AppBuilder {
         return this;
     }
 
-
-
     /**
      * Creates the JFrame for the application and initially sets the SignupView to be displayed.
      * @return the application
@@ -748,19 +734,14 @@ public class AppBuilder {
     public JFrame build() {
         final JFrame application = new JFrame("Movie Application");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
         application.add(cardPanel);
-
-        application.setSize(1280, 720);
-
+        application.setSize(WIDTH, HEIGHT);
         viewManagerModel.setState(homeView.getViewName());
         viewManagerModel.firePropertyChanged();
-
         return application;
     }
 
     public ViewManager getViewManager() {
         return viewManager;
     }
-
 }
