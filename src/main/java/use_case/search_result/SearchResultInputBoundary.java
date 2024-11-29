@@ -9,5 +9,4 @@ public interface SearchResultInputBoundary {
      * Executes the signup use case.
      */
     void execute();
-
 }
