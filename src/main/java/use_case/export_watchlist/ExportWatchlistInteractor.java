@@ -41,9 +41,9 @@ public class ExportWatchlistInteractor implements ExportWatchlistInputBoundary {
             String filePath = "watchlist_" + inputData.getUserId() + ".txt";
             Files.writeString(Path.of(filePath), content.toString());
 
-            outputBoundary.presentExportResult(new ExportWatchlistOutputData(true, filePath));
+            outputBoundary.prepareSuccessView(new ExportWatchlistOutputData(true, filePath, inputData.getUserId()));
         } catch (IOException e) {
-            outputBoundary.presentExportResult(new ExportWatchlistOutputData(false, null));
+            outputBoundary.prepareFailView("Unable to export watchlist");
         }
     }
 }

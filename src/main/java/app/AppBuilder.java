@@ -719,7 +719,8 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addExportWatchlistUseCase() {
-        final ExportWatchlistOutputBoundary exportWatchlistPresenter = new ExportWatchlistPresenter();
+        final ExportWatchlistOutputBoundary exportWatchlistPresenter =
+                new ExportWatchlistPresenter(viewManagerModel, watchlistRemoveViewModel);
         final ExportWatchlistInputBoundary exportWatchlistInteractor =
                 new ExportWatchlistInteractor(exportWatchlistPresenter, userDataAccessObject);
         final ExportWatchlistController exportWatchlistController =

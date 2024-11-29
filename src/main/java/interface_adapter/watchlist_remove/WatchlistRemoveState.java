@@ -6,6 +6,8 @@ public class WatchlistRemoveState {
     private String username;
     private List<String> watchlistTitle;
     private List<String> watchlistURL;
+    private String error = null;
+    private String success = null;
 
     public String getUsername() {
         return username;
@@ -29,5 +31,21 @@ public class WatchlistRemoveState {
 
     public void setWatchlistURL(List<String> watchlistURL) {
         this.watchlistURL = watchlistURL;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public void setExport(String success) {
+        this.success = success;
+    }
+
+    public String getExport() {
+        return success;
     }
 }
