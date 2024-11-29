@@ -6,6 +6,7 @@ import java.util.List;
  * Output data for get watch list.
  */
 public class GetWatchlistOutputData {
+
     private final String username;
     private final List<String> watchlistTitle;
     private final List<String> watchlistUrl;
@@ -34,6 +35,4 @@ public class GetWatchlistOutputData {
     public boolean isUseCaseFailed() {
         return useCaseFailed;
     }
-
-    public List<String> getWatchlistURL() {return watchlistUrl;}
 }

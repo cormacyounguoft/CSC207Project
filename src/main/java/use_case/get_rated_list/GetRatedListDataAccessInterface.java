@@ -7,9 +7,9 @@ import java.util.Map;
  */
 
 public interface GetRatedListDataAccessInterface {
+
     /**
      * Retrieves the user's ratings.
-     *
      * @param username the username of the user whose ratings are to be retrieved
      * @return a map where keys are categories (e.g., movie genres) and values are lists of rated items
      */

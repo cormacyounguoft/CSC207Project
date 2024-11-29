@@ -25,7 +25,7 @@ public class GetWatchedListPresenter implements GetWatchedListOutputBoundary {
         final WatchedListRemoveState watchedListRemoveState = watchedListRemoveViewModel.getState();
         watchedListRemoveState.setUsername(outputData.getUsername());
         watchedListRemoveState.setWatchedListTitle(outputData.getWatchedListTitle());
-        watchedListRemoveState.setWatchedListUrl(outputData.getWatchedListURL());
+        watchedListRemoveState.setWatchedListUrl(outputData.getWatchedListUrl());
         watchedListRemoveViewModel.setState(watchedListRemoveState);
         watchedListRemoveViewModel.firePropertyChanged();
         viewManagerModel.setState(watchedListRemoveViewModel.getViewName());
