@@ -12,8 +12,6 @@ import interface_adapter.logout.LogoutController;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -53,7 +51,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         titlePanel.setOpaque(false);
 
         // View Title
-        final JLabel title = new JLabel(loggedInViewModel.TITLE_LABEL, SwingConstants.CENTER);
+        final JLabel title = new JLabel(loggedInViewModel.TITLE, SwingConstants.CENTER);
         title.setFont(new Font("SansSerif", Font.BOLD, 24));
         title.setForeground(new Color(0, 51, 102));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -73,11 +71,11 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         final JPanel buttonsPanel = new JPanel(new GridLayout(3, 2, 20, 20)); // 3 rows, 2 columns
         buttonsPanel.setOpaque(false);
 
-        toSearch = buttonFactory(loggedInViewModel.TO_SEARCH_BUTTON_LABEL);
-        toWatchList = buttonFactory(loggedInViewModel.TO_WATCHLIST_BUTTON_LABEL);
-        toWatchedList = buttonFactory(loggedInViewModel.TO_WATCHED_LIST_BUTTON_LABEL);
-        toChangePassword = buttonFactory(loggedInViewModel.TO_CHANGE_PASSWORD_BUTTON_LABEL);
-        logout = buttonFactory(loggedInViewModel.LOGOUT_BUTTON_LABEL);
+        toSearch = buttonFactory(loggedInViewModel.TO_SEARCH_BUTTON);
+        toWatchList = buttonFactory(loggedInViewModel.TO_WATCHLIST_BUTTON);
+        toWatchedList = buttonFactory(loggedInViewModel.TO_WATCHED_LIST_BUTTON);
+        toChangePassword = buttonFactory(loggedInViewModel.TO_CHANGE_PASSWORD_BUTTON);
+        logout = buttonFactory(loggedInViewModel.LOGOUT_BUTTON);
         toRatedList = buttonFactory("Go to Rated List");
         toDashboard = buttonFactory("Go to Dashboard");
 
