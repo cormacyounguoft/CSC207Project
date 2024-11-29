@@ -45,7 +45,7 @@ The purpose of this project is to create a movie organization system that allows
 3. In IntelliJ, navigate to Run > Edit Configurations > Environment variables.
 4. Add your API key in the format: APIKEY=YOUR_API_KEY. It should look like this:
 
-<img src="images/adding_api_key.png" alt="Adding API key" width="500"/>
+<img src="images/API.png" alt="Adding API key" width="500"/>
 
 5. Set `pom.xml` as Maven by right-clicking on the `pom.xml` file and selecting "Add as Maven Project." You may need to reload the Maven project.
 6. Once the API key and the Maven Project are set up, you can run the Main program.
@@ -69,7 +69,7 @@ Here is the formatted list in Markdown:
 - **Add to Watchlist**:  
   Log in and search for a movie, then click **Add to Watchlist** to save it to your watchlist.  
 
-  <img src="images/Watchlist.png" alt="Adding a movie to a watchlist" width="500"/>
+  <img src="images/AddWatchlist.png" alt="Adding a movie to a watchlist" width="500"/>
 
 - **Remove from Watchlist**:  
   Log in and navigate to your Watchlist. Locate the movie you want to remove and click **Remove**.  
@@ -84,7 +84,7 @@ Here is the formatted list in Markdown:
 - **Add to Watched List**:  
   Log in, search for a movie, and click **Add to Watched List** to save it to your watched list.  
 
-  <img src="images/WatchedList.png" alt="Adding a movie to a watched list" width="500"/>
+  <img src="images/AddWatchedList.png" alt="Adding a movie to a watched list" width="500"/>
 
 - **Remove from Watched List**:  
   Log in and go to your Watched List. Find the movie you want to remove and click **Remove**. If you’ve rated the movie, it will also be removed from your Rated List.  
@@ -94,12 +94,12 @@ Here is the formatted list in Markdown:
 - **Rate a Movie**:  
   To rate a movie, it must first be in your watched list. Go to your watched list, find the movie you want to rate, and click **Rate**. Enter a rating between 0 and 5 inclusive.  
 
-  <img src="images/Rate.png" alt="Rating a movie" width="500"/>
+  <img src="images/RateWatchedList.png" alt="Rating a movie" width="500"/>
 
 - **Remove a Rating**:  
   Log in and go to your Rate List. Find the movie whose rating you want to remove and click **Remove**.
 
-  <img src="images/RemoveRating.png" alt="Removing a rating from a movie" width="500"/>
+  <img src="images/RemoveRateList.png" alt="Removing a rating from a movie" width="500"/>
 
 - **View Watchlist**:  
   Log in and click **Go to Watchlist** to view all the movies you’ve added to your watchlist.
