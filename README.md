@@ -1,6 +1,6 @@
 # CSC207Project: Movie Application
 
-### Authors and Contributers
+### Authors and Contributors
 - Aseer Baset 
 - Cormac Young 
 - Humza Chaudhry 
@@ -13,7 +13,7 @@ The purpose of this project is to create a movie organization system that allows
 ### Table of contents
 
 <!-- TOC -->
-* [Authors and Contributers](#authors-and-contributers)
+* [Authors and Contributors](#authors-and-contributors)
 * [Project Purpose](#project-purpose)
 * [Features of the software](#features-of-the-software)
 * [Installation instructions](#installation-instructions)
@@ -31,6 +31,7 @@ The purpose of this project is to create a movie organization system that allows
 - Add and remove movies from a watched list to track films you’ve already seen.
 - Rate movies you’ve watched on a scale of 0 to 5.
 - View a dashboard with insights including total hours watched, longest movie watched, favorite genre, favorite movie, and your average movie rating.
+- Export your watchlist to a `.txt` file.
 
 #### Here's what the Logged-In View looks like:
 <img src="images/LoggedInView.png" alt="Logged In View" width="500"/>
@@ -111,6 +112,11 @@ Here is the formatted list in Markdown:
 
 - **View Dashboard**:  
   The dashboard provides statistics based on your watched and rated movies. To access it, log in and click **Go to Dashboard**.
+
+- **Export Watchlist**:
+  Log in and navigate to your Watchlist. Click **Export** to download your watchlist as a `.txt` file named `watchlist_username.txt`, saved to the project directory.
+
+  <img src="images/ExportWatchlist.png" alt="Exporting watchlist" width="500"/>
 
 ### License
 You can find the license [here](LICENSE).
