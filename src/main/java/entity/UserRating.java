@@ -37,5 +37,4 @@ public class UserRating {
     public Map<String, Integer> getMovieToRating() {
         return this.movieToRating;
     }
-
 }
