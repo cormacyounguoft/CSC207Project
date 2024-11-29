@@ -18,6 +18,7 @@ import use_case.rated_list.RatedListDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 import use_case.watched_list_remove.WatchedListRemoveDataAccessInterface;
 import use_case.watchlist_remove.WatchlistRemoveDataAccessInterface;
+import use_case.export_watchlist.ExportWatchlistDataAccessInterface;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -43,7 +44,8 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         RatedListDataAccessInterface,
         DashboardDataAccessInterface,
         WatchlistRemoveDataAccessInterface,
-        WatchedListRemoveDataAccessInterface {
+        WatchedListRemoveDataAccessInterface,
+        ExportWatchlistDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
 

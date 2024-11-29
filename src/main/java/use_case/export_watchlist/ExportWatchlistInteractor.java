@@ -7,13 +7,12 @@ import java.util.List;
 
 import entity.Movie;
 import entity.MovieList;
-import use_case.get_watchlist.GetWatchlistDataAccessInterface;
 
 public class ExportWatchlistInteractor implements ExportWatchlistInputBoundary {
     private final ExportWatchlistOutputBoundary outputBoundary;
-    private final GetWatchlistDataAccessInterface dataAccess;
+    private final ExportWatchlistDataAccessInterface dataAccess;
 
-    public ExportWatchlistInteractor(ExportWatchlistOutputBoundary outputBoundary, GetWatchlistDataAccessInterface dataAccess) {
+    public ExportWatchlistInteractor(ExportWatchlistOutputBoundary outputBoundary, ExportWatchlistDataAccessInterface dataAccess) {
         this.outputBoundary = outputBoundary;
         this.dataAccess = dataAccess;
     }
