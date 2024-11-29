@@ -13,10 +13,6 @@ public class MovieList {
         movieList = new ArrayList<>();
     }
 
-    public int getMovieCount() {
-        return movieList.size();
-    }
-
     public List<Movie> getMovieList() {
         return movieList;
     }
@@ -95,5 +91,4 @@ public class MovieList {
         }
         return found;
     }
-
 }
