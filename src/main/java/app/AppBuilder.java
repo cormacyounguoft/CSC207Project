@@ -1,6 +1,6 @@
 package app;
 
-import data_access.InMemoryRemoveDataAccessObject;
+import data_access.InMemoryUserDataAccessObject;
 import data_access.MovieAccessObject;
 import entity.CommonUserFactory;
 import entity.MovieFactory;
@@ -183,7 +183,7 @@ public class AppBuilder {
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
-    private final InMemoryRemoveDataAccessObject userDataAccessObject = new InMemoryRemoveDataAccessObject();
+    private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
     private final MovieAccessObject movieAccessObject = new MovieAccessObject();
 
     private SignupView signupView;

@@ -1,6 +1,6 @@
 package use_case.logout;
 
-import data_access.InMemoryRemoveDataAccessObject;
+import data_access.InMemoryUserDataAccessObject;
 import entity.CommonUserFactory;
 import entity.User;
 import entity.UserFactory;
@@ -15,7 +15,7 @@ class LogoutInteractorTest {
     @Test
     void successTest() {
         LogoutInputData inputData = new LogoutInputData("Paul");
-        InMemoryRemoveDataAccessObject userRepository = new InMemoryRemoveDataAccessObject();
+        InMemoryUserDataAccessObject userRepository = new InMemoryUserDataAccessObject();
 
         // For the success test, we need to add Paul to the data access repository before we log in.
         UserFactory factory = new CommonUserFactory();
