@@ -7,6 +7,7 @@ import use_case.logged_in_search_result.LoggedInSearchResultOutputData;
  * The Presenter for the Logged In Search Result Use Case.
  */
 public class LoggedInSearchResultPresenter implements LoggedInSearchResultOutputBoundary {
+
     private final LoggedInSearchResultViewModel loggedInSearchResultViewModel;
 
     public LoggedInSearchResultPresenter(LoggedInSearchResultViewModel loggedInSearchResultViewModel) {

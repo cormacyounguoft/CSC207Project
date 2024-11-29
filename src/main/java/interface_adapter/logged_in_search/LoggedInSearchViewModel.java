@@ -6,6 +6,7 @@ import interface_adapter.ViewModel;
  * The ViewModel for the Logged In Search View.
  */
 public class LoggedInSearchViewModel extends ViewModel<LoggedInSearchState> {
+
     public static final String TITLE_LABEL = "Logged In View";
     public static final String SEARCH_LABEL = "Search movie by title:";
     public static final String SEARCH_BUTTON_LABEL = "Search";

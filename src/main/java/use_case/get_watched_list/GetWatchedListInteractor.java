@@ -10,6 +10,7 @@ import entity.MovieList;
  * Interactor for get watched list use case.
  */
 public class GetWatchedListInteractor implements GetWatchedListInputBoundary {
+
     private final GetWatchedListOutputBoundary presenter;
     private final GetWatchedListDataAccessInterface dataAccess;
 
@@ -21,10 +22,9 @@ public class GetWatchedListInteractor implements GetWatchedListInputBoundary {
 
     @Override
     public void execute(GetWatchedListInputData inputData) {
-        final MovieList watchedList = dataAccess.getWatchedList(inputData.getUsername());
         final List<String> watchedListTitle = new ArrayList<>();
         final List<String> watchedListUrl = new ArrayList<>();
-        for (Movie movie : watchedList.getMovieList()) {
+        for (Movie movie : dataAccess.getWatchedList(inputData.getUsername()).getMovieList()) {
             watchedListTitle.add(movie.getTitle());
             watchedListUrl.add(movie.getPosterLink());
         }

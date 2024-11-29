@@ -4,6 +4,7 @@ package use_case.add_to_watched_list;
  * The Input Data for the add to watched list Use Case.
  */
 public class AddToWatchedListInputData {
+
     private final String username;
     private final String movie;
 

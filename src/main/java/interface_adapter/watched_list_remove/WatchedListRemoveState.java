@@ -6,6 +6,7 @@ import java.util.List;
  * The state for the watched list remove Use Case.
  */
 public class WatchedListRemoveState {
+
     private String username;
     private List<String> watchedListTitle;
     private List<String> watchedListUrl;

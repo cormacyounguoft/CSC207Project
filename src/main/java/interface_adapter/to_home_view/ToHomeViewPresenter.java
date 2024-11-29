@@ -14,6 +14,7 @@ import use_case.to_home_view.ToHomeViewOutputBoundary;
  * The Presenter for the go to HomeView Use Case.
  */
 public class ToHomeViewPresenter implements ToHomeViewOutputBoundary {
+
     private final ViewManagerModel viewManagerModel;
     private final HomeViewModel homeViewModel;
     private final SignupViewModel signupViewModel;

@@ -7,6 +7,7 @@ import java.util.Map;
  * The Output Data for Get Rate List.
  */
 public class GetRateListOutputData {
+
     private final String username;
     private final Map<String, List<String>> userRating;
     private final boolean useCaseFailed;

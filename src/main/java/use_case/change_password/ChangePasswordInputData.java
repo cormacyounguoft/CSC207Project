@@ -20,5 +20,4 @@ public class ChangePasswordInputData {
     String getUsername() {
         return username;
     }
-
 }

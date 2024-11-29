@@ -9,6 +9,7 @@ import use_case.SearchDataAccessInterface;
  * The add to watchlist Interactor.
  */
 public class AddToWatchedListInteractor implements AddToWatchedListInputBoundary {
+
     private final AddToWatchedListDataAccessInterface userDataAccessObject;
     private final SearchDataAccessInterface searchDataAccessObject;
     private final AddToWatchedListOutputBoundary presenter;
@@ -26,8 +27,8 @@ public class AddToWatchedListInteractor implements AddToWatchedListInputBoundary
         try {
             final Movie movie = searchDataAccessObject.search(inputData.getMovie());
             userDataAccessObject.saveToWatchedList(inputData.getUsername(), movie);
-            final AddToWatchedListOutputData outputData = new AddToWatchedListOutputData(inputData.getUsername(),
-                    false);
+            final AddToWatchedListOutputData outputData =
+                    new AddToWatchedListOutputData(inputData.getUsername(), false);
             presenter.prepareSuccessView(outputData);
         }
         catch (IOException exception) {

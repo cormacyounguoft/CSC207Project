@@ -7,6 +7,7 @@ import use_case.logged_in_search_result.LoggedInSearchResultInputData;
  * Controller for the Logged In Search Result Use Case.
  */
 public class LoggedInSearchResultController {
+
     private final LoggedInSearchResultInputBoundary useCaseInteractor;
 
     public LoggedInSearchResultController(LoggedInSearchResultInputBoundary interactor) {

@@ -4,6 +4,7 @@ package use_case.logged_in;
  * Output Data for the Logged In Use Case.
  */
 public class LoggedInOutputData {
+
     private final boolean useCaseFailed;
     private final String username;
 

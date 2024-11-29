@@ -40,7 +40,7 @@ class GetWatchedListInteractorTest {
             public void prepareSuccessView(GetWatchedListOutputData outputData) {
                 assertEquals("Username", outputData.getUsername());
                 assertEquals(List.of("Movie"), outputData.getWatchedListTitle());
-                assertEquals(List.of("url"), outputData.getWatchedListURL());
+                assertEquals(List.of("url"), outputData.getWatchedListUrl());
                 assertFalse(outputData.isUseCaseFailed());
             }
         };

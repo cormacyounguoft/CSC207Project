@@ -4,6 +4,7 @@ package use_case.logged_in;
  * The Logged In Interactor.
  */
 public class LoggedInInteractor implements LoggedInInputBoundary {
+
     private final LoggedInOutputBoundary presenter;
 
     public LoggedInInteractor(LoggedInOutputBoundary loggedInOutputBoundary) {

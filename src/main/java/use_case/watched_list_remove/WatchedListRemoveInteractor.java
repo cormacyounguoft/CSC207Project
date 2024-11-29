@@ -4,10 +4,12 @@ package use_case.watched_list_remove;
  * Interactor for watched list remove.
  */
 public class WatchedListRemoveInteractor implements WatchedListRemoveInputBoundary {
+
     private final WatchedListRemoveOutputBoundary presenter;
     private final WatchedListRemoveDataAccessInterface dataAccessInterface;
 
-    public WatchedListRemoveInteractor(WatchedListRemoveOutputBoundary presenter, WatchedListRemoveDataAccessInterface dataAccessInterface) {
+    public WatchedListRemoveInteractor(WatchedListRemoveOutputBoundary presenter,
+                                       WatchedListRemoveDataAccessInterface dataAccessInterface) {
         this.presenter = presenter;
         this.dataAccessInterface = dataAccessInterface;
     }
@@ -15,8 +17,8 @@ public class WatchedListRemoveInteractor implements WatchedListRemoveInputBounda
     @Override
     public void execute(WatchedListRemoveInputData inputData) {
         dataAccessInterface.removeFromWatchedlist(inputData.getUsername(), inputData.getTitle());
-        final WatchedListRemoveOutputData outputData = new WatchedListRemoveOutputData(inputData.getUsername(), false);
+        final WatchedListRemoveOutputData outputData =
+                new WatchedListRemoveOutputData(inputData.getUsername(), false);
         presenter.prepareSuccessView(outputData);
-
     }
 }

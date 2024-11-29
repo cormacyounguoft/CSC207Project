@@ -6,21 +6,18 @@ import interface_adapter.logged_in.LoggedInViewModel;
 import use_case.rated_list.RatedListOutputBoundary;
 import use_case.rated_list.RatedListOutputData;
 
-
 /**
  * The presenter for the rated list use case.
  */
 public class RatedListPresenter implements RatedListOutputBoundary {
+
     private final ViewManagerModel viewManagerModel;
     private final LoggedInViewModel loggedInViewModel;
 
-
     public RatedListPresenter(ViewManagerModel viewManagerModel,
-                              LoggedInViewModel loggedInViewModel
-                              ) {
+                              LoggedInViewModel loggedInViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.loggedInViewModel = loggedInViewModel;
-
     }
 
     @Override
@@ -32,5 +29,4 @@ public class RatedListPresenter implements RatedListOutputBoundary {
         viewManagerModel.setState(loggedInViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
-
 }

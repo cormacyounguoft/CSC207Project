@@ -4,6 +4,7 @@ package interface_adapter.search_result;
  * The state for the Search Result View Model.
  */
 public class SearchResultState {
+
     private String title;
     private String releaseDate;
     private String description;

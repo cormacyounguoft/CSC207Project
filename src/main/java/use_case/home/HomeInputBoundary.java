@@ -4,6 +4,7 @@ package use_case.home;
  * Input Boundary for actions which are related to the home view.
  */
 public interface HomeInputBoundary {
+
     /**
      * Executes the switch to login view use case.
      */

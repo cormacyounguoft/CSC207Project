@@ -16,7 +16,16 @@ public class SearchOutputData {
     private final String director;
     private final String poster;
 
-    public SearchOutputData( String title, String releaseDate, String description, String rottenTomatoes, String runtime, String genre, String actors, String director, String poster, boolean useCaseFailed) {
+    public SearchOutputData(String title,
+                            String releaseDate,
+                            String description,
+                            String rottenTomatoes,
+                            String runtime,
+                            String genre,
+                            String actors,
+                            String director,
+                            String poster,
+                            boolean useCaseFailed) {
         this.useCaseFailed = useCaseFailed;
         this.title = title;
         this.releaseDate = releaseDate;
@@ -68,6 +77,4 @@ public class SearchOutputData {
     public boolean isUseCaseFailed() {
         return useCaseFailed;
     }
-
-
 }

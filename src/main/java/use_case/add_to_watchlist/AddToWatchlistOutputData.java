@@ -4,6 +4,7 @@ package use_case.add_to_watchlist;
  * Output Data for the add to watchlist Use Case.
  */
 public class AddToWatchlistOutputData {
+
     private final String username;
     private final boolean useCaseFailed;
 

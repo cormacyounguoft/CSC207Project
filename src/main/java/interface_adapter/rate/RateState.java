@@ -4,6 +4,7 @@ package interface_adapter.rate;
  * The state of the Rate Use Case.
  */
 public class RateState {
+
     private String username = "";
     private String title;
     private int rate;
