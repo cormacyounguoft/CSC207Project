@@ -34,4 +34,6 @@ public class GetWatchedListOutputData {
     public boolean isUseCaseFailed() {
         return useCaseFailed;
     }
+
+    public List<String> getWatchedListURL() {return watchedListUrl;}
 }
