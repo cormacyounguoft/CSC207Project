@@ -6,6 +6,7 @@ import use_case.to_home_view.ToHomeViewInputBoundary;
  * The controller for the ToHomeView Use Case.
  */
 public class ToHomeViewController {
+
     private final ToHomeViewInputBoundary interactor;
 
     public ToHomeViewController(ToHomeViewInputBoundary interactor) {
