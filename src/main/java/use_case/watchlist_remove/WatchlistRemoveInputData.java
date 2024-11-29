@@ -1,5 +1,8 @@
 package use_case.watchlist_remove;
 
+/**
+ * Input data for watch list remove use case.
+ */
 public class WatchlistRemoveInputData {
     private final String username;
     private final String movieTitle;

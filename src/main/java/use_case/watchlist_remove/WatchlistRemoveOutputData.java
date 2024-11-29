@@ -1,5 +1,8 @@
 package use_case.watchlist_remove;
 
+/**
+ * Output data for watchlist remove.
+ */
 public class WatchlistRemoveOutputData {
     private final boolean useCaseFailed;
     private final String username;
