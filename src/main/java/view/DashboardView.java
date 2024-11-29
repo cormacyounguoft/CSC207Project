@@ -6,6 +6,7 @@ import interface_adapter.dashboard.DashboardViewModel;
 import interface_adapter.to_logged_in_view.ToLoggedInViewController;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,7 +23,7 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
     private final JLabel usernameLabel = new JLabel();
     private final JLabel totalHoursWatchedLabel = new JLabel();
     private final JLabel favoriteMovieLabel = new JLabel();
-    private final JLabel favoriteGenreLable = new JLabel();
+    private final JLabel favoriteGenreLabel = new JLabel();
     private final JLabel longestMovieLabel = new JLabel();
     private final JLabel averageRatingLabel = new JLabel();
 
@@ -32,31 +33,58 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
         this.dashboardViewModel = dashboardViewModel;
         this.dashboardViewModel.addPropertyChangeListener(this);
 
-        final JLabel title = new JLabel("Movie Dashboard");
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.setLayout(new BorderLayout(20, 20));
+        this.setBackground(new Color(240, 248, 255)); // Light blue background
+        this.setBorder(new EmptyBorder(20, 20, 20, 20)); // Padding around the panel
 
-        final JPanel buttons = new JPanel();
-        cancel = new JButton(DashboardViewModel.CANCEL_BUTTON_LABEL);
-        buttons.add(cancel);
+        final JLabel title = new JLabel("Movie Dashboard", SwingConstants.CENTER);
+        title.setFont(new Font("SansSerif", Font.BOLD, 24));
+        title.setForeground(new Color(0, 51, 102));
+        this.add(title, BorderLayout.NORTH);
 
-        cancel.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        final DashboardState currentState = dashboardViewModel.getState();
-                        toLoggedInViewController.toLoggedInView(currentState.getUsername());
-                    }
-                }
-        );
+        JPanel contentPanel = new JPanel();
+        contentPanel.setLayout(new GridLayout(6, 1, 10, 10));
+        contentPanel.setBackground(new Color(255, 255, 255)); // White background for clarity
+        contentPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.add(title);
-        this.add(usernameLabel);
-        this.add(totalHoursWatchedLabel);
-        this.add(favoriteMovieLabel);
-        this.add(favoriteGenreLable);
-        this.add(longestMovieLabel);
-        this.add(averageRatingLabel);
-        this.add(buttons);
+        configureLabel(usernameLabel, contentPanel);
+        configureLabel(totalHoursWatchedLabel, contentPanel);
+        configureLabel(favoriteMovieLabel, contentPanel);
+        configureLabel(favoriteGenreLabel, contentPanel);
+        configureLabel(longestMovieLabel, contentPanel);
+        configureLabel(averageRatingLabel, contentPanel);
+
+        this.add(contentPanel, BorderLayout.CENTER);
+
+        final JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        buttonsPanel.setOpaque(false);
+
+        cancel = createStyledButton("Cancel");
+        buttonsPanel.add(cancel);
+        this.add(buttonsPanel, BorderLayout.SOUTH);
+
+        cancel.addActionListener(evt -> {
+            final DashboardState currentState = dashboardViewModel.getState();
+            toLoggedInViewController.toLoggedInView(currentState.getUsername());
+        });
+    }
+
+    private void configureLabel(JLabel label, JPanel panel) {
+        label.setFont(new Font("SansSerif", Font.PLAIN, 18));
+        label.setForeground(new Color(0, 51, 102));
+        panel.add(label);
+    }
+
+    private JButton createStyledButton(String text) {
+        JButton button = new JButton(text);
+        button.setFont(new Font("SansSerif", Font.PLAIN, 18));
+        button.setBackground(new Color(93, 186, 255));
+        button.setForeground(Color.BLACK);
+        button.setFocusPainted(false);
+        button.setBorder(BorderFactory.createLineBorder(new Color(124, 183, 205), 2));
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        button.setPreferredSize(new Dimension(150, 50));
+        return button;
     }
 
     @Override
@@ -71,7 +99,7 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
             usernameLabel.setText("Username: " + state.getUsername());
             totalHoursWatchedLabel.setText("Total Time Watched: " + state.getTotalHoursWatched());
             favoriteMovieLabel.setText("Favorite Movie: " + state.getFavoriteMovie());
-            favoriteGenreLable.setText("Favorite Genre: " + state.getFavoriteGenre());
+            favoriteGenreLabel.setText("Favorite Genre: " + state.getFavoriteGenre());
             longestMovieLabel.setText("Longest Movie Watched: " + state.getLongestMovie());
             averageRatingLabel.setText("Average Rating: " + state.getAverageRating());
         }
@@ -89,3 +117,4 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
         this.toLoggedInViewController = toLoggedInViewController;
     }
 }
+

@@ -1,8 +1,11 @@
 package use_case.go_to_rate;
 
-
+/**
+ * Interactor for go to rate use case.
+ */
 public class GoRateInteractor implements GoRateInputBoundary {
     private final GoRateOutputBoundary presenter;
+
     public GoRateInteractor(GoRateOutputBoundary presenter) {
         this.presenter = presenter;
     }

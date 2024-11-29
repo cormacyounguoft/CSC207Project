@@ -1,5 +1,8 @@
 package use_case.watched_list_remove;
 
+/**
+ * Interactor for watched list remove.
+ */
 public class WatchedListRemoveInteractor implements WatchedListRemoveInputBoundary {
     private final WatchedListRemoveOutputBoundary presenter;
     private final WatchedListRemoveDataAccessInterface dataAccessInterface;

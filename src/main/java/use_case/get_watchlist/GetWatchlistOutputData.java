@@ -2,17 +2,20 @@ package use_case.get_watchlist;
 
 import java.util.List;
 
+/**
+ * Output data for get watch list.
+ */
 public class GetWatchlistOutputData {
     private final String username;
     private final List<String> watchlistTitle;
-    private final List<String> watchlistURL;
+    private final List<String> watchlistUrl;
     private final boolean useCaseFailed;
 
-    public GetWatchlistOutputData(String username, List<String> watchlistTitle, List<String> watchlistURL,
+    public GetWatchlistOutputData(String username, List<String> watchlistTitle, List<String> watchlistUrl,
                                   boolean useCaseFailed) {
         this.username = username;
         this.watchlistTitle = watchlistTitle;
-        this.watchlistURL = watchlistURL;
+        this.watchlistUrl = watchlistUrl;
         this.useCaseFailed = useCaseFailed;
     }
 
@@ -24,11 +27,13 @@ public class GetWatchlistOutputData {
         return watchlistTitle;
     }
 
-    public List<String> getWatchlistURL() {
-        return watchlistURL;
+    public List<String> getWatchlistUrl() {
+        return watchlistUrl;
     }
 
     public boolean isUseCaseFailed() {
         return useCaseFailed;
     }
+
+    public List<String> getWatchlistURL() {return watchlistUrl;}
 }

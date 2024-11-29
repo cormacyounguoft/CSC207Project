@@ -1,5 +1,8 @@
 package use_case.watched_list_remove;
 
+/**
+ * Output data for watched list remove.
+ */
 public class WatchedListRemoveOutputData {
     private final String username;
     private final boolean useCaseFailed;

@@ -1,6 +1,7 @@
 package view;
 
 import interface_adapter.add_to_watched_list.AddToWatchedListController;
+import interface_adapter.export_watchlist.ExportWatchlistController;
 import interface_adapter.to_logged_in_view.ToLoggedInViewController;
 import interface_adapter.watchlist_remove.WatchlistRemoveController;
 import interface_adapter.watchlist_remove.WatchlistRemoveState;
@@ -26,8 +27,10 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
     private WatchlistRemoveController watchlistRemoveController;
     private ToLoggedInViewController toLoggedInViewController;
     private AddToWatchedListController addToWatchedListController;
+    private ExportWatchlistController exportWatchlistController;
 
     private final JButton cancel;
+    private final JButton export;
 
     private final JLabel username;
     private final JPanel watchlist;
@@ -37,28 +40,24 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
         this.watchlistRemoveViewModel = watchlistRemoveViewModel;
         this.watchlistRemoveViewModel.addPropertyChangeListener(this);
 
-        // Set layout and background
         this.setLayout(new BorderLayout(20, 20));
         this.setBackground(new Color(240, 248, 255)); // Light blue background
         this.setBorder(new EmptyBorder(20, 20, 20, 20)); // Padding around the panel
 
-        // Title Label
         final JLabel title = new JLabel("Watchlist", SwingConstants.CENTER);
         title.setFont(new Font("SansSerif", Font.BOLD, 24));
         title.setForeground(new Color(0, 51, 102));
         this.add(title, BorderLayout.NORTH);
 
-        // Username Section
         username = new JLabel();
         username.setFont(new Font("SansSerif", Font.PLAIN, 16));
         username.setForeground(new Color(0, 51, 102));
         username.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(username, BorderLayout.SOUTH);
 
-        // Watchlist Content Panel
         watchlist = new JPanel();
-        watchlist.setLayout(new GridLayout(0, 4, 30, 10)); // 4 movies per row, horizontal spacing > vertical spacing
-        watchlist.setBackground(new Color(255, 255, 255)); // White background for clarity
+        watchlist.setLayout(new GridLayout(0, 4, 0, 10)); // 4 movies per row
+        watchlist.setBackground(new Color(255, 255, 255));
 
         scroller = new JScrollPane(watchlist);
         scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -72,6 +71,10 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
 
         cancel = createStyledButton("Cancel");
         buttonsPanel.add(cancel);
+
+        export = createStyledButton("Export");
+        buttonsPanel.add(export);
+
         this.add(buttonsPanel, BorderLayout.SOUTH);
 
         // Add Action Listeners
@@ -79,6 +82,16 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
             final WatchlistRemoveState currentState = watchlistRemoveViewModel.getState();
             toLoggedInViewController.toLoggedInView(currentState.getUsername());
         });
+
+        export.addActionListener(e -> {
+            if (exportWatchlistController != null) {
+                exportWatchlistController.exportWatchlist(username.getText().split(": ")[1]);
+                JOptionPane.showMessageDialog(this, "Watchlist exported");
+            }
+        });
+
+
+        buttonsPanel.add(export);
     }
 
     @Override
@@ -127,7 +140,7 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
                 moviePanel.add(posterLabel, BorderLayout.CENTER);
 
                 // Add buttons for each movie
-                JPanel buttonPanel = new JPanel(new GridLayout(1, 2, 10, 10));
+                JPanel buttonPanel = new JPanel(new GridLayout(2, 1, 0, 0));
                 JButton removeButton = createStyledButton("Remove");
                 removeButton.addActionListener(evt1 -> {
                     final WatchlistRemoveState currentState = watchlistRemoveViewModel.getState();
@@ -179,9 +192,7 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
     }
 
 
-    /**
-     * Creates a styled button.
-     */
+    //Creates a styled button.
     private JButton createStyledButton(String text) {
         JButton button = new JButton(text);
         button.setFont(new Font("SansSerif", Font.PLAIN, 22));
@@ -207,6 +218,10 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
     }
     public void setToLoggedInViewController(ToLoggedInViewController toLoggedInViewController) {
         this.toLoggedInViewController = toLoggedInViewController;
+    }
+
+    public void setExportWatchlistController(ExportWatchlistController exportWatchlistController) {
+        this.exportWatchlistController = exportWatchlistController;
     }
 
 }
