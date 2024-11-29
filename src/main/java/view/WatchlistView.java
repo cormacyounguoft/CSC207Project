@@ -56,7 +56,7 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
         this.add(username, BorderLayout.SOUTH);
 
         watchlist = new JPanel();
-        watchlist.setLayout(new GridLayout(0, 4, 30, 10)); // 4 movies per row, horizontal spacing > vertical spacing
+        watchlist.setLayout(new GridLayout(0, 4, 0, 10)); // 4 movies per row
         watchlist.setBackground(new Color(255, 255, 255));
 
         scroller = new JScrollPane(watchlist);
@@ -140,7 +140,7 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
                 moviePanel.add(posterLabel, BorderLayout.CENTER);
 
                 // Add buttons for each movie
-                JPanel buttonPanel = new JPanel(new GridLayout(1, 2, 10, 10));
+                JPanel buttonPanel = new JPanel(new GridLayout(2, 1, 0, 0));
                 JButton removeButton = createStyledButton("Remove");
                 removeButton.addActionListener(evt1 -> {
                     final WatchlistRemoveState currentState = watchlistRemoveViewModel.getState();
