@@ -7,7 +7,16 @@ import entity.Movie;
  */
 public interface AddToWatchedListDataAccessInterface {
 
+    /**
+     * Gets the current username of the user.
+     * @return username of User.
+     */
     String getCurrentUsername();
 
+    /**
+     * Saves the movie to the users watched list.
+     * @param username username of the user.
+     * @param movie movie saving to watched list.
+     */
     void saveToWatchedList(String username, Movie movie);
 }

@@ -1,5 +1,8 @@
 package use_case.to_logged_in_view;
 
+/**
+ * Output boundary for to logged in view.
+ */
 public interface ToLoggedInViewOutputBoundary {
 
     /**

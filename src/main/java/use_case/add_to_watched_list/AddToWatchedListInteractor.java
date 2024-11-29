@@ -1,9 +1,9 @@
 package use_case.add_to_watched_list;
 
+import java.io.IOException;
+
 import entity.Movie;
 import use_case.SearchDataAccessInterface;
-
-import java.io.IOException;
 
 /**
  * The add to watchlist Interactor.
@@ -24,9 +24,10 @@ public class AddToWatchedListInteractor implements AddToWatchedListInputBoundary
     @Override
     public void execute(AddToWatchedListInputData inputData) {
         try {
-            Movie movie = searchDataAccessObject.search(inputData.getMovie());
+            final Movie movie = searchDataAccessObject.search(inputData.getMovie());
             userDataAccessObject.saveToWatchedList(inputData.getUsername(), movie);
-            final AddToWatchedListOutputData outputData = new AddToWatchedListOutputData(inputData.getUsername(), false);
+            final AddToWatchedListOutputData outputData = new AddToWatchedListOutputData(inputData.getUsername(),
+                    false);
             presenter.prepareSuccessView(outputData);
         }
         catch (IOException exception) {

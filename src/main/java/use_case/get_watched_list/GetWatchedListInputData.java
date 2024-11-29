@@ -1,5 +1,8 @@
 package use_case.get_watched_list;
 
+/**
+ * Input data for get watched list.
+ */
 public class GetWatchedListInputData {
 
     private final String username;

@@ -6,11 +6,13 @@ package use_case.logged_in;
 public interface LoggedInInputBoundary {
     /**
      * Executes the switch to search view use case.
+     * @param loggedInInputData Input data for logged in use case.
      */
     void switchToLoggedInSearchView(LoggedInInputData loggedInInputData);
 
     /**
      * Executes the switch to change password view use case.
+     * @param loggedInInputData Input data for logged in use case.
      */
     void switchToChangePasswordView(LoggedInInputData loggedInInputData);
 }
