@@ -1,5 +1,8 @@
 package use_case.rate;
 
+/**
+ * Input data for rate.
+ */
 public class RateInputData {
 
     private final String username;
