@@ -8,8 +8,8 @@ import use_case.export_watchlist.ExportWatchlistOutputData;
 
 public class ExportWatchlistPresenter implements ExportWatchlistOutputBoundary {
 
-    ViewManagerModel viewManagerModel;
-    WatchlistRemoveViewModel watchlistRemoveViewModel;
+    private final ViewManagerModel viewManagerModel;
+    private final WatchlistRemoveViewModel watchlistRemoveViewModel;
 
     public ExportWatchlistPresenter(ViewManagerModel viewManagerModel,
                                     WatchlistRemoveViewModel watchlistRemoveViewModel) {
@@ -35,6 +35,4 @@ public class ExportWatchlistPresenter implements ExportWatchlistOutputBoundary {
         watchlistRemoveState.setError(errorMessage);
         watchlistRemoveViewModel.firePropertyChanged();
     }
-
-
 }
