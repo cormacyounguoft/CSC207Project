@@ -74,7 +74,6 @@ public class MovieList {
         for (Movie movie : movieList) {
             if (movie.getTitle().equalsIgnoreCase(title)) {
                 posterLink = movie.getPosterLink();
-                break;
             }
         }
         return posterLink;

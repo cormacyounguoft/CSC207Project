@@ -27,8 +27,13 @@ public class GetRatedListInteractorTest {
         Movie movie = movieFactory.create();
         movie.setTitle("Movie");
         movie.setPosterLink("url");
+        Movie movie2 = movieFactory.create();
+        movie2.setTitle("Movie2");
+        movie2.setPosterLink("url2");
         dataAccessObject.saveToWatchedList("Username", movie);
         dataAccessObject.saveUserRating("Username", "Movie", 0);
+        dataAccessObject.saveToWatchedList("Username", movie2);
+        dataAccessObject.saveUserRating("Username", "Movie2", 1);
     }
 
     @Test
