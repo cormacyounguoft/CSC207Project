@@ -61,7 +61,7 @@ public class SearchInteractor implements SearchInputBoundary {
     }
 
     private String getMovieRottenTomatoes(Movie movie) {
-        String result = "Rotten tomatoes not available.";
+        String result = "Rotten Tomatoes not available.";
         if (movie.getRottenTomatoes() != -1) {
             result = String.valueOf(movie.getRottenTomatoes());
         }
@@ -69,7 +69,7 @@ public class SearchInteractor implements SearchInputBoundary {
     }
 
     private String getMovieGenre(Movie movie) {
-        String result = "Genre not available.";
+        String result = "Genres not available.";
         if (!movie.getGenre().isEmpty()) {
             result = movie.getGenre().toString();
         }
@@ -77,7 +77,7 @@ public class SearchInteractor implements SearchInputBoundary {
     }
 
     private String getMovieActors(Movie movie) {
-        String result = "Actor not available.";
+        String result = "Actors not available.";
         if (!movie.getActors().isEmpty()) {
             result = movie.getActors().toString();
         }
@@ -85,7 +85,7 @@ public class SearchInteractor implements SearchInputBoundary {
     }
 
     private String getMovieDirector(Movie movie) {
-        String result = "Director not available.";
+        String result = "Directors not available.";
         if (!movie.getDirector().isEmpty()) {
             result = movie.getDirector().toString();
         }
