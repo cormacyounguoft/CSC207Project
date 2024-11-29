@@ -78,8 +78,6 @@ import use_case.change_password.ChangePasswordOutputBoundary;
 import use_case.dashboard.DashboardInputBoundary;
 import use_case.dashboard.DashboardInteractor;
 import use_case.dashboard.DashboardOutputBoundary;
-import use_case.export_watchlist.ExportWatchlistInputBoundary;
-import use_case.export_watchlist.ExportWatchlistOutputBoundary;
 import use_case.get_rated_list.GetRateListInputBoundary;
 import use_case.get_rated_list.GetRateListInteractor;
 import use_case.get_rated_list.GetRateListOutputBoundary;
@@ -157,12 +155,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import java.awt.CardLayout;
-
-// export
-import interface_adapter.export_watchlist.ExportWatchlistController;
-import interface_adapter.export_watchlist.ExportWatchlistPresenter;
-import use_case.export_watchlist.ExportWatchlistInteractor;
-
 
 /**
  * The AppBuilder class is responsible for putting together the pieces of
@@ -724,22 +716,6 @@ public class AppBuilder {
         dashboardView.setToLoggedInViewController(toLoggedInViewController);
         return this;
     }
-
-    /**
-     * Adds the To Export Watchlist Use Case to the application.
-     * @return this builder
-     */
-    public AppBuilder addExportWatchlistUseCase() {
-        final ExportWatchlistOutputBoundary exportWatchlistPresenter = new ExportWatchlistPresenter();
-        final ExportWatchlistInputBoundary exportWatchlistInteractor =
-                new ExportWatchlistInteractor(exportWatchlistPresenter, userDataAccessObject);
-        final ExportWatchlistController exportWatchlistController =
-                new ExportWatchlistController(exportWatchlistInteractor);
-        watchlistView.setExportWatchlistController(exportWatchlistController);
-        return this;
-    }
-
-
 
     /**
      * Creates the JFrame for the application and initially sets the SignupView to be displayed.
