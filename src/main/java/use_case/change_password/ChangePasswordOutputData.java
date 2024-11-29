@@ -6,7 +6,6 @@ package use_case.change_password;
 public class ChangePasswordOutputData {
 
     private final String username;
-
     private final boolean useCaseFailed;
 
     public ChangePasswordOutputData(String username, boolean useCaseFailed) {
