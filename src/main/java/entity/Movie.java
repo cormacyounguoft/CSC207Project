@@ -7,6 +7,7 @@ import java.util.List;
  * The representation of a movie in our program.
  */
 public class Movie {
+
     private String title;
     private String releaseDate;
     private String description;

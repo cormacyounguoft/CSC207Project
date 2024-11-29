@@ -18,6 +18,7 @@ import use_case.SearchDataAccessInterface;
  * @Null
  */
 public class MovieAccessObject implements SearchDataAccessInterface {
+
     public static final String N_A = "N/A";
     public static final String COMMA = ",";
     public static final String COMMA_SPACE = ", ";

@@ -7,6 +7,7 @@ import java.util.List;
  * The representation of a list of movies for this program.
  */
 public class MovieList {
+
     private final List<Movie> movieList;
 
     public MovieList() {

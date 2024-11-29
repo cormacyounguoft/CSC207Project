@@ -174,6 +174,7 @@ import view.WatchlistView;
 //                  if your team decides to work with this as your starter code
 //                  for your final project this term.
 public class AppBuilder {
+
     private static final int WIDTH = 1280;
     private static final int HEIGHT = 720;
 

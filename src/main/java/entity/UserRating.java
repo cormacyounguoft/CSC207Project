@@ -7,6 +7,7 @@ import java.util.Map;
  * The representation of all of a user's ratings in our program.
  */
 public class UserRating {
+
     private final Map<String, Integer> movieToRating;
 
     public UserRating() {

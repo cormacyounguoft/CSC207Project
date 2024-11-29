@@ -7,6 +7,7 @@ import use_case.change_password.ChangePasswordInputData;
  * Controller for the Change Password Use Case.
  */
 public class ChangePasswordController {
+
     private final ChangePasswordInputBoundary userChangePasswordUseCaseInteractor;
 
     public ChangePasswordController(ChangePasswordInputBoundary userChangePasswordUseCaseInteractor) {

@@ -7,6 +7,7 @@ import use_case.add_to_watched_list.AddToWatchedListInputData;
  * The controller for the Add To Watchlist Use Case.
  */
 public class AddToWatchedListController {
+
     private final AddToWatchedListInputBoundary useCaseInteractor;
 
     public AddToWatchedListController(AddToWatchedListInputBoundary useCaseInteractor) {
