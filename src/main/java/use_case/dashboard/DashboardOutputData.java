@@ -4,6 +4,7 @@ package use_case.dashboard;
  * The output data for the dashboard.
  */
 public class DashboardOutputData {
+
     private final String totalHoursWatched;
     private final String favoriteMovie;
     private final String favoriteGenre;
