@@ -1,7 +1,7 @@
 package use_case.go_to_rate;
 
 /**
- * Output data for go rate use case.
+ * Output data for go to rate use case.
  */
 public class GoRateOutputData {
     private final String username;
