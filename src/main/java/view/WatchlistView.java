@@ -6,7 +6,6 @@ import interface_adapter.to_logged_in_view.ToLoggedInViewController;
 import interface_adapter.watchlist_remove.WatchlistRemoveController;
 import interface_adapter.watchlist_remove.WatchlistRemoveState;
 import interface_adapter.watchlist_remove.WatchlistRemoveViewModel;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

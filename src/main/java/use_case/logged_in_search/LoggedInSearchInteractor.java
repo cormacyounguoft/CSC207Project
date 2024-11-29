@@ -1,9 +1,9 @@
 package use_case.logged_in_search;
 
+import java.io.IOException;
+
 import entity.Movie;
 import use_case.SearchDataAccessInterface;
-
-import java.io.IOException;
 
 /**
  * The Logged In Search Interactor.
