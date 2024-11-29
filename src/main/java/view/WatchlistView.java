@@ -105,7 +105,7 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
                 state.setExport(null);
             }
             else {
-                final List<String> moviePosters = state.getWatchlistURL();
+                final List<String> moviePosters = state.getWatchlistUrl();
                 final List<String> movieTitles = state.getWatchlistTitle();
 
                 // Combine movie titles and posters into a single list for sorting

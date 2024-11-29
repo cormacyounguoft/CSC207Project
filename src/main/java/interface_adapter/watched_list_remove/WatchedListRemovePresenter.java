@@ -10,6 +10,7 @@ import use_case.watched_list_remove.WatchedListRemoveOutputData;
  * The Presenter for the watched list remove Use Case.
  */
 public class WatchedListRemovePresenter implements WatchedListRemoveOutputBoundary {
+
     private final ViewManagerModel viewManagerModel;
     private final LoggedInViewModel loggedInViewModel;
 
@@ -27,5 +28,4 @@ public class WatchedListRemovePresenter implements WatchedListRemoveOutputBounda
         viewManagerModel.setState(loggedInViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
-
 }
