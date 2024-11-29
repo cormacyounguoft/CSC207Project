@@ -10,5 +10,4 @@ public interface WatchedListRemoveOutputBoundary {
      * @param outputData Output data for watched list remove.
      */
     void prepareSuccessView(WatchedListRemoveOutputData outputData);
-
 }
