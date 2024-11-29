@@ -23,7 +23,6 @@ public class SignupController {
     public void execute(String username, String password1, String password2) {
         final SignupInputData signupInputData = new SignupInputData(
                 username, password1, password2);
-
         userSignupUseCaseInteractor.execute(signupInputData);
     }
 
