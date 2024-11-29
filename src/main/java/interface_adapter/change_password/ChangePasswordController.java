@@ -8,6 +8,7 @@ import use_case.change_password.ChangePasswordInputData;
  */
 public class ChangePasswordController {
     private final ChangePasswordInputBoundary userChangePasswordUseCaseInteractor;
+
     public ChangePasswordController(ChangePasswordInputBoundary userChangePasswordUseCaseInteractor) {
         this.userChangePasswordUseCaseInteractor = userChangePasswordUseCaseInteractor;
     }
