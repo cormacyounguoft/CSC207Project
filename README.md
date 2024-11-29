@@ -49,17 +49,68 @@ The purpose of this project is to create a movie organization system that allows
 5. Set `pom.xml` as Maven by right-clicking on the `pom.xml` file and selecting "Add as Maven Project." You may need to reload the Maven project.
 6. Once the API key and the Maven Project are set up, you can run the Main program.
 
-### Usage guide
-- Signup: When you open the app, you’ll start at the Home View, where you can sign up, log in, or search. Since the program doesn’t save users between sessions, you’ll need to sign up each time you run the app. To sign up, click Go to Sign Up, then enter a username and password. Passwords must be at least 8 characters long and include an uppercase letter, a lowercase letter, a digit, and a special character. 
-- Login: From the Home View, click Go to Login and enter your credentials to access your account. 
-- Search: You can search for movies while logged in or out. If you search while logged out, you won’t be able to add movies to your watchlist or watched list. To search, click Go to Search from either the Home View or the Logged In View, enter a movie title, and click Search. This takes you to the Search Result View, where logged-in users can add movies to their watchlist or watched list. 
-- Add to Watchlist: Log in and search for a movie, then click Add to Watchlist to save it to your watchlist. 
-- Add to Watched List: Log in, search for a movie, and click Add to Watched List to save it to your watched list
-- Rate a Movie: To rate a movie, it must first be in your watched list. Go to your watched list, find the movie you want to rate, and click Rate. Enter a rating between 0 and 5 inclusive. 
-- View Watchlist: Log in and click Go to Watchlist to view all the movies you’ve added to your watchlist. 
-- View Watched List: Log in and click Go to Watched List to see the movies you’ve added to your watched list. 
-- View Rated List: Log in and click Go to Rated List to view all the movies you’ve rated. 
-- View Dashboard: The dashboard provides statistics based on your watched and rated movies. To access it, log in and click Go to Dashboard.
+Here is the formatted list in Markdown:
+
+### Usage Guide
+- **Signup**:  
+  When you open the app, you’ll start at the Home View, where you can sign up, log in, or search. Since the program doesn’t save users between sessions, you’ll need to sign up each time you run the app.  
+  To sign up, click **Go to Sign Up**, then enter a username and password. Passwords must be at least 8 characters long and include an uppercase letter, a lowercase letter, a digit, and a special character.
+
+- **Login**:  
+  From the Home View, click **Go to Login** and enter your credentials to access your account.
+
+- **Search**:  
+  You can search for movies while logged in or out. If you search while logged out, you won’t be able to add movies to your watchlist or watched list.  
+  To search, click **Go to Search** from either the Home View or the Logged In View, enter a movie title, and click **Search**. This takes you to the Search Result View, where logged-in users can add movies to their watchlist or watched list.  
+
+  <img src="images/Search.png" alt="Searching for a movie" width="500"/>
+
+- **Add to Watchlist**:  
+  Log in and search for a movie, then click **Add to Watchlist** to save it to your watchlist.  
+
+  <img src="images/Watchlist.png" alt="Adding a movie to a watchlist" width="500"/>
+
+- **Remove from Watchlist**:  
+  Log in and navigate to your Watchlist. Locate the movie you want to remove and click **Remove**.  
+
+  <img src="images/RemoveWatchlist.png" alt="Removing a movie from a watchlist" width="500"/>
+
+- **Remove from Watchlist and Add to Watched List**:  
+  Log in and navigate to your Watchlist. Locate the movie you want to remove and click **Watched**. This will remove the movie from your watchlist and add it to your watched list.
+
+  <img src="images/WatchedWatchlist.png" alt="Marking a movie as watched" width="500"/>
+
+- **Add to Watched List**:  
+  Log in, search for a movie, and click **Add to Watched List** to save it to your watched list.  
+
+  <img src="images/WatchedList.png" alt="Adding a movie to a watched list" width="500"/>
+
+- **Remove from Watched List**:  
+  Log in and go to your Watched List. Find the movie you want to remove and click **Remove**. If you’ve rated the movie, it will also be removed from your Rated List.  
+
+  <img src="images/RemoveWatchedList.png" alt="Removing a movie from a watched list" width="500"/>
+
+- **Rate a Movie**:  
+  To rate a movie, it must first be in your watched list. Go to your watched list, find the movie you want to rate, and click **Rate**. Enter a rating between 0 and 5 inclusive.  
+
+  <img src="images/Rate.png" alt="Rating a movie" width="500"/>
+
+- **Remove a Rating**:  
+  Log in and go to your Rate List. Find the movie whose rating you want to remove and click **Remove**.
+
+  <img src="images/RemoveRating.png" alt="Removing a rating from a movie" width="500"/>
+
+- **View Watchlist**:  
+  Log in and click **Go to Watchlist** to view all the movies you’ve added to your watchlist.
+
+- **View Watched List**:  
+  Log in and click **Go to Watched List** to see the movies you’ve added to your watched list.
+
+- **View Rated List**:  
+  Log in and click **Go to Rated List** to view all the movies you’ve rated.
+
+- **View Dashboard**:  
+  The dashboard provides statistics based on your watched and rated movies. To access it, log in and click **Go to Dashboard**.
 
 ### License
 You can find the license [here](LICENSE).
