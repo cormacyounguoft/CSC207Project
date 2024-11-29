@@ -1,6 +1,7 @@
 package view;
 
 import interface_adapter.add_to_watched_list.AddToWatchedListController;
+import interface_adapter.export_watchlist.ExportWatchlistController;
 import interface_adapter.to_logged_in_view.ToLoggedInViewController;
 import interface_adapter.watchlist_remove.WatchlistRemoveController;
 import interface_adapter.watchlist_remove.WatchlistRemoveState;
@@ -26,8 +27,10 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
     private WatchlistRemoveController watchlistRemoveController;
     private ToLoggedInViewController toLoggedInViewController;
     private AddToWatchedListController addToWatchedListController;
+    private ExportWatchlistController exportWatchlistController;
 
     private final JButton cancel;
+    private final JButton export;
 
     private final JLabel username;
     private final JPanel watchlist;
@@ -68,6 +71,10 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
 
         cancel = createStyledButton("Cancel");
         buttonsPanel.add(cancel);
+
+        export = createStyledButton("Export");
+        buttonsPanel.add(export);
+
         this.add(buttonsPanel, BorderLayout.SOUTH);
 
         // Add Action Listeners
@@ -75,6 +82,16 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
             final WatchlistRemoveState currentState = watchlistRemoveViewModel.getState();
             toLoggedInViewController.toLoggedInView(currentState.getUsername());
         });
+
+        export.addActionListener(e -> {
+            if (exportWatchlistController != null) {
+                exportWatchlistController.exportWatchlist(username.getText().split(": ")[1]);
+                JOptionPane.showMessageDialog(this, "Watchlist exported");
+            }
+        });
+
+
+        buttonsPanel.add(export);
     }
 
     @Override
@@ -175,9 +192,7 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
     }
 
 
-    /**
-     * Creates a styled button.
-     */
+    //Creates a styled button.
     private JButton createStyledButton(String text) {
         JButton button = new JButton(text);
         button.setFont(new Font("SansSerif", Font.PLAIN, 22));
@@ -203,6 +218,10 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
     }
     public void setToLoggedInViewController(ToLoggedInViewController toLoggedInViewController) {
         this.toLoggedInViewController = toLoggedInViewController;
+    }
+
+    public void setExportWatchlistController(ExportWatchlistController exportWatchlistController) {
+        this.exportWatchlistController = exportWatchlistController;
     }
 
 }
