@@ -7,6 +7,7 @@ import java.util.Map;
  * The state for the rated list use case.
  */
 public class RatedListState {
+
     private String username;
     private Map<String, List<String>> rating;
 

@@ -7,6 +7,7 @@ import use_case.rated_list.RatedListInputData;
  * The controller for the rated list use case.
  */
 public class RatedListController {
+
     private final RatedListInputBoundary interactor;
 
     public RatedListController(RatedListInputBoundary interactor) {
