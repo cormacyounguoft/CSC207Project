@@ -21,6 +21,12 @@ import java.net.URL;
 import java.util.Objects;
 
 public class LoggedInSearchResultView extends JPanel implements ActionListener, PropertyChangeListener {
+    private static final int BORDER_LAYOUT_FOR_LOGGEDIN_HGAP = 20;
+    private static final int BORDER_LAYOUT_FOR_LOGGEDIN_VGAP = 10;
+    private static final int BORDER_LAYOUT_FOR_LOGGEDIN_DETAILS_HGAP = 10;
+    private static final int BUTTON_WIDTH = 220;
+    private static final int BUTTON_HEIGHT = 50;
+
     private final String viewName = "logged in search result";
     private final LoggedInSearchResultViewModel loggedInSearchResultViewModel;
 
@@ -47,41 +53,42 @@ public class LoggedInSearchResultView extends JPanel implements ActionListener, 
         this.loggedInSearchResultViewModel.addPropertyChangeListener(this);
 
         // Set layout and background
-        this.setLayout(new BorderLayout(20, 20));
-        this.setBackground(new Color(240, 248, 255)); // Light blue background
-        this.setBorder(new EmptyBorder(20, 20, 20, 20)); // Padding around the panel
+        this.setLayout(new BorderLayout(Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT));
+        this.setBackground(new Color(Constants.COLOUR_R, Constants.COLOUR_G, Constants.COLOUR_B)); // Light blue background
+        this.setBorder(new EmptyBorder(Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT,
+                Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT)); // Padding around the panel
 
         // Title and Release Date
         JPanel titlePanel = new JPanel(new GridLayout(2, 1));
         titlePanel.setOpaque(false);
 
-        movieTitle.setFont(new Font("SansSerif", Font.BOLD, 24));
-        movieTitle.setForeground(new Color(0, 51, 102)); // Dark blue
+        movieTitle.setFont(new Font(Constants.FONT_TYPE, Font.BOLD, Constants.FONT_LARGEST));
+        movieTitle.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B)); // Dark blue
         titlePanel.add(movieTitle);
 
-        movieReleaseDate.setFont(new Font("SansSerif", Font.PLAIN, 18));
-        movieReleaseDate.setForeground(new Color(0, 51, 102));
+        movieReleaseDate.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_MEDIUM));
+        movieReleaseDate.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
         titlePanel.add(movieReleaseDate);
 
         this.add(titlePanel, BorderLayout.NORTH);
 
         // Content Panel
-        JPanel contentPanel = new JPanel(new BorderLayout(20, 0));
+        JPanel contentPanel = new JPanel(new BorderLayout(BORDER_LAYOUT_FOR_LOGGEDIN_HGAP, 0));
         contentPanel.setOpaque(false);
 
         // Poster
         moviePoster.setHorizontalAlignment(SwingConstants.CENTER);
         moviePoster.setVerticalAlignment(SwingConstants.TOP);
-        moviePoster.setBorder(BorderFactory.createLineBorder(new Color(173, 216, 230), 1));
+        moviePoster.setBorder(BorderFactory.createLineBorder(new Color(Constants.LINE_BORDER_R, Constants.LINE_BORDER_G, Constants.LINE_BORDER_B), Constants.LINE_BORDER_THICKNESS));
         contentPanel.add(moviePoster, BorderLayout.WEST);
 
         // Details
         JPanel detailsPanel = new JPanel();
-        detailsPanel.setLayout(new BorderLayout(0, 10)); // Vertical alignment with spacing
+        detailsPanel.setLayout(new BorderLayout(0, BORDER_LAYOUT_FOR_LOGGEDIN_VGAP)); // Vertical alignment with spacing
         detailsPanel.setOpaque(false);
 
         // Highlighted Details
-        JPanel highlightedDetailsPanel = new JPanel(new GridLayout(1, 2, 10, 0)); // Horizontal side-by-side
+        JPanel highlightedDetailsPanel = new JPanel(new GridLayout(1, 2, BORDER_LAYOUT_FOR_LOGGEDIN_DETAILS_HGAP, 0)); // Horizontal side-by-side
         highlightedDetailsPanel.setOpaque(false);
         highlightedDetailsPanel.add(labelFormatter("Rotten Tomatoes: ", movieRottenTomatoes));
         highlightedDetailsPanel.add(labelFormatter("Genres: ", movieGenre));
@@ -91,13 +98,13 @@ public class LoggedInSearchResultView extends JPanel implements ActionListener, 
         movieDescription.setLineWrap(true);
         movieDescription.setWrapStyleWord(true);
         movieDescription.setEditable(false);
-        movieDescription.setFont(new Font("SansSerif", Font.PLAIN, 16));
-        movieDescription.setForeground(new Color(0, 51, 102));
-        movieDescription.setBackground(new Color(240, 248, 255)); // Match background
+        movieDescription.setFont(new Font("SansSerif", Font.PLAIN, Constants.FONT_SMALLER));
+        movieDescription.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
+        movieDescription.setBackground(new Color(Constants.COLOUR_R, Constants.COLOUR_G, Constants.COLOUR_B)); // Match background
         detailsPanel.add(new JScrollPane(movieDescription), BorderLayout.CENTER);
 
         // Other Details
-        JPanel otherDetailsPanel = new JPanel(new GridLayout(2, 1, 5, 5));
+        JPanel otherDetailsPanel = new JPanel(new GridLayout(2, 1, Constants.LABEL_BORDER_LAYOUT, Constants.LABEL_BORDER_LAYOUT));
         otherDetailsPanel.setOpaque(false);
         otherDetailsPanel.add(labelFormatter("Actors: ", movieActors));
         otherDetailsPanel.add(labelFormatter("Directors: ", movieDirector));
@@ -140,15 +147,15 @@ public class LoggedInSearchResultView extends JPanel implements ActionListener, 
     }
 
     private JPanel labelFormatter(String labelText, JLabel valueLabel) {
-        JPanel panel = new JPanel(new BorderLayout(5, 5));
+        JPanel panel = new JPanel(new BorderLayout(Constants.LABEL_BORDER_LAYOUT, Constants.LABEL_BORDER_LAYOUT));
         panel.setOpaque(false);
 
         JLabel label = new JLabel(labelText);
-        label.setFont(new Font("SansSerif", Font.BOLD, 16));
-        label.setForeground(new Color(0, 51, 102));
+        label.setFont(new Font("SansSerif", Font.BOLD, Constants.FONT_SMALLER));
+        label.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
 
-        valueLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
-        valueLabel.setForeground(new Color(0, 51, 102));
+        valueLabel.setFont(new Font("SansSerif", Font.PLAIN, Constants.FONT_SMALLER));
+        valueLabel.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
 
         panel.add(label, BorderLayout.WEST);
         panel.add(valueLabel, BorderLayout.CENTER);
@@ -157,13 +164,13 @@ public class LoggedInSearchResultView extends JPanel implements ActionListener, 
 
     private JButton buttonFactory(String text) {
         JButton button = new JButton(text);
-        button.setFont(new Font("SansSerif", Font.PLAIN, 22));
-        button.setBackground(new Color(93, 186, 255));
+        button.setFont(new Font("SansSerif", Font.PLAIN, Constants.FONT_LARGER));
+        button.setBackground(new Color(Constants.BACKGROUND_COLOUR_R, Constants.BACKGROUND_COLOUR_G, Constants.BACKGROUND_COLOUR_B));
         button.setForeground(Color.BLACK);
         button.setFocusPainted(false);
-        button.setBorder(BorderFactory.createLineBorder(new Color(124, 183, 205), 2));
+        button.setBorder(BorderFactory.createLineBorder(new Color(Constants.BORDER_COLOUR_R, Constants.BORDER_COLOUR_G, Constants.BORDER_COLOUR_B), 2));
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        button.setPreferredSize(new Dimension(220, 50));
+        button.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
         return button;
     }
 
