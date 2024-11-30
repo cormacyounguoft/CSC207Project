@@ -16,6 +16,12 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class LoggedInView extends JPanel implements PropertyChangeListener {
+    private static final int FONT_LOGGEDIN = 28;
+    private static final int BUTTON_WIDTH = 400;
+    private static final int BUTTON_HEIGHT = 100;
+    private static final int GRID_LOGGEDIN_GAP = 20;
+    private static final int BORDER_THICKNESS = 3;
+
     private final String viewName = "logged in";
 
     private final LoggedInViewModel loggedInViewModel;
@@ -41,9 +47,10 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         this.loggedInViewModel.addPropertyChangeListener(this);
 
         // Set layout and background
-        this.setLayout(new BorderLayout(20, 20));
-        this.setBackground(new Color(240, 248, 255)); // Light blue background
-        this.setBorder(new EmptyBorder(20, 20, 20, 20)); // Padding around the panel
+        this.setLayout(new BorderLayout(Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT));
+        this.setBackground(new Color(Constants.COLOUR_R, Constants.COLOUR_G, Constants.COLOUR_B)); // Light blue background
+        this.setBorder(new EmptyBorder(Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT,
+                Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT)); // Padding around the panel
 
         // Title Section
         JPanel titlePanel = new JPanel();
@@ -52,23 +59,23 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
         // View Title
         final JLabel title = new JLabel(loggedInViewModel.TITLE, SwingConstants.CENTER);
-        title.setFont(new Font("SansSerif", Font.BOLD, 24));
-        title.setForeground(new Color(0, 51, 102));
+        title.setFont(new Font("SansSerif", Font.BOLD, Constants.FONT_LARGEST));
+        title.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Welcome Text
         username = new JLabel("Welcome!", SwingConstants.CENTER);
-        username.setFont(new Font("SansSerif", Font.PLAIN, 18));
-        username.setForeground(new Color(0, 51, 102));
+        username.setFont(new Font("SansSerif", Font.PLAIN, Constants.FONT_MEDIUM));
+        username.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
         username.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         titlePanel.add(title);
-        titlePanel.add(Box.createVerticalStrut(10)); // Add spacing between title and welcome text
+        titlePanel.add(Box.createVerticalStrut(Constants.VERTICAL_STRUT)); // Add spacing between title and welcome text
         titlePanel.add(username);
         this.add(titlePanel, BorderLayout.NORTH);
 
         // Buttons Section
-        final JPanel buttonsPanel = new JPanel(new GridLayout(3, 2, 20, 20)); // 3 rows, 2 columns
+        final JPanel buttonsPanel = new JPanel(new GridLayout(3, 2, GRID_LOGGEDIN_GAP, GRID_LOGGEDIN_GAP)); // 3 rows, 2 columns
         buttonsPanel.setOpaque(false);
 
         toSearch = buttonFactory(loggedInViewModel.TO_SEARCH_BUTTON);
@@ -89,7 +96,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
         JPanel centeredPanel = new JPanel(new BorderLayout());
         centeredPanel.setOpaque(false);
-        centeredPanel.setBorder(new EmptyBorder(20, 50, 20, 50)); // Padding around the buttons panel
+        centeredPanel.setBorder(new EmptyBorder(Constants.LOGGED_CENTERED_Y_AXIS, Constants.CENTERED_X_AXIS, Constants.LOGGED_CENTERED_Y_AXIS, Constants.CENTERED_X_AXIS)); // Padding around the buttons panel
         centeredPanel.add(buttonsPanel, BorderLayout.CENTER);
 
         this.add(centeredPanel, BorderLayout.CENTER);
@@ -133,13 +140,13 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
     private JButton buttonFactory(String text) {
         JButton button = new JButton(text);
-        button.setFont(new Font("SansSerif", Font.PLAIN, 28)); // Larger font size
-        button.setBackground(new Color(93, 186, 255)); // Pastel blue
+        button.setFont(new Font("SansSerif", Font.PLAIN, FONT_LOGGEDIN)); // Larger font size
+        button.setBackground(new Color(Constants.BACKGROUND_COLOUR_R, Constants.BACKGROUND_COLOUR_G, Constants.BACKGROUND_COLOUR_B)); // Pastel blue
         button.setForeground(Color.BLACK);
         button.setFocusPainted(false);
-        button.setBorder(BorderFactory.createLineBorder(new Color(124, 183, 205), 3)); // Slightly thicker border
+        button.setBorder(BorderFactory.createLineBorder(new Color(Constants.BORDER_COLOUR_R, Constants.BORDER_COLOUR_G, Constants.BORDER_COLOUR_B), BORDER_THICKNESS)); // Slightly thicker border
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        button.setPreferredSize(new Dimension(400, 100)); // Larger button size
+        button.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT)); // Larger button size
         return button;
     }
 
