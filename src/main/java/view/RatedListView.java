@@ -1,14 +1,14 @@
 package view;
 
-import interface_adapter.ratedList.RatedListController;
-import interface_adapter.ratedList.RatedListState;
-import interface_adapter.ratedList.RatedListViewModel;
-import interface_adapter.to_logged_in_view.ToLoggedInViewController;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -17,6 +17,28 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+import interface_adapter.ratedList.RatedListController;
+import interface_adapter.ratedList.RatedListState;
+import interface_adapter.ratedList.RatedListViewModel;
+import interface_adapter.to_logged_in_view.ToLoggedInViewController;
+
+/**
+ * View for Rated List.
+ */
 public class RatedListView extends JPanel implements PropertyChangeListener {
     private static final int GRID_RATEDLIST_COLUMNS = 4;
     private static final int GRID_RATEDLIST_HGAP = 30;
@@ -39,9 +61,9 @@ public class RatedListView extends JPanel implements PropertyChangeListener {
 
         // Set layout and background
         this.setLayout(new BorderLayout(Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT));
-        this.setBackground(new Color(Constants.COLOUR_R, Constants.COLOUR_G, Constants.COLOUR_B)); // Light blue background
+        this.setBackground(new Color(Constants.COLOUR_R, Constants.COLOUR_G, Constants.COLOUR_B));
         this.setBorder(new EmptyBorder(Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT,
-                Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT)); // Padding around the panel
+                Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT));
 
         // Title Label
         final JLabel title = new JLabel("Rated List", SwingConstants.CENTER);
@@ -58,8 +80,8 @@ public class RatedListView extends JPanel implements PropertyChangeListener {
 
         // Rated List Content Panel
         ratedList = new JPanel();
-        ratedList.setLayout(new GridLayout(0, GRID_RATEDLIST_COLUMNS, GRID_RATEDLIST_HGAP, GRID_RATEDLIST_VGAP)); // 4 movies per row, horizontal spacing > vertical spacing
-        ratedList.setBackground(new Color(Constants.COLOUR_B, Constants.COLOUR_B, Constants.COLOUR_B)); // White background for clarity
+        ratedList.setLayout(new GridLayout(0, GRID_RATEDLIST_COLUMNS, GRID_RATEDLIST_HGAP, GRID_RATEDLIST_VGAP));
+        ratedList.setBackground(new Color(Constants.COLOUR_B, Constants.COLOUR_B, Constants.COLOUR_B));
 
         scroller = new JScrollPane(ratedList);
         scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -90,7 +112,7 @@ public class RatedListView extends JPanel implements PropertyChangeListener {
             ratedList.removeAll();
 
             for (Map.Entry<String, List<String>> entry : ratings.entrySet()) {
-                JPanel ratingPanel = createRatingPanel(entry, state.getUsername());
+                final JPanel ratingPanel = createRatingPanel(entry, state.getUsername());
                 ratedList.add(ratingPanel);
             }
 
@@ -100,72 +122,86 @@ public class RatedListView extends JPanel implements PropertyChangeListener {
         }
     }
 
-    private JPanel createRatingPanel(Map.Entry<String, List<String>> entry, String username) {
-        String movieTitle = entry.getKey();
-        List<String> details = entry.getValue();
-        String rating = details.get(0);
-        String posterURL = details.get(1);
+    private JPanel createRatingPanel(Map.Entry<String, List<String>> entry, String currentUsername) {
+        final String movieTitle = entry.getKey();
+        final List<String> details = entry.getValue();
+        final String rating = details.get(0);
+        final String posterUrl = details.get(1);
 
-        JPanel ratingPanel = new JPanel();
+        final JPanel ratingPanel = new JPanel();
         ratingPanel.setLayout(new BoxLayout(ratingPanel, BoxLayout.Y_AXIS));
         ratingPanel.setOpaque(false);
 
-        // Movie Title Label
-        JLabel titleLabel = new JLabel(movieTitle);
-        titleLabel.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_SMALLER));
-        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        // Movie Poster
-        JLabel posterLabel = new JLabel();
-        posterLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        if (!posterURL.isEmpty()) {
-            try {
-                URL url = new URL(posterURL);
-                BufferedImage image = ImageIO.read(url);
-                Image scaledImage = image.getScaledInstance(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT, Image.SCALE_SMOOTH); // Resize poster
-                posterLabel.setIcon(new ImageIcon(scaledImage));
-            } catch (IOException e) {
-                posterLabel.setText("Poster not available.");
-            }
-        } else {
-            posterLabel.setText("Poster not available.");
-        }
-
-        // Rating Label
-        JLabel ratingLabel = new JLabel("Rating: " + rating);
-        ratingLabel.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_SMALLER));
-        ratingLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        // Remove Button
-        JButton removeButton = createStyledButton("Remove");
-        removeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        removeButton.addActionListener(evt -> {
-            ratedListController.execute(username, movieTitle);
-            JOptionPane.showMessageDialog(null, "\"" + movieTitle + "\" has been deleted from your rated list.");
-        });
-
-        // Add components to the panel
-        ratingPanel.add(titleLabel);
+        ratingPanel.add(createTitleLabel(movieTitle));
         ratingPanel.add(Box.createVerticalStrut(Constants.VERTICAL_STRUT));
-        ratingPanel.add(posterLabel);
+        ratingPanel.add(createPosterLabel(posterUrl));
         ratingPanel.add(Box.createVerticalStrut(Constants.VERTICAL_STRUT));
-        ratingPanel.add(ratingLabel);
+        ratingPanel.add(createRatingLabel(rating));
         ratingPanel.add(Box.createVerticalStrut(Constants.VERTICAL_STRUT));
-        ratingPanel.add(removeButton);
+        ratingPanel.add(createRemoveButton(movieTitle, currentUsername));
 
         return ratingPanel;
     }
 
+    private JLabel createTitleLabel(String movieTitle) {
+        final JLabel titleLabel = new JLabel(movieTitle);
+        titleLabel.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_SMALLER));
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        return titleLabel;
+    }
+
+    private JLabel createPosterLabel(String posterUrl) {
+        final JLabel posterLabel = new JLabel();
+        posterLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        if (!posterUrl.isEmpty()) {
+            try {
+                final URL url = new URL(posterUrl);
+                final BufferedImage image = ImageIO.read(url);
+                final Image scaledImage = image.getScaledInstance(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT,
+                        Image.SCALE_SMOOTH);
+                posterLabel.setIcon(new ImageIcon(scaledImage));
+            }
+            catch (IOException exception) {
+                posterLabel.setText("Poster not available.");
+            }
+        }
+        else {
+            posterLabel.setText("Poster not available.");
+        }
+        return posterLabel;
+    }
+
+    private JLabel createRatingLabel(String rating) {
+        final JLabel ratingLabel = new JLabel("Rating: " + rating);
+        ratingLabel.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_SMALLER));
+        ratingLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        return ratingLabel;
+    }
+
+    private JButton createRemoveButton(String movieTitle, String currentUsername) {
+        final JButton removeButton = createStyledButton("Remove");
+        removeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        removeButton.addActionListener(evt -> {
+            ratedListController.execute(currentUsername, movieTitle);
+            JOptionPane.showMessageDialog(null, "\"" + movieTitle + "\" has been deleted from your rated list.");
+        });
+        return removeButton;
+    }
+
     /**
      * Creates a styled button.
+     * @param text the text in the styled button.
+     * @return The styled button that is created.
      */
     private JButton createStyledButton(String text) {
-        JButton button = new JButton(text);
+        final JButton button = new JButton(text);
         button.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_LARGER));
-        button.setBackground(new Color(Constants.BACKGROUND_COLOUR_R, Constants.BACKGROUND_COLOUR_G, Constants.BACKGROUND_COLOUR_B)); // Pastel blue
-        button.setForeground(Color.BLACK); // Black text for visibility
+        button.setBackground(new Color(Constants.BACKGROUND_COLOUR_R, Constants.BACKGROUND_COLOUR_G,
+                Constants.BACKGROUND_COLOUR_B));
+        button.setForeground(Color.BLACK);
         button.setFocusPainted(false);
-        button.setBorder(BorderFactory.createLineBorder(new Color(Constants.BORDER_COLOUR_R, Constants.BORDER_COLOUR_G, Constants.BORDER_COLOUR_B), 2));
+        button.setBorder(BorderFactory.createLineBorder(new Color(Constants.BORDER_COLOUR_R, Constants.BORDER_COLOUR_G,
+                Constants.BORDER_COLOUR_B), 2));
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
         button.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT));
         return button;
