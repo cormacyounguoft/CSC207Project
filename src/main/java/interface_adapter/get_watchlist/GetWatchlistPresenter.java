@@ -1,8 +1,8 @@
 package interface_adapter.get_watchlist;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.watchlist_remove.WatchlistState;
 import interface_adapter.watchlist_remove.WatchlistRemoveViewModel;
+import interface_adapter.watchlist_remove.WatchlistState;
 import use_case.get_watchlist.GetWatchlistOutputBoundary;
 import use_case.get_watchlist.GetWatchlistOutputData;
 
