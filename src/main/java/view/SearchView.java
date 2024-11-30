@@ -1,7 +1,18 @@
 package view;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -43,18 +54,18 @@ public class SearchView extends JPanel {
         // Title Label
         final JLabel title = new JLabel("Search Screen", SwingConstants.CENTER);
         title.setFont(new Font(Constants.FONT_TYPE, Font.BOLD, Constants.FONT_LARGEST));
-        title.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B)); // Dark blue
+        title.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
         this.add(title, BorderLayout.NORTH);
 
         // Input Field Panel
-        final JPanel inputPanel = new JPanel(new GridLayout(2, 1, 10, 10)); // Input field and error with spacing
+        final JPanel inputPanel = new JPanel(new GridLayout(2, 1, 10, 10));
         inputPanel.setOpaque(false);
 
         inputPanel.add(labelCreator("Search Query", searchQueryInputField, searchQueryErrorField));
         this.add(inputPanel, BorderLayout.CENTER);
 
         // Buttons Panel
-        final JPanel buttonsPanel = new JPanel(new GridLayout(1, 2, 15, 0)); // Side-by-side buttons
+        final JPanel buttonsPanel = new JPanel(new GridLayout(1, 2, 15, 0));
         buttonsPanel.setOpaque(false);
 
         search = buttonFactory("Search");
@@ -82,19 +93,25 @@ public class SearchView extends JPanel {
 
     /**
      * Creates a labeled field with an error message label underneath.
+     * @param labelText the text to display as the label for the input field
+     * @param inputField the input field where the user enters text
+     * @param errorLabel the label to display error messages related to the input field
+     * @return a JPanel containing the label, input field, and error message label
      */
     private JPanel labelCreator(String labelText, JTextField inputField, JLabel errorLabel) {
-        JPanel panel = new JPanel(new BorderLayout(Constants.LABEL_BORDER_LAYOUT, Constants.LABEL_BORDER_LAYOUT));
+        final JPanel panel = new JPanel(new BorderLayout(Constants.LABEL_BORDER_LAYOUT, Constants.LABEL_BORDER_LAYOUT));
         panel.setOpaque(false);
 
-        JLabel label = new JLabel(labelText);
+        final JLabel label = new JLabel(labelText);
         label.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_SMALLER));
         label.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
 
         inputField.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_SMALLER));
         inputField.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(Constants.LINE_BORDER_R, Constants.LINE_BORDER_G, Constants.LINE_BORDER_B), 1),
-                BorderFactory.createEmptyBorder(Constants.LABEL_BORDER_LAYOUT, Constants.LABEL_BORDER_LAYOUT, Constants.LABEL_BORDER_LAYOUT, Constants.LABEL_BORDER_LAYOUT)
+                BorderFactory.createLineBorder(new Color(Constants.LINE_BORDER_R, Constants.LINE_BORDER_G,
+                        Constants.LINE_BORDER_B), 1),
+                BorderFactory.createEmptyBorder(Constants.LABEL_BORDER_LAYOUT, Constants.LABEL_BORDER_LAYOUT,
+                        Constants.LABEL_BORDER_LAYOUT, Constants.LABEL_BORDER_LAYOUT)
         ));
 
         errorLabel.setFont(new Font(Constants.FONT_TYPE, Font.ITALIC, Constants.FONT_SMALLEST));
@@ -109,40 +126,42 @@ public class SearchView extends JPanel {
 
     /**
      * Utility method to create a styled button.
+     * @param text the text to be displayed in the styled button.
+     * @return the styled button that is created.
      */
     private JButton buttonFactory(String text) {
-        JButton button = new JButton(text);
+        final JButton button = new JButton(text);
         button.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_LARGER));
-        button.setBackground(new Color(Constants.BACKGROUND_COLOUR_R, Constants.BACKGROUND_COLOUR_G, Constants.BACKGROUND_COLOUR_B)); // Pastel blue
+        button.setBackground(new Color(Constants.BACKGROUND_COLOUR_R, Constants.BACKGROUND_COLOUR_G,
+                Constants.BACKGROUND_COLOUR_B));
         button.setForeground(Color.BLACK);
         button.setFocusPainted(false);
-        button.setBorder(BorderFactory.createLineBorder(new Color(Constants.BORDER_COLOUR_R, Constants.BORDER_COLOUR_G, Constants.BORDER_COLOUR_B), 2));
+        button.setBorder(BorderFactory.createLineBorder(new Color(Constants.BORDER_COLOUR_R,
+                Constants.BORDER_COLOUR_G, Constants.BORDER_COLOUR_B), 2));
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        button.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT)); // Consistent size
+        button.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT));
         return button;
     }
 
     /**
      * Adds a document listener to a text field.
+     * @param textField the text field to which the document listener is added
+     * @param callback the callback to handle updates to the text field's content
      */
     private void addDocumentListener(JTextField textField, DocumentListenerCallback callback) {
         textField.getDocument().addDocumentListener(new DocumentListener() {
-            public void insertUpdate(DocumentEvent e) {
+            public void insertUpdate(DocumentEvent event) {
                 callback.update(textField.getText());
             }
 
-            public void removeUpdate(DocumentEvent e) {
+            public void removeUpdate(DocumentEvent event) {
                 callback.update(textField.getText());
             }
 
-            public void changedUpdate(DocumentEvent e) {
+            public void changedUpdate(DocumentEvent event) {
                 callback.update(textField.getText());
             }
         });
-    }
-
-    private interface DocumentListenerCallback {
-        void update(String text);
     }
 
     private void setFields(SearchState state) {
@@ -159,5 +178,12 @@ public class SearchView extends JPanel {
 
     public void setToHomeViewController(ToHomeViewController toHomeViewController) {
         this.toHomeViewController = toHomeViewController;
+    }
+
+    /**
+     * A callback interface for handling updates to a text field.
+     */
+    private interface DocumentListenerCallback {
+        void update(String text);
     }
 }

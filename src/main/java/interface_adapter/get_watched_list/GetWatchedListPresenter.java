@@ -1,8 +1,8 @@
 package interface_adapter.get_watched_list;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.watched_list_remove.WatchedListState;
 import interface_adapter.watched_list_remove.WatchedListRemoveViewModel;
+import interface_adapter.watched_list_remove.WatchedListState;
 import use_case.get_watched_list.GetWatchedListOutputBoundary;
 import use_case.get_watched_list.GetWatchedListOutputData;
 

@@ -33,8 +33,8 @@ import interface_adapter.export_watchedlist.ExportWatchedListController;
 import interface_adapter.go_to_rate.GoRateController;
 import interface_adapter.to_logged_in_view.ToLoggedInViewController;
 import interface_adapter.watched_list_remove.WatchedListRemoveController;
-import interface_adapter.watched_list_remove.WatchedListState;
 import interface_adapter.watched_list_remove.WatchedListRemoveViewModel;
+import interface_adapter.watched_list_remove.WatchedListState;
 
 /**
  * View for the Watched List.
@@ -232,7 +232,9 @@ public class WatchedListView extends JPanel implements PropertyChangeListener {
         this.goToLoggedInViewController = controller;
     }
 
-    // Helper class for sorting movies
+    /**
+     * Helper class for sorting movies.
+     */
     private static class Movie {
         private final String title;
         private final String posterUrl;
