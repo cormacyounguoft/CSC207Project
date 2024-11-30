@@ -161,7 +161,7 @@ public class RatedListView extends JPanel implements PropertyChangeListener {
      */
     private JButton createStyledButton(String text) {
         JButton button = new JButton(text);
-        button.setFont(new Font("SansSerif", Font.PLAIN, Constants.FONT_LARGER));
+        button.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_LARGER));
         button.setBackground(new Color(Constants.BACKGROUND_COLOUR_R, Constants.BACKGROUND_COLOUR_G, Constants.BACKGROUND_COLOUR_B)); // Pastel blue
         button.setForeground(Color.BLACK); // Black text for visibility
         button.setFocusPainted(false);
