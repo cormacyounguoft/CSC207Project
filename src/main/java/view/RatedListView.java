@@ -18,6 +18,9 @@ import java.util.List;
 import java.util.Map;
 
 public class RatedListView extends JPanel implements PropertyChangeListener {
+    private static final int GRID_RATEDLIST_COLUMNS = 4;
+    private static final int GRID_RATEDLIST_HGAP = 30;
+    private static final int GRID_RATEDLIST_VGAP = 10;
 
     private final String viewName = "rated list";
     private final RatedListViewModel ratedListViewModel;
@@ -55,7 +58,7 @@ public class RatedListView extends JPanel implements PropertyChangeListener {
 
         // Rated List Content Panel
         ratedList = new JPanel();
-        ratedList.setLayout(new GridLayout(0, 4, 30, 10)); // 4 movies per row, horizontal spacing > vertical spacing
+        ratedList.setLayout(new GridLayout(0, GRID_RATEDLIST_COLUMNS, GRID_RATEDLIST_HGAP, GRID_RATEDLIST_VGAP)); // 4 movies per row, horizontal spacing > vertical spacing
         ratedList.setBackground(new Color(Constants.COLOUR_B, Constants.COLOUR_B, Constants.COLOUR_B)); // White background for clarity
 
         scroller = new JScrollPane(ratedList);
