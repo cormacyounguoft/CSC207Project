@@ -50,7 +50,6 @@ public class RateView extends JPanel implements PropertyChangeListener {
         this.rateViewModel = rateViewModel;
         this.rateViewModel.addPropertyChangeListener(this);
 
-
         configureLayout();
         final JPanel topPanel = createTopPanel();
         this.add(topPanel, BorderLayout.NORTH);
@@ -58,7 +57,6 @@ public class RateView extends JPanel implements PropertyChangeListener {
         final JPanel buttonsPanel = createButtonsPanel();
         this.add(buttonsPanel, BorderLayout.SOUTH);
     }
-
 
     private void configureLayout() {
         this.setLayout(new BorderLayout(RATE_MAIN_BORDER_LAYOUT, RATE_MAIN_BORDER_LAYOUT));
