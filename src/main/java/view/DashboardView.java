@@ -14,6 +14,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class DashboardView extends JPanel implements ActionListener, PropertyChangeListener {
+    private static final int GRID_DASHBOARD_GAP = 10;
+    private static final int GRID_DASHBOARD_ROWS = 6;
+
     private final String viewName = "dashboard";
 
     private final DashboardViewModel dashboardViewModel;
@@ -33,19 +36,20 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
         this.dashboardViewModel = dashboardViewModel;
         this.dashboardViewModel.addPropertyChangeListener(this);
 
-        this.setLayout(new BorderLayout(20, 20));
-        this.setBackground(new Color(240, 248, 255)); // Light blue background
-        this.setBorder(new EmptyBorder(20, 20, 20, 20)); // Padding around the panel
+        // Set layout and background
+        this.setLayout(new BorderLayout(Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT));
+        this.setBackground(new Color(Constants.COLOUR_R, Constants.COLOUR_G, Constants.COLOUR_B)); // Light blue background
+        this.setBorder(new EmptyBorder(Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT)); // Padding around the panel
 
         final JLabel title = new JLabel("Movie Dashboard", SwingConstants.CENTER);
-        title.setFont(new Font("SansSerif", Font.BOLD, 24));
-        title.setForeground(new Color(0, 51, 102));
+        title.setFont(new Font(Constants.FONT_TYPE, Font.BOLD, Constants.FONT_LARGEST));
+        title.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
         this.add(title, BorderLayout.NORTH);
 
         JPanel contentPanel = new JPanel();
-        contentPanel.setLayout(new GridLayout(6, 1, 10, 10));
-        contentPanel.setBackground(new Color(255, 255, 255)); // White background for clarity
-        contentPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
+        contentPanel.setLayout(new GridLayout(GRID_DASHBOARD_ROWS, 1, GRID_DASHBOARD_GAP, GRID_DASHBOARD_GAP));
+        contentPanel.setBackground(new Color(Constants.COLOUR_B, Constants.COLOUR_B, Constants.COLOUR_B)); // White background for clarity
+        contentPanel.setBorder(new EmptyBorder(Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT));
 
         configureLabel(usernameLabel, contentPanel);
         configureLabel(totalHoursWatchedLabel, contentPanel);
@@ -70,20 +74,20 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
     }
 
     private void configureLabel(JLabel label, JPanel panel) {
-        label.setFont(new Font("SansSerif", Font.PLAIN, 18));
-        label.setForeground(new Color(0, 51, 102));
+        label.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_MEDIUM));
+        label.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
         panel.add(label);
     }
 
     private JButton createStyledButton(String text) {
         JButton button = new JButton(text);
-        button.setFont(new Font("SansSerif", Font.PLAIN, 18));
-        button.setBackground(new Color(93, 186, 255));
+        button.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_MEDIUM));
+        button.setBackground(new Color(Constants.BACKGROUND_COLOUR_R, Constants.BACKGROUND_COLOUR_G, Constants.BACKGROUND_COLOUR_B));
         button.setForeground(Color.BLACK);
         button.setFocusPainted(false);
-        button.setBorder(BorderFactory.createLineBorder(new Color(124, 183, 205), 2));
+        button.setBorder(BorderFactory.createLineBorder(new Color(Constants.BORDER_COLOUR_R, Constants.BORDER_COLOUR_G, Constants.BORDER_COLOUR_B), 2));
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        button.setPreferredSize(new Dimension(150, 50));
+        button.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT));
         return button;
     }
 
