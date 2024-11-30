@@ -1,8 +1,8 @@
 package interface_adapter.get_watchlist;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.watchlist_remove.WatchlistRemoveState;
 import interface_adapter.watchlist_remove.WatchlistRemoveViewModel;
+import interface_adapter.watchlist_remove.WatchlistState;
 import use_case.get_watchlist.GetWatchlistOutputBoundary;
 import use_case.get_watchlist.GetWatchlistOutputData;
 
@@ -21,7 +21,7 @@ public class GetWatchlistPresenter implements GetWatchlistOutputBoundary {
 
     @Override
     public void prepareSuccessView(GetWatchlistOutputData outputData) {
-        final WatchlistRemoveState watchlistState = watchlistViewModel.getState();
+        final WatchlistState watchlistState = watchlistViewModel.getState();
         watchlistState.setUsername(outputData.getUsername());
         watchlistState.setWatchlistTitle(outputData.getWatchlistTitle());
         watchlistState.setWatchlistUrl(outputData.getWatchlistUrl());

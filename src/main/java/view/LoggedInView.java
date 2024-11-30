@@ -1,5 +1,24 @@
 package view;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
 import interface_adapter.dashboard.DashboardController;
 import interface_adapter.get_rated_list.GetRatedListController;
 import interface_adapter.get_watched_list.GetWatchedListController;
@@ -9,12 +28,9 @@ import interface_adapter.logged_in.LoggedInState;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.logout.LogoutController;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
+/**
+ * View for the Logged In.
+ */
 public class LoggedInView extends JPanel implements PropertyChangeListener {
     private static final int FONT_LOGGEDIN = 28;
     private static final int BUTTON_WIDTH = 400;
@@ -38,7 +54,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private final JButton toChangePassword;
     private final JButton logout;
     private final JButton toRatedList;
-    private final JButton toDashboard; // New Dashboard Button
+    private final JButton toDashboard;
 
     private final JLabel username;
 
@@ -48,34 +64,34 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
         // Set layout and background
         this.setLayout(new BorderLayout(Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT));
-        this.setBackground(new Color(Constants.COLOUR_R, Constants.COLOUR_G, Constants.COLOUR_B)); // Light blue background
+        this.setBackground(new Color(Constants.COLOUR_R, Constants.COLOUR_G, Constants.COLOUR_B));
         this.setBorder(new EmptyBorder(Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT,
-                Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT)); // Padding around the panel
+                Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT));
 
         // Title Section
-        JPanel titlePanel = new JPanel();
+        final JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.Y_AXIS));
         titlePanel.setOpaque(false);
 
         // View Title
         final JLabel title = new JLabel(loggedInViewModel.TITLE, SwingConstants.CENTER);
-        title.setFont(new Font("SansSerif", Font.BOLD, Constants.FONT_LARGEST));
+        title.setFont(new Font(Constants.FONT_TYPE, Font.BOLD, Constants.FONT_LARGEST));
         title.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Welcome Text
         username = new JLabel("Welcome!", SwingConstants.CENTER);
-        username.setFont(new Font("SansSerif", Font.PLAIN, Constants.FONT_MEDIUM));
+        username.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_MEDIUM));
         username.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
         username.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         titlePanel.add(title);
-        titlePanel.add(Box.createVerticalStrut(Constants.VERTICAL_STRUT)); // Add spacing between title and welcome text
+        titlePanel.add(Box.createVerticalStrut(Constants.VERTICAL_STRUT));
         titlePanel.add(username);
         this.add(titlePanel, BorderLayout.NORTH);
 
         // Buttons Section
-        final JPanel buttonsPanel = new JPanel(new GridLayout(3, 2, GRID_LOGGEDIN_GAP, GRID_LOGGEDIN_GAP)); // 3 rows, 2 columns
+        final JPanel buttonsPanel = new JPanel(new GridLayout(3, 2, GRID_LOGGEDIN_GAP, GRID_LOGGEDIN_GAP));
         buttonsPanel.setOpaque(false);
 
         toSearch = buttonFactory(loggedInViewModel.TO_SEARCH_BUTTON);
@@ -94,59 +110,62 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         buttonsPanel.add(toChangePassword);
         buttonsPanel.add(logout);
 
-        JPanel centeredPanel = new JPanel(new BorderLayout());
+        final JPanel centeredPanel = new JPanel(new BorderLayout());
         centeredPanel.setOpaque(false);
-        centeredPanel.setBorder(new EmptyBorder(Constants.LOGGED_CENTERED_Y_AXIS, Constants.CENTERED_X_AXIS, Constants.LOGGED_CENTERED_Y_AXIS, Constants.CENTERED_X_AXIS)); // Padding around the buttons panel
+        centeredPanel.setBorder(new EmptyBorder(Constants.LOGGED_CENTERED_Y_AXIS,
+                Constants.CENTERED_X_AXIS, Constants.LOGGED_CENTERED_Y_AXIS, Constants.CENTERED_X_AXIS));
         centeredPanel.add(buttonsPanel, BorderLayout.CENTER);
 
         this.add(centeredPanel, BorderLayout.CENTER);
 
         // Action Listeners
         toSearch.addActionListener(evt -> {
-            LoggedInState state = loggedInViewModel.getState();
+            final LoggedInState state = loggedInViewModel.getState();
             loggedInController.switchToLoggedInSearchView(state.getUsername());
         });
 
         toWatchList.addActionListener(evt -> {
-            LoggedInState state = loggedInViewModel.getState();
+            final LoggedInState state = loggedInViewModel.getState();
             watchlistController.execute(state.getUsername());
         });
 
         toWatchedList.addActionListener(evt -> {
-            LoggedInState state = loggedInViewModel.getState();
+            final LoggedInState state = loggedInViewModel.getState();
             watchedListController.execute(state.getUsername());
         });
 
         toChangePassword.addActionListener(evt -> {
-            LoggedInState state = loggedInViewModel.getState();
+            final LoggedInState state = loggedInViewModel.getState();
             loggedInController.switchToChangePasswordView(state.getUsername());
         });
 
         logout.addActionListener(evt -> {
-            LoggedInState state = loggedInViewModel.getState();
+            final LoggedInState state = loggedInViewModel.getState();
             logoutController.execute(state.getUsername());
         });
 
         toRatedList.addActionListener(evt -> {
-            LoggedInState state = loggedInViewModel.getState();
+            final LoggedInState state = loggedInViewModel.getState();
             getRatedListController.execute(state.getUsername());
         });
 
         toDashboard.addActionListener(evt -> {
-            LoggedInState state = loggedInViewModel.getState();
+            final LoggedInState state = loggedInViewModel.getState();
             dashboardController.execute(state.getUsername());
         });
     }
 
     private JButton buttonFactory(String text) {
-        JButton button = new JButton(text);
-        button.setFont(new Font("SansSerif", Font.PLAIN, FONT_LOGGEDIN)); // Larger font size
-        button.setBackground(new Color(Constants.BACKGROUND_COLOUR_R, Constants.BACKGROUND_COLOUR_G, Constants.BACKGROUND_COLOUR_B)); // Pastel blue
+        final JButton button = new JButton(text);
+        button.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, FONT_LOGGEDIN));
+        button.setBackground(new Color(Constants.BACKGROUND_COLOUR_R, Constants.BACKGROUND_COLOUR_G,
+                Constants.BACKGROUND_COLOUR_B));
         button.setForeground(Color.BLACK);
         button.setFocusPainted(false);
-        button.setBorder(BorderFactory.createLineBorder(new Color(Constants.BORDER_COLOUR_R, Constants.BORDER_COLOUR_G, Constants.BORDER_COLOUR_B), BORDER_THICKNESS)); // Slightly thicker border
+        button.setBorder(BorderFactory.createLineBorder(new Color(Constants.BORDER_COLOUR_R,
+                Constants.BORDER_COLOUR_G, Constants.BORDER_COLOUR_B), BORDER_THICKNESS));
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        button.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT)); // Larger button size
+        button.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
         return button;
     }
 

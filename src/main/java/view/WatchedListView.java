@@ -1,16 +1,13 @@
 package view;
 
-import interface_adapter.export_watchedlist.ExportWatchedListController;
-import interface_adapter.go_to_rate.GoRateController;
-import interface_adapter.to_logged_in_view.ToLoggedInViewController;
-import interface_adapter.watched_list_remove.WatchedListRemoveController;
-import interface_adapter.watched_list_remove.WatchedListRemoveState;
-import interface_adapter.watched_list_remove.WatchedListRemoveViewModel;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -20,6 +17,28 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+import interface_adapter.export_watchedlist.ExportWatchedListController;
+import interface_adapter.go_to_rate.GoRateController;
+import interface_adapter.to_logged_in_view.ToLoggedInViewController;
+import interface_adapter.watched_list_remove.WatchedListRemoveController;
+import interface_adapter.watched_list_remove.WatchedListRemoveViewModel;
+import interface_adapter.watched_list_remove.WatchedListState;
+
+/**
+ * View for the Watched List.
+ */
 public class WatchedListView extends JPanel implements PropertyChangeListener {
     private static final int GRID_WATCHEDLIST_VGAP = 10;
     private static final int GRID_WATCHEDLIST_COLUMNS = 4;
@@ -61,7 +80,7 @@ public class WatchedListView extends JPanel implements PropertyChangeListener {
         this.add(username, BorderLayout.SOUTH);
 
         watchedList = new JPanel();
-        watchedList.setLayout(new GridLayout(0, GRID_WATCHEDLIST_COLUMNS, 0, GRID_WATCHEDLIST_VGAP)); // 4 movies per row
+        watchedList.setLayout(new GridLayout(0, GRID_WATCHEDLIST_COLUMNS, 0, GRID_WATCHEDLIST_VGAP));
         watchedList.setBackground(new Color(Constants.COLOUR_B, Constants.COLOUR_B, Constants.COLOUR_B));
 
         scroller = new JScrollPane(watchedList);
@@ -84,12 +103,12 @@ public class WatchedListView extends JPanel implements PropertyChangeListener {
 
         // Add Action Listeners
         cancel.addActionListener(evt -> {
-            final WatchedListRemoveState currentState = watchedListRemoveViewModel.getState();
+            final WatchedListState currentState = watchedListRemoveViewModel.getState();
             goToLoggedInViewController.toLoggedInView(currentState.getUsername());
         });
 
-        export.addActionListener(e -> {
-            final WatchedListRemoveState currentState = watchedListRemoveViewModel.getState();
+        export.addActionListener(evt -> {
+            final WatchedListState currentState = watchedListRemoveViewModel.getState();
             exportWatchedListController.exportWatchedList(currentState.getUsername());
         });
     }
@@ -97,19 +116,21 @@ public class WatchedListView extends JPanel implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
-            final WatchedListRemoveState state = (WatchedListRemoveState) evt.getNewValue();
+            final WatchedListState state = (WatchedListState) evt.getNewValue();
             if (state.getError() != null) {
                 JOptionPane.showMessageDialog(this, state.getError());
                 state.setError(null);
-            } else if (state.getExport() != null) {
+            }
+            else if (state.getExport() != null) {
                 JOptionPane.showMessageDialog(this, state.getExport());
                 state.setExport(null);
-            } else {
+            }
+            else {
                 final List<String> moviePosters = state.getWatchedListUrl();
                 final List<String> movieTitles = state.getWatchedListTitle();
 
                 // Combine movie titles and posters into a single list for sorting
-                List<Movie> movies = new ArrayList<>();
+                final List<Movie> movies = new ArrayList<>();
                 for (int i = 0; i < movieTitles.size(); i++) {
                     movies.add(new Movie(movieTitles.get(i), moviePosters.get(i)));
                 }
@@ -120,26 +141,29 @@ public class WatchedListView extends JPanel implements PropertyChangeListener {
                 watchedList.removeAll();
 
                 for (Movie movie : movies) {
-                    String poster = movie.getPosterUrl();
-                    String movieTitle = movie.getTitle();
+                    final String poster = movie.getPosterUrl();
+                    final String movieTitle = movie.getTitle();
 
-                    JPanel moviePanel = new JPanel(new BorderLayout());
-                    JLabel titleLabel = new JLabel(movieTitle, SwingConstants.CENTER);
+                    final JPanel moviePanel = new JPanel(new BorderLayout());
+                    final JLabel titleLabel = new JLabel(movieTitle, SwingConstants.CENTER);
                     titleLabel.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_SMALLER));
                     moviePanel.add(titleLabel, BorderLayout.NORTH);
 
-                    JLabel posterLabel = new JLabel();
+                    final JLabel posterLabel = new JLabel();
                     posterLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
                     if (poster.isEmpty()) {
                         posterLabel.setText("Poster not available.");
-                    } else {
+                    }
+                    else {
                         try {
-                            URL url = new URL(poster);
-                            BufferedImage image = ImageIO.read(url);
-                            Image scaledImage = image.getScaledInstance(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT, Image.SCALE_SMOOTH);
+                            final URL url = new URL(poster);
+                            final BufferedImage image = ImageIO.read(url);
+                            final Image scaledImage = image.getScaledInstance(Constants.IMAGE_WIDTH,
+                                    Constants.IMAGE_HEIGHT, Image.SCALE_SMOOTH);
                             posterLabel.setIcon(new ImageIcon(scaledImage));
-                        } catch (IOException e) {
+                        }
+                        catch (IOException exception) {
                             posterLabel.setText("Poster not available.");
                         }
                     }
@@ -147,15 +171,15 @@ public class WatchedListView extends JPanel implements PropertyChangeListener {
                     moviePanel.add(posterLabel, BorderLayout.CENTER);
 
                     // Add buttons for each movie
-                    JPanel buttonPanel = new JPanel(new GridLayout(2, 1, 0, 0));
-                    JButton removeButton = createStyledButton("Remove");
+                    final JPanel buttonPanel = new JPanel(new GridLayout(2, 1, 0, 0));
+                    final JButton removeButton = createStyledButton("Remove");
                     removeButton.addActionListener(evt1 -> {
                         watchedListRemoveController.execute(state.getUsername(), movieTitle);
-                        JOptionPane.showMessageDialog(null, "\"" + movieTitle + "\" has " +
-                                "been removed from your watched list.");
+                        JOptionPane.showMessageDialog(null, "\"" + movieTitle + "\" has "
+                                + "been removed from your watched list.");
                     });
 
-                    JButton rateButton = createStyledButton("Rate");
+                    final JButton rateButton = createStyledButton("Rate");
                     rateButton.addActionListener(evt1 -> {
                         goToRateController.goToRate(state.getUsername(), movieTitle);
                     });
@@ -175,12 +199,14 @@ public class WatchedListView extends JPanel implements PropertyChangeListener {
     }
 
     private JButton createStyledButton(String text) {
-        JButton button = new JButton(text);
+        final JButton button = new JButton(text);
         button.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_LARGER));
-        button.setBackground(new Color(Constants.BACKGROUND_COLOUR_R, Constants.BACKGROUND_COLOUR_G, Constants.BACKGROUND_COLOUR_B)); // Pastel blue
-        button.setForeground(Color.BLACK); // Black text for visibility
+        button.setBackground(new Color(Constants.BACKGROUND_COLOUR_R, Constants.BACKGROUND_COLOUR_G,
+                Constants.BACKGROUND_COLOUR_B));
+        button.setForeground(Color.BLACK);
         button.setFocusPainted(false);
-        button.setBorder(BorderFactory.createLineBorder(new Color(Constants.BORDER_COLOUR_R, Constants.BORDER_COLOUR_G, Constants.BORDER_COLOUR_B), 2));
+        button.setBorder(BorderFactory.createLineBorder(new Color(Constants.BORDER_COLOUR_R,
+                Constants.BORDER_COLOUR_G, Constants.BORDER_COLOUR_B), 2));
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
         button.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT));
         return button;
@@ -206,7 +232,9 @@ public class WatchedListView extends JPanel implements PropertyChangeListener {
         this.goToLoggedInViewController = controller;
     }
 
-    // Helper class for sorting movies
+    /**
+     * Helper class for sorting movies.
+     */
     private static class Movie {
         private final String title;
         private final String posterUrl;

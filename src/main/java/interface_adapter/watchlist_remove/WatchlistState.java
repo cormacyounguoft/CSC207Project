@@ -3,9 +3,9 @@ package interface_adapter.watchlist_remove;
 import java.util.List;
 
 /**
- * The state for the watchlist remove Use Case.
+ * The state for the watchlist remove and export Use Case.
  */
-public class WatchlistRemoveState {
+public class WatchlistState {
 
     private String username;
     private List<String> watchlistTitle;

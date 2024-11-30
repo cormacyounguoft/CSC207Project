@@ -44,4 +44,10 @@ public class Constants {
     public static final int HIGHLIGHTED_DETAILS_HGAP = 10;
     public static final int DETAILS_VGAP = 10;
     public static final int CONTENT_HGAP = 20;
+    public static final int GRID_ROW = 0;
+    public static final int GRID_COLUMN = 4;
+    public static final int GRID_V_GAP = 10;
+    public static final int GRID_H_GAP = 0;
+
+
 }

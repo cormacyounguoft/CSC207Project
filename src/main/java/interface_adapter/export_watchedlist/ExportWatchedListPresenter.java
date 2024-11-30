@@ -1,8 +1,8 @@
 package interface_adapter.export_watchedlist;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.watched_list_remove.WatchedListRemoveState;
 import interface_adapter.watched_list_remove.WatchedListRemoveViewModel;
+import interface_adapter.watched_list_remove.WatchedListState;
 import use_case.export_watchedlist.ExportWatchedListOutputBoundary;
 import use_case.export_watchedlist.ExportWatchedListOutputData;
 
@@ -22,15 +22,18 @@ public class ExportWatchedListPresenter implements ExportWatchedListOutputBounda
 
     @Override
     public void prepareSuccessView(ExportWatchedListOutputData outputData) {
-        final WatchedListRemoveState watchedListRemoveState = watchedListRemoveViewModel.getState();
-        watchedListRemoveState.setExport("Watched list successfully exported");
+        final WatchedListState watchedListState = watchedListRemoveViewModel.getState();
+        watchedListState.setExport("Watched list successfully exported");
         watchedListRemoveViewModel.firePropertyChanged();
+
+        viewManagerModel.setState(watchedListRemoveViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
     }
 
     @Override
     public void prepareFailView(String errorMessage) {
-        final WatchedListRemoveState watchedListRemoveState = watchedListRemoveViewModel.getState();
-        watchedListRemoveState.setError(errorMessage);
+        final WatchedListState watchedListState = watchedListRemoveViewModel.getState();
+        watchedListState.setError(errorMessage);
         watchedListRemoveViewModel.firePropertyChanged();
     }
 }
