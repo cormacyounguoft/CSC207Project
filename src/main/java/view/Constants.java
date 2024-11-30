@@ -31,5 +31,9 @@ public class Constants {
     public static final int LOGGED_CENTERED_Y_AXIS = 20;
     public static final int CENTERED_X_AXIS = 50;
     public static final int VERTICAL_STRUT = 10;
+    public static final int SCROLLER_WIDTH = 900;
+    public static final int SCROLLER_HEIGHT = 500;
+    public static final int IMAGE_WIDTH = 150;
+    public static final int IMAGE_HEIGHT = 225;
 
 }
