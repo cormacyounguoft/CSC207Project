@@ -60,7 +60,10 @@ public class SignupState {
         this.repeatPasswordError = repeatPasswordError;
     }
 
-    public void resetInputFields(){
+    /**
+     * Resets the input fields of the signup page.
+     */
+    public void resetInputFields() {
         this.setUsername(null);
         this.setUsernameError(null);
         this.setPassword(null);
