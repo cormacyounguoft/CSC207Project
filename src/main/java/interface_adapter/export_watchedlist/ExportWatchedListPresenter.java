@@ -23,7 +23,7 @@ public class ExportWatchedListPresenter implements ExportWatchedListOutputBounda
     @Override
     public void prepareSuccessView(ExportWatchedListOutputData outputData) {
         final WatchedListRemoveState watchedListRemoveState = watchedListRemoveViewModel.getState();
-        watchedListRemoveState.setExport("Watched list successfully exported to: " + outputData.getFilePath());
+        watchedListRemoveState.setExport("Watched list successfully exported");
         watchedListRemoveViewModel.firePropertyChanged();
     }
 
