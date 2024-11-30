@@ -40,4 +40,8 @@ public class Constants {
     public static final int SCROLLER_HEIGHT = 500;
     public static final int IMAGE_WIDTH = 150;
     public static final int IMAGE_HEIGHT = 225;
+    public static final int GRID_OTHER_DETAILS_GAP = 5;
+    public static final int GRID_HIGHLIGHTED_DETAILS_HGAP = 10;
+    public static final int GRID_DETAILS_VGAP = 10;
+    public static final int GRID_CONTENT_HGAP = 20;
 }
