@@ -233,7 +233,7 @@ public class WatchedListView extends JPanel implements PropertyChangeListener {
     }
 
     /**
-     * Helper class for soring movies.
+     * Helper class for sorting movies.
      */
     private static class Movie {
         private final String title;
