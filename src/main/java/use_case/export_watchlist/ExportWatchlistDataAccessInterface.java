@@ -10,6 +10,7 @@ public interface ExportWatchlistDataAccessInterface {
     /**
      * Gets the watchlist of the user.
      * @param username the username watchlist if being obtained for.
+     * @return returns the Watchlist of username user.
      */
     MovieList getWatchlist(String username);
 }
