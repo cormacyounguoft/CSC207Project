@@ -8,10 +8,11 @@ public class Constants {
     public static final int COLOUR_R = 240;
     public static final int COLOUR_G = 248;
     public static final int COLOUR_B = 255;
-    public static final int FONT = 24;
-    public static final int FONT1 = 16;
-    public static final int FONT2 = 12;
-    public static final int FONT3 = 22;
+    public static final int FONT_LARGEST = 24;
+    public static final int FONT_SMALLER = 16;
+    public static final int FONT_SMALLEST = 12;
+    public static final int FONT_LARGER = 22;
+    public static final int FONT_MEDIUM = 18;
     public static final int FONT_COLOUR_R = 0;
     public static final int FONT_COLOUR_G = 51;
     public static final int FONT_COLOUR_B = 102;
