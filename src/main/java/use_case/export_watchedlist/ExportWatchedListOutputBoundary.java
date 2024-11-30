@@ -1,5 +1,8 @@
 package use_case.export_watchedlist;
 
+/**
+ * Output Boundary for the Export WatchedList Use Case.
+ */
 public interface ExportWatchedListOutputBoundary {
     /**
      * Handles the success scenario of the export process.

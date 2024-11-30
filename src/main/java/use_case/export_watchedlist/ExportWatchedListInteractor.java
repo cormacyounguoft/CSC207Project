@@ -29,28 +29,29 @@ public class ExportWatchedListInteractor implements ExportWatchedListInputBounda
 
             if (movies.isEmpty()) {
                 outputBoundary.prepareFailView("The watched list is empty!");
-                return;
             }
+            else {
+                final StringBuilder content = new StringBuilder();
+                content.append(inputData.getUserId().toUpperCase()).append("'S WATCHED LIST\n\n");
 
-            final StringBuilder content = new StringBuilder();
+                for (Movie movie : movies) {
+                    content.append(movie.getTitle())
+                            .append(" - ")
+                            .append("[")
+                            .append(String.join(", ", movie.getGenre()))
+                            .append("] - ")
+                            .append(movie.getReleaseDate())
+                            .append("\n");
+                }
 
-            content.append(inputData.getUserId().toUpperCase()).append("'S WATCHED LIST\n\n");
+                final String filePath = "watchedlist " + inputData.getUserId() + ".txt";
+                Files.writeString(Path.of(filePath), content.toString());
 
-            for (Movie movie : movies) {
-                content.append(movie.getTitle())
-                        .append(" - ")
-                        .append("[")
-                        .append(String.join(", ", movie.getGenre()))
-                        .append("] - ")
-                        .append(movie.getReleaseDate())
-                        .append("\n");
+                outputBoundary.prepareSuccessView(new ExportWatchedListOutputData(true, filePath,
+                        inputData.getUserId()));
             }
-
-            final String filePath = "watchedlist_" + inputData.getUserId() + ".txt";
-            Files.writeString(Path.of(filePath), content.toString());
-
-            outputBoundary.prepareSuccessView(new ExportWatchedListOutputData(true, filePath, inputData.getUserId()));
-        } catch (IOException exIoException) {
+        }
+        catch (IOException exIoException) {
             outputBoundary.prepareFailView("Unable to export watched list");
         }
     }

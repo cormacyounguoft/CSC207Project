@@ -1,5 +1,8 @@
 package use_case.export_watchedlist;
 
+/**
+ * Output data for the Export WatchedList output data.
+ */
 public class ExportWatchedListOutputData {
     private final boolean success;
     private final String filePath;
