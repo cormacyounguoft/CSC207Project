@@ -44,7 +44,7 @@ public class ChangePasswordView extends JPanel {
 
         // Title Section
         final JLabel title = new JLabel("Change Password Screen", SwingConstants.CENTER);
-        title.setFont(new Font(Constants.FONT_TYPE, Font.BOLD, Constants.FONT));
+        title.setFont(new Font(Constants.FONT_TYPE, Font.BOLD, Constants.FONT_LARGEST));
         title.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B)); // Dark blue
         this.add(title, BorderLayout.NORTH);
 
@@ -53,10 +53,10 @@ public class ChangePasswordView extends JPanel {
         inputPanel.setOpaque(false);
 
         JLabel usernamePrompt = new JLabel("Currently logged in as: ");
-        usernamePrompt.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT1));
+        usernamePrompt.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_SMALLER));
         usernamePrompt.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
 
-        usernameLabel.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT1));
+        usernameLabel.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_SMALLER));
         usernameLabel.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
 
         JPanel usernamePanel = new JPanel();
@@ -69,7 +69,7 @@ public class ChangePasswordView extends JPanel {
 
         inputPanel.add(usernamePanel);
         inputPanel.add(createLabeledField("New Password", passwordInputField));
-        passwordErrorField.setFont(new Font(Constants.FONT_TYPE, Font.ITALIC, Constants.FONT2));
+        passwordErrorField.setFont(new Font(Constants.FONT_TYPE, Font.ITALIC, Constants.FONT_SMALLEST));
         passwordErrorField.setForeground(Color.RED);
         inputPanel.add(passwordErrorField);
 
@@ -141,10 +141,10 @@ public class ChangePasswordView extends JPanel {
         panel.setOpaque(false);
 
         JLabel label = new JLabel(labelText);
-        label.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT1));
+        label.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_SMALLER));
         label.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
 
-        inputField.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT1));
+        inputField.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_SMALLER));
         inputField.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(Constants.LINE_BORDER_R, Constants.LINE_BORDER_G, Constants.LINE_BORDER_B), Constants.LINE_BORDER_THICKNESS),
                 BorderFactory.createEmptyBorder(Constants.LABEL_BORDER_LAYOUT, Constants.LABEL_BORDER_LAYOUT, Constants.LABEL_BORDER_LAYOUT, Constants.LABEL_BORDER_LAYOUT)
@@ -161,7 +161,7 @@ public class ChangePasswordView extends JPanel {
      */
     private JButton createStyledButton(String text) {
         JButton button = new JButton(text);
-        button.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT3));
+        button.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_LARGER));
         button.setBackground(new Color(Constants.BACKGROUND_COLOUR_R, Constants.BACKGROUND_COLOUR_G, Constants.BACKGROUND_COLOUR_B)); // Pastel blue
         button.setForeground(Color.BLACK); // Black text for visibility
         button.setFocusPainted(false);
