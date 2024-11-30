@@ -15,6 +15,7 @@ import java.beans.PropertyChangeListener;
  * View for the Rate Use Case.
  */
 public class RateView extends JPanel implements PropertyChangeListener {
+    private static final int RATE_MAIN_BORDER_LAYOUT = 10;
 
     private final String viewName = "rate";
     private final RateViewModel rateViewModel;
@@ -33,27 +34,27 @@ public class RateView extends JPanel implements PropertyChangeListener {
         this.rateViewModel = rateViewModel;
         this.rateViewModel.addPropertyChangeListener(this);
 
-        this.setLayout(new BorderLayout(10, 10)); // Minimal spacing
-        this.setBackground(new Color(240, 248, 255)); // Light blue background
-        this.setBorder(new EmptyBorder(10, 10, 10, 10)); // Minimal padding
+        this.setLayout(new BorderLayout(RATE_MAIN_BORDER_LAYOUT, RATE_MAIN_BORDER_LAYOUT)); // Minimal spacing
+        this.setBackground(new Color(Constants.COLOUR_R, Constants.COLOUR_G, Constants.COLOUR_B)); // Light blue background
+        this.setBorder(new EmptyBorder(RATE_MAIN_BORDER_LAYOUT, RATE_MAIN_BORDER_LAYOUT, RATE_MAIN_BORDER_LAYOUT, RATE_MAIN_BORDER_LAYOUT)); // Minimal padding
 
         final JPanel topPanel = new JPanel();
         topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
         topPanel.setOpaque(false);
 
         final JLabel title = new JLabel(rateViewModel.TITLE, SwingConstants.CENTER);
-        title.setFont(new Font("SansSerif", Font.BOLD, 24));
-        title.setForeground(new Color(0, 51, 102));
+        title.setFont(new Font(Constants.FONT_TYPE, Font.BOLD, Constants.FONT_LARGEST));
+        title.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         topPanel.add(title);
 
-        usernameLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
-        usernameLabel.setForeground(new Color(0, 51, 102));
+        usernameLabel.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_SMALLER));
+        usernameLabel.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
         usernameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         topPanel.add(usernameLabel);
 
-        movieLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
-        movieLabel.setForeground(new Color(0, 51, 102));
+        movieLabel.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_SMALLER));
+        movieLabel.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
         movieLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         topPanel.add(movieLabel);
 
@@ -78,18 +79,18 @@ public class RateView extends JPanel implements PropertyChangeListener {
     }
 
     private JPanel createLabeledField(String labelText, JTextField inputField) {
-        JPanel panel = new JPanel(new BorderLayout(5, 5)); // Minimal spacing
+        JPanel panel = new JPanel(new BorderLayout(Constants.LABEL_BORDER_LAYOUT, Constants.LABEL_BORDER_LAYOUT)); // Minimal spacing
         panel.setOpaque(false);
 
         JLabel label = new JLabel(labelText, SwingConstants.LEFT);
-        label.setFont(new Font("SansSerif", Font.PLAIN, 16));
-        label.setForeground(new Color(0, 51, 102));
+        label.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_SMALLER));
+        label.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
 
         // Input Field Styling
-        inputField.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        inputField.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_SMALLER));
         inputField.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(173, 216, 230), 1),
-                BorderFactory.createEmptyBorder(5, 5, 5, 5)
+                BorderFactory.createLineBorder(new Color(Constants.LINE_BORDER_R, Constants.LINE_BORDER_G, Constants.LINE_BORDER_B), 1),
+                BorderFactory.createEmptyBorder(Constants.LABEL_BORDER_LAYOUT, Constants.LABEL_BORDER_LAYOUT, Constants.LABEL_BORDER_LAYOUT, Constants.LABEL_BORDER_LAYOUT)
         ));
         inputField.setPreferredSize(new Dimension(150, 30)); // Specific size
 
@@ -101,13 +102,13 @@ public class RateView extends JPanel implements PropertyChangeListener {
 
     private JButton createStyledButton(String text) {
         JButton button = new JButton(text);
-        button.setFont(new Font("SansSerif", Font.PLAIN, 22));
-        button.setBackground(new Color(93, 186, 255));
+        button.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_LARGER));
+        button.setBackground(new Color(Constants.BACKGROUND_COLOUR_R, Constants.BACKGROUND_COLOUR_G, Constants.BACKGROUND_COLOUR_B));
         button.setForeground(Color.BLACK);
         button.setFocusPainted(false);
-        button.setBorder(BorderFactory.createLineBorder(new Color(124, 183, 205), 2));
+        button.setBorder(BorderFactory.createLineBorder(new Color(Constants.BORDER_COLOUR_R, Constants.BORDER_COLOUR_G, Constants.BORDER_COLOUR_B), 2));
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        button.setPreferredSize(new Dimension(150, 50));
+        button.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT));
         return button;
     }
 
