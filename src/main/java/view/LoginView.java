@@ -27,6 +27,8 @@ import interface_adapter.to_home_view.ToHomeViewController;
  * The View for when the user is logging into the program.
  */
 public class LoginView extends JPanel {
+    private static final int INPUT_PANEL_GAP = 10;
+    private static final int INPUT_PANEL_ROWS = 4;
 
     private final String viewName = "log in";
     private final LoginViewModel loginViewModel;
@@ -50,17 +52,19 @@ public class LoginView extends JPanel {
             usernameErrorField.setText(state.getLoginError());
         });
 
-        this.setLayout(new BorderLayout(20, 20));
-        this.setBackground(new Color(240, 248, 255));
-        this.setBorder(new EmptyBorder(20, 20, 20, 20));
+        // Set layout and background
+        this.setLayout(new BorderLayout(Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT));
+        this.setBackground(new Color(Constants.COLOUR_R, Constants.COLOUR_G, Constants.COLOUR_B)); // Light blue background
+        this.setBorder(new EmptyBorder(Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT,
+                Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT)); // Padding around the panel
 
         final JLabel title = new JLabel("Login Screen", SwingConstants.CENTER);
-        title.setFont(new Font("SansSerif", Font.BOLD, 24));
-        title.setForeground(new Color(0, 51, 102)); // Dark blue
+        title.setFont(new Font(Constants.FONT_TYPE, Font.BOLD, Constants.FONT_LARGEST));
+        title.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B)); // Dark blue
         this.add(title, BorderLayout.NORTH);
 
         final JPanel inputPanel = new JPanel();
-        inputPanel.setLayout(new GridLayout(4, 1, 10, 10));
+        inputPanel.setLayout(new GridLayout(INPUT_PANEL_ROWS, 1, INPUT_PANEL_GAP, INPUT_PANEL_GAP));
         inputPanel.setOpaque(false);
 
         inputPanel.add(labelCreator("Username", usernameInputField, usernameErrorField));
@@ -105,20 +109,20 @@ public class LoginView extends JPanel {
      * @ret
      */
     private JPanel labelCreator(String labelText, JTextField inputField, JLabel errorLabel) {
-        final JPanel panel = new JPanel(new BorderLayout(5, 5));
+        final JPanel panel = new JPanel(new BorderLayout(Constants.LABEL_BORDER_LAYOUT, Constants.LABEL_BORDER_LAYOUT));
         panel.setOpaque(false);
 
         JLabel label = new JLabel(labelText);
-        label.setFont(new Font("SansSerif", Font.PLAIN, 16));
-        label.setForeground(new Color(0, 51, 102));
+        label.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_SMALLER));
+        label.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
 
-        inputField.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        inputField.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_SMALLER));
         inputField.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(173, 216, 230), 1),
-                BorderFactory.createEmptyBorder(5, 5, 5, 5)
+                BorderFactory.createLineBorder(new Color(Constants.LINE_BORDER_R, Constants.LINE_BORDER_G, Constants.LINE_BORDER_B), 1),
+                BorderFactory.createEmptyBorder(Constants.LABEL_BORDER_LAYOUT, Constants.LABEL_BORDER_LAYOUT, Constants.LABEL_BORDER_LAYOUT, Constants.LABEL_BORDER_LAYOUT)
         ));
 
-        errorLabel.setFont(new Font("SansSerif", Font.ITALIC, 12));
+        errorLabel.setFont(new Font(Constants.FONT_TYPE, Font.ITALIC, Constants.FONT_SMALLEST));
         errorLabel.setForeground(Color.RED);
 
         panel.add(label, BorderLayout.NORTH);
@@ -133,13 +137,13 @@ public class LoginView extends JPanel {
      */
     private JButton buttonFactory(String text) {
         JButton button = new JButton(text);
-        button.setFont(new Font("SansSerif", Font.PLAIN, 22));
-        button.setBackground(new Color(93, 186, 255)); // Pastel blue
+        button.setFont(new Font("SansSerif", Font.PLAIN, Constants.FONT_LARGER));
+        button.setBackground(new Color(Constants.BACKGROUND_COLOUR_R, Constants.BACKGROUND_COLOUR_G, Constants.BACKGROUND_COLOUR_B)); // Pastel blue
         button.setForeground(Color.BLACK);
         button.setFocusPainted(false);
-        button.setBorder(BorderFactory.createLineBorder(new Color(124, 183, 205), 2));
+        button.setBorder(BorderFactory.createLineBorder(new Color(Constants.BORDER_COLOUR_R, Constants.BORDER_COLOUR_G, Constants.BORDER_COLOUR_B), 2));
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        button.setPreferredSize(new Dimension(150, 50)); // Consistent size
+        button.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT)); // Consistent size
         return button;
     }
 
