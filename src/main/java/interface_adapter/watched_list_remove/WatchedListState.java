@@ -3,9 +3,9 @@ package interface_adapter.watched_list_remove;
 import java.util.List;
 
 /**
- * The state for the watched list remove Use Case.
+ * The state for the watched list remove and export Use Case.
  */
-public class WatchedListRemoveState {
+public class WatchedListState {
 
     private String username;
     private List<String> watchedListTitle;

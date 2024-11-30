@@ -33,7 +33,7 @@ import interface_adapter.export_watchedlist.ExportWatchedListController;
 import interface_adapter.go_to_rate.GoRateController;
 import interface_adapter.to_logged_in_view.ToLoggedInViewController;
 import interface_adapter.watched_list_remove.WatchedListRemoveController;
-import interface_adapter.watched_list_remove.WatchedListRemoveState;
+import interface_adapter.watched_list_remove.WatchedListState;
 import interface_adapter.watched_list_remove.WatchedListRemoveViewModel;
 
 /**
@@ -103,12 +103,12 @@ public class WatchedListView extends JPanel implements PropertyChangeListener {
 
         // Add Action Listeners
         cancel.addActionListener(evt -> {
-            final WatchedListRemoveState currentState = watchedListRemoveViewModel.getState();
+            final WatchedListState currentState = watchedListRemoveViewModel.getState();
             goToLoggedInViewController.toLoggedInView(currentState.getUsername());
         });
 
         export.addActionListener(evt -> {
-            final WatchedListRemoveState currentState = watchedListRemoveViewModel.getState();
+            final WatchedListState currentState = watchedListRemoveViewModel.getState();
             exportWatchedListController.exportWatchedList(currentState.getUsername());
         });
     }
@@ -116,7 +116,7 @@ public class WatchedListView extends JPanel implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
-            final WatchedListRemoveState state = (WatchedListRemoveState) evt.getNewValue();
+            final WatchedListState state = (WatchedListState) evt.getNewValue();
             if (state.getError() != null) {
                 JOptionPane.showMessageDialog(this, state.getError());
                 state.setError(null);
