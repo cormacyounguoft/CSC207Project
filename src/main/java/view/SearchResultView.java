@@ -65,7 +65,7 @@ public class SearchResultView extends JPanel implements ActionListener, Property
         this.add(titlePanel, BorderLayout.NORTH);
 
         // Content Panel
-        JPanel contentPanel = new JPanel(new BorderLayout(20, 0));
+        JPanel contentPanel = new JPanel(new BorderLayout(Constants.CONTENT_HGAP, 0));
         contentPanel.setOpaque(false);
 
         // Poster
@@ -76,11 +76,11 @@ public class SearchResultView extends JPanel implements ActionListener, Property
 
         // Details
         JPanel detailsPanel = new JPanel();
-        detailsPanel.setLayout(new BorderLayout(0, 10)); // Vertical alignment with spacing
+        detailsPanel.setLayout(new BorderLayout(0, Constants.DETAILS_VGAP)); // Vertical alignment with spacing
         detailsPanel.setOpaque(false);
 
         // Highlighted Details
-        JPanel highlightedDetailsPanel = new JPanel(new GridLayout(1, 2, 10, 0)); // Horizontal side-by-side
+        JPanel highlightedDetailsPanel = new JPanel(new GridLayout(1, 2, Constants.HIGHLIGHTED_DETAILS_HGAP, 0)); // Horizontal side-by-side
         highlightedDetailsPanel.setOpaque(false);
         highlightedDetailsPanel.add(labelFormatter("Rotten Tomatoes: ", movieRottenTomatoes));
         highlightedDetailsPanel.add(labelFormatter("Genres: ", movieGenre));
@@ -96,7 +96,7 @@ public class SearchResultView extends JPanel implements ActionListener, Property
         detailsPanel.add(new JScrollPane(movieDescription), BorderLayout.CENTER);
 
         // Other Details
-        JPanel otherDetailsPanel = new JPanel(new GridLayout(2, 1, 5, 5));
+        JPanel otherDetailsPanel = new JPanel(new GridLayout(2, 1, Constants.OTHER_DETAILS_GAP, Constants.OTHER_DETAILS_GAP));
         otherDetailsPanel.setOpaque(false);
         otherDetailsPanel.add(labelFormatter("Actors: ", movieActors));
         otherDetailsPanel.add(labelFormatter("Directors: ", movieDirector));
