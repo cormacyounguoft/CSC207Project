@@ -18,6 +18,7 @@ import use_case.rated_list.RatedListDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 import use_case.watched_list_remove.WatchedListRemoveDataAccessInterface;
 import use_case.watchlist_remove.WatchlistRemoveDataAccessInterface;
+import use_case.export_watchlist.ExportWatchlistDataAccessInterface;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,7 +42,8 @@ public class MockDataAccessObject implements
         SearchDataAccessInterface,
         WatchedListRemoveDataAccessInterface,
         RatedListDataAccessInterface,
-        WatchlistRemoveDataAccessInterface
+        WatchlistRemoveDataAccessInterface,
+        ExportWatchlistDataAccessInterface
 {
 
     private final Map<String, User> users = new HashMap<>();
