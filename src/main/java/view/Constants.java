@@ -36,4 +36,8 @@ public class Constants {
     public static final int VERTICAL_STRUT = 10;
     public static final String NO_POSTER = "Poster not available";
     public static final String BRACKETS_REGEX = "[\\[\\]]";
+    public static final int SCROLLER_WIDTH = 900;
+    public static final int SCROLLER_HEIGHT = 500;
+    public static final int IMAGE_WIDTH = 150;
+    public static final int IMAGE_HEIGHT = 225;
 }
