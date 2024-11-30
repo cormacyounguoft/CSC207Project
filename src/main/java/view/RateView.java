@@ -34,6 +34,7 @@ public class RateView extends JPanel implements PropertyChangeListener {
         this.rateViewModel = rateViewModel;
         this.rateViewModel.addPropertyChangeListener(this);
 
+
         this.setLayout(new BorderLayout(RATE_MAIN_BORDER_LAYOUT, RATE_MAIN_BORDER_LAYOUT)); // Minimal spacing
         this.setBackground(new Color(Constants.COLOUR_R, Constants.COLOUR_G, Constants.COLOUR_B)); // Light blue background
         this.setBorder(new EmptyBorder(RATE_MAIN_BORDER_LAYOUT, RATE_MAIN_BORDER_LAYOUT, RATE_MAIN_BORDER_LAYOUT, RATE_MAIN_BORDER_LAYOUT)); // Minimal padding
