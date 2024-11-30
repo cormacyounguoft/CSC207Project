@@ -39,7 +39,7 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
 
         // Title Label
         final JLabel title = new JLabel(homeViewModel.TITLE, SwingConstants.CENTER);
-        title.setFont(new Font("SansSerif", Font.BOLD, Constants.FONT_LARGEST));
+        title.setFont(new Font(Constants.FONT_TYPE, Font.BOLD, Constants.FONT_LARGEST));
         title.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B)); // Dark blue
         this.add(title, BorderLayout.NORTH);
 
