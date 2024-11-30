@@ -35,32 +35,33 @@ public class RatedListView extends JPanel implements PropertyChangeListener {
         this.ratedListViewModel.addPropertyChangeListener(this);
 
         // Set layout and background
-        this.setLayout(new BorderLayout(20, 20));
-        this.setBackground(new Color(240, 248, 255)); // Light blue background
-        this.setBorder(new EmptyBorder(20, 20, 20, 20)); // Padding around the panel
+        this.setLayout(new BorderLayout(Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT));
+        this.setBackground(new Color(Constants.COLOUR_R, Constants.COLOUR_G, Constants.COLOUR_B)); // Light blue background
+        this.setBorder(new EmptyBorder(Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT,
+                Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT)); // Padding around the panel
 
         // Title Label
         final JLabel title = new JLabel("Rated List", SwingConstants.CENTER);
-        title.setFont(new Font("SansSerif", Font.BOLD, 24));
-        title.setForeground(new Color(0, 51, 102));
+        title.setFont(new Font(Constants.FONT_TYPE, Font.BOLD, Constants.FONT_LARGEST));
+        title.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
         this.add(title, BorderLayout.NORTH);
 
         // Username Section
         username = new JLabel();
-        username.setFont(new Font("SansSerif", Font.PLAIN, 16));
-        username.setForeground(new Color(0, 51, 102));
+        username.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_SMALLER));
+        username.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
         username.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(username, BorderLayout.SOUTH);
 
         // Rated List Content Panel
         ratedList = new JPanel();
         ratedList.setLayout(new GridLayout(0, 4, 30, 10)); // 4 movies per row, horizontal spacing > vertical spacing
-        ratedList.setBackground(new Color(255, 255, 255)); // White background for clarity
+        ratedList.setBackground(new Color(Constants.COLOUR_B, Constants.COLOUR_B, Constants.COLOUR_B)); // White background for clarity
 
         scroller = new JScrollPane(ratedList);
         scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scroller.setPreferredSize(new Dimension(900, 500));
+        scroller.setPreferredSize(new Dimension(Constants.SCROLLER_WIDTH, Constants.SCROLLER_HEIGHT));
         this.add(scroller, BorderLayout.CENTER);
 
         // Buttons Panel
@@ -108,7 +109,7 @@ public class RatedListView extends JPanel implements PropertyChangeListener {
 
         // Movie Title Label
         JLabel titleLabel = new JLabel(movieTitle);
-        titleLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        titleLabel.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_SMALLER));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Movie Poster
@@ -118,7 +119,7 @@ public class RatedListView extends JPanel implements PropertyChangeListener {
             try {
                 URL url = new URL(posterURL);
                 BufferedImage image = ImageIO.read(url);
-                Image scaledImage = image.getScaledInstance(150, 225, Image.SCALE_SMOOTH); // Resize poster
+                Image scaledImage = image.getScaledInstance(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT, Image.SCALE_SMOOTH); // Resize poster
                 posterLabel.setIcon(new ImageIcon(scaledImage));
             } catch (IOException e) {
                 posterLabel.setText("Poster not available.");
@@ -129,7 +130,7 @@ public class RatedListView extends JPanel implements PropertyChangeListener {
 
         // Rating Label
         JLabel ratingLabel = new JLabel("Rating: " + rating);
-        ratingLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        ratingLabel.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_SMALLER));
         ratingLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Remove Button
@@ -142,11 +143,11 @@ public class RatedListView extends JPanel implements PropertyChangeListener {
 
         // Add components to the panel
         ratingPanel.add(titleLabel);
-        ratingPanel.add(Box.createVerticalStrut(10));
+        ratingPanel.add(Box.createVerticalStrut(Constants.VERTICAL_STRUT));
         ratingPanel.add(posterLabel);
-        ratingPanel.add(Box.createVerticalStrut(10));
+        ratingPanel.add(Box.createVerticalStrut(Constants.VERTICAL_STRUT));
         ratingPanel.add(ratingLabel);
-        ratingPanel.add(Box.createVerticalStrut(10));
+        ratingPanel.add(Box.createVerticalStrut(Constants.VERTICAL_STRUT));
         ratingPanel.add(removeButton);
 
         return ratingPanel;
@@ -157,13 +158,13 @@ public class RatedListView extends JPanel implements PropertyChangeListener {
      */
     private JButton createStyledButton(String text) {
         JButton button = new JButton(text);
-        button.setFont(new Font("SansSerif", Font.PLAIN, 22));
-        button.setBackground(new Color(93, 186, 255)); // Pastel blue
+        button.setFont(new Font("SansSerif", Font.PLAIN, Constants.FONT_LARGER));
+        button.setBackground(new Color(Constants.BACKGROUND_COLOUR_R, Constants.BACKGROUND_COLOUR_G, Constants.BACKGROUND_COLOUR_B)); // Pastel blue
         button.setForeground(Color.BLACK); // Black text for visibility
         button.setFocusPainted(false);
-        button.setBorder(BorderFactory.createLineBorder(new Color(124, 183, 205), 2));
+        button.setBorder(BorderFactory.createLineBorder(new Color(Constants.BORDER_COLOUR_R, Constants.BORDER_COLOUR_G, Constants.BORDER_COLOUR_B), 2));
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        button.setPreferredSize(new Dimension(150, 50));
+        button.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT));
         return button;
     }
 
