@@ -54,13 +54,13 @@ public class LoginView extends JPanel {
 
         // Set layout and background
         this.setLayout(new BorderLayout(Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT));
-        this.setBackground(new Color(Constants.COLOUR_R, Constants.COLOUR_G, Constants.COLOUR_B)); // Light blue background
+        this.setBackground(new Color(Constants.COLOUR_R, Constants.COLOUR_G, Constants.COLOUR_B));
         this.setBorder(new EmptyBorder(Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT,
-                Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT)); // Padding around the panel
+                Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT));
 
         final JLabel title = new JLabel("Login Screen", SwingConstants.CENTER);
         title.setFont(new Font(Constants.FONT_TYPE, Font.BOLD, Constants.FONT_LARGEST));
-        title.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B)); // Dark blue
+        title.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
         this.add(title, BorderLayout.NORTH);
 
         final JPanel inputPanel = new JPanel();
@@ -106,20 +106,22 @@ public class LoginView extends JPanel {
      * @param inputField input field for the label.
      * @param errorLabel label for error.
      * @param labelText text for label.
-     * @ret
+     * @return label that is created.
      */
     private JPanel labelCreator(String labelText, JTextField inputField, JLabel errorLabel) {
         final JPanel panel = new JPanel(new BorderLayout(Constants.LABEL_BORDER_LAYOUT, Constants.LABEL_BORDER_LAYOUT));
         panel.setOpaque(false);
 
-        JLabel label = new JLabel(labelText);
+        final JLabel label = new JLabel(labelText);
         label.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_SMALLER));
         label.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
 
         inputField.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_SMALLER));
         inputField.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(Constants.LINE_BORDER_R, Constants.LINE_BORDER_G, Constants.LINE_BORDER_B), 1),
-                BorderFactory.createEmptyBorder(Constants.LABEL_BORDER_LAYOUT, Constants.LABEL_BORDER_LAYOUT, Constants.LABEL_BORDER_LAYOUT, Constants.LABEL_BORDER_LAYOUT)
+                BorderFactory.createLineBorder(new Color(Constants.LINE_BORDER_R, Constants.LINE_BORDER_G,
+                        Constants.LINE_BORDER_B), 1),
+                BorderFactory.createEmptyBorder(Constants.LABEL_BORDER_LAYOUT, Constants.LABEL_BORDER_LAYOUT,
+                        Constants.LABEL_BORDER_LAYOUT, Constants.LABEL_BORDER_LAYOUT)
         ));
 
         errorLabel.setFont(new Font(Constants.FONT_TYPE, Font.ITALIC, Constants.FONT_SMALLEST));
@@ -134,41 +136,42 @@ public class LoginView extends JPanel {
 
     /**
      * Utility method to create a styled button.
+     * @param text text to be visual in the button.
+     * @return the styled button that is created.
      */
     private JButton buttonFactory(String text) {
-        JButton button = new JButton(text);
+        final JButton button = new JButton(text);
         button.setFont(new Font("SansSerif", Font.PLAIN, Constants.FONT_LARGER));
-        button.setBackground(new Color(Constants.BACKGROUND_COLOUR_R, Constants.BACKGROUND_COLOUR_G, Constants.BACKGROUND_COLOUR_B)); // Pastel blue
+        button.setBackground(new Color(Constants.BACKGROUND_COLOUR_R, Constants.BACKGROUND_COLOUR_G,
+                Constants.BACKGROUND_COLOUR_B));
         button.setForeground(Color.BLACK);
         button.setFocusPainted(false);
-        button.setBorder(BorderFactory.createLineBorder(new Color(Constants.BORDER_COLOUR_R, Constants.BORDER_COLOUR_G, Constants.BORDER_COLOUR_B), 2));
+        button.setBorder(BorderFactory.createLineBorder(new Color(Constants.BORDER_COLOUR_R, Constants.BORDER_COLOUR_G,
+                Constants.BORDER_COLOUR_B), 2));
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        button.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT)); // Consistent size
+        button.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT));
         return button;
     }
 
     /**
      * Adds a document listener to a text field.
+     * @param textField textField The text field to which the document listener is added.
      * @param callback Functional interface used to pass a method when a text changes.
      */
     private void addDocumentListener(JTextField textField, DocumentListenerCallback callback) {
         textField.getDocument().addDocumentListener(new DocumentListener() {
-            public void insertUpdate(DocumentEvent e) {
+            public void insertUpdate(DocumentEvent event) {
                 callback.update(textField.getText());
             }
 
-            public void removeUpdate(DocumentEvent e) {
+            public void removeUpdate(DocumentEvent event) {
                 callback.update(textField.getText());
             }
 
-            public void changedUpdate(DocumentEvent e) {
+            public void changedUpdate(DocumentEvent event) {
                 callback.update(textField.getText());
             }
         });
-    }
-
-    private interface DocumentListenerCallback {
-        void update(String text);
     }
 
     private void setFields(LoginState state) {
@@ -186,5 +189,12 @@ public class LoginView extends JPanel {
 
     public void setToHomeViewController(ToHomeViewController toHomeViewController) {
         this.toHomeViewController = toHomeViewController;
+    }
+
+    /**
+     * A callback interface for handling updates to a text field.
+     */
+    private interface DocumentListenerCallback {
+        void update(String text);
     }
 }
