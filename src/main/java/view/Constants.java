@@ -27,4 +27,9 @@ public class Constants {
     public static final int BORDER_COLOUR_R = 124;
     public static final int BORDER_COLOUR_G = 183;
     public static final int BORDER_COLOUR_B = 205;
+    public static final int CENTERED_Y_AXIS = 10;
+    public static final int LOGGED_CENTERED_Y_AXIS = 20;
+    public static final int CENTERED_X_AXIS = 50;
+    public static final int VERTICAL_STRUT = 10;
+
 }
