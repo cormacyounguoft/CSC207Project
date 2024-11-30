@@ -6,6 +6,9 @@ import interface_adapter.watchlist_remove.WatchlistRemoveViewModel;
 import use_case.export_watchlist.ExportWatchlistOutputBoundary;
 import use_case.export_watchlist.ExportWatchlistOutputData;
 
+/**
+ * The presenter for the export list use case.
+ */
 public class ExportWatchlistPresenter implements ExportWatchlistOutputBoundary {
 
     private final ViewManagerModel viewManagerModel;

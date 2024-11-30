@@ -1,7 +1,19 @@
 package view;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -38,28 +50,24 @@ public class LoginView extends JPanel {
             usernameErrorField.setText(state.getLoginError());
         });
 
-        // Set layout and background
         this.setLayout(new BorderLayout(20, 20));
-        this.setBackground(new Color(240, 248, 255)); // Light blue background
-        this.setBorder(new EmptyBorder(20, 20, 20, 20)); // Padding around the panel
+        this.setBackground(new Color(240, 248, 255));
+        this.setBorder(new EmptyBorder(20, 20, 20, 20));
 
-        // Title Label
         final JLabel title = new JLabel("Login Screen", SwingConstants.CENTER);
         title.setFont(new Font("SansSerif", Font.BOLD, 24));
         title.setForeground(new Color(0, 51, 102)); // Dark blue
         this.add(title, BorderLayout.NORTH);
 
-        // Input Fields Panel
         final JPanel inputPanel = new JPanel();
-        inputPanel.setLayout(new GridLayout(4, 1, 10, 10)); // Fields and errors with spacing
+        inputPanel.setLayout(new GridLayout(4, 1, 10, 10));
         inputPanel.setOpaque(false);
 
         inputPanel.add(labelCreator("Username", usernameInputField, usernameErrorField));
         inputPanel.add(labelCreator("Password", passwordInputField, passwordErrorField));
         this.add(inputPanel, BorderLayout.CENTER);
 
-        // Buttons Panel
-        final JPanel buttonsPanel = new JPanel(new GridLayout(1, 2, 15, 0)); // Side-by-side buttons
+        final JPanel buttonsPanel = new JPanel(new GridLayout(1, 2, 15, 0));
         buttonsPanel.setOpaque(false);
 
         logIn = buttonFactory("Log In");
@@ -69,7 +77,6 @@ public class LoginView extends JPanel {
         buttonsPanel.add(cancel);
         this.add(buttonsPanel, BorderLayout.SOUTH);
 
-        // Add Action Listeners
         logIn.addActionListener(evt -> {
             final LoginState currentState = loginViewModel.getState();
             loginController.execute(currentState.getUsername(), currentState.getPassword());
@@ -77,7 +84,6 @@ public class LoginView extends JPanel {
 
         cancel.addActionListener(evt -> toHomeViewController.toHomeView());
 
-        // Attach Document Listeners
         addDocumentListener(usernameInputField, text -> {
             final LoginState currentState = loginViewModel.getState();
             currentState.setUsername(text);
@@ -93,9 +99,13 @@ public class LoginView extends JPanel {
 
     /**
      * Creates a labeled field with an error message label underneath.
+     * @param inputField input field for the label.
+     * @param errorLabel label for error.
+     * @param labelText text for label.
+     * @ret
      */
     private JPanel labelCreator(String labelText, JTextField inputField, JLabel errorLabel) {
-        JPanel panel = new JPanel(new BorderLayout(5, 5));
+        final JPanel panel = new JPanel(new BorderLayout(5, 5));
         panel.setOpaque(false);
 
         JLabel label = new JLabel(labelText);
@@ -135,6 +145,7 @@ public class LoginView extends JPanel {
 
     /**
      * Adds a document listener to a text field.
+     * @param callback Functional interface used to pass a method when a text changes.
      */
     private void addDocumentListener(JTextField textField, DocumentListenerCallback callback) {
         textField.getDocument().addDocumentListener(new DocumentListener() {
