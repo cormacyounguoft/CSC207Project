@@ -96,7 +96,7 @@ public class LoggedInSearchResultView extends JPanel implements ActionListener, 
     }
 
     private void setupContentSection() {
-        final JPanel contentPanel = new JPanel(new BorderLayout(BORDER_LAYOUT_HGAP, 0));
+        final JPanel contentPanel = new JPanel(new BorderLayout(Constants.CONTENT_HGAP, 0));
         contentPanel.setOpaque(false);
 
         configurePoster();
@@ -109,7 +109,7 @@ public class LoggedInSearchResultView extends JPanel implements ActionListener, 
     }
 
     private JPanel setupDetailsPanel() {
-        final JPanel detailsPanel = new JPanel(new BorderLayout(0, BORDER_LAYOUT_VGAP));
+        final JPanel detailsPanel = new JPanel(new BorderLayout(0, Constants.DETAILS_VGAP));
         detailsPanel.setOpaque(false);
 
         final JPanel highlightedDetailsPanel = createHighlightedDetails();
@@ -125,7 +125,7 @@ public class LoggedInSearchResultView extends JPanel implements ActionListener, 
     }
 
     private JPanel createHighlightedDetails() {
-        final JPanel panel = new JPanel(new GridLayout(1, 2, BORDER_LAYOUT_VGAP, 0));
+        final JPanel panel = new JPanel(new GridLayout(1, 2, Constants.HIGHLIGHTED_DETAILS_HGAP, 0));
         panel.setOpaque(false);
         panel.add(createLabeledField("Rotten Tomatoes: ", movieRottenTomatoesLabel));
         panel.add(createLabeledField("Genres: ", movieGenreLabel));
@@ -133,8 +133,8 @@ public class LoggedInSearchResultView extends JPanel implements ActionListener, 
     }
 
     private JPanel createOtherDetails() {
-        final JPanel panel = new JPanel(new GridLayout(2, 1, Constants.LABEL_BORDER_LAYOUT,
-                Constants.LABEL_BORDER_LAYOUT));
+        final JPanel panel = new JPanel(new GridLayout(2, 1, Constants.OTHER_DETAILS_GAP,
+                Constants.OTHER_DETAILS_GAP));
         panel.setOpaque(false);
         panel.add(createLabeledField("Actors: ", movieActorsLabel));
         panel.add(createLabeledField("Directors: ", movieDirectorLabel));
