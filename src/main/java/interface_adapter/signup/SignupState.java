@@ -4,6 +4,7 @@ package interface_adapter.signup;
  * The state for the Signup View Model.
  */
 public class SignupState {
+
     private String username = "";
     private String usernameError;
     private String password = "";
@@ -59,7 +60,10 @@ public class SignupState {
         this.repeatPasswordError = repeatPasswordError;
     }
 
-    public void resetInputFields(){
+    /**
+     * Resets the input fields of the signup page.
+     */
+    public void resetInputFields() {
         this.setUsername(null);
         this.setUsernameError(null);
         this.setPassword(null);

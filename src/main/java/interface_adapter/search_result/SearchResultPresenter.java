@@ -7,6 +7,7 @@ import use_case.search_result.SearchResultOutputData;
  * The Presenter for the Search Result Use Case.
  */
 public class SearchResultPresenter implements SearchResultOutputBoundary {
+
     private final SearchResultViewModel searchResultViewModel;
 
     public SearchResultPresenter(SearchResultViewModel searchResultViewModel) {

@@ -4,6 +4,7 @@ package use_case.watched_list_remove;
  * Input data for watched list remove use case.
  */
 public class WatchedListRemoveInputData {
+
     private final String username;
     private final String title;
 

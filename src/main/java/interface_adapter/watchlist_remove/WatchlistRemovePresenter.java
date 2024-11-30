@@ -6,7 +6,11 @@ import interface_adapter.logged_in.LoggedInViewModel;
 import use_case.watchlist_remove.WatchlistRemoveOutputBoundary;
 import use_case.watchlist_remove.WatchlistRemoveOutputData;
 
+/**
+ * The presenter for the watchlist remove Use Case.
+ */
 public class WatchlistRemovePresenter implements WatchlistRemoveOutputBoundary {
+
     private final ViewManagerModel viewManagerModel;
     private final LoggedInViewModel loggedInViewModel;
 

@@ -8,6 +8,7 @@ import use_case.dashboard.DashboardOutputData;
  * The presenter for the dashboard of the application.
  */
 public class DashboardPresenter implements DashboardOutputBoundary {
+
     private final ViewManagerModel viewManagerModel;
     private final DashboardViewModel dashboardViewModel;
 

@@ -4,6 +4,7 @@ package use_case.search_result;
  * The Search Result Interactor.
  */
 public class SearchResultInteractor implements SearchResultInputBoundary {
+
     private final SearchResultOutputBoundary searchResultPresenter;
 
     public SearchResultInteractor(SearchResultOutputBoundary searchResultOutputBoundary) {
@@ -16,5 +17,4 @@ public class SearchResultInteractor implements SearchResultInputBoundary {
         final SearchResultOutputData searchResultOutputData = new SearchResultOutputData(false);
         searchResultPresenter.prepareSuccessView(searchResultOutputData);
     }
-
 }

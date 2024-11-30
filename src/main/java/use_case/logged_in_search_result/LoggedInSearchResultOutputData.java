@@ -4,6 +4,7 @@ package use_case.logged_in_search_result;
  * Output Data for the Logged In Search Result Use Case.
  */
 public class LoggedInSearchResultOutputData {
+
     private final String username;
     private final String movie;
     private final boolean useCaseFailed;

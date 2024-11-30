@@ -40,7 +40,7 @@ class GetWatchlistInteractorTest {
             public void prepareSuccessView(GetWatchlistOutputData outputData) {
                 assertEquals("Username", outputData.getUsername());
                 assertEquals(List.of("Movie"), outputData.getWatchlistTitle());
-                assertEquals(List.of("url"), outputData.getWatchlistURL());
+                assertEquals(List.of("url"), outputData.getWatchlistUrl());
                 assertFalse(outputData.isUseCaseFailed());
             }
         };

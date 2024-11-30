@@ -4,6 +4,7 @@ package interface_adapter.logged_in_search_result;
  * The state for the Logged In Search Result View Model.
  */
 public class LoggedInSearchResultState {
+
     private String username;
     private String title;
     private String releaseDate;

@@ -1,5 +1,12 @@
 package data_access;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import entity.Movie;
 import entity.MovieList;
 import entity.User;
@@ -8,6 +15,7 @@ import use_case.add_to_watched_list.AddToWatchedListDataAccessInterface;
 import use_case.add_to_watchlist.AddToWatchlistDataAccessInterface;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.dashboard.DashboardDataAccessInterface;
+import use_case.export_watchlist.ExportWatchlistDataAccessInterface;
 import use_case.get_rated_list.GetRatedListDataAccessInterface;
 import use_case.get_watched_list.GetWatchedListDataAccessInterface;
 import use_case.get_watchlist.GetWatchlistDataAccessInterface;
@@ -18,14 +26,6 @@ import use_case.rated_list.RatedListDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 import use_case.watched_list_remove.WatchedListRemoveDataAccessInterface;
 import use_case.watchlist_remove.WatchlistRemoveDataAccessInterface;
-import use_case.export_watchlist.ExportWatchlistDataAccessInterface;
-
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * In-memory implementation of the DAO for storing user data. This implementation does
@@ -48,7 +48,6 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         ExportWatchlistDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
-
     private String currentUsername;
 
     @Override
@@ -68,8 +67,7 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
 
     @Override
     public void changePassword(String username, String password) {
-        final User user = this.get(username);
-        user.setUserPassword(password);
+        this.get(username).setUserPassword(password);
     }
 
     @Override
@@ -94,31 +92,25 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
 
     @Override
     public void removeFromWatchedlist(String username, String title) {
-        final MovieList list = this.get(username).getWatchedList();
-        final Movie movie = list.findMovieByTitle(title);
-        this.get(username).getWatchedList().removeMovie(movie);
+        this.get(username).getWatchedList().removeMovie(this.get(username).getWatchedList().findMovieByTitle(title));
         this.removeUserRating(username, title);
     }
 
     @Override
     public void saveUserRating(String username, String title, int rating) {
-        final MovieList list = this.get(username).getWatchedList();
-        final Movie movie = list.findMovieByTitle(title);
-        this.get(username).getUserRatings().addRating(movie, rating);
+        this.get(username).getUserRatings().addRating(this.get(username).getWatchedList()
+                .findMovieByTitle(title), rating);
     }
 
     @Override
     public void removeUserRating(String username, String title) {
-        final UserRating userRating = this.get(username).getUserRatings();
-        userRating.remove(title);
+        this.get(username).getUserRatings().remove(title);
 
     }
 
     @Override
     public void removeFromWatchlist(String username, String movieTitle) {
-        final MovieList movieList = this.get(username).getWatchList();
-        final Movie movie = movieList.findMovieByTitle(movieTitle);
-        this.get(username).getWatchList().removeMovie(movie);
+        this.get(username).getWatchList().removeMovie(this.get(username).getWatchList().findMovieByTitle(movieTitle));
     }
 
     @Override
@@ -133,16 +125,18 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
 
     @Override
     public Map<String, List<String>> getUserRating(String username) {
-        final User user = this.get(username);
-        final Map<String, Integer> ratings = user.getUserRatings().getMovieToRating();
-        final MovieList movieList = user.getWatchedList();
+        final Map<String, Integer> ratings = this.get(username).getUserRatings().getMovieToRating();
+        final MovieList movieList = this.get(username).getWatchedList();
 
         final Map<String, List<String>> result = new HashMap<>();
+
+        // Populate result map with movie title to list of rating, poster
         ratings.forEach((title, rating) -> {
             final String poster = movieList.getPoster(title);
             result.put(title, Arrays.asList(String.valueOf(rating), poster));
         });
 
+        // Sort entries by rating and return as LinkedHashMap
         return result.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.comparing(list -> Integer.parseInt(list.get(0)))))

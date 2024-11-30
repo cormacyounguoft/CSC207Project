@@ -6,6 +6,7 @@ import entity.Movie;
  * The interactor for the Dashboard Use Case, using the WatchedList as the data source.
  */
 public class DashboardInteractor implements DashboardInputBoundary {
+
     private static final int MINUTES_IN_AN_HOUR = 60;
     private final DashboardDataAccessInterface dashboaedListDataAccess;
     private final DashboardOutputBoundary dashboardPresenter;
@@ -38,21 +39,50 @@ public class DashboardInteractor implements DashboardInputBoundary {
         final int hours = totalMinutes / MINUTES_IN_AN_HOUR;
         final int minutes = totalMinutes % MINUTES_IN_AN_HOUR;
 
-        final String timeWatched;
+        return buildTimeWatchedString(hours, minutes);
+    }
+
+    private String buildTimeWatchedString(int hours, int minutes) {
+        String result = "";
 
         if (hours == 0 && minutes == 0) {
-            timeWatched = "No time watched";
-        } else if (hours == 1 && minutes == 0) {
-            timeWatched = "1 hour";
-        } else if (hours == 1) {
-            timeWatched = "1 hour and " + minutes + (minutes == 1 ? " minute" : " minutes");
-        } else if (hours == 0) {
-            timeWatched = minutes + (minutes == 1 ? " minute" : " minutes");
-        } else {
-            timeWatched = hours + " hours and " + minutes + (minutes == 1 ? " minute" : " minutes");
+            result = "No time watched";
         }
+        else if (hours == 1 && minutes == 0) {
+            result = "1 hour";
+        }
+        else if (hours == 1) {
+            result = "1 hour and " + buildMinutesString(minutes);
+        }
+        else if (hours == 0) {
+            result = buildMinutesString(minutes);
+        }
+        else {
+            result = buildHoursString(hours) + " and " + buildMinutesString(minutes);
+        }
+        return result;
+    }
 
-        return timeWatched;
+    private String buildHoursString(int hours) {
+        String result = "";
+        if (hours == 1) {
+            result = "1 hour";
+        }
+        else {
+            result = hours + " hours";
+        }
+        return result;
+    }
+
+    private String buildMinutesString(int minutes) {
+        String result = "";
+        if (minutes == 1) {
+            result = minutes + " minute";
+        }
+        else {
+            result = minutes + " minutes";
+        }
+        return result;
     }
 
     private String getFavoriteGenre(String username) {
@@ -64,10 +94,12 @@ public class DashboardInteractor implements DashboardInputBoundary {
                 result = movie.getGenre().toString();
             }
         }
+
         final String finalResult;
         if (!result.isEmpty()) {
             finalResult = result;
-        } else {
+        }
+        else {
             finalResult = "No favourite genre";
         }
         return finalResult;
@@ -83,6 +115,7 @@ public class DashboardInteractor implements DashboardInputBoundary {
                 highestRating = dashboaedListDataAccess.getUserRatings(username).getMovieToRating().get(key);
             }
         }
+
         if (result.isEmpty()) {
             result = "No favourite movie";
         }
@@ -98,11 +131,11 @@ public class DashboardInteractor implements DashboardInputBoundary {
             totalNum++;
         }
 
-        if (totalNum == 0) {
-            return 0;
-        } else {
-            return (double) totalRating / totalNum;
+        double average = 0;
+        if (totalNum != 0) {
+            average = (double) totalRating / totalNum;
         }
+        return average;
     }
 
     private String getLongestMovie(String username) {

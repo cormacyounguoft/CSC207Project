@@ -24,7 +24,6 @@ public class ChangePasswordPresenter implements ChangePasswordOutputBoundary {
         currentState.setPasswordError(null);
         changePasswordViewModel.setState(currentState);
         changePasswordViewModel.firePropertyChanged("password");
-
     }
 
     @Override

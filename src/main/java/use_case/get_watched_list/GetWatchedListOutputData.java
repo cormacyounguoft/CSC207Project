@@ -6,6 +6,7 @@ import java.util.List;
  * Output data for get watched list.
  */
 public class GetWatchedListOutputData {
+
     private final String username;
     private final List<String> watchedListTitle;
     private final List<String> watchedListUrl;
@@ -34,6 +35,4 @@ public class GetWatchedListOutputData {
     public boolean isUseCaseFailed() {
         return useCaseFailed;
     }
-
-    public List<String> getWatchedListURL() {return watchedListUrl;}
 }

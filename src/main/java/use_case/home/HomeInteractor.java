@@ -4,6 +4,7 @@ package use_case.home;
  * The Home Interactor.
  */
 public class HomeInteractor implements HomeInputBoundary {
+
     private final HomeOutputBoundary presenter;
 
     public HomeInteractor(HomeOutputBoundary homeOutputBoundary) {

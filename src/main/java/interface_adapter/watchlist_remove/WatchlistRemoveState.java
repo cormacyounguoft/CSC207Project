@@ -2,10 +2,16 @@ package interface_adapter.watchlist_remove;
 
 import java.util.List;
 
+/**
+ * The state for the watchlist remove Use Case.
+ */
 public class WatchlistRemoveState {
+
     private String username;
     private List<String> watchlistTitle;
-    private List<String> watchlistURL;
+    private List<String> watchlistUrl;
+    private String error;
+    private String export;
 
     public String getUsername() {
         return username;
@@ -23,11 +29,27 @@ public class WatchlistRemoveState {
         this.watchlistTitle = watchlistTitle;
     }
 
-    public List<String> getWatchlistURL() {
-        return watchlistURL;
+    public List<String> getWatchlistUrl() {
+        return watchlistUrl;
     }
 
-    public void setWatchlistURL(List<String> watchlistURL) {
-        this.watchlistURL = watchlistURL;
+    public void setWatchlistUrl(List<String> watchlistUrl) {
+        this.watchlistUrl = watchlistUrl;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public void setExport(String success) {
+        this.export = success;
+    }
+
+    public String getExport() {
+        return export;
     }
 }

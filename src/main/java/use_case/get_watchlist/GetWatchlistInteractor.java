@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entity.Movie;
-import entity.MovieList;
 
 /**
  * Interactor for get watch list.
@@ -20,10 +19,9 @@ public class GetWatchlistInteractor implements GetWatchlistInputBoundary {
 
     @Override
     public void execute(GetWatchlistInputData inputData) {
-        final MovieList watchlist = dataAccess.getWatchlist(inputData.getUsername());
         final List<String> watchlistTitle = new ArrayList<>();
         final List<String> watchlistUrl = new ArrayList<>();
-        for (Movie movie : watchlist.getMovieList()) {
+        for (Movie movie : dataAccess.getWatchlist(inputData.getUsername()).getMovieList()) {
             watchlistTitle.add(movie.getTitle());
             watchlistUrl.add(movie.getPosterLink());
         }

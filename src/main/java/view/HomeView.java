@@ -49,9 +49,9 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
         buttonsPanel.setOpaque(false); // Blend with background
 
         // Create buttons with a uniform pastel green color
-        toLogin = buttonFactory(HomeViewModel.TO_LOGIN_BUTTON_LABEL);
-        toSignup = buttonFactory(HomeViewModel.TO_SIGNUP_BUTTON_LABEL);
-        toSearch = buttonFactory(HomeViewModel.TO_SEARCH_BUTTON_LABEL);
+        toLogin = buttonFactory(HomeViewModel.TO_LOGIN_BUTTON);
+        toSignup = buttonFactory(HomeViewModel.TO_SIGNUP_BUTTON);
+        toSearch = buttonFactory(HomeViewModel.TO_SEARCH_BUTTON);
 
         buttonsPanel.add(toLogin);
         buttonsPanel.add(toSignup);

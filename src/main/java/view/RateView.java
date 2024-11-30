@@ -6,92 +6,140 @@ import interface_adapter.rate.RateViewModel;
 import interface_adapter.to_logged_in_view.ToLoggedInViewController;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class RateView extends JPanel implements ActionListener, PropertyChangeListener {
-    private final String viewName = "rate";
+/**
+ * View for the Rate Use Case.
+ */
+public class RateView extends JPanel implements PropertyChangeListener {
 
+    private final String viewName = "rate";
     private final RateViewModel rateViewModel;
+
     private RateController rateController;
     private ToLoggedInViewController toLoggedInViewController;
 
-    private final JButton rate;
-    private final JButton cancel;
+    private final JButton rateButton;
+    private final JButton cancelButton;
 
     private final JTextField rateInputField = new JTextField(15);
-    private final JLabel username;
-    private final JLabel movie;
+    private final JLabel usernameLabel = new JLabel();
+    private final JLabel movieLabel = new JLabel();
 
     public RateView(RateViewModel rateViewModel) {
         this.rateViewModel = rateViewModel;
         this.rateViewModel.addPropertyChangeListener(this);
 
-        final JLabel title = new JLabel(rateViewModel.TITLE_LABEL);
+        this.setLayout(new BorderLayout(10, 10)); // Minimal spacing
+        this.setBackground(new Color(240, 248, 255)); // Light blue background
+        this.setBorder(new EmptyBorder(10, 10, 10, 10)); // Minimal padding
+
+        final JPanel topPanel = new JPanel();
+        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
+        topPanel.setOpaque(false);
+
+        final JLabel title = new JLabel(rateViewModel.TITLE, SwingConstants.CENTER);
+        title.setFont(new Font("SansSerif", Font.BOLD, 24));
+        title.setForeground(new Color(0, 51, 102));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        topPanel.add(title);
 
-        final LabelTextPanel searchBox = new LabelTextPanel(
-                new JLabel(rateViewModel.RATE_LABEL), rateInputField);
+        usernameLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        usernameLabel.setForeground(new Color(0, 51, 102));
+        usernameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        topPanel.add(usernameLabel);
 
-        username = new JLabel();
-        movie = new JLabel();
+        movieLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        movieLabel.setForeground(new Color(0, 51, 102));
+        movieLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        topPanel.add(movieLabel);
 
-        final JPanel buttons = new JPanel();
-        rate = new JButton(rateViewModel.RATE_BUTTON_LABEL);
-        buttons.add(rate);
-        cancel = new JButton(rateViewModel.CANCEL_BUTTON_LABEL);
-        buttons.add(cancel);
+        topPanel.add(createLabeledField("Rate (0-5)", rateInputField));
 
-        rate.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(rate)) {
-                            final RateState currentState = rateViewModel.getState();
-                            try {
-                                int rating = Integer.parseInt(rateInputField.getText());
-                                rateController.execute(currentState.getUsername(), currentState.getTitle(), rating);
-                                if (currentState.getRateError() != null) {
-                                    JOptionPane.showMessageDialog(null, currentState.getRateError());
-                                }
-                                else {
-                                    JOptionPane.showMessageDialog(null, "The rating of " +
-                                            rating + " out of 5 for \"" + currentState.getTitle() +
-                                            "\" has been saved to your account.");
-                                }
-                            } catch (NumberFormatException e) {
+        this.add(topPanel, BorderLayout.NORTH);
 
-                                JOptionPane.showMessageDialog(null, "The rating must be an " +
-                                        "integer between 0 and 5.");
+        // Buttons Panel
+        final JPanel buttonsPanel = new JPanel(new GridLayout(1, 2, 15, 0));
+        buttonsPanel.setOpaque(false);
 
-                            }
+        rateButton = createStyledButton(rateViewModel.RATE_BUTTON);
+        cancelButton = createStyledButton(rateViewModel.CANCEL_BUTTON);
 
-                        }
-                        rateInputField.setText("");
-                    }
-                }
-        );
+        buttonsPanel.add(rateButton);
+        buttonsPanel.add(cancelButton);
+        this.add(buttonsPanel, BorderLayout.SOUTH);
 
-        cancel.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(cancel)) {
-                            final RateState currentState = rateViewModel.getState();
-                            toLoggedInViewController.toLoggedInView(currentState.getUsername());
-                        }
-                        rateInputField.setText("");
-                    }
-                }
-        );
+        // Action Listeners
+        rateButton.addActionListener(evt -> handleRateAction());
+        cancelButton.addActionListener(evt -> handleCancelAction());
+    }
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.add(title);
-        this.add(username);
-        this.add(movie);
-        this.add(searchBox);
-        this.add(buttons);
+    private JPanel createLabeledField(String labelText, JTextField inputField) {
+        JPanel panel = new JPanel(new BorderLayout(5, 5)); // Minimal spacing
+        panel.setOpaque(false);
+
+        JLabel label = new JLabel(labelText, SwingConstants.LEFT);
+        label.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        label.setForeground(new Color(0, 51, 102));
+
+        // Input Field Styling
+        inputField.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        inputField.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(173, 216, 230), 1),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)
+        ));
+        inputField.setPreferredSize(new Dimension(150, 30)); // Specific size
+
+        panel.add(label, BorderLayout.NORTH);
+        panel.add(inputField, BorderLayout.CENTER);
+
+        return panel;
+    }
+
+    private JButton createStyledButton(String text) {
+        JButton button = new JButton(text);
+        button.setFont(new Font("SansSerif", Font.PLAIN, 22));
+        button.setBackground(new Color(93, 186, 255));
+        button.setForeground(Color.BLACK);
+        button.setFocusPainted(false);
+        button.setBorder(BorderFactory.createLineBorder(new Color(124, 183, 205), 2));
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        button.setPreferredSize(new Dimension(150, 50));
+        return button;
+    }
+
+    private void handleRateAction() {
+        final RateState currentState = rateViewModel.getState();
+        try {
+            int rating = Integer.parseInt(rateInputField.getText());
+            rateController.execute(currentState.getUsername(), currentState.getTitle(), rating);
+
+            if (currentState.getRateError() != null) {
+                JOptionPane.showMessageDialog(this, currentState.getRateError());
+            } else {
+                JOptionPane.showMessageDialog(this, "The rating of " + rating +
+                        " out of 5 for \"" + currentState.getTitle() + "\" has been saved.");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "The rating must be an integer between 0 and 5.");
+        }
+        rateInputField.setText("");
+    }
+
+    private void handleCancelAction() {
+        final RateState currentState = rateViewModel.getState();
+        toLoggedInViewController.toLoggedInView(currentState.getUsername());
+        rateInputField.setText("");
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        final RateState state = (RateState) evt.getNewValue();
+        usernameLabel.setText("Username: " + state.getUsername());
+        movieLabel.setText("Movie: " + state.getTitle());
     }
 
     public String getViewName() {
@@ -100,21 +148,6 @@ public class RateView extends JPanel implements ActionListener, PropertyChangeLi
 
     public void setRateController(RateController rateController) {
         this.rateController = rateController;
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-    }
-
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        final RateState state = (RateState) evt.getNewValue();
-        final String username = state.getUsername();
-        final String movie = state.getTitle();
-
-        this.movie.setText("Movie: " + movie);
-        this.username.setText("Username: " + username);
     }
 
     public void setToLoggedInViewController(ToLoggedInViewController toLoggedInViewController) {

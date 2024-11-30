@@ -1,5 +1,8 @@
 package use_case.rate;
 
+/**
+ * The output data for the Rate Use Case.
+ */
 public class RateOutputData {
 
     private final String username;

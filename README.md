@@ -1,6 +1,6 @@
 # CSC207Project: Movie Application
 
-### Authors and Contributers
+### Authors and Contributors
 - Aseer Baset 
 - Cormac Young 
 - Humza Chaudhry 
@@ -13,7 +13,7 @@ The purpose of this project is to create a movie organization system that allows
 ### Table of contents
 
 <!-- TOC -->
-* [Authors and Contributers](#authors-and-contributers)
+* [Authors and Contributors](#authors-and-contributors)
 * [Project Purpose](#project-purpose)
 * [Features of the software](#features-of-the-software)
 * [Installation instructions](#installation-instructions)
@@ -31,6 +31,7 @@ The purpose of this project is to create a movie organization system that allows
 - Add and remove movies from a watched list to track films you’ve already seen.
 - Rate movies you’ve watched on a scale of 0 to 5.
 - View a dashboard with insights including total hours watched, longest movie watched, favorite genre, favorite movie, and your average movie rating.
+- Export your watchlist to a `.txt` file.
 
 #### Here's what the Logged-In View looks like:
 <img src="images/LoggedInView.png" alt="Logged In View" width="500"/>
@@ -44,7 +45,7 @@ The purpose of this project is to create a movie organization system that allows
 3. In IntelliJ, navigate to Run > Edit Configurations > Environment variables.
 4. Add your API key in the format: APIKEY=YOUR_API_KEY. It should look like this:
 
-<img src="images/adding_api_key.png" alt="Adding API key" width="500"/>
+<img src="images/API.png" alt="Adding API key" width="500"/>
 
 5. Set `pom.xml` as Maven by right-clicking on the `pom.xml` file and selecting "Add as Maven Project." You may need to reload the Maven project.
 6. Once the API key and the Maven Project are set up, you can run the Main program.
@@ -68,7 +69,7 @@ Here is the formatted list in Markdown:
 - **Add to Watchlist**:  
   Log in and search for a movie, then click **Add to Watchlist** to save it to your watchlist.  
 
-  <img src="images/Watchlist.png" alt="Adding a movie to a watchlist" width="500"/>
+  <img src="images/AddWatchlist.png" alt="Adding a movie to a watchlist" width="500"/>
 
 - **Remove from Watchlist**:  
   Log in and navigate to your Watchlist. Locate the movie you want to remove and click **Remove**.  
@@ -83,7 +84,7 @@ Here is the formatted list in Markdown:
 - **Add to Watched List**:  
   Log in, search for a movie, and click **Add to Watched List** to save it to your watched list.  
 
-  <img src="images/WatchedList.png" alt="Adding a movie to a watched list" width="500"/>
+  <img src="images/AddWatchedList.png" alt="Adding a movie to a watched list" width="500"/>
 
 - **Remove from Watched List**:  
   Log in and go to your Watched List. Find the movie you want to remove and click **Remove**. If you’ve rated the movie, it will also be removed from your Rated List.  
@@ -93,12 +94,12 @@ Here is the formatted list in Markdown:
 - **Rate a Movie**:  
   To rate a movie, it must first be in your watched list. Go to your watched list, find the movie you want to rate, and click **Rate**. Enter a rating between 0 and 5 inclusive.  
 
-  <img src="images/Rate.png" alt="Rating a movie" width="500"/>
+  <img src="images/RateWatchedList.png" alt="Rating a movie" width="500"/>
 
 - **Remove a Rating**:  
   Log in and go to your Rate List. Find the movie whose rating you want to remove and click **Remove**.
 
-  <img src="images/RemoveRating.png" alt="Removing a rating from a movie" width="500"/>
+  <img src="images/RemoveRateList.png" alt="Removing a rating from a movie" width="500"/>
 
 - **View Watchlist**:  
   Log in and click **Go to Watchlist** to view all the movies you’ve added to your watchlist.
@@ -111,6 +112,11 @@ Here is the formatted list in Markdown:
 
 - **View Dashboard**:  
   The dashboard provides statistics based on your watched and rated movies. To access it, log in and click **Go to Dashboard**.
+
+- **Export Watchlist**:
+  Log in and navigate to your Watchlist. Click **Export** to download your watchlist as a `.txt` file named `watchlist_username.txt`, saved to the project directory.
+
+  <img src="images/ExportWatchlist.png" alt="Exporting watchlist" width="500"/>
 
 ### License
 You can find the license [here](LICENSE).
