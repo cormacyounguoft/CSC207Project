@@ -45,20 +45,21 @@ public class SearchResultView extends JPanel implements ActionListener, Property
         this.searchResultViewModel.addPropertyChangeListener(this);
 
         // Set layout and background
-        this.setLayout(new BorderLayout(20, 20));
-        this.setBackground(new Color(240, 248, 255)); // Light blue background
-        this.setBorder(new EmptyBorder(20, 20, 20, 20)); // Padding around the panel
+        this.setLayout(new BorderLayout(Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT));
+        this.setBackground(new Color(Constants.COLOUR_R, Constants.COLOUR_G, Constants.COLOUR_B)); // Light blue background
+        this.setBorder(new EmptyBorder(Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT,
+                Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT)); // Padding around the panel
 
         // Title and Release Date
         JPanel titlePanel = new JPanel(new GridLayout(2, 1));
         titlePanel.setOpaque(false);
 
-        movieTitle.setFont(new Font("SansSerif", Font.BOLD, 24));
-        movieTitle.setForeground(new Color(0, 51, 102)); // Dark blue
+        movieTitle.setFont(new Font(Constants.FONT_TYPE, Font.BOLD, Constants.FONT_LARGEST));
+        movieTitle.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B)); // Dark blue
         titlePanel.add(movieTitle);
 
-        movieReleaseDate.setFont(new Font("SansSerif", Font.PLAIN, 18));
-        movieReleaseDate.setForeground(new Color(0, 51, 102));
+        movieReleaseDate.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_MEDIUM));
+        movieReleaseDate.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
         titlePanel.add(movieReleaseDate);
 
         this.add(titlePanel, BorderLayout.NORTH);
@@ -70,7 +71,7 @@ public class SearchResultView extends JPanel implements ActionListener, Property
         // Poster
         moviePoster.setHorizontalAlignment(SwingConstants.CENTER);
         moviePoster.setVerticalAlignment(SwingConstants.TOP);
-        moviePoster.setBorder(BorderFactory.createLineBorder(new Color(173, 216, 230), 1));
+        moviePoster.setBorder(BorderFactory.createLineBorder(new Color(Constants.LINE_BORDER_R, Constants.LINE_BORDER_G, Constants.LINE_BORDER_B), 1));
         contentPanel.add(moviePoster, BorderLayout.WEST);
 
         // Details
@@ -89,9 +90,9 @@ public class SearchResultView extends JPanel implements ActionListener, Property
         movieDescription.setLineWrap(true);
         movieDescription.setWrapStyleWord(true);
         movieDescription.setEditable(false);
-        movieDescription.setFont(new Font("SansSerif", Font.PLAIN, 16));
-        movieDescription.setForeground(new Color(0, 51, 102));
-        movieDescription.setBackground(new Color(240, 248, 255)); // Match background
+        movieDescription.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_SMALLER));
+        movieDescription.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
+        movieDescription.setBackground(new Color(Constants.COLOUR_R, Constants.COLOUR_G, Constants.COLOUR_B)); // Match background
         detailsPanel.add(new JScrollPane(movieDescription), BorderLayout.CENTER);
 
         // Other Details
@@ -116,15 +117,15 @@ public class SearchResultView extends JPanel implements ActionListener, Property
     }
 
     private JPanel labelFormatter(String labelText, JLabel valueLabel) {
-        JPanel panel = new JPanel(new BorderLayout(5, 5));
+        JPanel panel = new JPanel(new BorderLayout(Constants.LABEL_BORDER_LAYOUT, Constants.LABEL_BORDER_LAYOUT));
         panel.setOpaque(false);
 
         JLabel label = new JLabel(labelText);
-        label.setFont(new Font("SansSerif", Font.BOLD, 16));
-        label.setForeground(new Color(0, 51, 102));
+        label.setFont(new Font(Constants.FONT_TYPE, Font.BOLD, Constants.FONT_SMALLER));
+        label.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
 
-        valueLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
-        valueLabel.setForeground(new Color(0, 51, 102));
+        valueLabel.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_SMALLER));
+        valueLabel.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
 
         panel.add(label, BorderLayout.WEST);
         panel.add(valueLabel, BorderLayout.CENTER);
@@ -133,13 +134,13 @@ public class SearchResultView extends JPanel implements ActionListener, Property
 
     private JButton buttonFactory(String text) {
         JButton button = new JButton(text);
-        button.setFont(new Font("SansSerif", Font.PLAIN, 22));
-        button.setBackground(new Color(93, 186, 255)); // Pastel blue
+        button.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_LARGER));
+        button.setBackground(new Color(Constants.BACKGROUND_COLOUR_R, Constants.BACKGROUND_COLOUR_G, Constants.BACKGROUND_COLOUR_B)); // Pastel blue
         button.setForeground(Color.BLACK);
         button.setFocusPainted(false);
-        button.setBorder(BorderFactory.createLineBorder(new Color(124, 183, 205), 2));
+        button.setBorder(BorderFactory.createLineBorder(new Color(Constants.BORDER_COLOUR_R, Constants.BORDER_COLOUR_G, Constants.BORDER_COLOUR_B), 2));
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        button.setPreferredSize(new Dimension(150, 50)); // Consistent size
+        button.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT)); // Consistent size
         return button;
     }
 
