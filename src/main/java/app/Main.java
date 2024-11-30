@@ -54,6 +54,7 @@ public class Main {
                 .addToLoggedInViewUseCase()
                 .addDashboardUseCase()
                 .addExportWatchlistUseCase()
+                .addExportWatchedListUseCase()
                 .build();
 
         // Commented out to keep consistent size

@@ -27,6 +27,11 @@ public class ExportWatchlistInteractor implements ExportWatchlistInputBoundary {
             final MovieList watchlist = dataAccess.getWatchlist(inputData.getUserId());
             final List<Movie> movies = watchlist.getMovieList();
 
+            if (movies.isEmpty()) {
+                outputBoundary.prepareFailView("The watchlist is empty!");
+                return;
+            }
+
             final StringBuilder content = new StringBuilder();
 
             content.append(inputData.getUserId().toUpperCase()).append("'S TO WATCH LIST\n\n");

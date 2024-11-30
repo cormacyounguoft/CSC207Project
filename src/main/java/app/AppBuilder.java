@@ -22,6 +22,8 @@ import interface_adapter.change_password.ChangePasswordViewModel;
 import interface_adapter.dashboard.DashboardController;
 import interface_adapter.dashboard.DashboardPresenter;
 import interface_adapter.dashboard.DashboardViewModel;
+import interface_adapter.export_watchedlist.ExportWatchedListController;
+import interface_adapter.export_watchedlist.ExportWatchedListPresenter;
 import interface_adapter.export_watchlist.ExportWatchlistController;
 import interface_adapter.export_watchlist.ExportWatchlistPresenter;
 import interface_adapter.get_rated_list.GetRatedListController;
@@ -86,6 +88,9 @@ import use_case.change_password.ChangePasswordOutputBoundary;
 import use_case.dashboard.DashboardInputBoundary;
 import use_case.dashboard.DashboardInteractor;
 import use_case.dashboard.DashboardOutputBoundary;
+import use_case.export_watchedlist.ExportWatchedListInputBoundary;
+import use_case.export_watchedlist.ExportWatchedListInteractor;
+import use_case.export_watchedlist.ExportWatchedListOutputBoundary;
 import use_case.export_watchlist.ExportWatchlistInputBoundary;
 import use_case.export_watchlist.ExportWatchlistInteractor;
 import use_case.export_watchlist.ExportWatchlistOutputBoundary;
@@ -728,6 +733,26 @@ public class AppBuilder {
         watchlistView.setExportWatchlistController(exportWatchlistController);
         return this;
     }
+
+    public AppBuilder addExportWatchedListUseCase() {
+        // Create the presenter for exporting the watched list
+        final ExportWatchedListOutputBoundary exportWatchedListPresenter =
+                new ExportWatchedListPresenter(viewManagerModel, watchedListRemoveViewModel);
+
+        // Create the interactor for exporting the watched list
+        final ExportWatchedListInputBoundary exportWatchedListInteractor =
+                new ExportWatchedListInteractor(exportWatchedListPresenter, userDataAccessObject);
+
+        // Create the controller for exporting the watched list
+        final ExportWatchedListController exportWatchedListController =
+                new ExportWatchedListController(exportWatchedListInteractor);
+
+        // Set up the controller in the watched list view
+        watchedListView.setExportWatchedListController(exportWatchedListController);
+
+        return this;
+    }
+
 
     /**
      * Creates the JFrame for the application and initially sets the SignupView to be displayed.
