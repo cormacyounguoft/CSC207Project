@@ -5,7 +5,7 @@ import interface_adapter.ViewModel;
 /**
  * The ViewModel for the Watched List View.
  */
-public class WatchedListRemoveViewModel extends ViewModel<WatchedListRemoveState> {
+public class WatchedListRemoveViewModel extends ViewModel<WatchedListState> {
 
     public static final String TITLE = "Watched List";
     public static final String CANCEL_BUTTON = "Cancel";
@@ -14,6 +14,6 @@ public class WatchedListRemoveViewModel extends ViewModel<WatchedListRemoveState
 
     public WatchedListRemoveViewModel() {
         super("watched list");
-        setState(new WatchedListRemoveState());
+        setState(new WatchedListState());
     }
 }

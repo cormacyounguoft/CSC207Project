@@ -1,8 +1,8 @@
 package interface_adapter.export_watchlist;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.watchlist_remove.WatchlistRemoveState;
 import interface_adapter.watchlist_remove.WatchlistRemoveViewModel;
+import interface_adapter.watchlist_remove.WatchlistState;
 import use_case.export_watchlist.ExportWatchlistOutputBoundary;
 import use_case.export_watchlist.ExportWatchlistOutputData;
 
@@ -22,10 +22,10 @@ public class ExportWatchlistPresenter implements ExportWatchlistOutputBoundary {
 
     @Override
     public void prepareSuccessView(ExportWatchlistOutputData outputData) {
-        final WatchlistRemoveState watchlistRemoveState = watchlistRemoveViewModel.getState();
-        watchlistRemoveState.setUsername(outputData.getUsername());
-        watchlistRemoveState.setExport("Watchlist successfully exported");
-        watchlistRemoveViewModel.setState(watchlistRemoveState);
+        final WatchlistState watchlistState = watchlistRemoveViewModel.getState();
+        watchlistState.setUsername(outputData.getUsername());
+        watchlistState.setExport("Watchlist successfully exported");
+        watchlistRemoveViewModel.setState(watchlistState);
         watchlistRemoveViewModel.firePropertyChanged();
 
         viewManagerModel.setState(watchlistRemoveViewModel.getViewName());
@@ -34,8 +34,8 @@ public class ExportWatchlistPresenter implements ExportWatchlistOutputBoundary {
 
     @Override
     public void prepareFailView(String errorMessage) {
-        final WatchlistRemoveState watchlistRemoveState = watchlistRemoveViewModel.getState();
-        watchlistRemoveState.setError(errorMessage);
+        final WatchlistState watchlistState = watchlistRemoveViewModel.getState();
+        watchlistState.setError(errorMessage);
         watchlistRemoveViewModel.firePropertyChanged();
     }
 }
