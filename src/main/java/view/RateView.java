@@ -1,15 +1,29 @@
 package view;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
 import interface_adapter.rate.RateController;
 import interface_adapter.rate.RateState;
 import interface_adapter.rate.RateViewModel;
 import interface_adapter.to_logged_in_view.ToLoggedInViewController;
-
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 /**
  * View for the Rate Use Case.
@@ -23,8 +37,8 @@ public class RateView extends JPanel implements PropertyChangeListener {
     private RateController rateController;
     private ToLoggedInViewController toLoggedInViewController;
 
-    private final JButton rateButton;
-    private final JButton cancelButton;
+    private JButton rateButton;
+    private JButton cancelButton;
 
     private final JTextField rateInputField = new JTextField(15);
     private final JLabel usernameLabel = new JLabel();
@@ -38,6 +52,15 @@ public class RateView extends JPanel implements PropertyChangeListener {
         this.setBackground(new Color(Constants.COLOUR_R, Constants.COLOUR_G, Constants.COLOUR_B)); // Light blue background
         this.setBorder(new EmptyBorder(RATE_MAIN_BORDER_LAYOUT, RATE_MAIN_BORDER_LAYOUT, RATE_MAIN_BORDER_LAYOUT, RATE_MAIN_BORDER_LAYOUT)); // Minimal padding
 
+
+    private void setupMainLayout() {
+        this.setLayout(new BorderLayout(RATE_MAIN_BORDER_LAYOUT, RATE_MAIN_BORDER_LAYOUT));
+        this.setBackground(new Color(Constants.COLOUR_R, Constants.COLOUR_G, Constants.COLOUR_B));
+        this.setBorder(new EmptyBorder(RATE_MAIN_BORDER_LAYOUT, RATE_MAIN_BORDER_LAYOUT,
+                RATE_MAIN_BORDER_LAYOUT, RATE_MAIN_BORDER_LAYOUT));
+    }
+
+    private void setupTopPanel() {
         final JPanel topPanel = new JPanel();
         topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
         topPanel.setOpaque(false);
@@ -56,26 +79,39 @@ public class RateView extends JPanel implements PropertyChangeListener {
         movieLabel.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_SMALLER));
         movieLabel.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
         movieLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         topPanel.add(movieLabel);
 
         topPanel.add(createLabeledField("Rate (0-5)", rateInputField));
-
         this.add(topPanel, BorderLayout.NORTH);
+    }
 
-        // Buttons Panel
+    private void styleTitleLabel(JLabel label) {
+        label.setFont(new Font(Constants.FONT_TYPE, Font.BOLD, Constants.FONT_LARGEST));
+        label.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+    }
+
+    private void styleInfoLabel(JLabel label) {
+        label.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_SMALLER));
+        label.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+    }
+
+    private void setupButtonsPanel() {
         final JPanel buttonsPanel = new JPanel(new GridLayout(1, 2, 15, 0));
         buttonsPanel.setOpaque(false);
 
         rateButton = createStyledButton(rateViewModel.RATE_BUTTON);
         cancelButton = createStyledButton(rateViewModel.CANCEL_BUTTON);
 
-        buttonsPanel.add(rateButton);
-        buttonsPanel.add(cancelButton);
-        this.add(buttonsPanel, BorderLayout.SOUTH);
-
-        // Action Listeners
         rateButton.addActionListener(evt -> handleRateAction());
         cancelButton.addActionListener(evt -> handleCancelAction());
+
+        buttonsPanel.add(rateButton);
+        buttonsPanel.add(cancelButton);
+
+        this.add(buttonsPanel, BorderLayout.SOUTH);
     }
 
     private JPanel createLabeledField(String labelText, JTextField inputField) {
@@ -91,8 +127,9 @@ public class RateView extends JPanel implements PropertyChangeListener {
         inputField.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(Constants.LINE_BORDER_R, Constants.LINE_BORDER_G, Constants.LINE_BORDER_B), 1),
                 BorderFactory.createEmptyBorder(Constants.LABEL_BORDER_LAYOUT, Constants.LABEL_BORDER_LAYOUT, Constants.LABEL_BORDER_LAYOUT, Constants.LABEL_BORDER_LAYOUT)
+          
         ));
-        inputField.setPreferredSize(new Dimension(150, 30)); // Specific size
+        inputField.setPreferredSize(new Dimension(RATE_LABEL_FIELD_WIDTH, RATE_LABEL_FIELD_HEIGHT));
 
         panel.add(label, BorderLayout.NORTH);
         panel.add(inputField, BorderLayout.CENTER);
@@ -115,16 +152,18 @@ public class RateView extends JPanel implements PropertyChangeListener {
     private void handleRateAction() {
         final RateState currentState = rateViewModel.getState();
         try {
-            int rating = Integer.parseInt(rateInputField.getText());
+            final int rating = Integer.parseInt(rateInputField.getText());
             rateController.execute(currentState.getUsername(), currentState.getTitle(), rating);
 
             if (currentState.getRateError() != null) {
                 JOptionPane.showMessageDialog(this, currentState.getRateError());
-            } else {
-                JOptionPane.showMessageDialog(this, "The rating of " + rating +
-                        " out of 5 for \"" + currentState.getTitle() + "\" has been saved.");
             }
-        } catch (NumberFormatException e) {
+            else {
+                JOptionPane.showMessageDialog(this, "The rating of "
+                        + rating + " out of 5 for \"" + currentState.getTitle() + "\" has been saved.");
+            }
+        }
+        catch (NumberFormatException event) {
             JOptionPane.showMessageDialog(this, "The rating must be an integer between 0 and 5.");
         }
         rateInputField.setText("");
@@ -155,3 +194,4 @@ public class RateView extends JPanel implements PropertyChangeListener {
         this.toLoggedInViewController = toLoggedInViewController;
     }
 }
+

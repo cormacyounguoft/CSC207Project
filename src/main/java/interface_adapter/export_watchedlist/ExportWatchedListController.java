@@ -18,7 +18,7 @@ public class ExportWatchedListController {
      * @param userId The user ID whose watched list is to be exported.
      */
     public void exportWatchedList(String userId) {
-        ExportWatchedListInputData inputData = new ExportWatchedListInputData(userId);
+        final ExportWatchedListInputData inputData = new ExportWatchedListInputData(userId);
         interactor.exportWatchedList(inputData);
     }
 }

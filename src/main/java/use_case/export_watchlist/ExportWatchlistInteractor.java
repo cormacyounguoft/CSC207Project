@@ -29,27 +29,26 @@ public class ExportWatchlistInteractor implements ExportWatchlistInputBoundary {
 
             if (movies.isEmpty()) {
                 outputBoundary.prepareFailView("The watchlist is empty!");
-                return;
             }
+            else {
+                final StringBuilder content = new StringBuilder();
+                content.append(inputData.getUserId().toUpperCase()).append("'S TO WATCH LIST\n\n");
 
-            final StringBuilder content = new StringBuilder();
+                for (Movie movie : movies) {
+                    content.append(movie.getTitle())
+                            .append(" - ")
+                            .append("[")
+                            .append(String.join(", ", movie.getGenre()))
+                            .append("] - ")
+                            .append(movie.getReleaseDate())
+                            .append("\n");
+                }
 
-            content.append(inputData.getUserId().toUpperCase()).append("'S TO WATCH LIST\n\n");
+                final String filePath = "watchlist_" + inputData.getUserId() + ".txt";
+                Files.writeString(Path.of(filePath), content.toString());
 
-            for (Movie movie : movies) {
-                content.append(movie.getTitle())
-                        .append(" - ")
-                        .append("[")
-                        .append(String.join(", ", movie.getGenre()))
-                        .append("] - ")
-                        .append(movie.getReleaseDate())
-                        .append("\n");
+                outputBoundary.prepareSuccessView(new ExportWatchlistOutputData(true, filePath, inputData.getUserId()));
             }
-
-            final String filePath = "watchlist_" + inputData.getUserId() + ".txt";
-            Files.writeString(Path.of(filePath), content.toString());
-
-            outputBoundary.prepareSuccessView(new ExportWatchlistOutputData(true, filePath, inputData.getUserId()));
         }
         catch (IOException exIoException) {
             outputBoundary.prepareFailView("Unable to export watchlist");

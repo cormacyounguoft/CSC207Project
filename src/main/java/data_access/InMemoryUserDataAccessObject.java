@@ -15,8 +15,8 @@ import use_case.add_to_watched_list.AddToWatchedListDataAccessInterface;
 import use_case.add_to_watchlist.AddToWatchlistDataAccessInterface;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.dashboard.DashboardDataAccessInterface;
-import use_case.export_watchlist.ExportWatchlistDataAccessInterface;
 import use_case.export_watchedlist.ExportWatchedListDataAccessInterface;
+import use_case.export_watchlist.ExportWatchlistDataAccessInterface;
 import use_case.get_rated_list.GetRatedListDataAccessInterface;
 import use_case.get_watched_list.GetWatchedListDataAccessInterface;
 import use_case.get_watchlist.GetWatchlistDataAccessInterface;
@@ -47,7 +47,7 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         WatchlistRemoveDataAccessInterface,
         WatchedListRemoveDataAccessInterface,
         ExportWatchlistDataAccessInterface,
-        ExportWatchedListDataAccessInterface    {
+        ExportWatchedListDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
     private String currentUsername;
