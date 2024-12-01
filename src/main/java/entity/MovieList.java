@@ -46,7 +46,6 @@ public class MovieList {
         for (Movie movie : movieList) {
             if (movie.getTitle().equalsIgnoreCase(title)) {
                 foundMovie = movie;
-                break;
             }
         }
         return foundMovie;
@@ -58,7 +57,7 @@ public class MovieList {
      * @return If a movie is found.
      */
     public boolean contains(Movie movie) {
-        return movieList.contains(movie);
+        return this.containsTitle(movie.getTitle());
     }
 
     /**
@@ -71,7 +70,6 @@ public class MovieList {
         for (Movie movie : movieList) {
             if (movie.getTitle().equalsIgnoreCase(title)) {
                 posterLink = movie.getPosterLink();
-                break;
             }
         }
         return posterLink;
