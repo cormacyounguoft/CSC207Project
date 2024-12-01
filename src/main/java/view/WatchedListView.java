@@ -216,7 +216,7 @@ public class WatchedListView extends JPanel implements PropertyChangeListener {
         return viewName;
     }
 
-    public void setWatchedListController(WatchedListRemoveController watchedListRemoveController) {
+    public void setWatchedListRemoveController(WatchedListRemoveController watchedListRemoveController) {
         this.watchedListRemoveController = watchedListRemoveController;
     }
 
@@ -239,7 +239,7 @@ public class WatchedListView extends JPanel implements PropertyChangeListener {
         private final String title;
         private final String posterUrl;
 
-        public Movie(String title, String posterUrl) {
+        Movie(String title, String posterUrl) {
             this.title = title;
             this.posterUrl = posterUrl;
         }

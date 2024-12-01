@@ -16,9 +16,9 @@ public interface RateUserDataAccessInterface {
     void saveUserRating(String username, String title, int rating);
 
     /**
-     * Returns the watched list for the user
+     * Returns the watched list for the user.
      * @param username the username.
      * @return the MovieList
      */
-    public MovieList getWatchedList(String username);
+    MovieList getWatchedList(String username);
 }

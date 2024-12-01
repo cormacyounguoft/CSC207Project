@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entity.Movie;
-import entity.MovieList;
 
 /**
  * Interactor for get watched list use case.
