@@ -65,20 +65,24 @@ class ExportWatchlistInteractorTest {
 
         // Assert
         String filePath = "watchlist_TestUser.txt";
-        String expectedContent = "TESTUSER'S TO WATCH LIST\n\n" +
-                "Inception - [Sci-Fi, Thriller] - 2010\n" +
-                "Interstellar - [Sci-Fi, Drama] - 2014\n";
+        String expectedContent = """
+                TESTUSER'S TO WATCH LIST
 
+                Inception - [Sci-Fi, Thriller] - 2010
+                Interstellar - [Sci-Fi, Drama] - 2014
+                """;
+
+        Path path = Path.of(filePath);
         try {
             // Verify the exported file's content
-            String actualContent = Files.readString(Path.of(filePath));
+            String actualContent = Files.readString(path);
             assertEquals(expectedContent, actualContent, "Exported file content should match expected content.");
         } catch (IOException e) {
             fail("Exported file could not be read.");
         } finally {
             // Cleanup: Delete the exported file after the test
             try {
-                Files.deleteIfExists(Path.of(filePath));
+                Files.deleteIfExists(path);
             } catch (IOException e) {
                 fail("Failed to delete the exported file after the test.");
             }
