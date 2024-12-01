@@ -10,6 +10,7 @@ import use_case.MockDataAccessObject;
 
 import java.util.List;
 
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DashboardInteractorTest {
@@ -66,6 +67,7 @@ class DashboardInteractorTest {
 
         interactor.execute(inputData);
     }
+
     @Test
     void noMoviesWatchedTest() {
         UserFactory factory = new CommonUserFactory();
@@ -89,6 +91,7 @@ class DashboardInteractorTest {
 
         interactor.execute(inputData);
     }
+
     @Test
     void tiedRatingsTest() {
         dataAccessObject.saveUserRating("Username", "Movie2", 5); // Tie in ratings
@@ -106,6 +109,7 @@ class DashboardInteractorTest {
 
         interactor.execute(inputData);
     }
+
     @Test
     void extremeValuesTest() {
         Movie movie3 = new Movie();
@@ -129,6 +133,7 @@ class DashboardInteractorTest {
 
         interactor.execute(inputData);
     }
+
     @Test
     void userWithNoRatingsTest() {
         // Add a new user and movies, but do not add ratings
@@ -327,4 +332,55 @@ class DashboardInteractorTest {
         DashboardInputBoundary interactor = new DashboardInteractor(dataAccessObject, presenter);
         interactor.execute(inputData);
     }
+
+    @Test
+    void validUserWithMoviesTest() {
+        DashboardInputData inputData = new DashboardInputData("Username");
+
+        DashboardOutputBoundary presenter = new DashboardOutputBoundary() {
+            @Override
+            public void prepareSuccessView(DashboardOutputData outputData) {
+                assertEquals("4 hours and 31 minutes", outputData.getTotalHoursWatched());
+                assertEquals("Movie1", outputData.getFavoriteMovie());
+                assertEquals("[Action]", outputData.getFavoriteGenre());
+                assertEquals("Movie2", outputData.getLongestMovie());
+            }
+
+            public void prepareFailView(String error) {
+                fail("Should not reach fail view for a valid user.");
+            }
+        };
+
+        DashboardInputBoundary interactor = new DashboardInteractor(dataAccessObject, presenter);
+
+        interactor.execute(inputData);
+    }
+
+    @Test
+    void userWithEmptyWatchedListTest() {
+        UserFactory factory = new CommonUserFactory();
+        User emptyUser = factory.create("EmptyUser", "Password123!");
+        dataAccessObject.save(emptyUser);
+
+        DashboardInputData inputData = new DashboardInputData("EmptyUser");
+
+        DashboardOutputBoundary presenter = new DashboardOutputBoundary() {
+            @Override
+            public void prepareSuccessView(DashboardOutputData outputData) {
+                assertEquals("No time watched", outputData.getTotalHoursWatched());
+                assertEquals("No favourite movie", outputData.getFavoriteMovie());
+                assertEquals("No favourite genre", outputData.getFavoriteGenre());
+                assertEquals("No movies watched", outputData.getLongestMovie());
+            }
+
+            public void prepareFailView(String error) {
+                fail("Should not reach fail view for an empty watched list.");
+            }
+        };
+
+        DashboardInputBoundary interactor = new DashboardInteractor(dataAccessObject, presenter);
+
+        interactor.execute(inputData);
+    }
 }
+
