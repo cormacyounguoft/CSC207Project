@@ -212,7 +212,7 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
         final JButton button = new JButton(text);
         button.setFont(new Font("SansSerif", Font.PLAIN, Constants.FONT_LARGER));
         button.setBackground(new Color(Constants.BACKGROUND_COLOUR_R, Constants.BACKGROUND_COLOUR_G,
-                Constants.FONT_COLOUR_B));
+                Constants.BACKGROUND_COLOUR_B));
         button.setForeground(Color.BLACK);
         button.setFocusPainted(false);
         button.setBorder(BorderFactory.createLineBorder(new Color(Constants.BORDER_COLOUR_R,
