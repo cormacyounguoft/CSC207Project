@@ -49,5 +49,4 @@ public class Constants {
     public static final int GRID_V_GAP = 10;
     public static final int GRID_H_GAP = 0;
 
-
 }

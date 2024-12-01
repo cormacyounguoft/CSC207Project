@@ -22,6 +22,9 @@ public class RateInteractor implements RateInputBoundary {
         else if (inputData.getRating() < 0) {
             presenter.prepareFailView("Rating must be between 0 and 5 inclusive.");
         }
+        else if (!userDataAccessInterface.getWatchedList(inputData.getUsername()).containsTitle(inputData.getTitle())) {
+            presenter.prepareFailView("Movie must be in your Watched List before you can rate it.");
+        }
         else {
             userDataAccessInterface.saveUserRating(inputData.getUsername(),
                     inputData.getTitle(), inputData.getRating());

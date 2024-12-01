@@ -107,7 +107,7 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
 
         export.addActionListener(evt -> {
             final WatchlistState currentState = watchlistRemoveViewModel.getState();
-            exportWatchlistController.exportWatchlist(username.getText().split(": ")[1]);
+            exportWatchlistController.exportWatchlist(currentState.getUsername());
         });
 
         buttonsPanel.add(export);
@@ -249,7 +249,7 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
         private final String title;
         private final String posterUrl;
 
-        public Movie(String title, String posterUrl) {
+        Movie(String title, String posterUrl) {
             this.title = title;
             this.posterUrl = posterUrl;
         }

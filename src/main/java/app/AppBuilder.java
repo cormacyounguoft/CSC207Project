@@ -636,7 +636,7 @@ public class AppBuilder {
                 new WatchedListRemoveInteractor(watchedListRemoveOutputBoundary, userDataAccessObject);
         final WatchedListRemoveController watchedListRemoveController =
                 new WatchedListRemoveController(watchedListRemoveInputBoundary);
-        watchedListView.setWatchedListController(watchedListRemoveController);
+        watchedListView.setWatchedListRemoveController(watchedListRemoveController);
         return this;
     }
 
@@ -734,6 +734,10 @@ public class AppBuilder {
         return this;
     }
 
+    /**
+     * Adds the To Export WatchedList Use Case to the application.
+     * @return this builder
+     */
     public AppBuilder addExportWatchedListUseCase() {
         // Create the presenter for exporting the watched list
         final ExportWatchedListOutputBoundary exportWatchedListPresenter =
@@ -752,7 +756,6 @@ public class AppBuilder {
 
         return this;
     }
-
 
     /**
      * Creates the JFrame for the application and initially sets the SignupView to be displayed.
