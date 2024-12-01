@@ -30,9 +30,3 @@ This program would be marketed towards movie enthusiasts who enjoy keeping track
 
 ### Write a paragraph about whether or not your program is less likely to be used by certain demographics. Your discussion here should be informed by the content of our embedded ethics modules this term.
 Certain demographics, such as individuals with limited digital literacy or those without access to reliable technology, like stable internet or electricity, may be less likely to use the program. Non-tech-savvy individuals may struggle to navigate the app's features, as it assumes a level of familiarity with technology that not all users possess. This highlights a lack of inclusive design, which is a core ethical consideration. Similarly, users with visual, motor, or cognitive impairments may face barriers if accessibility features like screen reader support, voice commands, or adaptable interfaces are not integrated. This oversight fails to prioritize equity and accessibility, central tenets in ethical development. Furthermore, children might find the app unsuitable due to its complexity and the potential risks of data collection, raising concerns about privacy and child safety, as emphasized in laws like COPPA. Non-movie watchers, while not inherently excluded, are unlikely to find value in the app, which emphasizes features tailored for movie enthusiasts, illustrating the importance of maintaining a clear purpose and audience alignment. Lastly, non-English speakers may face challenges if the app lacks multilingual support, limiting its accessibility and ignoring the principle of global inclusivity. Addressing these issues through thoughtful design can ensure the app serves a wider and more diverse audience ethically.
-
-
-
-
-
-
