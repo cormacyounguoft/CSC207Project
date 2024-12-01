@@ -31,7 +31,7 @@ The purpose of this project is to create a movie organization system that allows
 - Add and remove movies from a watched list to track films you’ve already seen.
 - Rate movies you’ve watched on a scale of 0 to 5.
 - View a dashboard with insights including total hours watched, longest movie watched, favorite genre, favorite movie, and your average movie rating.
-- Export your watchlist to a `.txt` file.
+- Export your watchlist and watched list to a `.txt` file.
 
 #### Here's what the Logged-In View looks like:
 <img src="images/LoggedInView.png" alt="Logged In View" width="500"/>
@@ -117,6 +117,11 @@ Here is the formatted list in Markdown:
   Log in and navigate to your Watchlist. Click **Export** to download your watchlist as a `.txt` file named `watchlist_username.txt`, saved to the project directory.
 
   <img src="images/ExportWatchlist.png" alt="Exporting watchlist" width="500"/>
+
+- **Export Watched List**:
+  Log in and navigate to your Watched List. Click **Export** to download your watchlist as a `.txt` file named `watchedlist_username.txt`, saved to the project directory.
+
+  <img src="images/ExportWatchedList.png" alt="Exporting watchlist" width="500"/>
 
 ### License
 You can find the license [here](LICENSE).
