@@ -35,6 +35,7 @@ import interface_adapter.to_logged_in_view.ToLoggedInViewController;
 import interface_adapter.watched_list_remove.WatchedListRemoveController;
 import interface_adapter.watched_list_remove.WatchedListRemoveViewModel;
 import interface_adapter.watched_list_remove.WatchedListState;
+import interface_adapter.facade_watchedlist.FacadeRemoveAndUpdateController;
 
 /**
  * View for the Watched List.
@@ -50,6 +51,7 @@ public class WatchedListView extends JPanel implements PropertyChangeListener {
     private ExportWatchedListController exportWatchedListController;
     private GoRateController goToRateController;
     private ToLoggedInViewController goToLoggedInViewController;
+    private FacadeRemoveAndUpdateController facadeRemoveAndUpdateController;
 
     private final JButton cancel;
     private final JButton export;
@@ -174,7 +176,7 @@ public class WatchedListView extends JPanel implements PropertyChangeListener {
                     final JPanel buttonPanel = new JPanel(new GridLayout(2, 1, 0, 0));
                     final JButton removeButton = createStyledButton("Remove");
                     removeButton.addActionListener(evt1 -> {
-                        watchedListRemoveController.execute(state.getUsername(), movieTitle);
+                        facadeRemoveAndUpdateController.removeAndUpdateWatchedList(state.getUsername(), movieTitle);
                         JOptionPane.showMessageDialog(null, "\"" + movieTitle + "\" has "
                                 + "been removed from your watched list.");
                     });
@@ -230,6 +232,10 @@ public class WatchedListView extends JPanel implements PropertyChangeListener {
 
     public void setGoToLoggedInViewController(ToLoggedInViewController controller) {
         this.goToLoggedInViewController = controller;
+    }
+
+    public void setFacadeRemoveAndUpdateController(FacadeRemoveAndUpdateController facadeRemoveAndUpdateController) {
+        this.facadeRemoveAndUpdateController = facadeRemoveAndUpdateController;
     }
 
     /**
