@@ -26,6 +26,7 @@ import interface_adapter.export_watchedlist.ExportWatchedListController;
 import interface_adapter.export_watchedlist.ExportWatchedListPresenter;
 import interface_adapter.export_watchlist.ExportWatchlistController;
 import interface_adapter.export_watchlist.ExportWatchlistPresenter;
+import interface_adapter.facade_watchedlist.FacadeRemoveAndUpdateController;
 import interface_adapter.get_rated_list.GetRatedListController;
 import interface_adapter.get_rated_list.GetRatedListPresenter;
 import interface_adapter.get_watched_list.GetWatchedListController;
@@ -70,7 +71,6 @@ import interface_adapter.to_home_view.ToHomeViewController;
 import interface_adapter.to_home_view.ToHomeViewPresenter;
 import interface_adapter.to_logged_in_view.ToLoggedInViewController;
 import interface_adapter.to_logged_in_view.ToLoggedInViewPresenter;
-import interface_adapter.watched_list_remove.WatchedListRemoveController;
 import interface_adapter.watched_list_remove.WatchedListRemovePresenter;
 import interface_adapter.watched_list_remove.WatchedListRemoveViewModel;
 import interface_adapter.watchlist_remove.WatchlistRemoveController;
@@ -634,9 +634,13 @@ public class AppBuilder {
                 new WatchedListRemovePresenter(viewManagerModel, loggedInViewModel);
         final WatchedListRemoveInputBoundary watchedListRemoveInputBoundary =
                 new WatchedListRemoveInteractor(watchedListRemoveOutputBoundary, userDataAccessObject);
-        final WatchedListRemoveController watchedListRemoveController =
-                new WatchedListRemoveController(watchedListRemoveInputBoundary);
-        watchedListView.setWatchedListRemoveController(watchedListRemoveController);
+        final GetWatchedListOutputBoundary getWatchedListOutputBoundary =
+                new GetWatchedListPresenter(viewManagerModel, watchedListRemoveViewModel);
+        final GetWatchedListInputBoundary getWatchedListInputBoundary =
+                new GetWatchedListInteractor(getWatchedListOutputBoundary, userDataAccessObject);
+        final FacadeRemoveAndUpdateController facadeRemoveAndUpdateController =
+                new FacadeRemoveAndUpdateController(watchedListRemoveInputBoundary, getWatchedListInputBoundary);
+        watchedListView.setFacadeRemoveAndUpdateController(facadeRemoveAndUpdateController);
         return this;
     }
 
