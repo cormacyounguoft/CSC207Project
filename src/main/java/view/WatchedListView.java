@@ -54,148 +54,180 @@ public class WatchedListView extends JPanel implements PropertyChangeListener {
     private final JButton cancel;
     private final JButton export;
 
-    private final JLabel username;
-    private final JPanel watchedList;
-    private final JScrollPane scroller;
+    private JLabel username;
+    private JPanel watchedList;
+    private JScrollPane scroller;
 
     public WatchedListView(WatchedListRemoveViewModel watchedListRemoveViewModel) {
         this.watchedListRemoveViewModel = watchedListRemoveViewModel;
         this.watchedListRemoveViewModel.addPropertyChangeListener(this);
 
-        // Set layout and background
+        configureLayout();
+        this.cancel = createStyledButton("Cancel");
+        this.export = createStyledButton("Export");
+        setupButtons();
+    }
+
+    private void configureLayout() {
         this.setLayout(new BorderLayout(Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT));
         this.setBackground(new Color(Constants.COLOUR_R, Constants.COLOUR_G, Constants.COLOUR_B));
         this.setBorder(new EmptyBorder(Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT,
                 Constants.MAIN_BORDER_LAYOUT, Constants.MAIN_BORDER_LAYOUT));
 
+        setupTitleLabel();
+        setupUsernameLabel();
+        setupWatchedListPanel();
+    }
+
+    private void setupTitleLabel() {
         final JLabel title = new JLabel("Watched List", SwingConstants.CENTER);
         title.setFont(new Font(Constants.FONT_TYPE, Font.BOLD, Constants.FONT_LARGEST));
         title.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
         this.add(title, BorderLayout.NORTH);
+    }
 
-        username = new JLabel();
-        username.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_SMALLER));
-        username.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G, Constants.FONT_COLOUR_B));
-        username.setHorizontalAlignment(SwingConstants.CENTER);
+    private void setupUsernameLabel() {
+        this.username = new JLabel();
+        this.username.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_SMALLER));
+        this.username.setForeground(new Color(Constants.FONT_COLOUR_R, Constants.FONT_COLOUR_G,
+                Constants.FONT_COLOUR_B));
+        this.username.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(username, BorderLayout.SOUTH);
+    }
 
-        watchedList = new JPanel();
-        watchedList.setLayout(new GridLayout(0, GRID_WATCHEDLIST_COLUMNS, 0, GRID_WATCHEDLIST_VGAP));
-        watchedList.setBackground(new Color(Constants.COLOUR_B, Constants.COLOUR_B, Constants.COLOUR_B));
+    private void setupWatchedListPanel() {
+        this.watchedList = new JPanel();
+        this.watchedList.setLayout(new GridLayout(0, GRID_WATCHEDLIST_COLUMNS, 0, GRID_WATCHEDLIST_VGAP));
+        this.watchedList.setBackground(new Color(Constants.COLOUR_B, Constants.COLOUR_B, Constants.COLOUR_B));
 
-        scroller = new JScrollPane(watchedList);
-        scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scroller.setPreferredSize(new Dimension(Constants.SCROLLER_WIDTH, Constants.SCROLLER_HEIGHT));
+        this.scroller = new JScrollPane(watchedList);
+        this.scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        this.scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        this.scroller.setPreferredSize(new Dimension(Constants.SCROLLER_WIDTH, Constants.SCROLLER_HEIGHT));
         this.add(scroller, BorderLayout.CENTER);
+    }
 
-        // Buttons Panel
+    private void setupButtons() {
         final JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         buttonsPanel.setOpaque(false);
 
-        cancel = createStyledButton("Cancel");
-        buttonsPanel.add(cancel);
-
-        export = createStyledButton("Export");
-        buttonsPanel.add(export);
-
-        this.add(buttonsPanel, BorderLayout.SOUTH);
-
-        // Add Action Listeners
         cancel.addActionListener(evt -> {
-            final WatchedListState currentState = watchedListRemoveViewModel.getState();
-            goToLoggedInViewController.toLoggedInView(currentState.getUsername());
+            goToLoggedInViewController.toLoggedInView(
+                    watchedListRemoveViewModel.getState().getUsername());
         });
 
         export.addActionListener(evt -> {
-            final WatchedListState currentState = watchedListRemoveViewModel.getState();
-            exportWatchedListController.exportWatchedList(currentState.getUsername());
+            exportWatchedListController.exportWatchedList(
+                    watchedListRemoveViewModel.getState().getUsername());
         });
+
+        buttonsPanel.add(cancel);
+        buttonsPanel.add(export);
+        this.add(buttonsPanel, BorderLayout.SOUTH);
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
-            final WatchedListState state = (WatchedListState) evt.getNewValue();
-            if (state.getError() != null) {
-                JOptionPane.showMessageDialog(this, state.getError());
-                state.setError(null);
+            handleStateChange((WatchedListState) evt.getNewValue());
+        }
+    }
+
+    private void handleStateChange(WatchedListState state) {
+        if (state.getError() != null) {
+            displayMessage(state.getError());
+            state.setError(null);
+        }
+        else if (state.getExport() != null) {
+            displayMessage(state.getExport());
+            state.setExport(null);
+        }
+        else {
+            updateWatchedList(state);
+        }
+    }
+
+    private void displayMessage(String message) {
+        JOptionPane.showMessageDialog(this, message);
+    }
+
+    private void updateWatchedList(WatchedListState state) {
+        final List<Movie> movies = prepareMovieList(state);
+        watchedList.removeAll();
+
+        for (Movie movie : movies) {
+            watchedList.add(createMoviePanel(state, movie));
+        }
+
+        username.setText("Currently logged in as: " + state.getUsername());
+        watchedList.revalidate();
+        watchedList.repaint();
+    }
+
+    private List<Movie> prepareMovieList(WatchedListState state) {
+        final List<String> titles = state.getWatchedListTitle();
+        final List<String> posters = state.getWatchedListUrl();
+
+        final List<Movie> movies = new ArrayList<>();
+        for (int i = 0; i < titles.size(); i++) {
+            movies.add(new Movie(titles.get(i), posters.get(i)));
+        }
+        movies.sort(Comparator.comparing(Movie::getTitle));
+        return movies;
+    }
+
+    private JPanel createMoviePanel(WatchedListState state, Movie movie) {
+        final JPanel moviePanel = new JPanel(new BorderLayout());
+
+        moviePanel.add(createTitleLabel(movie.getTitle()), BorderLayout.NORTH);
+        moviePanel.add(createPosterLabel(movie.getPosterUrl()), BorderLayout.CENTER);
+        moviePanel.add(createActionButtonsPanel(state, movie.getTitle()), BorderLayout.SOUTH);
+
+        return moviePanel;
+    }
+
+    private JLabel createTitleLabel(String title) {
+        final JLabel titleLabel = new JLabel(title, SwingConstants.CENTER);
+        titleLabel.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_SMALLER));
+        return titleLabel;
+    }
+
+    private JLabel createPosterLabel(String posterUrl) {
+        final JLabel posterLabel = new JLabel("", SwingConstants.CENTER);
+
+        if (posterUrl.isEmpty()) {
+            posterLabel.setText("Poster not available.");
+        }
+        else {
+            try {
+                final URL url = new URL(posterUrl);
+                final BufferedImage image = ImageIO.read(url);
+                final Image scaledImage = image.getScaledInstance(Constants.IMAGE_WIDTH,
+                        Constants.IMAGE_HEIGHT, Image.SCALE_SMOOTH);
+                posterLabel.setIcon(new ImageIcon(scaledImage));
             }
-            else if (state.getExport() != null) {
-                JOptionPane.showMessageDialog(this, state.getExport());
-                state.setExport(null);
-            }
-            else {
-                final List<String> moviePosters = state.getWatchedListUrl();
-                final List<String> movieTitles = state.getWatchedListTitle();
-
-                // Combine movie titles and posters into a single list for sorting
-                final List<Movie> movies = new ArrayList<>();
-                for (int i = 0; i < movieTitles.size(); i++) {
-                    movies.add(new Movie(movieTitles.get(i), moviePosters.get(i)));
-                }
-
-                // Sort movies by title
-                movies.sort(Comparator.comparing(Movie::getTitle));
-
-                watchedList.removeAll();
-
-                for (Movie movie : movies) {
-                    final String poster = movie.getPosterUrl();
-                    final String movieTitle = movie.getTitle();
-
-                    final JPanel moviePanel = new JPanel(new BorderLayout());
-                    final JLabel titleLabel = new JLabel(movieTitle, SwingConstants.CENTER);
-                    titleLabel.setFont(new Font(Constants.FONT_TYPE, Font.PLAIN, Constants.FONT_SMALLER));
-                    moviePanel.add(titleLabel, BorderLayout.NORTH);
-
-                    final JLabel posterLabel = new JLabel();
-                    posterLabel.setHorizontalAlignment(SwingConstants.CENTER);
-
-                    if (poster.isEmpty()) {
-                        posterLabel.setText("Poster not available.");
-                    }
-                    else {
-                        try {
-                            final URL url = new URL(poster);
-                            final BufferedImage image = ImageIO.read(url);
-                            final Image scaledImage = image.getScaledInstance(Constants.IMAGE_WIDTH,
-                                    Constants.IMAGE_HEIGHT, Image.SCALE_SMOOTH);
-                            posterLabel.setIcon(new ImageIcon(scaledImage));
-                        }
-                        catch (IOException exception) {
-                            posterLabel.setText("Poster not available.");
-                        }
-                    }
-
-                    moviePanel.add(posterLabel, BorderLayout.CENTER);
-
-                    // Add buttons for each movie
-                    final JPanel buttonPanel = new JPanel(new GridLayout(2, 1, 0, 0));
-                    final JButton removeButton = createStyledButton("Remove");
-                    removeButton.addActionListener(evt1 -> {
-                        watchedListRemoveController.execute(state.getUsername(), movieTitle);
-                        JOptionPane.showMessageDialog(null, "\"" + movieTitle + "\" has "
-                                + "been removed from your watched list.");
-                    });
-
-                    final JButton rateButton = createStyledButton("Rate");
-                    rateButton.addActionListener(evt1 -> {
-                        goToRateController.goToRate(state.getUsername(), movieTitle);
-                    });
-
-                    buttonPanel.add(removeButton);
-                    buttonPanel.add(rateButton);
-                    moviePanel.add(buttonPanel, BorderLayout.SOUTH);
-
-                    watchedList.add(moviePanel);
-                }
-
-                username.setText("Currently logged in as: " + state.getUsername());
-                watchedList.revalidate();
-                watchedList.repaint();
+            catch (IOException exception) {
+                posterLabel.setText("Poster not available.");
             }
         }
+        return posterLabel;
+    }
+
+    private JPanel createActionButtonsPanel(WatchedListState state, String movieTitle) {
+        final JPanel buttonPanel = new JPanel(new GridLayout(2, 1, 0, 0));
+
+        final JButton removeButton = createStyledButton("Remove");
+        removeButton.addActionListener(evt -> {
+            watchedListRemoveController.execute(state.getUsername(), movieTitle);
+            JOptionPane.showMessageDialog(null, "\"" + movieTitle + "\" has been removed from your watched list.");
+        });
+
+        final JButton rateButton = createStyledButton("Rate");
+        rateButton.addActionListener(evt -> goToRateController.goToRate(state.getUsername(), movieTitle));
+
+        buttonPanel.add(removeButton);
+        buttonPanel.add(rateButton);
+        return buttonPanel;
     }
 
     private JButton createStyledButton(String text) {
@@ -216,8 +248,8 @@ public class WatchedListView extends JPanel implements PropertyChangeListener {
         return viewName;
     }
 
-    public void setWatchedListRemoveController(WatchedListRemoveController watchedListRemoveController) {
-        this.watchedListRemoveController = watchedListRemoveController;
+    public void setWatchedListRemoveController(WatchedListRemoveController controller) {
+        this.watchedListRemoveController = controller;
     }
 
     public void setExportWatchedListController(ExportWatchedListController controller) {
@@ -232,9 +264,6 @@ public class WatchedListView extends JPanel implements PropertyChangeListener {
         this.goToLoggedInViewController = controller;
     }
 
-    /**
-     * Helper class for sorting movies.
-     */
     private static class Movie {
         private final String title;
         private final String posterUrl;
