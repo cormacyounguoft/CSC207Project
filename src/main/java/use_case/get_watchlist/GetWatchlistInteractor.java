@@ -4,15 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entity.Movie;
+import use_case.MovieListDataAccessInterface;
 
 /**
  * Interactor for get watch list.
  */
 public class GetWatchlistInteractor implements GetWatchlistInputBoundary {
     private final GetWatchlistOutputBoundary presenter;
-    private final GetWatchlistDataAccessInterface dataAccess;
+    private final MovieListDataAccessInterface dataAccess;
 
-    public GetWatchlistInteractor(GetWatchlistOutputBoundary presenter, GetWatchlistDataAccessInterface dataAccess) {
+    public GetWatchlistInteractor(GetWatchlistOutputBoundary presenter, MovieListDataAccessInterface dataAccess) {
         this.presenter = presenter;
         this.dataAccess = dataAccess;
     }

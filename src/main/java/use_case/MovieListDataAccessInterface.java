@@ -1,11 +1,11 @@
-package use_case.get_watchlist;
+package use_case;
 
 import entity.MovieList;
 
 /**
  * DAO for get watch list.
  */
-public interface GetWatchlistDataAccessInterface {
+public interface MovieListDataAccessInterface {
 
     /**
      * Gets the watchlist of the user.
@@ -13,4 +13,7 @@ public interface GetWatchlistDataAccessInterface {
      * @return The watch list
      */
     MovieList getWatchlist(String username);
+    MovieList getWatchedList(String username);
+
+
 }

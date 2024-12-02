@@ -18,7 +18,7 @@ public class ExportWatchlistController {
      * Executes the export Controller.
      * @param userId username of the User.
      */
-    public void exportWatchlist(String userId) {
+    public void execute(String userId) {
         final ExportWatchlistInputData inputData = new ExportWatchlistInputData(userId);
         interactor.exportWatchlist(inputData);
     }
