@@ -107,7 +107,7 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
 
         export.addActionListener(evt -> {
             final WatchlistState currentState = watchlistRemoveViewModel.getState();
-            exportWatchlistController.exportWatchlist(username.getText().split(": ")[1]);
+            exportWatchlistController.exportWatchlist(currentState.getUsername());
         });
 
         buttonsPanel.add(export);
@@ -212,7 +212,7 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
         final JButton button = new JButton(text);
         button.setFont(new Font("SansSerif", Font.PLAIN, Constants.FONT_LARGER));
         button.setBackground(new Color(Constants.BACKGROUND_COLOUR_R, Constants.BACKGROUND_COLOUR_G,
-                Constants.FONT_COLOUR_B));
+                Constants.BACKGROUND_COLOUR_B));
         button.setForeground(Color.BLACK);
         button.setFocusPainted(false);
         button.setBorder(BorderFactory.createLineBorder(new Color(Constants.BORDER_COLOUR_R,
@@ -249,7 +249,7 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
         private final String title;
         private final String posterUrl;
 
-        public Movie(String title, String posterUrl) {
+        Movie(String title, String posterUrl) {
             this.title = title;
             this.posterUrl = posterUrl;
         }

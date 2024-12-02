@@ -31,7 +31,7 @@ The purpose of this project is to create a movie organization system that allows
 - Add and remove movies from a watched list to track films you’ve already seen.
 - Rate movies you’ve watched on a scale of 0 to 5.
 - View a dashboard with insights including total hours watched, longest movie watched, favorite genre, favorite movie, and your average movie rating.
-- Export your watchlist to a `.txt` file.
+- Export your watchlist and watched list to a `.txt` file.
 
 #### Here's what the Logged-In View looks like:
 <img src="images/LoggedInView.png" alt="Logged In View" width="500"/>
@@ -40,15 +40,16 @@ The purpose of this project is to create a movie organization system that allows
 <img src="images/SearchedMovie.png" alt="Logged In Search Result" width="500"/>
 
 ### Installation instructions
-1. Fork the GitHub repository and clone it to your computer. Refer to these guides for assistance: [Set up a Git repository in IntelliJ](https://www.jetbrains.com/help/idea/set-up-a-git-repository.html#clone-repo) and [Fork a repository on GitHub](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo).
-2. Visit [OMDb API](https://www.omdbapi.com) and generate an API key.
-3. In IntelliJ, navigate to Run > Edit Configurations > Environment variables.
-4. Add your API key in the format: APIKEY=YOUR_API_KEY. It should look like this:
+1. Before proceeding, make sure at least [Java version 22](https://www.oracle.com/ca-en/java/technologies/downloads/) is installed on your machine. This program is designed for this version.
+2. Fork the GitHub repository and clone it to your computer. Refer to these guides for assistance: [Set up a Git repository in IntelliJ](https://www.jetbrains.com/help/idea/set-up-a-git-repository.html#clone-repo) and [Fork a repository on GitHub](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo).
+3. Visit [OMDb API](https://www.omdbapi.com) and generate an API key.
+4. In IntelliJ, navigate to Run > Edit Configurations > Environment variables.
+5. Add your API key in the format: APIKEY=YOUR_API_KEY. It should look like this:
 
 <img src="images/API.png" alt="Adding API key" width="500"/>
 
-5. Set `pom.xml` as Maven by right-clicking on the `pom.xml` file and selecting "Add as Maven Project." You may need to reload the Maven project.
-6. Once the API key and the Maven Project are set up, you can run the Main program.
+7. Set `pom.xml` as Maven by right-clicking on the `pom.xml` file and selecting "Add as Maven Project." You may need to reload the Maven project.
+8. Once the API key and the Maven Project are set up, you can run the Main program.
 
 Here is the formatted list in Markdown:
 
@@ -117,6 +118,11 @@ Here is the formatted list in Markdown:
   Log in and navigate to your Watchlist. Click **Export** to download your watchlist as a `.txt` file named `watchlist_username.txt`, saved to the project directory.
 
   <img src="images/ExportWatchlist.png" alt="Exporting watchlist" width="500"/>
+
+- **Export Watched List**:
+  Log in and navigate to your Watched List. Click **Export** to download your watchlist as a `.txt` file named `watchedlist_username.txt`, saved to the project directory.
+
+  <img src="images/ExportWatchedList.png" alt="Exporting watchlist" width="500"/>
 
 ### License
 You can find the license [here](LICENSE).

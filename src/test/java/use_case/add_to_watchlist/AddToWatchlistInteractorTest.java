@@ -1,11 +1,15 @@
 package use_case.add_to_watchlist;
 
 import entity.CommonUserFactory;
+import entity.Movie;
+import entity.MovieFactory;
 import entity.User;
 import entity.UserFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.MockDataAccessObject;
+
+import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -17,11 +21,13 @@ public class AddToWatchlistInteractorTest {
     MockDataAccessObject dataAccessObject;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws IOException {
         dataAccessObject = new MockDataAccessObject();
         UserFactory factory = new CommonUserFactory();
         User user = factory.create("Username", "Password123!");
         dataAccessObject.save(user);
+
+        dataAccessObject.saveToWatchlist("Username", dataAccessObject.search("movie"));
     }
 
     @Test

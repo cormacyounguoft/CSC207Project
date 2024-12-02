@@ -44,7 +44,7 @@ public class ExportWatchedListInteractor implements ExportWatchedListInputBounda
                             .append("\n");
                 }
 
-                final String filePath = "watchedlist " + inputData.getUserId() + ".txt";
+                final String filePath = "watchedlist_" + inputData.getUserId() + ".txt";
                 Files.writeString(Path.of(filePath), content.toString());
 
                 outputBoundary.prepareSuccessView(new ExportWatchedListOutputData(true, filePath,
