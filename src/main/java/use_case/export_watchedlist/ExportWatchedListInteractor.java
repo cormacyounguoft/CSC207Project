@@ -7,16 +7,17 @@ import java.util.List;
 
 import entity.Movie;
 import entity.MovieList;
+import use_case.MovieListDataAccessInterface;
 
 /**
  * The interactor for the Export Watched List Use Case.
  */
 public class ExportWatchedListInteractor implements ExportWatchedListInputBoundary {
     private final ExportWatchedListOutputBoundary outputBoundary;
-    private final ExportWatchedListDataAccessInterface dataAccess;
+    private final MovieListDataAccessInterface dataAccess;
 
     public ExportWatchedListInteractor(ExportWatchedListOutputBoundary outputBoundary,
-                                       ExportWatchedListDataAccessInterface dataAccess) {
+                                       MovieListDataAccessInterface dataAccess) {
         this.outputBoundary = outputBoundary;
         this.dataAccess = dataAccess;
     }

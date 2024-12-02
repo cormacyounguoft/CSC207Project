@@ -9,8 +9,6 @@ import use_case.add_to_watchlist.AddToWatchlistDataAccessInterface;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.dashboard.DashboardDataAccessInterface;
 import use_case.get_rated_list.GetRatedListDataAccessInterface;
-import use_case.get_watched_list.GetWatchedListDataAccessInterface;
-import use_case.get_watchlist.GetWatchlistDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.rate.RateUserDataAccessInterface;
@@ -18,8 +16,6 @@ import use_case.rated_list.RatedListDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 import use_case.watched_list_remove.WatchedListRemoveDataAccessInterface;
 import use_case.watchlist_remove.WatchlistRemoveDataAccessInterface;
-import use_case.export_watchlist.ExportWatchlistDataAccessInterface;
-import use_case.export_watchedlist.ExportWatchedListDataAccessInterface;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,15 +33,12 @@ public class MockDataAccessObject implements
         AddToWatchlistDataAccessInterface,
         AddToWatchedListDataAccessInterface,
         RateUserDataAccessInterface,
-        GetWatchlistDataAccessInterface,
-        GetWatchedListDataAccessInterface,
         GetRatedListDataAccessInterface,
         SearchDataAccessInterface,
         WatchedListRemoveDataAccessInterface,
         RatedListDataAccessInterface,
         WatchlistRemoveDataAccessInterface,
-        ExportWatchlistDataAccessInterface,
-        ExportWatchedListDataAccessInterface
+        MovieListDataAccessInterface
 {
 
     private final Map<String, User> users = new HashMap<>();

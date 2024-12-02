@@ -11,15 +11,12 @@ import entity.Movie;
 import entity.MovieList;
 import entity.User;
 import entity.UserRating;
+import use_case.MovieListDataAccessInterface;
 import use_case.add_to_watched_list.AddToWatchedListDataAccessInterface;
 import use_case.add_to_watchlist.AddToWatchlistDataAccessInterface;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.dashboard.DashboardDataAccessInterface;
-import use_case.export_watchedlist.ExportWatchedListDataAccessInterface;
-import use_case.export_watchlist.ExportWatchlistDataAccessInterface;
 import use_case.get_rated_list.GetRatedListDataAccessInterface;
-import use_case.get_watched_list.GetWatchedListDataAccessInterface;
-import use_case.get_watchlist.GetWatchlistDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.rate.RateUserDataAccessInterface;
@@ -39,15 +36,12 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         AddToWatchlistDataAccessInterface,
         AddToWatchedListDataAccessInterface,
         RateUserDataAccessInterface,
-        GetWatchlistDataAccessInterface,
-        GetWatchedListDataAccessInterface,
+        MovieListDataAccessInterface,
         GetRatedListDataAccessInterface,
         RatedListDataAccessInterface,
         DashboardDataAccessInterface,
         WatchlistRemoveDataAccessInterface,
-        WatchedListRemoveDataAccessInterface,
-        ExportWatchlistDataAccessInterface,
-        ExportWatchedListDataAccessInterface {
+        WatchedListRemoveDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
     private String currentUsername;

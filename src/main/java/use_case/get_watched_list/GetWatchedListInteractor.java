@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entity.Movie;
+import use_case.MovieListDataAccessInterface;
 
 /**
  * Interactor for get watched list use case.
@@ -11,10 +12,10 @@ import entity.Movie;
 public class GetWatchedListInteractor implements GetWatchedListInputBoundary {
 
     private final GetWatchedListOutputBoundary presenter;
-    private final GetWatchedListDataAccessInterface dataAccess;
+    private final MovieListDataAccessInterface dataAccess;
 
     public GetWatchedListInteractor(GetWatchedListOutputBoundary presenter,
-                                    GetWatchedListDataAccessInterface dataAccess) {
+                                    MovieListDataAccessInterface dataAccess) {
         this.presenter = presenter;
         this.dataAccess = dataAccess;
     }

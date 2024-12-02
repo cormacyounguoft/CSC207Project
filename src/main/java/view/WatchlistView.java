@@ -107,7 +107,7 @@ public class WatchlistView extends JPanel implements PropertyChangeListener {
 
         export.addActionListener(evt -> {
             final WatchlistState currentState = watchlistRemoveViewModel.getState();
-            exportWatchlistController.exportWatchlist(currentState.getUsername());
+            exportWatchlistController.execute(currentState.getUsername());
         });
 
         buttonsPanel.add(export);
