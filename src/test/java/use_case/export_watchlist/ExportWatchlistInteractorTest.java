@@ -61,7 +61,7 @@ class ExportWatchlistInteractorTest {
     void testExportWatchlistSuccess() {
         // Act
         ExportWatchlistInputData inputData = new ExportWatchlistInputData("TestUser");
-        interactor.execute(inputData);
+        interactor.exportWatchlist(inputData);
 
         // Assert
         String filePath = "watchlist_TestUser.txt";
@@ -108,6 +108,6 @@ class ExportWatchlistInteractorTest {
         );
 
         ExportWatchlistInputData inputData = new ExportWatchlistInputData("EmptyUser");
-        interactor.execute(inputData);
+        interactor.exportWatchlist(inputData);
     }
 }
