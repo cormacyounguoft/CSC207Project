@@ -13,7 +13,11 @@ public interface MovieListDataAccessInterface {
      * @return The watch list
      */
     MovieList getWatchlist(String username);
+
+    /**
+     * Gets the watched list of the user.
+     * @param username the username watched list if being obtained for.
+     * @return The watch list
+     */
     MovieList getWatchedList(String username);
-
-
 }
