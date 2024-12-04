@@ -105,4 +105,44 @@ class ExportWatchedListInteractorTest {
         ExportWatchedListInputData inputData = new ExportWatchedListInputData("EmptyUser");
         interactor.exportWatchedList(inputData);
     }
+
+
+    @Test
+    void testExportWatchedListFailure_FileWriteError() {
+        ExportWatchedListInteractor interactorWithInvalidPath = new ExportWatchedListInteractor(
+                new ExportWatchedListOutputBoundary() {
+                    @Override
+                    public void prepareSuccessView(ExportWatchedListOutputData outputData) {
+                        fail("Test should not succeed if file writing fails.");
+                    }
+
+                    @Override
+                    public void prepareFailView(String errorMessage) {
+                        assertEquals("Unable to export watched list", errorMessage);
+                    }
+                },
+                dataAccessObject
+        );
+
+        final Path path = Path.of("watchedlist_TestUser.txt");
+        try {
+            Files.createFile(path);
+            path.toFile().setReadOnly();
+
+            ExportWatchedListInputData inputData = new ExportWatchedListInputData("TestUser");
+            interactorWithInvalidPath.exportWatchedList(inputData);
+
+        } catch (IOException e) {
+            fail("Setup for file-write error simulation failed.");
+        } finally {
+            try {
+                if (path.toFile().exists()) {
+                    path.toFile().setWritable(true);
+                    Files.deleteIfExists(path);
+                }
+            } catch (IOException e) {
+                fail("Failed to clean up after the test.");
+            }
+        }
+    }
 }

@@ -110,4 +110,43 @@ class ExportWatchlistInteractorTest {
         ExportWatchlistInputData inputData = new ExportWatchlistInputData("EmptyUser");
         interactor.exportWatchlist(inputData);
     }
+
+    @Test
+    void testExportWatchlistFailure_FileWriteError() {
+        ExportWatchlistInteractor interactorWithInvalidPath = new ExportWatchlistInteractor(
+                new ExportWatchlistOutputBoundary() {
+                    @Override
+                    public void prepareSuccessView(ExportWatchlistOutputData outputData) {
+                        fail("Test should not succeed if file writing fails.");
+                    }
+
+                    @Override
+                    public void prepareFailView(String errorMessage) {
+                        assertEquals("Unable to export watchlist", errorMessage);
+                    }
+                },
+                dataAccessObject
+        );
+
+        final Path path = Path.of("watchlist_TestUser.txt");
+        try {
+            Files.createFile(path);
+            path.toFile().setReadOnly();
+
+            ExportWatchlistInputData inputData = new ExportWatchlistInputData("TestUser");
+            interactorWithInvalidPath.exportWatchlist(inputData);
+
+        } catch (IOException e) {
+            fail("Setup for file-write error simulation failed.");
+        } finally {
+            try {
+                if (path.toFile().exists()) {
+                    path.toFile().setWritable(true);
+                    Files.deleteIfExists(path);
+                }
+            } catch (IOException e) {
+                fail("Failed to clean up after the test.");
+            }
+        }
+    }
 }
